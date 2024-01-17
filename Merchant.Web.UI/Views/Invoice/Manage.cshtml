@@ -1,0 +1,170 @@
+﻿@{
+    ViewBag.Title = "مدیریت تنظیمات صورت وضعیت";
+}
+
+@section styles {
+    @BundleConfig.AddStyles("~/Content/invoiceManageStyles", "~/Content/PersianDatePicker.css")
+}
+
+<div class="page-header">
+    <button id="CreateButton" class="btn btn-success pull-left">ایجاد تنظیمات صورت وضعیت</button>
+    <h1>مدیریت تنظیمات صورت وضعیت</h1>
+</div>
+
+<div id="InvoicesSection">
+
+</div>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/invoiceManageScripts",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.confirm.js",
+        "~/Scripts/PersianDatePicker.js",
+        "~/Scripts/jquery.filter_input.js")
+
+    <script type="text/javascript">
+
+        function loadData() {
+            $('#InvoicesSection').empty().append('<div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div>');
+
+            return $.get('@Url.Action("GetData", "Invoice")').done(function (result) {
+                $('#InvoicesSection').empty();
+                var html = '';
+
+                if (!result.success) {
+                    $('#InvoicesSection').empty().append('<div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div>');
+                    return false;
+                }
+
+                if (result.data.length === 0) {
+                    $('#InvoicesSection').empty().append('<div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div>');
+                    return false;
+                }
+
+                for (var i = 0; i < result.data.length; i++) {
+                    var item = result.data[i];
+
+                    html += `<div class="panel ` + (item.isConfirmed ? 'panel-success' : 'panel-danger') + `">
+                        <div class="panel-heading"><b>وضعیت: ` + (item.isConfirmed ? 'تایید شده' : 'تایید نشده') + `</b></div>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td><strong>از تاریخ:</strong></td>
+                                    <td class="text-nowrap">` + item.fromDate + `</td>
+                                    <td><strong>تا تاریخ: </strong></td>
+                                    <td class="text-nowrap">` + item.toDate + `</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>مبلغ اجاره دستگاه های سیار منصوبه بازاریابی بانک - ریال:</strong></td>
+                                    <td class="text-nowrap">` + convertToPersianNumbersThreeDigitsSeparated(item.wirlessBankMarketerPrice) + `</td>
+                                    <td><strong>مبلغ اجاره دستگاه های ثابت منصوبه بازاریابی بانک - ریال: </strong></td>
+                                    <td class="text-nowrap">` + convertToPersianNumbersThreeDigitsSeparated(item.withWireMarketerPrice) + `</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><strong>مبلغ جریمه دستگاه های pm نشده - ریال: </strong></td>
+                                    <td class="text-nowrap">` + convertToPersianNumbersThreeDigitsSeparated(item.notPMFinePricePerDevice) + `</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>درصد مجاز تعداد دستگاه های pm نشده - تعداد: </strong></td>
+                                    <td class="text-nowrap">` + convertToPersianNumbersThreeDigitsSeparated(item.minNotPMFinePercentage) + `</td>
+                                    <td><strong>مبلغ جریمه روزانه دستگاه های Em نشده - ریال: </strong></td>
+                                    <td class="text-nowrap">` + convertToPersianNumbersThreeDigitsSeparated(item.notEMFinePricePerWorkDay) + `</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>تاخیر مجاز Em - روزکاری: </strong></td>
+                                    <td class="text-nowrap">` + item.notEMDelayAllowedWorkDay + `</td>
+                                    <td><strong>مبلغ جریمه روزانه دستگاه های نصب نشده - ریال: </strong></td>
+                                    <td class="text-nowrap">` + convertToPersianNumbersThreeDigitsSeparated(item.notInstalledFinePricePerWorkDay) + `</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>تاخیر مجاز عدم نصب   - روزکاری: </strong></td>
+                                    <td class="text-nowrap">` + item.notInstalledDelayAllowedWorkDay + `</td>
+                                    <td><strong>مبلغ جریمه روزانه دستگاه های ترمینال نگرفته - ریال: </strong></td>
+                                    <td class="text-nowrap">` + convertToPersianNumbersThreeDigitsSeparated(item.notGetTerminalNoFinePricePerWorkDay) + `</td>
+                                </tr>
+
+  <tr>
+                                    <td><strong> مبلغ جریمه تاخیر در جمع آوری  دستگاه های منصوبه - ریال </strong></td>
+                                    <td class="text-nowrap">` + convertToPersianNumbersThreeDigitsSeparated(item.notWirelessNotRevokePrice	) + `</td>
+                                    <td><strong>مبلغ جریمه تاخیر در جمع آوری  دستگاه های سیار - ریال</strong></td>
+                                    <td class="text-nowrap">` + convertToPersianNumbersThreeDigitsSeparated(item.wirelessNotRevokePrice) + `</td>
+                                </tr>
+
+
+                                <tr>
+                                    <td><strong>تاخیر مجاز عدم دریافت شماره ترمینال - روزکاری: </strong></td>
+                                    <td class="text-nowrap">` + item.getTerminalNoDelayAllowedWorkDay + `</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4"><button data-loading-text="..." class="btn btn-info btn-sm btn-edit" data-id="` + item.id + `">ویرایش</button> <button data-loading-text="..." class="btn btn-danger btn-sm btn-delete" data-id="` + item.id + `">حذف</button></td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>`;
+                }
+
+                $('#InvoicesSection').empty().append(html);
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
+
+        $(document).ready(function () {
+            loadData();
+
+            $('#CreateButton').on('click', function () {
+                $.showModal({
+                    modalSize: 'xlg',
+                    url: '@Url.Action("Create", "Invoice")',
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            loadData();
+                        }
+                    }
+                });
+            });
+
+            $('#InvoicesSection').on('click.btn-edit', '.btn-edit', function () {
+                $.showModal({
+                    modalSize: 'xlg',
+                    url: '@Url.Action("Edit", "Invoice")',
+                    data: { id: $(this).data('id') },
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            loadData();
+                        }
+                    }
+                });
+            });
+
+            $('#InvoicesSection').on('click.btn-delete', '.btn-delete', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("Delete", "Invoice")', { id: $button.data('id') }).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                $button.closest('.panel').remove();
+
+                                if ($('#InvoicesSection').is(":empty")) {
+                                    $('#InvoicesSection').empty().append('<div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div>');
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

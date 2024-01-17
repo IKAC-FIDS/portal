@@ -1,0 +1,163 @@
+﻿@model TerminalDetailsViewModel
+
+@{
+    ViewBag.PageTitle = "مشاهده اطلاعات کامل";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+@if (!string.IsNullOrEmpty(Model.ErrorComment) && (Model.StatusId == TerminalStatus.NeedToReform.ToByte() || Model.StatusId == TerminalStatus.UnsuccessfulReturnedFromSwitch.ToByte()))
+{
+    <div class="alert alert-danger">
+        <strong>خطای دریافتی</strong>
+        <br />
+        <br />
+        <span style="white-space:pre-line;">@Model.ErrorComment</span>
+    </div>
+}
+
+@* <div id="TerminalDetailsSectiond"> *@
+@*       *@
+@*             *@
+@*                   <button type="button" id="btnDetailExport" class="btn btn-default" data-toggle="tooltip" title="دریافت خروجی اکسل موارد یافت شده" data-loading-text="در حال تهیه خروجی. لطفاً منتظر بمانید...">دریافت خروجی</button> *@
+@*   *@
+@*          *@
+@*           *@
+@* </div> *@
+<div id="TerminalDetailsSection">
+    
+ 
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a role="button" data-toggle="collapse" href="#ChangeAccountRequests" aria-expanded="true" aria-controls="ChangeAccountRequests">   اطلاعات پذیرنده ها    </a>
+        </div>
+
+        <div id="ChangeAccountRequests" class="panel-collapse expand" role="tabpanel">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped text-center" id="ChangeAccountRequestTable">
+                    <thead>
+                        <tr>
+                            
+                            <th>مدل</th>
+                            <th>شماره پایانه  </th>
+                            <th> فروشگاه / شرکت   </th>
+                            @* <th>نام و نام خانوادگی</th> *@
+                            @* <th> کد ملی    </th> *@
+                              <th>   PSP    </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="8"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+  
+</div>
+
+ 
+ 
+<script type="text/javascript">
+    function loadChangeAccountRequestsData() {
+        $('#ChangeAccountRequests tbody').empty().append('<tr><td colspan="8"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+        return $.post('@Url.Action("GetDetailData", "BlockBranchPermission")', { branchId: '@Model.BranchId' })
+            .done(function (result) {
+                $('#ChangeAccountRequests tbody').empty();
+                var html = '';
+
+                if (!result.success) {
+                    $('#ChangeAccountRequests tbody').empty().append('<tr><td colspan="8"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                    return false;
+                }
+
+                if (result.data.length === 0) {
+                    $('#ChangeAccountRequests tbody').empty().append('<tr><td colspan="8"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                    return false;
+                }
+                
+              
+                for (var i = 0; i < result.data.rows.length; i++) {
+                    var item = result.data.rows[i];
+
+                    html += '<tr>' +
+                        '<td style="text-align: right !important;" class="text-nowrap" class="text-nowrap">' +  item.deviceTypeTitle  + '</td>' +
+                        '<td>' + item.terminalNo + '</td>' +
+                        // '<td>' + item.branchTitle + '</td>' +
+                        '<td>' + item.title + '</td>' +
+                        // '<td>' + item.parentBranchTitle + ' - ' + item.branchTitle + '</td>' +
+                        '<td>' + item.pspTitle + '</td></tr>';
+                }
+              
+                $('#ChangeAccountRequests tbody').empty().append(html);
+            });
+    }
+
+  
+    $(document).ready(function () {
+        loadChangeAccountRequestsData();
+       
+        $('input[type=radio][name=StatusId]', '#AssignToPspForm').on('change', function () {
+            if (this.value == '@TerminalStatus.NotReturnedFromSwitch.ToInt32()') {
+                $('#PspIdSection').show();
+                $('#DescriptionSection').hide();
+                $('#Description').val('');
+            } else {
+                $('#DescriptionSection').show();
+                $('#PspIdSection').hide();
+                $('#PspId').val('');
+            }
+        });
+  $('#btnDetailExport').on('click', function () {
+                var $exportButton = $(this);
+                $exportButton.button('loading');
+
+                $.post('@Url.Action("Export", "BlockBranchPermission")', buildSearchParams()).done(function (result) {
+                    $.processMessage(result);
+                    $exportButton.button('reset');
+
+                    if (result.success) {
+                        var $downloadLink = $('#downloadFileModal .modal-body a');
+                        $downloadLink.prop('href', '@Url.Action("DownloadBlockDocumentOutputFile", "Export")?fileKey=' + result.data);
+                        $('#downloadFileModal').modal();
+                    }
+                });
+            });
+        $('#AssignToPspForm').validate({
+            rules: {
+                PspId: { required: true }
+            },
+            submitHandler: function (form) {
+                var $button = $('#btnConfirm', '#AssignToPspForm');
+                $button.button('loading');
+
+                $(form).ajaxSubmit({
+                    success: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+
+                        if (result.success) {
+                            $.closeModal('ok');
+                        }
+                    }, error: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+                    }
+                });
+
+                return false;
+            }
+        });
+
+        $('#EditButton').on('click', function () {
+            $.closeModal('showEdit');
+        });
+
+        $('#BlockDocumentEditButton').on('click', function () {
+            $.closeModal('showBlockDocumentEdit');
+        });
+    });
+</script>

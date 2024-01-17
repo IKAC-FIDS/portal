@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ccec9f8c-c042-4770-b570-6bd568eb88ca" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="https://portal.pec.ir/services/PosRequestService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="PosRequestService.wsdl" MetadataType="Wsdl" ID="a2c748cc-f007-42d9-b887-de2650a7800e" SourceId="1" SourceUrl="https://portal.pec.ir/services/PosRequestService.svc?wsdl" />
+    <MetadataFile FileName="PosRequestService.xsd" MetadataType="Schema" ID="1a20e0f2-2b5f-452e-bd2a-0d7aa61af52c" SourceId="1" SourceUrl="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd6" />
+    <MetadataFile FileName="PosRequestService1.xsd" MetadataType="Schema" ID="0e1f5c30-64f1-4858-941c-9a72af07fc20" SourceId="1" SourceUrl="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd3" />
+    <MetadataFile FileName="PosRequestService2.xsd" MetadataType="Schema" ID="f76648b7-9998-40af-bf45-f166a7912138" SourceId="1" SourceUrl="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd2" />
+    <MetadataFile FileName="PosRequestService3.xsd" MetadataType="Schema" ID="835d8ae4-faa0-4ecf-a38c-10a98c6d5ff6" SourceId="1" SourceUrl="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd1" />
+    <MetadataFile FileName="PosRequestService4.xsd" MetadataType="Schema" ID="ab123559-ff56-44a9-a90c-20a43d67becc" SourceId="1" SourceUrl="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd0" />
+    <MetadataFile FileName="PosRequestService.disco" MetadataType="Disco" ID="dc30d998-b5c0-44a1-874d-c53e2f4ea5d9" SourceId="1" SourceUrl="https://portal.pec.ir/services/PosRequestService.svc?disco" />
+    <MetadataFile FileName="PosRequestService5.xsd" MetadataType="Schema" ID="c490d73a-45bd-46d8-8734-6d21d5073c62" SourceId="1" SourceUrl="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd10" />
+    <MetadataFile FileName="PosRequestService6.xsd" MetadataType="Schema" ID="f49ce29a-00c6-400b-b812-36e5b3b6cdc6" SourceId="1" SourceUrl="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd5" />
+    <MetadataFile FileName="PosRequestService7.xsd" MetadataType="Schema" ID="c0dfe386-6938-482c-84d1-776203a68992" SourceId="1" SourceUrl="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd4" />
+    <MetadataFile FileName="PosRequestService8.xsd" MetadataType="Schema" ID="5d5cf622-3d0c-4a4a-b7e9-4b4edc76df37" SourceId="1" SourceUrl="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd7" />
+    <MetadataFile FileName="PosRequestService9.xsd" MetadataType="Schema" ID="eb9c3c98-de85-4d3e-b55d-465e7d9cadcc" SourceId="1" SourceUrl="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd9" />
+    <MetadataFile FileName="PosRequestService10.xsd" MetadataType="Schema" ID="a0d82c7d-1e49-4fdd-9782-c9b982f13b7b" SourceId="1" SourceUrl="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd8" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

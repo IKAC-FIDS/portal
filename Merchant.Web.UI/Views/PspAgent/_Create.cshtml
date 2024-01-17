@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.PageTitle = "ثبت نمایندگی جدید";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+<form action="@Url.Action("Create", "PspAgent")" method="post" class="form-horizontal" id="PspAgentCreateForm">
+    <div class="form-group">
+        <label class="control-label col-md-3 required">شرکت PSP</label>
+        <div class="col-md-9">
+            @Html.DropDownList("PspId", (IEnumerable<SelectListItem>)ViewBag.PspList, "انتخاب نمایید", new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 required" for="Title">نام</label>
+        <div class="col-md-9">
+            <input type="text" id="Title" name="Title" class="form-control" maxlength="500" autocomplete="off" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 required" for="CityName">نام شهر</label>
+        <div class="col-md-9">
+            <input type="text" id="CityName" name="CityName" class="form-control" maxlength="200" autocomplete="off" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 required" for="Tel">تلفن</label>
+        <div class="col-md-9">
+            <input type="text" id="Tel" name="Tel" class="form-control" maxlength="500" autocomplete="off" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 required" for="EmergencyTel">تلفن اضطراری</label>
+        <div class="col-md-9">
+            <input type="text" id="EmergencyTel" name="EmergencyTel" class="form-control" maxlength="500" autocomplete="off" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 required" for="Address">آدرس</label>
+        <div class="col-md-9">
+            <textarea class="form-control" id="Address" name="Address" rows="3"></textarea>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-12">
+            <input type="submit" value="ثبت" id="btnConfirm" data-loading-text="در حال ثبت..." class="btn btn-success btn-lg" />
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">انصراف</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#PspAgentCreateForm').validate({
+            rules: {
+                PspId: { required: true },
+                Title: { required: true, maxlength: 500 },
+                CityName: { maxlength: 200 },
+                Tel: { required: true, maxlength: 500 },
+                EmergencyTel: { required: true, maxlength: 500 },
+                Address: { required: true }
+            },
+            submitHandler: function (form) {
+                var $button = $('#btnConfirm', '#PspAgentCreateForm');
+                $button.button('loading');
+
+                $(form).ajaxSubmit({
+                    success: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+
+                        if (result.success) {
+                            $.closeModal('ok');
+                        }
+                    }, error: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+                    }
+                });
+
+                return false;
+            }
+        });
+    });
+</script>

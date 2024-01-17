@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.PageTitle = "تراکنش ها";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+<button class="btn btn-info" id="ExportTransactionsButton" data-loading-text="در حال تهیه خروجی...">دانلود اطلاعات تراکنش ها</button>
+
+<hr />
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center" id="TransactionTable">
+        <thead>
+            <tr>
+                <th>سال</th>
+                <th>ماه</th>
+                <th>تعداد</th>
+                <th>مبلغ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="7"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7">
+                    <ul id="TransactionPagination" class="pagination-sm"></ul>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div style="z-index: 10000;" class="modal fade" id="DownloadFileModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p><a class="btn btn-success btn-lg btn-block" id="DownloadFileLink" href="#">دانلود</a></p>
+                <button id="CancelDownloadFileLink" type="button" class="btn btn-default btn-lg btn-block">انصراف</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function loadTransactions(retriveTotalPageCount, page) {
+        $('#TransactionTable tbody').empty().append('<tr><td colspan="7"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+            if (retriveTotalPageCount) {
+                var pagingData = $('#TransactionPagination').data('twbs-pagination');
+                if (pagingData) $('#TransactionPagination').twbsPagination('destroy');
+            }
+
+            return $.post('@Url.Action("GetData", "Transaction")', { terminalNo: '@ViewBag.TerminalNo', retriveTotalPageCount: retriveTotalPageCount, page: page })
+                .done(function (result) {
+                    $('#TransactionTable tbody').empty();
+                    var html = '';
+
+                    if (!result.success) {
+                        $('#TransactionTable tbody').empty().append('<tr><td colspan="7"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                        return false;
+                    }
+
+                    if (result.data.rows.length === 0) {
+                        $('#TransactionTable tbody').empty().append('<tr><td colspan="7"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                        return false;
+                    }
+
+                    if (retriveTotalPageCount && result.data.totalRowsCount > 0) {
+                        $('#TransactionPagination').twbsPagination({
+                            totalPages: Math.ceil(result.data.totalRowsCount / 20),
+                            visiblePages: 7,
+                            last: '<i class="fa fa-fast-backward"></i>',
+                            next: '<i class="fa fa-backward"></i>',
+                            prev: '<i class="fa fa-forward"></i>',
+                            first: '<i class="fa fa-fast-forward"></i>',
+                            initiateStartPageClick: false,
+                            onPageClick: function (event, page) {
+                                loadTransactions(false, page);
+                            }
+                        });
+                    }
+
+                    for (var i = 0; i < result.data.rows.length; i++) {
+                        var item = result.data.rows[i];
+
+                        html += '<tr>' +
+                            '<td>' + item.persianLocalYear + '</td>' +
+                            '<td>' + item.persianLocalMonth + '</td>' +
+                            '<td>' + convertToPersianNumbersThreeDigitsSeparated(item.totalCount) + '</td>' +
+                            '<td>' + convertToPersianNumbersThreeDigitsSeparated(item.sumPrice) + '</td></tr>';
+                    }
+
+                    $('#TransactionTable tbody').empty().append(html);
+                });
+        }
+
+    $(document).ready(function () {
+        loadTransactions(true, 1);
+
+        $('#ExportTransactionsButton').on('click', function () {
+            var $button = $(this);
+            $button.button('loading');
+
+            $.post('@Url.Action("ExportTransactionData", "Export")', { terminalNo: '@ViewBag.TerminalNo' }).done(function(result) {
+                $.processMessage(result);
+                $button.button('reset');
+
+                if (result.success) {
+                    var $downloadLink = $('#DownloadFileModal .modal-body a');
+                    $downloadLink.prop('href', '@Url.Action("DownloadTransactionOutputFile", "Export")?fileKey=' + result.data);
+                    $('#DownloadFileModal').modal();
+                }
+            });
+        });
+
+        $('#DownloadFileLink, #CancelDownloadFileLink').click(function () {
+            $('#DownloadFileModal').modal('hide');
+        });
+    });
+</script>

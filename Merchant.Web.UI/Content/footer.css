@@ -1,0 +1,118 @@
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 150px;
+    background-color: #E8ECED !important;
+}
+
+.inner-footer {
+    background-color: #E8ECED;
+}
+
+footer .container-fluid, footer .container {
+    background-color: #E8ECED;
+}
+
+footer .row {
+    background-color: #E8ECED;
+}
+
+footer p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-weight: normal;
+}
+
+footer .footer-content {
+    padding-top: 3em;
+}
+
+footer .footer-links-section {
+    padding: 0;
+    margin: 0;
+}
+
+    footer .footer-links-section li {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+        footer .footer-links-section li a {
+            color: #000;
+            text-decoration: none;
+        }
+
+            footer .footer-links-section li a:hover {
+                text-decoration: underline;
+            }
+
+footer .footer-about-section {
+    margin-bottom: 30px;
+}
+
+@media screen and (max-width: 768px) {
+    footer .footer-about-section {
+        text-align: right;
+    }
+}
+
+footer .footer-about-section h3 {
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+footer .copyright {
+    display: block;
+    padding-bottom: 5px;
+    background: #E8ECED;
+}
+
+.footer-social-section {
+    margin: 0;
+    padding: 0;
+}
+
+    .footer-social-section li {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: -moz-inline-stack;
+        display: inline-block;
+        zoom: 1;
+        *display: inline;
+    }
+
+        .footer-social-section li a {
+            display: -moz-inline-stack;
+            display: inline-block;
+            zoom: 1;
+            *display: inline;
+            color: #E5BB1B;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+            .footer-social-section li a i {
+                font-size: 20px;
+            }
+
+.footer-about-section {
+    color: #1E4957;
+}
+
+    .footer-about-section h3 {
+        margin-top: 0;
+    }
+
+    .footer-about-section span {
+        color: #527B8B;
+    }
+
+footer i.fa-file-pdf-o {
+    color: #527B8B;
+}

@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "a377bf11-289b-43c2-8ee9-4ac7b0cc4217": {
+      "ProjectGuid": "a377bf11-289b-43c2-8ee9-4ac7b0cc4217",
+      "DisplayName": "Merchant.Web.UI",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

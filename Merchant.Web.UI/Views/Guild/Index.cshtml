@@ -1,0 +1,121 @@
+﻿@{
+    ViewBag.PageTitle = "لیست اصناف";
+}
+
+<div class="page-header">
+    <h1>لیست اصناف</h1>
+</div>
+
+<form id="frmSearch" class="form-horizontal">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="ParentGuildId">کد صنف</label>
+                <div class="col-md-8">
+                    <input type="text" id="ParentGuildId" name="ParentGuildId" class="form-control only-number" maxlength="10" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="GuildId">کد تکمیلی صنف</label>
+                <div class="col-md-8">
+                    <input type="text" id="GuildId" name="GuildId" class="form-control only-number" maxlength="10" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Title">عنوان</label>
+        <div class="col-md-4">
+            <input type="text" id="Title" name="Title" class="form-control" maxlength="150" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="button" id="btnSearch" class="btn btn-primary" data-loading-text="در حال جستجو...">جستجو</button>
+        </div>
+    </div>
+</form>
+
+<br />
+
+<div class="table-responsive">
+    <table id="DataTable" class="table table-bordered text-center">
+        <thead>
+            <tr class="header">
+                <th>کد صنف</th>
+                <th>عنوان صنف</th>
+                <th>عنوان تکمیلی صنف</th>
+                <th>کد تکمیلی صنف</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/guildIndexScripts", "~/Scripts/jquery.filter_input.js")
+
+    <script type="text/javascript">
+        function loadData() {
+            $('#DataTable tbody').empty().append('<tr><td colspan="4"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+            var $searchButton = $('#btnSearch');
+            $searchButton.button('loading');
+
+            var data = {
+                title: $('#Title').val(),
+                guildId: $('#GuildId').val(),
+                parentGuildId: $('#ParentGuildId').val()
+            };
+
+            return $.post('@Url.Action("GetData", "Guild")', data).done(function (result) {
+                $searchButton.button('reset');
+                $('#DataTable tbody').empty();
+                var html = '';
+
+                if (!result.success) {
+                    $('#DataTable tbody').empty().append('<tr><td colspan="4"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                    return false;
+                }
+
+                if (result.data.length === 0) {
+                    $('#DataTable tbody').empty().append('<tr><td colspan="4"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                    return false;
+                }
+
+                for (var i = 0; i < result.data.length; i++) {
+                    var item = result.data[i];
+
+                    html += '<tr>' +
+                        '<th rowspan="' + (item.childGuilds.length + 1) + '">' + item.parentId + '</th>' +
+                        '<td rowspan="' + (item.childGuilds.length + 1) + '">' + item.parentTitle + '</td>' +
+                        '</tr>';
+
+                    for (var j = 0; j < item.childGuilds.length; j++) {
+                        html += '<tr>' +
+                            '<td>' + item.childGuilds[j].title + '</td>' +
+                            '<td>' + item.childGuilds[j].id + '</td>' +
+                            '</tr>';
+                    }
+                }
+
+                $('#DataTable tbody').empty().append(html);
+            });
+        }
+
+        $(document).ready(function () {
+            $('.only-number').filter_input({ regex: '[0-9]' });
+
+            loadData();
+
+            $('#btnSearch').on('click', function () {
+                loadData();
+            });
+        });
+    </script>
+}

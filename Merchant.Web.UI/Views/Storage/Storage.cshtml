@@ -1,0 +1,447 @@
+﻿@{
+    ViewBag.PageTitle = "پشتیبانی";
+}
+
+@section styles {
+    @BundleConfig.AddStyles("~/Content/messageIndexStyles",
+        "~/Content/PersianDatePicker.css",
+        "~/Content/chosen.css")
+}
+
+<div class="page-header">
+    <a id="CreateButton" class="btn btn-success pull-left">تیکت جدید</a>
+    <h1>تیکت ها</h1>
+</div>
+
+<form id="SearchForm" class="form-horizontal">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="FullName">وضعیت</label>
+                <div class="col-md-8">
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default active">
+                            <input type="radio" id="All" name="StatusId" value="false" checked> همه
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" id="Open" name="StatusId" value="@MessageStatus.Open.ToInt32()"> باز
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" id="UnderReview" name="StatusId" value="@MessageStatus.UnderReview.ToInt32()"> در حال بررسی
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" id="Close" name="StatusId" value="@MessageStatus.Close.ToInt32()"> بسته
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (User.IsAcceptorsExpertUser() || User.IsAdmin() || User.IsMessageManagerUser())
+        {
+            <div class="col-md-4">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default active">
+                        <input type="radio" id="All" name="JustNotReviewingMessages" value="false" checked> همه
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" id="Active" name="JustNotReviewingMessages" value="true"> فقط تیکت های بدون بررسی کننده
+                    </label>
+                </div>
+            </div>
+        }
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="UserName">کد پیگیری</label>
+                <div class="col-md-8">
+                    <input type="text" id="Id" name="Id" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="FromSubmitTime">از تاریخ</label>
+                <div class="col-md-8">
+                    <div class="left-inner-addon">
+                        <i class="fa fa-calendar-o"></i>
+                        <input type="text" id="FromCreationDate" name="FromCreationDate" class="form-control date-picker" maxlength="10" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="ToSubmitTime">تا تاریخ</label>
+                <div class="col-md-8">
+                    <div class="left-inner-addon">
+                        <i class="fa fa-calendar-o"></i>
+                        <input type="text" id="ToCreationDate" name="ToCreationDate" class="form-control date-picker" maxlength="10" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <button type="button" id="SearchButton" class="btn btn-primary" data-loading-text="در حال جستجو...">جستجو</button>
+                <a id="btnExport" class="btn btn-info">دریافت خروجی</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+<hr />
+
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center" id="tblData">
+        <thead>
+            <tr>
+              
+                <th class="sortable" data-sort-field="StatusId" data-sort-direction="" width="1px">وضعیت درخواست</th>
+                <th class="sortable" data-sort-field="TerminalId" data-sort-direction="">شماره پیگیری</th>
+                <th class="sortable" data-sort-field="DeviceTypeTitle" data-sort-direction="">موضوع</th>
+                <th class="sortable" data-sort-field="TerminalNo" data-sort-direction="">ارجاع دهنده</th>
+                <th class="sortable" data-sort-field="TerminalTitle" data-sort-direction=""> ارجاع گیرنده  </th>
+                <th class="sortable" data-sort-field="FullName" data-sort-direction="">تاریخ ثبت</th>
+                <th class="sortable" data-sort-field="NationalCode" data-sort-direction=""> تاریخ اخرین ارجاع</th>
+                <th class="sortable" data-sort-field="AccountNo" data-sort-direction=""> متن پیام  </th>
+               
+              
+                <th width="1px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="15"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="15">
+                    <ul id="terminalPagination" class="pagination-sm"></ul>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+
+<ul class="chat" id="ResultSection">
+</ul>
+
+<ul id="Pagination" class="pagination-sm"></ul>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/messageIndexScripts",
+        "~/Scripts/jquery.twbsPagination.js",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/PersianDatePicker.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.confirm.js",
+        "~/Scripts/chosen.jquery.js")
+
+    <script type="text/javascript">
+        function createMessageBadge(messageId, statusId, statusTitle) {
+            var color;
+
+            switch (statusId) {
+                case @MessageStatus.Open.ToByte():
+                    color = '#e53935';
+                    break;
+                case @MessageStatus.UnderReview.ToByte():
+                    color = '#FFB300';
+                    break;
+                case @MessageStatus.Close.ToByte():
+                    color = '#4CAF50';
+                    break;
+            }
+
+            return '<span class="message-badge" style="background-color: ' + color + ';" data-toggle="tooltip" title="' + statusTitle + '">' + messageId + '</span>';
+        }
+
+             function createStatusIcon(statusId, statusTitle, submitterUserFullName) {
+                    var statusColor = '#D7CCC8';
+                        switch (statusId) {
+                                    case @MessageStatus.Open.ToByte():
+                                        statusColor = '#e53935';
+                                        break;
+                                    case @MessageStatus.UnderReview.ToByte():
+                                        statusColor = '#FFB300';
+                                        break;
+                                    case @MessageStatus.Close.ToByte():
+                                        statusColor = '#4CAF50';
+                                        break;
+                                }
+        
+                    return '<span style="background-color: ' + statusColor + '; font-weight: 500;" data-toggle="tooltip" title="' + submitterUserFullName + '" class="label label-default">' + statusTitle + '</span>';
+                }
+
+                    function createPspIcon(pspId, pspTitle) {
+                            var pspColor, pspShortTitle;
+                
+                            switch (pspId) {
+                                case @PspCompany.Fanava.ToByte():
+                                    pspShortTitle = 'FA';
+                                    pspColor = '#5C6BC0';
+                                    break;
+                                case @PspCompany.IranKish.ToByte():
+                                    pspShortTitle = 'IK';
+                                    pspColor = '#E91E63';
+                                    break;
+                                case @PspCompany.Parsian.ToByte():
+                                    pspShortTitle = 'PA';
+                                    pspColor = '#FFB300';
+                                    break;
+                                      case @PspCompany.PardakhNovin.ToByte():
+                                                                                    pspShortTitle = 'PN';
+                                                                                    pspColor = '#0f4158';
+                                                                                    break;
+                                default:
+                                    pspShortTitle = '??';
+                                    pspTitle = 'تخصیص داده نشده';
+                                    pspColor = '#9E9E9E';
+                                    break;
+                            }
+                
+                            return '<span style="background-color: ' + pspColor + '; font-weight: 500;" data-toggle="tooltip" title="' + pspTitle + '" class="label label-default small-label">' + pspShortTitle + '</span>';
+                        }
+    function createTransactionStatusIcon(transactionStatusId) {
+            var color, shortTitle;
+
+            switch (transactionStatusId) {
+            case @TransactionStatus.HighTransaction.ToByte():
+                shortTitle = 'پُر تراکنش';
+                color = '#009688';
+                break;
+            case @TransactionStatus.LowTransaction.ToByte():
+                shortTitle = 'کم تراکنش';
+                color = '#9E9E9E';
+                break;
+            case @TransactionStatus.WithoutTransaction.ToByte():
+                shortTitle = 'فاقد تراکنش';
+                color = '#E91E63';
+                break;
+            default:
+                shortTitle = 'نامشخص';
+                color = '#CFD8DC';
+                break;
+            }
+
+            return transactionStatusId ? '<small style="font-weight: bold; color: ' + color + ';">' + shortTitle + '</small>' : '';
+        }
+
+              function showConfirmButton(statusId, fullName, nationalCode, accountNo, shebaNo, terminalId) {
+                    if (@JsonNet.Encode(User.IsAcceptorsExpertUser()) && (statusId === @TerminalStatus.NeedToReform.ToByte() || statusId === @TerminalStatus.UnsuccessfulReturnedFromSwitch.ToByte())) {
+                        return '<button data-full-name="' + fullName + '" data-national-code="' + convertToPersianNumbers(nationalCode) + '" data-account-number="' + convertToPersianNumbers(accountNo) + '" data-sheba-number="' + convertToPersianNumbers(shebaNo) + '" data-terminal-id="' + terminalId + '" data-toggle="tooltip" data-loading-text="..." title="تایید" class="btn btn-success btn-xs btn-confirm"><i class="fa fa-check"></i></button> &nbsp;';
+                    } else {
+                        return '';
+                    }
+                }
+        
+              
+        function showDetailsButton(statusId, terminalId) {
+            return '<button data-toggle="tooltip" title="مشاهده اطلاعات کامل" data-terminal-id="' + terminalId + '" class="btn btn-default btn-xs btn-details"><i class="fa fa-eye"></i></button> &nbsp;';
+        }
+
+        function showTransactionsButton(terminalNo) {
+            return (terminalNo && terminalNo.match(/^ *$/) === null) ? '<button data-toggle="tooltip" title="تراکنش ها" data-terminal-no="' + terminalNo + '" class="btn btn-default btn-xs btn-transactions"><i class="fa fa-exchange"></i></button> &nbsp;' : '';
+        }
+            function showDeleteButton(statusId, terminalId) {
+                    if ((@JsonNet.Encode(User.IsAdmin()) && (statusId == '@TerminalStatus.New.ToByte()' || statusId == '@TerminalStatus.NeedToReform.ToByte()' || statusId == '@TerminalStatus.NotReturnedFromSwitch.ToByte()')) || (@JsonNet.Encode(User.IsAcceptorsExpertUser()) && statusId === @TerminalStatus.New.ToByte())) {
+                        return '<button data-loading-text="..." data-toggle="tooltip" title="حذف" data-terminal-id="' + terminalId + '" class="btn btn-danger btn-xs btn-delete"><i class="fa fa-trash"></i></button> &nbsp;';
+                    } else {
+                        return '';
+                    }
+                }
+                
+          function showNotesButton(terminalId) {
+                    return '<button data-terminal-id="' + terminalId + '" data-toggle="tooltip" data-loading-text="..." title="یادداشت ها" class="btn btn-default btn-xs btn-notes"><i class="fa fa-commenting"></i></button> &nbsp;';
+                }
+                  function showRequestsButton(statusId, terminalNo) {
+                            if (@JsonNet.Encode(User.IsAcceptorsExpertUser() || User.IsBranchUser() || User.IsItUser()) && (terminalNo && terminalNo.match(/^ *$/) === null && statusId === @TerminalStatus.Installed.ToByte())) {
+                                return '<div class="btn-group"><button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ثبت درخواست <span class="caret"></span></button><ul class="dropdown-menu">' +
+                                    '<li><a class="btn-change-account-request" data-terminal-number="' + terminalNo + '">تغییر حساب</a></li>' +
+                                    '<li><a class="btn-revoke-request" data-terminal-number="' + terminalNo + '">جمع آوری</a></li>' +
+                                    '</ul></div> &nbsp;';
+                            } else {
+                                return '';
+                            }
+                        }
+
+
+     function showEditButton(statusId, terminalId, marketerId) {
+            if (@JsonNet.Encode(User.IsAcceptorsExpertUser() || User.IsBranchUser() || User.IsItUser())) {
+                if (statusId === @TerminalStatus.New.ToByte() || statusId === @TerminalStatus.NeedToReform.ToByte() || statusId == @TerminalStatus.UnsuccessfulReturnedFromSwitch.ToByte()) {
+
+                    if (@User.IsBranchUser().ToString().ToLower()) {
+                        if (marketerId === @Marketer.BankOrBranch.ToByte() && statusId != @TerminalStatus.UnsuccessfulReturnedFromSwitch.ToByte()) {
+                            return '<button data-terminal-id="' + terminalId + '" data-toggle="tooltip" title="ویرایش" class="btn btn-default btn-xs btn-edit"><i class="fa fa-pencil"></i></button> &nbsp;';
+                        } else {
+                            return '';
+                        }
+                    } else {
+                        return '<button data-terminal-id="' + terminalId + '" data-toggle="tooltip" title="ویرایش" class="btn btn-default btn-xs btn-edit"><i class="fa fa-pencil"></i></button> &nbsp;';
+                    }
+                } else {
+                    return '';
+                }
+            } else {
+                return '';
+            }
+        }
+
+        function loadData(retriveTotalPageCount, page) {
+          //  $('#ResultSection').empty().append('<div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div>');
+
+            if (retriveTotalPageCount) {
+                var pagingData = $('#Pagination').data('twbs-pagination');
+                if (pagingData) $('#Pagination').twbsPagination('destroy');
+                $('#SearchButton').removeData('total-pages');
+            }
+
+            var $button = $('#SearchButton');
+            $button.button('loading');
+
+            
+           
+            return $.post('@Url.Action("GetData", "CardRequest")', {
+                statusId: $('input[name=StatusId]:checked').val() || null,
+                justNotReviewingMessages: $('input[name=JustNotReviewingMessages]:checked').val() || false,
+                page: page,
+                searchGuid: $('#Id', '#SearchForm').val(),
+                Id: $('#Id', '#SearchForm').val(),
+                fromCreationDate: $('#FromCreationDate', '#SearchForm').val(),
+                toCreationDate: $('#ToCreationDate', '#SearchForm').val()
+            }).done(function (result) {
+                $button.button('reset');
+                $('#ResultSection').empty();
+                var html = '';
+
+                $('#SearchButton').data('total-pages', result.data.totalRowsCount);
+
+                if (!result.success) {
+                    $('#ResultSection').empty().append('<div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div>');
+                    return false;
+                }
+
+                if (result.data.rows.length === 0) {
+                    $('#ResultSection').empty().append('<div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div>');
+                                        $('#tblData tbody').empty().append('<div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div>');
+
+                    //
+                    return false;
+                }
+
+                if (result.data.totalRowsCount > 0) {
+                    $('#SearchButton').data('total-pages', result.data.totalRowsCount);
+
+                    $('#Pagination').twbsPagination({
+                        totalPages: Math.ceil(result.data.totalRowsCount / 20),
+                        visiblePages: 7,
+                        last: '<i class="fa fa-fast-backward"></i>',
+                        next: '<i class="fa fa-backward"></i>',
+                        prev: '<i class="fa fa-forward"></i>',
+                        first: '<i class="fa fa-fast-forward"></i>',
+                        initiateStartPageClick: false,
+                        onPageClick: function (event, page) {
+                            loadData(false, page);
+                        }
+                    });
+                }
+
+                for (var i = 0; i < result.data.rows.length; i++) {
+                    var item = result.data.rows[i];
+
+                    html += '<li class="clearfix chat-item">' +
+                        '<a href="/CardRequest/details/' + item.id + '"><div class="chat-body clearfix">' +
+                        createMessageBadge(item.guid, item.statusId, item.statusTitle) +
+                        '<div style="display: inline-block;"><h4>' + item.subject + '</h4>' +
+                        '<small style="display: block; margin-top: 3px;" class="text-muted">' + item.userFullName + (item.reviewerUserFullName ? ' - ' + item.reviewerUserFullName : '') + '</small>' +
+                        '</a></div>'
+                        '</li>';
+                }
+                
+              
+               
+                html = '';
+                   for (var i = 0; i < result.data.rows.length; i++) {
+                       
+                       
+                                                    var item = result.data.rows[i];
+                       console.log('bb',item);
+                       
+                                                    html += '<tr data-terminal-id="' + item.terminalId + '" data-status-id="' + item.statusId + '">' +
+                                                      //  '<td class="text-nowrap">' + ((item.statusId === @TerminalStatus.New.ToInt32() && @JsonNet.Encode(User.IsAcceptorsExpertUser())) ? '<input type="checkbox" class="send-to-psp" /></td>' : '') +
+                                                        '<td style="text-align: right !important;" class="text-nowrap">' +
+                                                         '<a href="/CardRequest/details/' + item.id + '">' +
+                                                        createStatusIcon(item.statusId, item.statusTitle, item.reviewerUserFullName) +  
+                                                        '</a>'+
+                                                        '</td>' +
+                                                        '<td>' + item.guid + '</td>' +
+                                                        '<td>' + (item.subject) + '</td>' +
+                                                        '<td>' + (item.userFullName) + '</td>' +
+                                                        '<td>' + (item.reviewerFullName != null ? item.reviewerFullName : '') + '</td>' +
+                                                        '<td>' + item.creationDate + '</td>' +
+                                                        '<td>' + item.lastReplyCreationDate + '</td>' +
+                                                         '<td>' + item.body + '</td>' +
+
+                                                        '<td class="text-nowrap actions">';
+                                
+                                                   
+                                                    html += ' </tr>';
+                                                }
+                
+                                      $('#tblData tbody').empty().append(html);
+
+                   
+            });
+        }
+
+        function refreshCurrentPage() {
+            var currentPageNo = $('#Pagination li.page.active').data('page');
+            loadData(false, currentPageNo);
+        }
+
+        $(document).ready(function () {
+        loadData(true, 1);
+
+            $('#btnExport').on('click', function () {
+                var params = '?statusId=' + $('input[name=StatusId]:checked').val() +
+                    '&justNotReviewingMessages=' + $('input[name=JustNotReviewingMessages]:checked').val() +
+                    '&id=' + $('#Id', '#SearchForm').val() +
+                    '&fromCreationDate=' + $('#FromCreationDate', '#SearchForm').val() +
+                    '&toCreationDate=' + $('#ToCreationDate', '#SearchForm').val();
+
+                $('#btnExport').prop('href', '@Url.Action("Download", "CardRequest")' + params);
+                window.location.href = ('@Url.Action("Download", "CardRequest")' + params);
+            });
+
+            $('.date-picker').on('click', function () {
+                PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDate()', true);
+            });
+
+            $('#SearchButton').on('click', function () {
+                loadData(true, 1);
+            });
+
+            $('#CreateButton').on('click', function () {
+                $.showModal({
+                    modalSize: 'lg',
+                    url: '@Url.Action("Create", "CardRequest")',
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            window.location.reload();
+                        }
+                    }
+                });
+            });
+        });
+</script>
+}

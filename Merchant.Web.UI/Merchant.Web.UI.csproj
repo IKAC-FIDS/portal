@@ -1,0 +1,1503 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.3.6.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.3.6.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A377BF11-289B-43C2-8EE9-4AC7B0CC4217}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TES.Merchant.Web.UI</RootNamespace>
+    <AssemblyName>TES.Merchant.Web.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <Use64BitIISExpress />
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.35\lib\net461\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DnsClient, Version=1.6.0.0, Culture=neutral, PublicKeyToken=4574bb5573c51424">
+      <HintPath>..\packages\DnsClient.1.6.0\lib\net45\DnsClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DNTScheduler, Version=1.1.0.0, Culture=neutral, PublicKeyToken=50c85bcc1dbe9da4, processorArchitecture=MSIL">
+      <HintPath>..\packages\DNTScheduler.1.1.0.0\lib\net462\DNTScheduler.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.Extended, Version=6.0.0.0, Culture=neutral, PublicKeyToken=05b7e29bdd433584, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.Extended.6.1.0.168\lib\net45\EntityFramework.Extended.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.MappingAPI, Version=6.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.MappingAPI.6.2.0\lib\net45\EntityFramework.MappingAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.5.3.3, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.3.3\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageProcessor, Version=2.9.0.207, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageProcessor.2.9.0\lib\net452\ImageProcessor.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.10.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.10\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=3.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Configuration, Version=3.1.5.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.3.1.5\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=3.1.5.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.3.1.5\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=3.1.5.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Binder.3.1.5\lib\netstandard2.0\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.FileExtensions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.FileExtensions.1.1.2\lib\net451\Microsoft.Extensions.Configuration.FileExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Json, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Json.1.1.2\lib\net451\Microsoft.Extensions.Configuration.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.1.1.1\lib\netstandard1.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Physical, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Physical.1.1.1\lib\net451\Microsoft.Extensions.FileProviders.Physical.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileSystemGlobbing, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>..\packages\Microsoft.Extensions.FileSystemGlobbing.1.1.1\lib\net45\Microsoft.Extensions.FileSystemGlobbing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=3.1.5.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.3.1.5\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\DNTScheduler.1.1.0.0\lib\net462\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.15.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MongoDB.Bson.2.15.0\lib\netstandard2.0\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.15.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MongoDB.Driver.2.15.0\lib\netstandard2.0\MongoDB.Driver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.15.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.15.0\lib\netstandard2.0\MongoDB.Driver.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Libmongocrypt, Version=1.3.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MongoDB.Libmongocrypt.1.3.0\lib\netstandard2.0\MongoDB.Libmongocrypt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="Persia, Version=3.0.4727.38582, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Persia.NET.3.0.4727\lib\Persia.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="RestSharp, Version=106.15.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75">
+      <HintPath>..\packages\RestSharp.106.15.0\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+      <HintPath>..\packages\Serilog.2.10.0\lib\net46\Serilog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Serilog.Extensions.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+      <HintPath>..\packages\Serilog.Extensions.Logging.2.0.2\lib\net461\Serilog.Extensions.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Serilog.Extensions.Logging.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+      <HintPath>..\packages\Serilog.Extensions.Logging.File.2.0.0\lib\net461\Serilog.Extensions.Logging.File.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Serilog.Formatting.Compact, Version=1.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+      <HintPath>..\packages\Serilog.Formatting.Compact.1.0.0\lib\net45\Serilog.Formatting.Compact.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Async, Version=1.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+      <HintPath>..\packages\Serilog.Sinks.Async.1.1.0\lib\net45\Serilog.Sinks.Async.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=5.0.1.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+      <HintPath>..\packages\Serilog.Sinks.File.5.0.1-dev-00947\lib\net45\Serilog.Sinks.File.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Serilog.Sinks.RollingFile, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+      <HintPath>..\packages\Serilog.Sinks.RollingFile.3.3.0\lib\net45\Serilog.Sinks.RollingFile.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpCompress, Version=0.30.1.0, Culture=neutral, PublicKeyToken=afb0a02973931d96">
+      <HintPath>..\packages\SharpCompress.0.30.1\lib\net461\SharpCompress.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StackExchange.Exceptional, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackExchange.Exceptional.2.1.0\lib\net461\StackExchange.Exceptional.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Exceptional.Shared, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackExchange.Exceptional.Shared.2.1.0\lib\net461\StackExchange.Exceptional.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Base, Version=2021.1.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a">
+      <HintPath>C:\Users\r.razavi\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Crack\Libs\Reports.Net\.NETFramework4.5\Stimulsoft.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report, Version=2021.1.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a">
+      <HintPath>C:\Users\r.razavi\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Crack\Libs\Reports.Net\.NETFramework4.5\Stimulsoft.Report.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.Mvc, Version=2021.1.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a">
+      <HintPath>C:\Program Files (x86)\Stimulsoft Designer 2021.1.1\Stimulsoft.Report.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.Web, Version=2021.1.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a">
+      <HintPath>C:\Users\r.razavi\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Crack\Libs\Reports.Net\.NETFramework4.5\Stimulsoft.Report.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.Win, Version=2021.1.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a">
+      <HintPath>C:\Users\r.razavi\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Crack\Libs\Reports.Net\.NETFramework4.5\Stimulsoft.Report.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StructureMap.4.7.1\lib\net45\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.web.4.0.0.315\lib\net40\StructureMap.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Console, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Console.4.3.0\lib\net46\System.Console.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.Tracing, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Diagnostics.Tracing.4.3.0\lib\net462\System.Diagnostics.Tracing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Globalization.Calendars, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Net.Http.4.3.0\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Reflection.4.3.0\lib\net462\System.Reflection.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Runtime.Extensions.4.3.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Runtime.InteropServices.4.3.0\lib\net462\System.Runtime.InteropServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Text.Encoding.CodePages, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Text.Encoding.CodePages.5.0.0\lib\net461\System.Text.Encoding.CodePages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Unity.Abstractions, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0">
+      <HintPath>..\packages\Unity.5.11.1\lib\net46\Unity.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0">
+      <HintPath>..\packages\Unity.5.11.1\lib\net46\Unity.Container.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Unity.Mvc5, Version=1.4.0.0, Culture=neutral, PublicKeyToken=43da31bc42a85347">
+      <HintPath>..\packages\Unity.Mvc5.1.4.0\lib\net45\Unity.Mvc5.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Z.EntityFramework.Extensions, Version=5.2.5.0, Culture=neutral, PublicKeyToken=59b66d028979105b">
+      <HintPath>..\packages\Z.EntityFramework.Extensions.5.2.5\lib\net45\Z.EntityFramework.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BlockBranchPermissionController.cs" />
+    <Compile Include="Controllers\BranchConnectorController.cs" />
+    <Compile Include="Controllers\BranchTerminalController.cs" />
+    <Compile Include="Controllers\CardRequestController.cs" />
+    <Compile Include="Controllers\CardRequestDocumentController.cs" />
+    <Compile Include="Controllers\CardRequestReplyController.cs" />
+    <Compile Include="Controllers\CardRequestReplyDocumentController.cs" />
+    <Compile Include="Controllers\ChangeAccountRequestController.cs" />
+    <Compile Include="Controllers\DamageRequestReplyController.cs" />
+    <Compile Include="Controllers\DamageRequestReplyDocumentController.cs" />
+    <Compile Include="Controllers\MessageReplyDocumentController.cs" />
+    <Compile Include="Controllers\MessageDocumentController.cs" />
+    <Compile Include="Controllers\MessageReplyController.cs" />
+    <Compile Include="Controllers\NormalRepController.cs" />
+    <Compile Include="Controllers\OrganizationUnitController.cs" />
+    <Compile Include="Controllers\InvoiceController.cs" />
+    <Compile Include="Controllers\DeviceTypeController.cs" />
+    <Compile Include="Controllers\DocumentTypeController.cs" />
+    <Compile Include="Controllers\BlockDocumentController.cs" />
+    <Compile Include="Controllers\CustomerNumberBlackListController.cs" />
+    <Compile Include="Controllers\PropertyDamageRequestController.cs" />
+    <Compile Include="Controllers\RemovedTerminalController.cs" />
+    <Compile Include="Controllers\RuleController.cs" />
+    <Compile Include="Controllers\StorageController.cs" />
+    <Compile Include="Controllers\TaskMonitorController.cs" />
+    <Compile Include="Controllers\TempReportDataController.cs" />
+    <Compile Include="Controllers\TerminalNoteController.cs" />
+    <Compile Include="Controllers\PhoneNumbersController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Controllers\RevokeReasonController.cs" />
+    <Compile Include="Controllers\TicketSubjectsController.cs" />
+    <Compile Include="Controllers\UpdateParsianInfoController.cs" />
+    <Compile Include="Controllers\UserActivityLogController.cs" />
+    <Compile Include="Controllers\TerminalPmController.cs" />
+    <Compile Include="Controllers\TerminalEmController.cs" />
+    <Compile Include="Controllers\ExportController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Controllers\PspAgentController.cs" />
+    <Compile Include="Controllers\CityController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\GuildController.cs" />
+    <Compile Include="Controllers\MerchantProfileController.cs" />
+    <Compile Include="Controllers\MerchantProfileDocumentController.cs" />
+    <Compile Include="Controllers\RegionalMunicipalityController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\RevokeRequestController.cs" />
+    <Compile Include="Controllers\TerminalController.cs" />
+    <Compile Include="Controllers\TerminalDocumentController.cs" />
+    <Compile Include="Controllers\TransactionController.cs" />
+    <Compile Include="Controllers\AutomatedTaskLogController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UserRoleController.cs" />
+    <Compile Include="Controllers\YaghoutApi.cs" />
+    <Compile Include="Functions\Serializer.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\FanavaServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\IranKishServiceRefrence\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ParsianServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service\FanavaService.cs" />
+    <Compile Include="Service\Models\Fanava\InqueryAcceptorResult.cs" />
+    <Compile Include="Service\Models\Irankish\InqueryAcceptorResult.cs" />
+    <Compile Include="Service\Models\Parsian\InqueryAcceptorResult.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\AssignDeviceToTerminalInput.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\AssignDeviceToTerminalRequestData.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\Attachment.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\Company.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\CompanyOwners.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\IbanData.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\LoginInput.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\LoginOutput.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\LoginRequestData.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\MerchantTerminalsInput.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\MerchantTerminalsRequest.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\OutPutError.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\ParsianInput.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\Person.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\RegisterConfirmInput.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\RegisterConfirmOutput.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\RegisterConfirmRequest.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\Request.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\RequestChangeInfoInput.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\RequestChangeInfoInputData.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\RequestDetails.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\RequestInqueryResult.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\RequestResult.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\RequestRevocationTerminalInput.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\RequestRevocationTerminalRequestData.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\RequestTerminalInput.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\Settlements.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\Shop.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\NewParsianTerminal.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\TerminalInqueryInput.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\TerminalInQueryOutPut.cs" />
+    <Compile Include="Service\Models\Parsian\NewModels\TerminalInqueryRequestData.cs" />
+    <Compile Include="Service\Models\Parsian\TerminalInfo.cs" />
+    <Compile Include="Service\Models\Parsian\WsPosRequest.cs" />
+    <Compile Include="Service\Models\UpdateTerminalStatusModel.cs" />
+    <Compile Include="Service\Models\SendChangeAccountRequestResponseModel.cs" />
+    <Compile Include="Service\Models\SendRevokeRequestResponseModel.cs" />
+    <Compile Include="Service\Models\TosanCustomerOfAccountNumber.cs" />
+    <Compile Include="Service\Models\TosanGetCustomerInfoResponse.cs" />
+    <Compile Include="Service\NewIranKishService.cs" />
+    <Compile Include="Service\NewParsianService.cs" />
+    <Compile Include="Service\PardakhtNovinService.cs" />
+    <Compile Include="Service\ParsianService.cs" />
+    <Compile Include="Service\TosanService.cs" />
+    <Compile Include="ViewModels\ActiveInactiveTerminalReportViewModel.cs" />
+    <Compile Include="ViewModels\BlockDocumentEditViewModel.cs" />
+    <Compile Include="ViewModels\BlockDocumentDetailsViewModel.cs" />
+    <Compile Include="ViewModels\BlockDocumentSearchViewModel.cs" />
+    <Compile Include="ViewModels\BranchLoginDto.cs" />
+    <Compile Include="ViewModels\CardReqeustDetailsViewModel.cs" />
+    <Compile Include="ViewModels\CustomerNumberBlackList\CreateCustomerNumberBlackListModel.cs" />
+    <Compile Include="ViewModels\CustomerNumberBlackList\EditCustomerNumberBlackListModel.cs" />
+    <Compile Include="ViewModels\GetAutomatedTaskLogDataViewModel.cs" />
+    <Compile Include="ViewModels\GetExistedMerchantProfileViewModel.cs" />
+    <Compile Include="ViewModels\GetOrganizationUnitDataViewModel.cs" />
+    <Compile Include="ViewModels\GetTerminalEmDataViewModel.cs" />
+    <Compile Include="ViewModels\GetTerminalPmDataViewModel.cs" />
+    <Compile Include="ViewModels\GetTransactionDataViewModel.cs" />
+    <Compile Include="ViewModels\GetUserActivityLogDataViewModel.cs" />
+    <Compile Include="ViewModels\InvoiceViewModel.cs" />
+    <Compile Include="ViewModels\LastSixMonthTransactionStatusChartViewModel.cs" />
+    <Compile Include="ViewModels\BranchTransactionStatusViewModel.cs" />
+    <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\GuildViewModel.cs" />
+    <Compile Include="ViewModels\CityViewModel.cs" />
+    <Compile Include="ViewModels\DashboardViewModel.cs" />
+    <Compile Include="ViewModels\BankInvoiceViewModel.cs" />
+    <Compile Include="ViewModels\MerchantProfileImportViewModel.cs" />
+    <Compile Include="ViewModels\CreateMessageReplyViewModel.cs" />
+    <Compile Include="ViewModels\MessageChangeStatusViewModel.cs" />
+    <Compile Include="ViewModels\MessageReplyViewModel.cs" />
+    <Compile Include="ViewModels\newirankish\AddAcceptorAnddocumentRequest.cs" />
+    <Compile Include="ViewModels\newirankish\IrankishInqueryResponse.cs" />
+    <Compile Include="ViewModels\newirankish\AddAcceptorRequest.cs" />
+    <Compile Include="ViewModels\newirankish\AddDocumentRequest.cs" />
+    <Compile Include="ViewModels\newirankish\ChangeAccountByIbanResponse.cs" />
+    <Compile Include="ViewModels\newirankish\ChangeAccountByIbanResponseData.cs" />
+    <Compile Include="ViewModels\newirankish\IrankishEditAcceptorResponse.cs" />
+    <Compile Include="ViewModels\newirankish\IrankishEditAcceptorResponseData.cs" />
+    <Compile Include="ViewModels\newirankish\IrankishInqueryResponseData.cs" />
+    <Compile Include="ViewModels\newirankish\NewChangeAccountRequest.cs" />
+    <Compile Include="ViewModels\newirankish\NewIrankishAddAcceptorResposne.cs" />
+    <Compile Include="ViewModels\newirankish\NewIrankishAddAcceptorResposneData.cs" />
+    <Compile Include="ViewModels\newirankish\newIrankishterminal.cs" />
+    <Compile Include="ViewModels\newirankish\RefuseAcceptorRequest.cs" />
+    <Compile Include="ViewModels\newirankish\RefuseAcceptorResponse.cs" />
+    <Compile Include="ViewModels\newirankish\RefuseAcceptorResponseData.cs" />
+    <Compile Include="ViewModels\newirankish\UpdateAcceptorRequest.cs" />
+    <Compile Include="ViewModels\OrganizationUnitGroupChangePermissionsViewModel.cs" />
+    <Compile Include="ViewModels\OrganizationUnitViewModel.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\AddFileRequest.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\AddFileResponse.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\AddNewCustomerRequest.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\AddNewCustomerRequestData.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\AddNewCustomerRequestDocs.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\AddNewCustomerResponse.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\AddNewRequestRequest.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\AddNewRequestRequestData.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\AddNewRequestRequestDataDocs.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\AddNewRequestResponse.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\BaseResponse.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\Document.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\GetBackResponseData.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\GetBankRequest.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\GetBankResponse.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\GetBranchListRequest.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\GetBranchListResponse.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\GetBranchListResponseData.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\GetCustomerByCodeRequest.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\GetCustomerByCodeRequestParameters.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\GetCustomerByCodeResponse.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\GetCustomerByCodeResponseData.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\GetGuildsRequest.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\GetGuildsResponse.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\GetGuildsResponseData.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\GetRequestDetailByFollowupCodeRequest.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\GetRequestDetailByFollowupCodeResponse.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\GetRequestDetailByFollowupCodetParameters.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\PardakthNovinStatus.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\UpdateCustomerRequest.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\UpdateCustomerRequestData.cs" />
+    <Compile Include="ViewModels\RevokeReasonViewModel.cs" />
+    <Compile Include="ViewModels\DocumentDataEntryViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MessageDetailsViewModel.cs" />
+    <Compile Include="ViewModels\MessageRowViewModel.cs" />
+    <Compile Include="ViewModels\MessageViewModel.cs" />
+    <Compile Include="ViewModels\NationalityViewModel.cs" />
+    <Compile Include="ViewModels\NewsViewModel.cs" />
+    <Compile Include="ViewModels\PspAgentViewModel.cs" />
+    <Compile Include="ViewModels\DeviceTypeViewModel.cs" />
+    <Compile Include="ViewModels\RevokeRequestChangeStatusViewModel.cs" />
+    <Compile Include="ViewModels\StateViewModel.cs" />
+    <Compile Include="ViewModels\terminalDataDto.cs" />
+    <Compile Include="ViewModels\TerminalManageViewModel.cs" />
+    <Compile Include="ViewModels\TerminalTypesReportResultModel.cs" />
+    <Compile Include="ViewModels\TerminalUpdateBlockInfoViewModel.cs" />
+    <Compile Include="ViewModels\TerminalNoteCreateViewModel.cs" />
+    <Compile Include="ViewModels\TerminalNoteIndexViewModel.cs" />
+    <Compile Include="ViewModels\TicketIndexViewModel.cs" />
+    <Compile Include="ViewModels\ToggleUserRoleViewModel.cs" />
+    <Compile Include="ViewModels\TransactionChartViewModel.cs" />
+    <Compile Include="ViewModels\UpdateMerchantProfileFromWebServiceViewModel.cs" />
+    <Compile Include="ViewModels\UploadedDocumentViewModel.cs" />
+    <Compile Include="ViewModels\TempReportDataImportViewModel.cs" />
+    <Compile Include="Views\Account\ChangePassword.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangePassword.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Login.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Login.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\AccountNumberVerificationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="WebTasks\AcceptorInqueryFromPardakhNovinTask.cs" />
+    <Compile Include="WebTasks\AddTerminalToMongo.cs" />
+    <Compile Include="WebTasks\InqueryFromNewIrankishTask.cs" />
+    <Compile Include="WebTasks\InqueryFromPardakhNovinForEditRequstTask.cs" />
+    <Compile Include="WebTasks\InqueryFromPardakhtNovinTask.cs" />
+    <Compile Include="WebTasks\MongoHelper.cs" />
+    <Compile Include="WebTasks\UpdateBlockBranchPermissionTask.cs" />
+    <Compile Include="WebTasks\UpdateBlockDocumentStatusTask.cs" />
+    <Compile Include="WebTasks\UpdateInstalledAndRevokedTerimal.cs" />
+    <Compile Include="WebTasks\UpdateParsianInfoTask.cs" />
+    <Compile Include="WebTasks\UpdateTerminalForChangeAccountRequestWithBadResult.cs" />
+    <Compile Include="WebTasks\UpdateTerminalsWithChangeAccountRequest.cs" />
+    <Compile Include="WebTasks\UpdateInstalledTerminals.cs" />
+    <Compile Include="WebTasks\UpdateTerminalsWithChangeAccountRequestForNewIranKish.cs" />
+    <Compile Include="WebTasks\UpdateTerminalsWithRevokeRequest.cs" />
+    <Compile Include="WebTasks\AcceptorInqueryFromParsianTask.cs" />
+    <Compile Include="WebTasks\AcceptorInqueryFromFanavaTask.cs" />
+    <Compile Include="WebTasks\AcceptorInqueryFromIrankishTask.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\IranKishService.cs" />
+    <Compile Include="ViewModels\AddressComponentViewModel.cs" />
+    <Compile Include="ViewModels\AllocatePspViewModel.cs" />
+    <Compile Include="ViewModels\ChangeAccountRequestViewModel.cs" />
+    <Compile Include="ViewModels\ChangeOrganizationUnitViewModel.cs" />
+    <Compile Include="ViewModels\DocumentTypeViewModel.cs" />
+    <Compile Include="ViewModels\DocumentViewModel.cs" />
+    <Compile Include="ViewModels\MerchantDataEntryViewModel.cs" />
+    <Compile Include="ViewModels\MerchantProfileViewModel.cs" />
+    <Compile Include="ViewModels\RevokeRequestViewModel.cs" />
+    <Compile Include="ViewModels\TerminalDetailsViewModel.cs" />
+    <Compile Include="ViewModels\UserRoleManageViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="WebTasks\InqueryFromParsianTask.cs" />
+    <Compile Include="WebTasks\InqueryFromIrankishTask.cs" />
+    <Compile Include="WebTasks\ScheduledTasksRegistry.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\Yaghout-Client.p12" />
+    <Content Include="Content\animate.css" />
+    <Content Include="Content\bootstrap-chosen.css" />
+    <Content Include="Content\bootstrap-rtl.css" />
+    <Content Include="Content\bootstrap-rtl.min.css" />
+    <Content Include="Content\bootstrap-theme-rtl.css" />
+    <Content Include="Content\bootstrap-theme-rtl.min.css" />
+    <Content Include="Content\chosen.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\fonts.css" />
+    <Content Include="Content\footer.css" />
+    <Content Include="Content\header.css" />
+    <Content Include="Content\images\1.png" />
+    <Content Include="Content\images\border.png" />
+    <Content Include="Content\images\CardTemplate\1.jpg" />
+    <Content Include="Content\images\CardTemplate\10.jpg" />
+    <Content Include="Content\images\CardTemplate\11.jpg" />
+    <Content Include="Content\images\CardTemplate\12.jpg" />
+    <Content Include="Content\images\CardTemplate\13.jpg" />
+    <Content Include="Content\images\CardTemplate\14.jpg" />
+    <Content Include="Content\images\CardTemplate\15.jpg" />
+    <Content Include="Content\images\CardTemplate\16.jpg" />
+    <Content Include="Content\images\CardTemplate\17.jpg" />
+    <Content Include="Content\images\CardTemplate\18.jpg" />
+    <Content Include="Content\images\CardTemplate\19.jpg" />
+    <Content Include="Content\images\CardTemplate\2.jpg" />
+    <Content Include="Content\images\CardTemplate\20.jpg" />
+    <Content Include="Content\images\CardTemplate\21.jpg" />
+    <Content Include="Content\images\CardTemplate\22.jpg" />
+    <Content Include="Content\images\CardTemplate\23.jpg" />
+    <Content Include="Content\images\CardTemplate\24.jpg" />
+    <Content Include="Content\images\CardTemplate\25.jpg" />
+    <Content Include="Content\images\CardTemplate\26.jpg" />
+    <Content Include="Content\images\CardTemplate\27.jpg" />
+    <Content Include="Content\images\CardTemplate\28.jpg" />
+    <Content Include="Content\images\CardTemplate\29.jpg" />
+    <Content Include="Content\images\CardTemplate\3.jpg" />
+    <Content Include="Content\images\CardTemplate\30.jpg" />
+    <Content Include="Content\images\CardTemplate\4.jpg" />
+    <Content Include="Content\images\CardTemplate\5.jpg" />
+    <Content Include="Content\images\CardTemplate\6.jpg" />
+    <Content Include="Content\images\CardTemplate\7.jpg" />
+    <Content Include="Content\images\CardTemplate\8.jpg" />
+    <Content Include="Content\images\CardTemplate\9.jpg" />
+    <Content Include="Content\images\chosen-sprite%402x.png" />
+    <Content Include="Content\images\chosen-sprite.png" />
+    <Content Include="Content\images\controls.png" />
+    <Content Include="Content\images\loading.gif" />
+    <Content Include="Content\images\loading_background.png" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\mobile.png" />
+    <Content Include="Content\images\overlay.png" />
+    <Content Include="Content\PersianDatePicker.css" />
+    <Content Include="Content\PersianDatePicker.min.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
+    <Content Include="Core\Compression\Snappy\lib\linux\libsnappy64.so" />
+    <Content Include="Core\Compression\Snappy\lib\osx\libsnappy64.dylib" />
+    <Content Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
+    <Content Include="Core\Compression\Snappy\lib\win\snappy64.dll" />
+    <Content Include="Core\Compression\Zstandard\lib\linux\libzstd.so" />
+    <Content Include="Core\Compression\Zstandard\lib\osx\libzstd.dylib" />
+    <Content Include="Core\Compression\Zstandard\lib\win\libzstd.dll" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
+    <Content Include="Content\fonts\IRANSansMonoSpacedNum.woff" />
+    <Content Include="App_Data\Yaghout-Client 1.p12" />
+    <Content Include="Download\MerchantProfiles.xlsx" />
+    <Content Include="Download\Transactions.xlsx" />
+    <Content Include="Download\Help.pdf" />
+    <Content Include="Download\Pos Request.pdf" />
+    <Content Include="Download\Request.pdf" />
+    <Content Include="Content\fonts\eot\IRANSansWeb%28FaNum%29.eot" />
+    <Content Include="Content\fonts\eot\IRANSansWeb%28FaNum%29_Black.eot" />
+    <Content Include="Content\fonts\eot\IRANSansWeb%28FaNum%29_Bold.eot" />
+    <Content Include="Content\fonts\eot\IRANSansWeb%28FaNum%29_Light.eot" />
+    <Content Include="Content\fonts\eot\IRANSansWeb%28FaNum%29_Medium.eot" />
+    <Content Include="Content\fonts\eot\IRANSansWeb%28FaNum%29_UltraLight.eot" />
+    <Content Include="Content\fonts\ttf\IRANSansWeb%28FaNum%29.ttf" />
+    <Content Include="Content\fonts\ttf\IRANSansWeb%28FaNum%29_Black.ttf" />
+    <Content Include="Content\fonts\ttf\IRANSansWeb%28FaNum%29_Bold.ttf" />
+    <Content Include="Content\fonts\ttf\IRANSansWeb%28FaNum%29_Light.ttf" />
+    <Content Include="Content\fonts\ttf\IRANSansWeb%28FaNum%29_Medium.ttf" />
+    <Content Include="Content\fonts\ttf\IRANSansWeb%28FaNum%29_UltraLight.ttf" />
+    <Content Include="Content\fonts\woff2\IRANSansWeb%28FaNum%29.woff2" />
+    <Content Include="Content\fonts\woff2\IRANSansWeb%28FaNum%29_Black.woff2" />
+    <Content Include="Content\fonts\woff2\IRANSansWeb%28FaNum%29_Bold.woff2" />
+    <Content Include="Content\fonts\woff2\IRANSansWeb%28FaNum%29_Light.woff2" />
+    <Content Include="Content\fonts\woff2\IRANSansWeb%28FaNum%29_Medium.woff2" />
+    <Content Include="Content\fonts\woff2\IRANSansWeb%28FaNum%29_UltraLight.woff2" />
+    <Content Include="Content\fonts\woff\IRANSansWeb%28FaNum%29.woff" />
+    <Content Include="Content\fonts\woff\IRANSansWeb%28FaNum%29_Black.woff" />
+    <Content Include="Content\fonts\woff\IRANSansWeb%28FaNum%29_Bold.woff" />
+    <Content Include="Content\fonts\woff\IRANSansWeb%28FaNum%29_Light.woff" />
+    <Content Include="Content\fonts\woff\IRANSansWeb%28FaNum%29_Medium.woff" />
+    <Content Include="Content\fonts\woff\IRANSansWeb%28FaNum%29_UltraLight.woff" />
+    <Content Include="Download\EM.xlsx" />
+    <Content Include="Download\PM.xlsx" />
+    <Content Include="App_Data\Technical Documents\Documents.docx" />
+    <Content Include="Download\UpdateBatchDate.xlsx" />
+    <Content Include="Download\dasturolamal %2896.71191%29 مورخ 96.7.20.pdf" />
+    <Content Include="Download\UpdateBlockInfo.xlsx" />
+    <Content Include="Download\CustomerNumberBlackList.xlsx" />
+    <Content Include="Download\Report Files.zip" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="Job\Result.txt" />
+    <Content Include="Job\test" />
+    <Content Include="Job\UpdateTerminal.xlsx" />
+    <Content Include="libmongocrypt.dylib" />
+    <Content Include="libmongocrypt.so" />
+    <Content Include="Lib\Stimulsoft.Base.dll" />
+    <Content Include="Lib\Stimulsoft.Data.dll" />
+    <Content Include="Lib\Stimulsoft.Report.Check.dll" />
+    <Content Include="Lib\Stimulsoft.Report.dll" />
+    <Content Include="Lib\Stimulsoft.Report.Helper.dll" />
+    <Content Include="Lib\Stimulsoft.Report.Mvc.dll" />
+    <Content Include="Lib\Stimulsoft.Report.Web.dll" />
+    <Content Include="Lib\Stimulsoft.Report.WebDesign.dll" />
+    <Content Include="Lib\Stimulsoft.Report.Win.dll" />
+    <Content Include="logs\uploadResult.txt" />
+    <Content Include="mongocrypt.dll" />
+    <Content Include="Scripts\addressCreator.js" />
+    <Content Include="Scripts\bootstrap-rtl.js" />
+    <Content Include="Scripts\bootstrap-rtl.min.js" />
+    <Content Include="Scripts\chosen.jquery.js" />
+    <Content Include="Scripts\global.js" />
+    <Content Include="Scripts\highcharts\exporting.js" />
+    <Content Include="Scripts\highcharts\highcharts-more.js" />
+    <Content Include="Scripts\highcharts\highcharts.js" />
+    <Content Include="Scripts\highcharts\offline-exporting.js" />
+    <Content Include="Scripts\jasny-bootstrap.js" />
+    <Content Include="Scripts\jquery-1.12.4.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.map" />
+    <Content Include="Scripts\jquery.browser.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\jquery.form.min.js" />
+    <Content Include="Scripts\jquery.form.min.js.map" />
+    <Content Include="Scripts\jquery.ajax-post.js" />
+    <Content Include="Scripts\jquery.confirm.js" />
+    <Content Include="Scripts\jquery.filter_input.js" />
+    <Content Include="Scripts\jquery.messaging.js" />
+    <Content Include="Scripts\jquery.modal.js" />
+    <Content Include="Scripts\jQuery.print.js" />
+    <Content Include="Scripts\jquery.twbsPagination.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validation-extensions.js" />
+    <Content Include="Scripts\jquery.validation-messages.fa.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\PersianDatePicker.js" />
+    <Content Include="Scripts\PersianDatePicker.min.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <None Include="Service References\FanavaServiceReference\MerchantContract1.disco" />
+    <Content Include="Service References\FanavaServiceReference\TES.Merchant.Web.UI.FanavaServiceReference.WSOutput.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\FanavaServiceReference\MerchantContract1.wsdl" />
+    <None Include="Service References\FanavaServiceReference\MerchantContract9.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FanavaServiceReference\MerchantContract91.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FanavaServiceReference\MerchantContract92.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FanavaServiceReference\MerchantContract93.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FanavaServiceReference\MerchantContract94.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FanavaServiceReference\MerchantContract95.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FanavaServiceReference\MerchantContract96.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FanavaServiceReference\MerchantContract97.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FanavaServiceReference\MerchantContract98.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\IranKishServiceRefrence\DefineMerchant.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\IranKishServiceRefrence\DefineMerchant1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\IranKishServiceRefrence\DefineMerchant2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\IranKishServiceRefrence\DefineMerchant3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\IranKishServiceRefrence\DefineMerchant4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\IranKishServiceRefrence\DefineMerchants.wsdl" />
+    <Content Include="Service References\IranKishServiceRefrence\TES.Merchant.Web.UI.IranKishServiceRefrence.AcceptorInqueryByAccCodeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\IranKishServiceRefrence\TES.Merchant.Web.UI.IranKishServiceRefrence.AcceptorInqueryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\IranKishServiceRefrence\TES.Merchant.Web.UI.IranKishServiceRefrence.AddAcceptorresponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\IranKishServiceRefrence\TES.Merchant.Web.UI.IranKishServiceRefrence.AddDocumentresponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\IranKishServiceRefrence\TES.Merchant.Web.UI.IranKishServiceRefrence.EditAcceptorresponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\IranKishServiceRefrence\TES.Merchant.Web.UI.IranKishServiceRefrence.GetActivitiesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\IranKishServiceRefrence\TES.Merchant.Web.UI.IranKishServiceRefrence.GetBanksWithBranches.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\IranKishServiceRefrence\TES.Merchant.Web.UI.IranKishServiceRefrence.GetBussinessResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\IranKishServiceRefrence\TES.Merchant.Web.UI.IranKishServiceRefrence.GetCityInfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\IranKishServiceRefrence\TES.Merchant.Web.UI.IranKishServiceRefrence.GetProvinceInfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\IranKishServiceRefrence\TES.Merchant.Web.UI.IranKishServiceRefrence.GetTerminalTypesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\IranKishServiceRefrence\TES.Merchant.Web.UI.IranKishServiceRefrence.InqueryAccountResp.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\IranKishServiceRefrence\TES.Merchant.Web.UI.IranKishServiceRefrence.InqueryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\IranKishServiceRefrence\TES.Merchant.Web.UI.IranKishServiceRefrence.InqueryResponseComp.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\IranKishServiceRefrence\TES.Merchant.Web.UI.IranKishServiceRefrence.RefuseTerminal.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\IranKishServiceRefrence\TES.Merchant.Web.UI.IranKishServiceRefrence.Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\IranKishServiceRefrence\TES.Merchant.Web.UI.IranKishServiceRefrence.SetTmsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ParsianServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\ParsianServiceReference\configuration.svcinfo" />
+    <None Include="Service References\ParsianServiceReference\PosRequestService.wsdl" />
+    <None Include="Service References\ParsianServiceReference\PosRequestService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ParsianServiceReference\PosRequestService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ParsianServiceReference\PosRequestService10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ParsianServiceReference\PosRequestService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ParsianServiceReference\PosRequestService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ParsianServiceReference\PosRequestService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ParsianServiceReference\PosRequestService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ParsianServiceReference\PosRequestService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ParsianServiceReference\PosRequestService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ParsianServiceReference\PosRequestService8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ParsianServiceReference\PosRequestService9.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ParsianServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\FanavaServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\FanavaServiceReference\configuration.svcinfo" />
+    <None Include="Service References\FanavaServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ParsianServiceReference\PosRequestService.disco" />
+    <None Include="Service References\IranKishServiceRefrence\DefineMerchant.disco" />
+    <None Include="Service References\IranKishServiceRefrence\configuration91.svcinfo" />
+    <None Include="Service References\IranKishServiceRefrence\configuration.svcinfo" />
+    <None Include="Service References\IranKishServiceRefrence\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Views\BlockBranchPermission\Import.cshtml" />
+    <Content Include="Views\BlockBranchPermission\Index.cshtml" />
+    <Content Include="Views\BlockBranchPermission\_Details.cshtml" />
+    <Content Include="Views\BlockBranchPermission\_Edit.cshtml" />
+    <Content Include="Views\BranchConnector\Index.cshtml" />
+    <Content Include="Views\BranchConnector\Manage.cshtml" />
+    <Content Include="Views\BranchTerminal\Manage.cshtml" />
+    <Content Include="Views\BranchTerminal\UpdateBatchDate.cshtml" />
+    <Content Include="Views\BranchTerminal\_Details.cshtml" />
+    <Content Include="Views\BranchTerminal\_Edit.cshtml" />
+    <Content Include="Views\BranchTerminal\_GroupConfirm.cshtml" />
+    <Content Include="Views\CardRequest\CardRequest.cshtml" />
+    <Content Include="Views\CardRequest\Details.cshtml" />
+    <Content Include="Views\CardRequest\Index.cshtml" />
+    <Content Include="Views\CardRequest\ViewIEnumerable.cshtml" />
+    <Content Include="Views\CardRequest\_Create.cshtml" />
+    <Content Include="Views\CardRequest\_UploadFinalFile.cshtml" />
+    <Content Include="Views\Dashboard\Index - old.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Dashboard\_LastSixMonthTransactionStatusChart - old.cshtml" />
+    <Content Include="Views\Dashboard\_TransactionCharts - old.cshtml" />
+    <Content Include="Views\MerchantProfile\BatchImport.cshtml" />
+    <Content Include="Views\Message\Message.cshtml" />
+    <Content Include="Views\PropertyDamageRequest\Details.cshtml" />
+    <Content Include="Views\PropertyDamageRequest\Manage.cshtml" />
+    <Content Include="Views\PropertyDamageRequest\_Create.cshtml" />
+    <Content Include="Views\PropertyDamageRequest\_UploadFinalFile.cshtml" />
+    <Content Include="Views\RemovedTerminal\CustomerReport.cshtml" />
+    <Content Include="Views\RemovedTerminal\ImportBiFiles.cshtml" />
+    <Content Include="Views\RemovedTerminal\ImportWage.cshtml" />
+    <Content Include="Views\RemovedTerminal\Manage.cshtml" />
+    <Content Include="Views\RemovedTerminal\RemovedTestManage.cshtml" />
+    <Content Include="Views\RemovedTerminal\TestManage.cshtml" />
+    <Content Include="Views\RemovedTerminal\UpdateBatchDate.cshtml" />
+    <Content Include="Views\RemovedTerminal\_Details.cshtml" />
+    <Content Include="Views\RemovedTerminal\_Edit.cshtml" />
+    <Content Include="Views\RemovedTerminal\_GroupConfirm.cshtml" />
+    <Content Include="Views\RemovedTerminal\_TerminalStatus.cshtml" />
+    <Content Include="Views\Report\NormalRep.cshtml" />
+    <Content Include="Views\Report\TerminalWage.cshtml" />
+    <Content Include="Views\RevokeRequest\_Edit.cshtml" />
+    <Content Include="Views\Rule\CreateCustomerCategory.cshtml" />
+    <Content Include="Views\Rule\CreatePpsRating.cshtml" />
+    <Content Include="Views\Rule\CreateRulePspWeight.cshtml" />
+    <Content Include="Views\Rule\CustomerCategory.cshtml" />
+    <Content Include="Views\Rule\EditCustomerCategory.cshtml" />
+    <Content Include="Views\Rule\CreateRuleDefinition.cshtml" />
+    <Content Include="Views\Rule\EditPspRating.cshtml" />
+    <Content Include="Views\Rule\EditRuleDefinition.cshtml" />
+    <Content Include="Views\Rule\EditRulePspWeight.cshtml" />
+    <Content Include="Views\Rule\PspRating.cshtml" />
+    <Content Include="Views\Rule\RuleDefinition.cshtml" />
+    <Content Include="Views\Rule\RulePspWeight.cshtml" />
+    <Content Include="Views\Storage\CardRequest.cshtml" />
+    <Content Include="Views\Storage\Details.cshtml" />
+    <Content Include="Views\Storage\Index.cshtml" />
+    <Content Include="Views\Storage\Manage.cshtml" />
+    <Content Include="Views\Storage\Storage.cshtml" />
+    <Content Include="Views\Storage\ViewIEnumerable.cshtml" />
+    <Content Include="Views\Storage\_AddValue.cshtml" />
+    <Content Include="Views\Storage\_Create.cshtml" />
+    <Content Include="Views\Storage\_Edit.cshtml" />
+    <Content Include="Views\Storage\_MinusValue.cshtml" />
+    <Content Include="Views\Storage\_storageLogs.cshtml" />
+    <Content Include="Views\Storage\_UploadFinalFile.cshtml" />
+    <Content Include="Views\TaskMonitor\Index.cshtml" />
+    <Content Include="Views\Terminal\BiResultByParameters.cshtml" />
+    <Content Include="Views\Terminal\CustomerReport.cshtml" />
+    <Content Include="Views\Terminal\ImportBiFiles.cshtml" />
+    <Content Include="Views\Terminal\ImportWage.cshtml" />
+    <Content Include="Views\Terminal\Inquiry.cshtml" />
+    <Content Include="Views\Terminal\LowTransaction.cshtml" />
+    <Content Include="Views\Terminal\OlManage.cshtml" />
+    <Content Include="Views\Terminal\OutOfNetworkTerminals.cshtml" />
+    <Content Include="Views\Terminal\RequestChangeInfo.cshtml" />
+    <Content Include="Views\Terminal\TerminalWage.cshtml" />
+    <Content Include="Views\Terminal\TestManage.cshtml" />
+    <Content Include="Views\Terminal\_TerminalStatus.cshtml" />
+    <Content Include="Views\TicketSubjects\Details.cshtml" />
+    <Content Include="Views\TicketSubjects\Index.cshtml" />
+    <Content Include="Views\TicketSubjects\Manage.cshtml" />
+    <Content Include="Views\TicketSubjects\_Create.cshtml" />
+    <Content Include="Views\TicketSubjects\_CreateSecond.cshtml" />
+    <Content Include="Views\TicketSubjects\_Edit.cshtml" />
+    <Content Include="Views\TicketSubjects\_EditSecond.cshtml" />
+    <Content Include="Views\TicketSubjects\_secondSubject.cshtml" />
+    <Content Include="Views\User\_ChangePhoneNumber.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\MerchantProfile\Create.cshtml" />
+    <Content Include="Views\Terminal\Manage.cshtml" />
+    <Content Include="Views\RevokeRequest\_Create.cshtml" />
+    <Content Include="Views\ChangeAccountRequest\_Create.cshtml" />
+    <Content Include="Views\Terminal\_Details.cshtml" />
+    <Content Include="Views\User\_Create.cshtml" />
+    <Content Include="Views\User\Manage.cshtml" />
+    <Content Include="Views\UserRole\_Manage.cshtml" />
+    <Content Include="Views\Terminal\_Edit.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\Error\ServerError.cshtml" />
+    <Content Include="Views\User\_ChangeOrganizationUnit.cshtml" />
+    <Content Include="Views\User\_NewPassword.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Transaction\_Index.cshtml" />
+    <Content Include="Views\PspAgent\Index.cshtml" />
+    <Content Include="Views\Error\_NotFound.cshtml" />
+    <Content Include="Views\Dashboard\_TransactionCharts.cshtml" />
+    <Content Include="Views\PhoneNumbers\Index.cshtml" />
+    <Content Include="Views\News\_Create.cshtml" />
+    <Content Include="Views\News\Manage.cshtml" />
+    <Content Include="Views\News\_Edit.cshtml" />
+    <Content Include="Views\Message\Index.cshtml" />
+    <Content Include="Views\Message\_Create.cshtml" />
+    <Content Include="Views\Message\Details.cshtml" />
+    <Content Include="Web References\AccountNumberVerificationService\cashChequeResponseBean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\depositCustomerResponseBean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\guarantiesResponseBean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\loginResponseBean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\assignExchangeBrokerResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\batchTransferResponseBean2.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\billInfoResponseBean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\billPaymentResponseBean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\billPaymentsDetailsResponseBean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\cardDepositResponseBean2.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\cardTransactionsResponseBean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\chargeCardResponseBean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\customerExchangeContractResponseBean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\customrerDetailResponseBean2.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\depositBalanceResponseBean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\depositResponseBean2.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\harimOtpResponseBean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\loanDetailResponseBean2.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\loanPaymentResponseBean2.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\loansListResponseBean2.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\AccountNumberVerificationService\loansResponseBean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <None Include="Web References\AccountNumberVerificationService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Web References\AccountNumberVerificationService\reqStatusResponseBeans.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Views\Report\TransactionChart.cshtml" />
+    <Content Include="Views\Terminal\_GroupConfirm.cshtml" />
+    <Content Include="Views\Report\BranchRanking.cshtml" />
+    <Content Include="Views\Report\BranchTransactionStatus.cshtml" />
+    <Content Include="Views\Report\ActiveInactiveTerminalReport.cshtml" />
+    <Content Include="Views\Error\_CustomError.cshtml" />
+    <Content Include="Views\Error\CustomError.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangePassword.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\Login.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Login.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\_Error.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_Error.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\Error.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Error.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\Lockout.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Lockout.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\_ModalLayout.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_ModalLayout.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\ChangeAccountRequest\Manage.cshtml" />
+    <Content Include="Views\Report\InstallationDelay.cshtml" />
+    <Content Include="Views\RevokeRequest\Manage.cshtml" />
+    <Content Include="Views\ChangeAccountRequest\_Edit.cshtml" />
+    <Content Include="Views\Report\BankInvoice.cshtml" />
+    <Content Include="Views\TerminalEm\Import.cshtml" />
+    <Content Include="Views\TerminalEm\Index.cshtml" />
+    <Content Include="Views\TerminalPm\Import.cshtml" />
+    <Content Include="Views\TerminalPm\Index.cshtml" />
+    <Content Include="Service References\ParsianServiceReference\TES.Merchant.Web.UI.ParsianServiceReference.PosInfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ParsianServiceReference\TES.Merchant.Web.UI.ParsianServiceReference.WsPosResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\News\Details.cshtml" />
+    <Content Include="Service References\ParsianServiceReference\TES.Merchant.Web.UI.ParsianServiceReference.ChangeIbanResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ParsianServiceReference\TES.Merchant.Web.UI.ParsianServiceReference.ChangeIbanStatusResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ParsianServiceReference\TES.Merchant.Web.UI.ParsianServiceReference.CheckPosShaparakStatusResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ParsianServiceReference\TES.Merchant.Web.UI.ParsianServiceReference.DocInfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ParsianServiceReference\TES.Merchant.Web.UI.ParsianServiceReference.EditPosDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ParsianServiceReference\TES.Merchant.Web.UI.ParsianServiceReference.Insert_PishkhanJsonTblResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ParsianServiceReference\TES.Merchant.Web.UI.ParsianServiceReference.MarketingResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ParsianServiceReference\TES.Merchant.Web.UI.ParsianServiceReference.PmResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ParsianServiceReference\TES.Merchant.Web.UI.ParsianServiceReference.Select_PishkhanJsonTblResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Views\UserActivityLog\_Index.cshtml" />
+    <Content Include="Views\AutomatedTaskLog\Manage.cshtml" />
+    <Content Include="Views\PspAgent\_Create.cshtml" />
+    <Content Include="Views\PspAgent\_Edit.cshtml" />
+    <Content Include="Views\Guild\Index.cshtml" />
+    <Content Include="Views\DeviceType\_Edit.cshtml" />
+    <Content Include="Views\DeviceType\Manage.cshtml" />
+    <Content Include="Views\RevokeReason\_Create.cshtml" />
+    <Content Include="Views\RevokeReason\_Edit.cshtml" />
+    <Content Include="Views\RevokeReason\Manage.cshtml" />
+    <Content Include="Views\MerchantProfile\Import.cshtml" />
+    <Content Include="Views\Transaction\Import.cshtml" />
+    <Content Include="Views\Dashboard\_LastSixMonthTransactionStatusChart.cshtml" />
+    <Content Include="Views\DocumentType\_Edit.cshtml" />
+    <Content Include="Views\DocumentType\Manage.cshtml" />
+    <Content Include="Views\DocumentType\_Create.cshtml" />
+    <Content Include="Views\Terminal\UpdateBatchDate.cshtml" />
+    <Content Include="Views\Service\Status.cshtml" />
+    <Content Include="Views\TerminalNote\Index.cshtml" />
+    <Content Include="Views\Invoice\_Create.cshtml" />
+    <Content Include="Views\Invoice\_Edit.cshtml" />
+    <Content Include="Views\Invoice\Manage.cshtml" />
+    <Content Include="Views\BlockDocument\Import.cshtml" />
+    <Content Include="Views\BlockDocument\_Edit.cshtml" />
+    <Content Include="Views\BlockDocument\Index.cshtml" />
+    <Content Include="Views\Error\Disable.cshtml" />
+    <Content Include="Service References\ParsianServiceReference\TES.Merchant.Web.UI.ParsianServiceReference.PosConfirmDateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ParsianServiceReference\TES.Merchant.Web.UI.ParsianServiceReference.RemoveSerialResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ParsianServiceReference\TES.Merchant.Web.UI.ParsianServiceReference.SetSerialResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Views\CustomerNumberBlackList\_Create.cshtml" />
+    <Content Include="Views\CustomerNumberBlackList\Manage.cshtml" />
+    <Content Include="Views\OrganizationUnit\_Edit.cshtml" />
+    <Content Include="Views\OrganizationUnit\Manage.cshtml" />
+    <Content Include="Views\CustomerNumberBlackList\Import.cshtml" />
+    <Content Include="Views\OrganizationUnit\_GroupChangePermissions.cshtml" />
+    <Content Include="Views\Report\TerminalTypes.cshtml" />
+    <Content Include="Views\TempReportData\Import.cshtml" />
+    <None Include="Web References\AccountNumberVerificationService\soap_sarmayehInterbank.wsdl" />
+    <None Include="Web References\AccountNumberVerificationService\soap_sarmayehInterbank.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Web References\AccountNumberVerificationService\statementResponseBean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\ChangeAccountRequestExportFiles\" />
+    <Folder Include="App_Data\ReportExportFiles\" />
+    <Folder Include="App_Data\TerminalExportFiles\" />
+    <Folder Include="App_Data\TransactionExportFiles\" />
+    <Folder Include="Content\Report\" />
+    <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{1f1a2fec-3850-4d95-a6d5-5dc36fd54dae}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{097adc94-8615-48d1-9b17-405dd839473a}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IocConfig\IocConfig.csproj">
+      <Project>{891e0283-e892-43c8-a879-165624be96df}</Project>
+      <Name>IocConfig</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Portal.IService\Portal.IService.csproj">
+      <Project>{abd22f21-fcac-4781-8de8-61ab607c02e1}</Project>
+      <Name>Portal.IService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Portal.Service\Portal.Service.csproj">
+      <Project>{31d49da4-f42a-4494-8297-b13c8dd8b6b1}</Project>
+      <Name>Portal.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Security\Security.csproj">
+      <Project>{53551c85-c416-4d45-a468-ebdd2e999abb}</Project>
+      <Name>Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Web.Core\Web.Core.csproj">
+      <Project>{55b622d6-9cf1-444b-8d7d-8381f8a62362}</Project>
+      <Name>Web.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\FanavaServiceReference\" />
+    <WCFMetadataStorage Include="Service References\IranKishServiceRefrence\" />
+    <WCFMetadataStorage Include="Service References\ParsianServiceReference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="https://10.255.253.10/yaghut/soap/soap_sarmayehInterbank%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\AccountNumberVerificationService\</RelPath>
+      <UpdateFromURL>https://10.255.253.10/yaghut/soap/soap_sarmayehInterbank%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>TES_Merchant_Web_UI_AccountNumberVerificationService_soap_sarmayehInterbank</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <Target Name="GatherAllFilesToPublish">
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>24071</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:24071/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild">
+    <ItemGroup>
+      <RoslynFiles Include="$(CscToolPath)\*" />
+    </ItemGroup>
+    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
+    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
+  </Target>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.3.6.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.3.6.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
+    <Error Condition="!Exists('..\packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets'))" />
+    <Error Condition="!Exists('..\packages\MongoDB.Driver.Core.2.15.0\build\MongoDB.Driver.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MongoDB.Driver.Core.2.15.0\build\MongoDB.Driver.Core.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
+  <Import Project="..\packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets" Condition="Exists('..\packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets')" />
+  <Import Project="..\packages\MongoDB.Driver.Core.2.15.0\build\MongoDB.Driver.Core.targets" Condition="Exists('..\packages\MongoDB.Driver.Core.2.15.0\build\MongoDB.Driver.Core.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

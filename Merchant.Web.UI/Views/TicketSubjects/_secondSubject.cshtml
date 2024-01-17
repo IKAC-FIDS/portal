@@ -1,0 +1,152 @@
+﻿@model SecondSubjectListViewModel
+
+@{
+    ViewBag.PageTitle = "ویرایش      موضوع ";
+   
+}
+ 
+ 
+<div class="page-header">
+    <a id="SCreateButton" class="btn btn-success pull-left">  موضوع   دوم جدید    </a>
+  <h1>  مدیریت موضوعات زیر مجمموعه {@Model.ParentTitle}</h1>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center" id="SDataTable">
+        <thead>
+            <tr>
+                <th>عنوان</th>
+            
+                <th width="1px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="3"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/newsManageScripts",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.confirm.js")
+
+    <script type="text/javascript">
+        function loadData() {
+            $('#SDataTable tbody').empty().append('<tr><td colspan="3"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+            return $.get('@Url.Action("GetSecondData", "TicketSubjects",new { subjectId = Model.ParentId})').done(function (result) {
+                $('#SDataTable tbody').empty();
+                var html = '';
+
+                if (!result.success) {
+                    $('#SDataTable tbody').empty().append('<tr><td colspan="3"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                    return false;
+                }
+                
+                console.log('iasdfasfdasdf',result)
+
+                if (result.data.rows.length === 0) {
+                    $('#SDataTable tbody').empty().append('<tr><td colspan="3"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                    return false;
+                }
+
+                for (var i = 0; i < result.data.rows.length; i++) {
+                    var item = result.data.rows[i];
+
+                    html += '<tr>' +
+                        '<td>' + item.title +   '</td>' +
+                       
+                        '<td class="text-nowrap">' +
+                        
+                        '<button data-toggle="tooltip" title="ویرایش" data-loading-text="..." data-id="' + item.id + '" class="btn btn-default btn-xs btn-edit"><i class="fa fa-pencil"></i></button>&nbsp;' +
+                        '<button data-toggle="tooltip" title="حذف" data-loading-text="..." data-id="' + item.id + '" class="btn btn-danger btn-xs btn-delete"><i class="fa fa-trash"></i></button>' +
+                       
+                        '</td>' +
+                        '</tr>';
+                }
+
+                $('#SDataTable tbody').empty().append(html);
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
+
+        $(document).ready(function () {
+            loadData();
+
+            $('#SCreateButton').on('click', function () {
+                $.showModal({
+                    modalSize: 'xlg',
+                    url: '@Url.Action("CreateSecondSubject", "TicketSubjects")',
+                      data: { parentId: @Model.ParentId },
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            loadData();
+                        }
+                    }
+                });
+            });
+            
+            
+            $('#SDataTable').on('click.btn-subject', '.btn-subject', function () {
+                $.showModal({
+                    modalSize: 'xlg',
+                    url: '@Url.Action("SecondSubject", "TicketSubjects")',
+                    data: { id: $(this).data('id') },
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            loadData();
+                        }
+                    }
+                });
+            });
+            
+            
+
+            $('#SDataTable').on('click.btn-edit', '.btn-edit', function () {
+                $.showModal({
+                    modalSize: 'xlg',
+                    url: '@Url.Action("EditSecond", "TicketSubjects")',
+                    data: { id: $(this).data('id') },
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            loadData();
+                        }
+                    }
+                });
+            });
+
+            $('#SDataTable').on('click.btn-delete', '.btn-delete', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("Delete", "TicketSubjects")', { id: $button.data('id') }).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                $button.closest('tr').remove();
+
+                                if ($('#SDataTable tbody').is(":empty")) {
+                                    $('#SDataTable tbody').empty().append('<tr><td colspan="3"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+          
+        });
+    </script>
+}
+    

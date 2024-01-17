@@ -1,0 +1,170 @@
+﻿header {
+    background-color: #E8ECED;
+}
+
+    header .intro {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+        header .intro img {
+            vertical-align: middle;
+            width: 60px;
+            height: 60px;
+        }
+
+        header .intro a {
+            text-decoration: none;
+        }
+
+        header .intro h1 {
+            display: inline;
+            color: #0B303D;
+            font-size: 20px;
+            font-weight: 300;
+            margin-right: 10px;
+        }
+
+
+.navbar {
+    min-height: 40px;
+    border: none;
+}
+
+.navbar-default {
+    border-radius: 0;
+    background-color: #0b303d;
+    margin-bottom: 0;
+    -webkit-box-shadow: 0 4px 12px #CCC;
+    -moz-box-shadow: 0 4px 12px #CCC;
+    box-shadow: 0 4px 12px #CCC;
+}
+
+    .navbar-default .navbar-toggle {
+        background-color: #0B303D;
+        border-color: #0B303D;
+    }
+
+        .navbar-default .navbar-toggle .icon-bar {
+            background-color: #D6DCDE;
+        }
+
+        .navbar-default .navbar-toggle:hover .icon-bar {
+            background-color: #fff;
+        }
+
+        .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+            background-color: #0B303D;
+        }
+
+    .navbar-default .nav li a {
+        font-size: 15px;
+        color: #D6DCDE;
+        margin: 13px 15px;
+        padding: 0;
+    }
+
+        .navbar-default .nav li a:hover, .navbar-default .nav li a:focus {
+            color: #fff;
+        }
+
+    .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+        background-color: #0B303D;
+        color: #fff;
+    }
+
+    .navbar-default .dropdown-menu > li > a {
+        clear: both;
+        color: #21424E;
+        display: block;
+        font-weight: normal;
+        line-height: 1.42857;
+        padding: 3px 20px;
+        white-space: nowrap;
+    }
+
+        .navbar-default .dropdown-menu > li > a:hover {
+            color: #0A2832;
+            background-color: transparent;
+        }
+
+@media (min-width:768px) {
+    .navbar-nav > li > a {
+        padding-top: 15px;
+        padding-bottom: 4px;
+    }
+
+    .navbar-default {
+        background-color:#0b303d;
+        -webkit-transition: padding .3s;
+        -moz-transition: padding .3s;
+        -ms-transition: padding .3s;
+        -o-transition: padding .3s;
+        transition: padding .3s;
+        border: 0;
+    }
+
+        .navbar-default .navbar-brand {
+            font-size: 2em;
+            -webkit-transition: all .3s;
+            -moz-transition: all .3s;
+            -ms-transition: all .3s;
+            -o-transition: all .3s;
+            transition: all .3s;
+        }
+
+        .navbar-default .navbar-nav > .active > a {
+            -ms-border-radius: 3px;
+            border-radius: 3px;
+        }
+
+        .navbar-default.navbar-shrink {
+            background-color: #222;
+            padding: 10px 0;
+        }
+}
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a, .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #D6DCDE;
+        font-weight: 200;
+        background-color: transparent;
+    }
+
+        .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+            color: #fff;
+            background-color: transparent;
+        }
+}
+
+
+.menu {
+    min-height: 35px;
+}
+
+    .menu .dropdown-menu a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .menu .navbar-nav .open .dropdown-menu > li {
+        overflow-x: auto;
+    }
+
+    .menu .dropdown-menu > li > ul {
+        display: table-cell;
+        border-left: 1px solid #E9EEF0;
+        padding: 10px 30px;
+    }
+
+    .menu .dropdown-menu {
+        padding: 0;
+    }
+
+@media (max-width: 767px) {
+    .menu .dropdown-menu > li > ul {
+        display: block;
+        border: none;
+        padding: 10px 10px;
+    }
+}

@@ -1,0 +1,295 @@
+﻿@model IEnumerable<ActiveInactiveTerminalReportViewModel>
+
+@{
+    ViewBag.Title = "گزارش پایانه های فعال و غیرفعال";
+}
+
+@section styles {
+    @BundleConfig.AddStyles("~/Content/reportActiveInactiveReportStyles",
+        "~/Content/chosen.css")
+}
+
+<div class="page-header">
+    <h1>گزارش پایانه های فعال و غیرفعال</h1>
+</div>
+
+<div class="form-horizontal">
+    @if (!User.IsBranchUser())
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="BranchId">شعبه</label>
+                    <div class="col-md-8">
+                        @Html.DropDownList("BranchId", (IEnumerable<SelectListItem>)ViewBag.BranchList, "انتخاب نمایید", new { @class = "chosen-select chosen-rtl" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="FromMonth">از تاریخ</label>
+                <div class="col-md-4">
+                    <select id="FromMonth" name="FromMonth" class="form-control">
+                        <option value="1">فروردین</option>
+                        <option value="2">اردیبهشت</option>
+                        <option value="3">خرداد</option>
+                        <option value="4">تیر</option>
+                        <option value="5">مرداد</option>
+                        <option value="6">شهریور</option>
+                        <option value="7">مهر</option>
+                        <option value="8">آبان</option>
+                        <option value="9">آذر</option>
+                        <option value="10">دی</option>
+                        <option value="11">بهمن</option>
+                        <option value="12">اسفند</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select id="FromYear" name="FromYear" class="form-control">
+                        @for (int i = DateTime.Now.GetPersianYear(); i >= 1395; i--)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="ToMonth">تا تاریخ</label>
+                <div class="col-md-4">
+                    <select id="ToMonth" name="ToMonth" class="form-control">
+                        <option value="1">فروردین</option>
+                        <option value="2">اردیبهشت</option>
+                        <option value="3">خرداد</option>
+                        <option value="4">تیر</option>
+                        <option value="5">مرداد</option>
+                        <option value="6">شهریور</option>
+                        <option value="7">مهر</option>
+                        <option value="8">آبان</option>
+                        <option value="9">آذر</option>
+                        <option value="10">دی</option>
+                        <option value="11">بهمن</option>
+                        <option value="12">اسفند</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select id="ToYear" name="ToYear" class="form-control">
+                        @for (int i = DateTime.Now.GetPersianYear(); i >= 1395; i--)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="button" id="SearchButton" class="btn btn-success" data-loading-text="در حال تهیه گزارش...">جستجو</button>
+            <a href="@Url.Action("DownloadActiveInactiveTerminalReport", "Report", new { FromYear= Request.QueryString["FromYear"], FromMonth= @Request.QueryString["FromMonth"], ToYear= Request.QueryString["ToYear"], ToMonth= Request.QueryString["ToMonth"], ViewBag.BranchId })" id="DownloadButton" class="btn btn-default @(Model.Any() ? "" : "hidden")" >دانلود</a>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="alert alert-info">
+    <i class="fa fa-lightbulb-o"></i> <b>فعال: </b> <span>مجموع تراکنش های ماه، بیشتر از ۲۰ میلیون ریال یا ۶۰ تراکنش</span>
+
+    <br />
+
+    <i class="fa fa-lightbulb-o"></i> <b>غیرفعال: </b> <span>مجموع تراکنش های ماه، کمتر از ۲۰ میلیون ریال یا ۶۰ تراکنش</span>
+</div>
+
+<hr />
+
+<div id="ReportContainer">
+    <div id="chart"></div>
+</div>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/reportActiveInactiveTerminalScripts",
+        "~/Scripts/highcharts/highcharts.js",
+        "~/Scripts/highcharts/highcharts-more.js",
+        "~/Scripts/highcharts/exporting.js",
+        "~/Scripts/highcharts/offline-exporting.js",
+        "~/Scripts/chosen.jquery.js")
+
+<script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#BranchId,#FromYear,#FromMonth,#ToYear,#ToMonth').change(function () {
+                $('#ReportContainer, #DownloadButton').addClass('hidden');
+            });
+
+            $('#BranchId').chosen({ width: "100%" });
+
+            $('#FromYear').val('@Request.QueryString["FromYear"]');
+            $('#FromMonth').val('@Request.QueryString["FromMonth"]');
+            $('#ToYear').val('@Request.QueryString["ToYear"]');
+            $('#ToMonth').val('@Request.QueryString["ToMonth"]');
+            
+
+            $('#SearchButton').click(function () {
+                var params = '?FromYear=' + $('#FromYear').val() +
+                    '&FromMonth=' + $('#FromMonth').val() +
+                    '&ToYear=' + $('#ToYear').val() +
+                    '&ToMonth=' + $('#ToMonth').val();
+
+                @if (!User.IsBranchUser())
+                {
+                    <text>
+                    if (!$('#BranchId').val()) {
+                        toastr.error('شعبه باید انتخاب گردد');
+                        return false;
+                    }
+
+                        params += '&branchId=' + $('#BranchId').val();
+                    </text>
+                }
+
+                $('#DownloadButton').prop('href', '@Url.Action("DownloadActiveInactiveTerminalReport", "Report")' + params);
+                window.location.href = ('@Url.Action("ActiveInactiveTerminalReport", "Report")' + params);
+            });
+
+            Highcharts.setOptions({
+                lang: {
+                    thousandsSep: ''
+                },
+                colors: ['#8BC34A', '#E91E63', '#00BCD4', '#009688', '#9C27B0', '#FFC107', '#4CAF50', '#795548', '#03A9F4']
+            });
+
+
+            @if (Model.Any())
+            {
+                <text>
+                    Highcharts.chart('chart', {
+                        exporting: {
+                            chartOptions: {
+                                plotOptions: {
+                                    series: {
+                                        dataLabels: {
+                                            enabled: true
+                                        }
+                                    }
+                                }
+                            },
+                            fallbackToExportServer: false
+                        },
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: ' '
+                        },
+                        xAxis: {
+                            categories: @Html.Raw(JsonNet.Encode(Model.OrderBy(x=>x.YearMonth).Select(x => x.YearMonth))),
+                            labels: {
+                                formatter: function () {
+                                    return convertToPersianNumbers(this.value);
+                                }
+                            }
+                        },
+                        yAxis: {
+                            allowDecimals: false,
+                            min: 0,
+                            title: {
+                                text: 'تعداد'
+                            },
+                            labels: {
+                                formatter: function () {
+                                    return convertToPersianNumbersThreeDigitsSeparated(this.value);
+                                }
+                            }
+                        },
+                        plotOptions: {
+                            column: {
+                                stacking: 'normal'
+                            }
+                        },
+                        tooltip: {
+                            useHTML: true,
+                            crosshairs: true,
+                            formatter: function () {
+                                return '<b>' + convertToPersianNumbers(this.x) + '</b> <br />' + '<b>' + this.series.name + '</b>: ' + convertToPersianNumbersThreeDigitsSeparated(this.y);
+                            }
+                        },
+                        series: [
+                            {
+                                name: 'فعال سیار',
+                                data: @Html.Raw(JsonNet.Encode(Model.OrderBy(x => x.YearMonth).Select(x => x.WithoutSimActiveTerminalCount))),
+                                stack: 'bisim',
+                                dataLabels: {
+                                    enabled: true,
+                                    crop: false,
+                                    inside: false,
+                                    style: {
+                                        textOutline: false 
+                                    },
+                                    formatter: function () {
+                                        return convertToPersianNumbersThreeDigitsSeparated(this.y);
+                                    }
+                                }
+                            },
+                            {
+                                name: 'غیرفعال سیار',
+                                data: @Html.Raw(JsonNet.Encode(Model.OrderBy(x => x.YearMonth).Select(x => x.WithoutSimInactiveTerminalCount))),
+                                stack: 'bisim',
+                                dataLabels: {
+                                    enabled: true,
+                                    crop: false,
+                                    inside: false,
+                                    style: {
+                                        textOutline: false 
+                                    },
+                                    formatter: function () {
+                                        return convertToPersianNumbersThreeDigitsSeparated(this.y);
+                                    }
+                                }
+                            },
+                            {
+                                name: 'فعال ثابت',
+                                data: @Html.Raw(JsonNet.Encode(Model.OrderBy(x => x.YearMonth).Select(x => x.WithSimActiveTerminalCount))),
+                                stack: 'basim',
+                                dataLabels: {
+                                    enabled: true,
+                                    crop: false,
+                                    inside: false,
+                                    style: {
+                                        textOutline: false 
+                                    },
+                                    formatter: function () {
+                                        return convertToPersianNumbersThreeDigitsSeparated(this.y);
+                                    }
+                                }
+                            },
+                            {
+                                name: 'غیرفعال ثابت',
+                                data: @Html.Raw(JsonNet.Encode(Model.OrderBy(x => x.YearMonth).Select(x => x.WithSimInactiveTerminalCount))),
+                                stack: 'basim',
+                                dataLabels: {
+                                    enabled: true,
+                                    crop: false,
+                                    inside: false,
+                                    style: {
+                                        textOutline: false 
+                                    },
+                                    formatter: function () {
+                                        return convertToPersianNumbersThreeDigitsSeparated(this.y);
+                                    }
+                                }
+                            }
+                        ]
+                    });
+                </text>
+            }
+        });
+</script>
+}

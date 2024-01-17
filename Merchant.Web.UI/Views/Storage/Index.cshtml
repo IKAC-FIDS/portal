@@ -1,0 +1,599 @@
+﻿ 
+@{
+    ViewBag.PageTitle = "صدور کارت ";
+}
+ 
+@section styles {
+    @BundleConfig.AddStyles("~/Content/messageIndexStyles",
+        "~/Content/PersianDatePicker.css",
+        "~/Content/chosen.css")
+}
+ 
+<div class="page-header">
+     @if (User.IsCardRequestManager() || User.IsAdmin() || User.IsCardRequester() || User.IsJustCardRequester())
+      {
+          <a id="CreateButton" class="btn btn-success pull-left"> درخواست جدید </a>
+      }
+    <h1> درخواست های صدور کارت </h1>
+</div>
+
+<form id="SearchForm" class="form-horizontal">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="FullName">وضعیت</label>
+                <div class="col-md-8">
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default active">
+                            <input type="radio" id="All" name="StatusId" value="false" checked> همه
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" id="Open" name="StatusId" value="@CardRequestStatus.Open.ToInt32()"> باز
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" id="UnderReview" name="StatusId" value="@CardRequestStatus.UnderReview.ToInt32()"> در حال  اجرا
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" id="Close" name="StatusId" value="@CardRequestStatus.ReadyForDeliver.ToInt32()">  آماده تحویل    
+                        </label>
+                          <label class="btn btn-default">
+                                                    <input type="radio" id="Close" name="StatusId" value="@CardRequestStatus.Closed.ToInt32()">  خاتمه یافته    
+                                                </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (User.IsAcceptorsExpertUser() || User.IsAdmin() || User.IsMessageManagerUser())
+        {
+            <div class="col-md-4">
+                @* <div class="btn-group" data-toggle="buttons"> *@
+                @*     <label class="btn btn-default active"> *@
+                @*         <input type="radio" id="All" name="JustNotReviewingMessages" value="false" checked> همه *@
+                @*     </label> *@
+                @*     <label class="btn btn-default"> *@
+                @*         <input type="radio" id="Active" name="JustNotReviewingMessages" value="true"> فقط تیکت های بدون بررسی کننده *@
+                @*     </label> *@
+                @* </div> *@
+            </div>
+        }
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="UserName">کد پیگیری</label>
+                <div class="col-md-8">
+                    <input type="text" id="Id" name="Id" class="form-control" />
+                </div>
+            </div>
+        </div>
+ 
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="FromSubmitTime">از تاریخ</label>
+                <div class="col-md-8">
+                    <div class="left-inner-addon">
+                        <i class="fa fa-calendar-o"></i>
+                        <input type="text" id="FromCreationDate" name="FromCreationDate" class="form-control date-picker" maxlength="10" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="ToSubmitTime">تا تاریخ</label>
+                <div class="col-md-8">
+                    <div class="left-inner-addon">
+                        <i class="fa fa-calendar-o"></i>
+                        <input type="text" id="ToCreationDate" name="ToCreationDate" class="form-control date-picker" maxlength="10" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <button type="button" id="SearchButton" class="btn btn-primary" data-loading-text="در حال جستجو...">جستجو</button>
+                <a id="btnExport" class="btn btn-info">دریافت خروجی</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+<hr />
+
+
+<div class="row">
+     
+    <div class="col-md-3">
+<div style="color:white ;background-color:#599648"  class="alert alert-success"><b> درخواست های باز  : </b> <span id="sone"></span></div>
+    </div>
+    <div class="col-md-3">
+<div style="color:white;background-color: #9800ff"  class="alert alert-warning"><b>  درخواست های در حال اجرا           : </b> <span id="stwo"></span></div>
+    </div>
+  
+    <div class="col-md-3">
+        <div  style="color:white;background-color: #ff9c1f" class="alert alert-warning"><b>        در خواست های اماده تحویل     : </b> <span id="sthree"></span></div>
+    </div>
+    
+      <div class="col-md-3">
+            <div style="color:white;background-color:#969696" class="alert alert-warning"><b>         درخواست های خاتمه یافته   : </b> <span id="sfoure"></span></div>
+        </div>
+</div>
+<hr />
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center" id="tblData">
+        <thead>
+            <tr>
+              
+                <th class="sortable" data-sort-field="StatusId" data-sort-direction="" width="1px">وضعیت درخواست</th>
+                <th class="sortable" data-sort-field="TerminalId" data-sort-direction="">    شماره پیگیری  </th>
+                <th class="sortable" data-sort-field="TerminalId" data-sort-direction="">       تاریخ درخواست  </th>
+                <th class="sortable" data-sort-field="TerminalId" data-sort-direction="">        کاربر درخواست دهنده    </th>
+                 <th class="sortable" data-sort-field="TerminalId" data-sort-direction="">         ارجاع شده        </th>
+                               
+                
+                <th class="sortable" data-sort-field="TerminalId" data-sort-direction="">             نوع کارت    </th>
+                                    <th class="sortable" data-sort-field="TerminalId" data-sort-direction="">  نوع درخواست  </th>
+
+                                <th class="sortable" data-sort-field="DeviceTypeTitle" data-sort-direction="">  تعداد کارت      </th>
+
+                <th class="sortable" data-sort-field="DeviceTypeTitle" data-sort-direction=""> مبلغ  </th>
+                <th class="sortable" data-sort-field="TerminalNo" data-sort-direction="">   کد شعبه  </th>
+                <th class="sortable" data-sort-field="TerminalNo" data-sort-direction="">   کد طرح کارت      </th>
+                             <th class="sortable" data-sort-field="TerminalTitle" data-sort-direction="">  ارجحیت    </th>
+                <th class="sortable" data-sort-field="FullName" data-sort-direction="">   نوع چاپ</th>
+                <th class="sortable" data-sort-field="NationalCode" data-sort-direction="">  نحوه تحویل    </th>
+                <th class="sortable" data-sort-field="AccountNo" data-sort-direction="">  تاریخ ثبت درخواست    </th>
+                               <th class="sortable" data-sort-field="AccountNo" data-sort-direction="">   تاریخ اعلام خاتمه کار        </th>
+                               <th class="sortable" data-sort-field="AccountNo" data-sort-direction="">  ملاحظات  </th>
+
+                                             <th class="sortable" data-sort-field="AccountNo" data-sort-direction="">  تاریخ تحویل  </th>
+                                         
+
+                <th width="1px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="19"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="19">
+                    <ul id="terminalPagination" class="pagination-sm"></ul>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+
+<ul class="chat" id="ResultSection">
+</ul>
+
+<ul id="Pagination" class="pagination-sm"></ul>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/messageIndexScripts",
+        "~/Scripts/jquery.twbsPagination.js",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/PersianDatePicker.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.confirm.js",
+        "~/Scripts/chosen.jquery.js")
+
+    <script type="text/javascript">
+        function createMessageBadge(messageId, statusId, statusTitle) {
+            var color;
+
+            switch (statusId) {
+                case @MessageStatus.Open.ToByte():
+                    color = '#e53935';
+                    break;
+                case @MessageStatus.UnderReview.ToByte():
+                    color = '#FFB300';
+                    break;
+                case @MessageStatus.Close.ToByte():
+                    color = '#4CAF50';
+                    break;
+            }
+
+            return '<span class="message-badge" style="background-color: ' + color + ';" data-toggle="tooltip" title="' + statusTitle + '">' + messageId + '</span>';
+        }
+
+             function createStatusIcon(statusId, statusTitle, submitterUserFullName) {
+                    let statusColor = '#D7CCC8';
+                        switch (statusId) {
+                                    case @CardRequestStatus.Open.ToByte():
+                                        statusColor = '#599648';
+                                        break;
+                                    case @CardRequestStatus.UnderReview.ToByte():
+                                        statusColor = '#9800ff';
+                                        break;
+                                    case @CardRequestStatus.ReadyForDeliver.ToByte():
+                                        statusColor = '#ff9c1f';
+                                        break;
+                                          case @CardRequestStatus.Closed.ToByte():
+                                                                                statusColor = '#969696';
+                                                                                break;
+                                }
+        
+                    return '<span style="background-color: ' + statusColor + '; font-weight: 500;" data-toggle="tooltip" title="' + submitterUserFullName + '" class="label label-default">' + statusTitle + '</span>';
+                }
+
+                    function createPspIcon(pspId, pspTitle) {
+                            var pspColor, pspShortTitle;
+                
+                            switch (pspId) {
+                                case @PspCompany.Fanava.ToByte():
+                                    pspShortTitle = 'FA';
+                                    pspColor = '#5C6BC0';
+                                    break;
+                                case @PspCompany.IranKish.ToByte():
+                                    pspShortTitle = 'IK';
+                                    pspColor = '#E91E63';
+                                    break;
+                                case @PspCompany.Parsian.ToByte():
+                                    pspShortTitle = 'PA';
+                                    pspColor = '#FFB300';
+                                    break;
+                                      case @PspCompany.PardakhNovin.ToByte():
+                                                                                    pspShortTitle = 'PN';
+                                                                                    pspColor = '#0f4158';
+                                                                                    break;
+                                default:
+                                    pspShortTitle = '??';
+                                    pspTitle = 'تخصیص داده نشده';
+                                    pspColor = '#9E9E9E';
+                                    break;
+                            }
+                
+                            return '<span style="background-color: ' + pspColor + '; font-weight: 500;" data-toggle="tooltip" title="' + pspTitle + '" class="label label-default small-label">' + pspShortTitle + '</span>';
+                        }
+    function createTransactionStatusIcon(transactionStatusId) {
+            var color, shortTitle;
+
+            switch (transactionStatusId) {
+            case @TransactionStatus.HighTransaction.ToByte():
+                shortTitle = 'پُر تراکنش';
+                color = '#009688';
+                break;
+            case @TransactionStatus.LowTransaction.ToByte():
+                shortTitle = 'کم تراکنش';
+                color = '#9E9E9E';
+                break;
+            case @TransactionStatus.WithoutTransaction.ToByte():
+                shortTitle = 'فاقد تراکنش';
+                color = '#E91E63';
+                break;
+            default:
+                shortTitle = 'نامشخص';
+                color = '#CFD8DC';
+                break;
+            }
+
+            return transactionStatusId ? '<small style="font-weight: bold; color: ' + color + ';">' + shortTitle + '</small>' : '';
+        }
+
+              function showConfirmButton(statusId, fullName, nationalCode, accountNo, shebaNo, terminalId) {
+                    if (@JsonNet.Encode(User.IsAcceptorsExpertUser()) && (statusId === @TerminalStatus.NeedToReform.ToByte() || statusId === @TerminalStatus.UnsuccessfulReturnedFromSwitch.ToByte())) {
+                        return '<button data-full-name="' + fullName + '" data-national-code="' + convertToPersianNumbers(nationalCode) + '" data-account-number="' + convertToPersianNumbers(accountNo) + '" data-sheba-number="' + convertToPersianNumbers(shebaNo) + '" data-terminal-id="' + terminalId + '" data-toggle="tooltip" data-loading-text="..." title="تایید" class="btn btn-success btn-xs btn-confirm"><i class="fa fa-check"></i></button> &nbsp;';
+                    } else {
+                        return '';
+                    }
+                }
+        
+        function showChangeAccountRequestDownloadDocumentButton(changeAccountRequestId, fileNameFinalFile) {
+            if ( fileNameFinalFile != null && @JsonNet.Encode(User.IsCardRequestManager() || User.IsCardProcessor() || User.IsAdmin())) {
+                return '<a data-toggle="tooltip" title="دریافت حواله خروج " href="/CardRequest/GetChangeAccountRequestDocument?Id=' + changeAccountRequestId + '" target="_blank" class="btn btn-default btn-xs"><i class="far fa   fa-download" </i></a>';
+            } else {
+                return '';
+            }
+        }
+           function showUploadButton (statusId,Id)
+           {
+                 if ( 
+                    statusId == '@CardRequestStatus.Closed.ToByte()' ) 
+                    {
+                                       return '<button data-loading-text="..." data-toggle="tooltip" title="بارگذاری حواله خروج" ' +
+                                        'data-terminal-id="' + Id + '" class="btn btn-default btn-xs btn-Upload"><i class="fa fa-file"></i></button> &nbsp;';
+                                   } else {
+                                       return '';
+                                   }
+               }
+        function showDetailsButton(statusId, terminalId) {
+            
+          
+                                                                   
+                                                                    
+            return '<button data-toggle="tooltip" title="مشاهده   جزئیات"  ' +
+             ' class="btn btn-default btn-xs btn-details">    <a href="/cardRequest/details/' +statusId+ '">  <i class="fa fa-eye"></i></a></button> &nbsp;';
+        }
+
+        function showTransactionsButton(terminalNo) {
+            return (terminalNo && terminalNo.match(/^ *$/) === null) ? '<button data-toggle="tooltip" title="تراکنش ها" data-terminal-no="' + terminalNo + '" class="btn btn-default btn-xs btn-transactions"><i class="fa fa-exchange"></i></button> &nbsp;' : '';
+        }
+            function showDeleteButton(statusId, terminalId) {
+                    if ((@JsonNet.Encode(User.IsAdmin()) && (statusId == '@TerminalStatus.New.ToByte()' || statusId == '@TerminalStatus.NeedToReform.ToByte()' || statusId == '@TerminalStatus.NotReturnedFromSwitch.ToByte()')) || (@JsonNet.Encode(User.IsAcceptorsExpertUser()) && statusId === @TerminalStatus.New.ToByte())) {
+                        return '<button data-loading-text="..." data-toggle="tooltip" title="حذف" data-terminal-id="' + terminalId + '" class="btn btn-danger btn-xs btn-delete"><i class="fa fa-trash"></i></button> &nbsp;';
+                    } else {
+                        return '';
+                    }
+                }
+                
+       
+                  function showRequestsButton(statusId, terminalNo) {
+                            if (@JsonNet.Encode(User.IsAcceptorsExpertUser() || User.IsBranchUser() || User.IsItUser()) && (terminalNo && terminalNo.match(/^ *$/) === null && statusId === @TerminalStatus.Installed.ToByte())) {
+                                return '<div class="btn-group"><button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ثبت درخواست <span class="caret"></span></button><ul class="dropdown-menu">' +
+                                    '<li><a class="btn-change-account-request" data-terminal-number="' + terminalNo + '">تغییر حساب</a></li>' +
+                                    '<li><a class="btn-revoke-request" data-terminal-number="' + terminalNo + '">جمع آوری</a></li>' +
+                                    '</ul></div> &nbsp;';
+                            } else {
+                                return '';
+                            }
+                        }
+
+            $('#tblData').on('click.btn-edit', '.btn-edit', function () {
+              //  showEditDialog($(this).data('terminal-id'));
+               let $button = $(this);
+
+               let b =  $(this).data('terminal-id');
+               
+                $.showConfirm({
+                                body: 'آیا نسبت به عدم تایید این مورد اطمینان دارید؟',
+                                onConfirm: function () {
+                                //    $button.button('loading');
+            
+                                    $.post('@Url.Action("ChangeStatus", "CardRequest")', { messageId:b, statusId: '@TES.Common.Enumerations.MessageStatus.Reject.ToByte()' }).done(function (result) {
+                                        $.processMessage(result);
+                                      //  $button.button('reset');
+            
+                                        if (result.success) {
+                                            window.location.reload();
+                                        }
+                                    });
+                                }
+                            });
+            });
+     function showEditButton(item, userId) {
+         console.log('tttt',userId , item)
+         if (item.statusId === 3  )
+         return '';
+         else
+             return '';
+                                   
+
+            if (@JsonNet.Encode(User.IsAcceptorsExpertUser() || User.IsBranchUser() || User.IsItUser())) {
+                if (statusId === @TerminalStatus.New.ToByte() || statusId === @TerminalStatus.NeedToReform.ToByte() || statusId == @TerminalStatus.UnsuccessfulReturnedFromSwitch.ToByte()) {
+
+                    if (@User.IsBranchUser().ToString().ToLower()) {
+                        if (marketerId === @Marketer.BankOrBranch.ToByte() && statusId != @TerminalStatus.UnsuccessfulReturnedFromSwitch.ToByte()) {
+                            return '<button data-terminal-id="' + terminalId + '" data-toggle="tooltip" title="ویرایش" class="btn btn-default btn-xs btn-edit"><i class="fa fa-pencil"></i></button> &nbsp;';
+                        } else {
+                            return '';
+                        }
+                    } else {
+                        return '<button data-terminal-id="' + terminalId + '" data-toggle="tooltip" title="ویرایش" class="btn btn-default btn-xs btn-edit"><i class="fa fa-pencil"></i></button> &nbsp;';
+                    }
+                } else {
+                    return '';
+                }
+            } else {
+                return '';
+            }
+        }
+
+        function loadData(retriveTotalPageCount, page) {
+          //  $('#ResultSection').empty().append('<div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div>');
+
+            if (retriveTotalPageCount) {
+                var pagingData = $('#Pagination').data('twbs-pagination');
+                if (pagingData) $('#Pagination').twbsPagination('destroy');
+                $('#SearchButton').removeData('total-pages');
+            }
+
+            var $button = $('#SearchButton');
+            $button.button('loading');
+
+              console.log('aaaaa',    @ViewBag.UserId);
+           
+            return $.post('@Url.Action("GetData", "CardRequest")', {
+                statusId: $('input[name=StatusId]:checked').val() || null,
+                justNotReviewingMessages: $('input[name=JustNotReviewingMessages]:checked').val() || false,
+                page: page,
+                searchGuid: $('#Id', '#SearchForm').val(),
+                Id: $('#Id', '#SearchForm').val(),
+                fromCreationDate: $('#FromCreationDate', '#SearchForm').val(),
+                toCreationDate: $('#ToCreationDate', '#SearchForm').val()
+            }).done(function (result) {
+                $button.button('reset');
+                $('#ResultSection').empty();
+                var html = '';
+
+                $('#SearchButton').data('total-pages', result.data.totalRowsCount);
+
+                if (!result.success) {
+                    $('#ResultSection').empty().append('<div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div>');
+                    return false;
+                }
+
+                if (result.data.rows.length === 0) {
+                 
+                                        $('#tblData tbody').empty().append('' +
+                                         '' +
+                                          '<td colspan="8"><div   class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>');
+
+                    //
+                    return false;
+                }
+
+                if (result.data.totalRowsCount > 0) {
+                    $('#SearchButton').data('total-pages', result.data.totalRowsCount);
+
+                    $('#Pagination').twbsPagination({
+                        totalPages: Math.ceil(result.data.totalRowsCount / 20),
+                        visiblePages: 7,
+                        last: '<i class="fa fa-fast-backward"></i>',
+                        next: '<i class="fa fa-backward"></i>',
+                        prev: '<i class="fa fa-forward"></i>',
+                        first: '<i class="fa fa-fast-forward"></i>',
+                        initiateStartPageClick: false,
+                        onPageClick: function (event, page) {
+                            loadData(false, page);
+                        }
+                    });
+                }
+
+                for (var i = 0; i < result.data.rows.length; i++) {
+                    var item = result.data.rows[i];
+
+                    html += '<li class="clearfix chat-item">' +
+                        '<a href="/CardRequest/details/' + item.id + '"><div class="chat-body clearfix">' +
+                        createMessageBadge(item.guid, item.statusId, item.statusTitle) +
+                        '<div style="display: inline-block;"><h4>' + item.subject + '</h4>' +
+                        '<small style="display: block; margin-top: 3px;" class="text-muted">' + item.userFullName + (item.reviewerUserFullName ? ' - ' + item.reviewerUserFullName : '') + '</small>' +
+                        '</a></div>'
+                        '</li>';
+                }
+                
+              
+               
+                html = '';
+               
+                  $('#sone').empty().append($.grep(result.data.rows, function (item, index) { return item.statusId ==1; }).length);
+                             $('#stwo').empty().append($.grep(result.data.rows, function (item, index) { return item.statusId ==2; }).length);
+                             $('#sthree').empty().append($.grep(result.data.rows, function (item, index) { return  item.statusId ==3; }).length);
+                                             $('#sfoure').empty().append($.grep(result.data.rows, function (item, index) { return  item.statusId ==4; }).length);
+                
+                   for (var i = 0; i < result.data.rows.length; i++) {
+                       
+                       
+                                                    var item = result.data.rows[i];
+                    
+                       
+                                                    html += '<tr data-terminal-id="' + item.terminalId + '" data-status-id="' + item.statusId + '">' +
+                                                      //  '<td class="text-nowrap">' + ((item.statusId === @TerminalStatus.New.ToInt32() && @JsonNet.Encode(User.IsAcceptorsExpertUser())) ? '<input type="checkbox" class="send-to-psp" /></td>' : '') +
+                                                        '<td style="text-align: right !important;" class="text-nowrap">' +
+                                                         '<a href="/CardRequest/details/' + item.id + '">' +
+                                                        createStatusIcon(item.statusId, item.statusTitle, item.reviewerUserFullName) +  
+                                                        '</a>'+
+                                                        '</td>' +
+                                                        '<td>' + item.guid + '</td>' +
+                                                        
+                                                             '<td>' + (item.creationDate) + '</td>' +
+                                                        '<td>' + (item.userFullName) + '</td>' +
+                                                          '<td>' + (item.reviewerFullName === null ? '' : item.reviewerFullName ) + '</td>' +
+                                                                                                              
+                                                        
+                                                          '<td>' + (item.type) + '</td>' +
+                                                            '<td>' + (item.cardServiceType) + '</td>' +
+                                                                '<td>' + (item.count) + '</td>' +
+                                                                 '<td>' + (item.price) + '</td>' + 
+                                                             '<td>' + (item.branchId) + '</td>' +  
+                                                                      '<td>' + (item.templateId) + '</td>' +
+                                                                   '<td>' + (item.priority) + '</td>' +     
+                                                                      '<td>' + (item.printType) + '</td>' +    
+                                                                     '<td>' + (item.deliveryType) + '</td>' +     
+
+                                                                      
+                                                        '<td>' +  item.creationDate + '</td>' +
+                                                        '<td>'  + item.endDate +  '</td>' +
+                                                                                                                '<td>'  + (    item.body )+ '</td>' +
+
+                                                        '<td>' + item.endDate + '</td>' +
+                                                                                                              
+
+                                                            '<td class="text-nowrap actions">';
+                                                      
+                                                                       //   html += showNotesButton(item.terminalId);
+                                                                        html += showEditButton(item  , @ViewBag.UserId);
+                                                                        //  html += showRequestsButton(item.statusId, item.terminalNo);
+                                                                        //  html += showConfirmButton(item.statusId, item.fullName, item.nationalCode, item.accountNo, item.shebaNo, item.terminalId);
+                                                                        //  html += showTransactionsButton(item.terminalNo);
+                                                                    
+                                                                    
+                                                                          html += showDetailsButton(item.id);
+                                                                          html += showUploadButton(item.statusId,item.id);
+                                                                          
+                                                                          html += showChangeAccountRequestDownloadDocumentButton(  item.id,item.fileNameFinalFile);
+ 
+                                                                     
+                                                                       //   html += showDeleteButton(item.statusId, item.terminalId);
+                                                                          //html += showToggleVipButton(item.terminalId);
+                                                                          html += '</td></tr>';
+                                
+                                                   
+                                                  
+                                                }
+                
+                                      $('#tblData tbody').empty().append(html);
+
+                   
+            });
+        }
+
+        function refreshCurrentPage() {
+            var currentPageNo = $('#Pagination li.page.active').data('page');
+            loadData(false, currentPageNo);
+        }
+
+        $(document).ready(function () {
+        loadData(true, 1);
+
+        
+            $('#tblData').on('click.btn-Upload', '.btn-Upload', function () {
+                        var terminalId = $(this).data('terminal-id');
+        
+                        console.log(terminalId);
+                         
+                        var url = "\\CardRequest\\UploadFinalFile?Id=" + terminalId;
+                        
+                        $.showModal({
+                                          modalSize: 'lg',
+                                          url: url,
+                                          onClose: function (modalResult) {
+                                              if (modalResult === 'ok') {
+                                                  window.location.reload();
+                                              }
+                                          }
+                                      });
+                    });
+            
+            $('#btnExport').on('click', function () {
+                var params = '?statusId=' + $('input[name=StatusId]:checked').val() +
+                    '&justNotReviewingMessages=' + $('input[name=JustNotReviewingMessages]:checked').val() +
+                    '&id=' + $('#Id', '#SearchForm').val() +
+                    '&fromCreationDate=' + $('#FromCreationDate', '#SearchForm').val() +
+                    '&toCreationDate=' + $('#ToCreationDate', '#SearchForm').val();
+
+                $('#btnExport').prop('href', '@Url.Action("Download", "CardRequest")' + params);
+                window.location.href = ('@Url.Action("Download", "CardRequest")' + params);
+            });
+
+            $('.date-picker').on('click', function () {
+                PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDate()', true);
+            });
+
+            $('#SearchButton').on('click', function () {
+                loadData(true, 1);
+            });
+
+            $('#CreateButton').on('click', function () {
+                $.showModal({
+                    modalSize: 'lg',
+                    url: '@Url.Action("Create", "CardRequest")',
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            window.location.reload();
+                        }
+                    }
+                });
+            });
+        });
+</script>
+}

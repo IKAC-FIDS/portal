@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.3.6.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.3.6.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1F1A2FEC-3850-4D95-A6D5-5DC36FD54DAE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TES.Common</RootNamespace>
+    <AssemblyName>TES.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=3.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Persia, Version=3.0.4727.38582, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Persia.NET.3.0.4727\lib\Persia.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Stimulsoft.Base, Version=2021.1.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a">
+      <HintPath>C:\Users\r.razavi\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Crack\Designers\.NET\Stimulsoft.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Client.Designer, Version=2021.1.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a">
+      <HintPath>C:\Users\r.razavi\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Crack\Designers\.NET\Stimulsoft.Client.Designer.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Dashboard.Viewer, Version=2021.1.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a">
+      <HintPath>C:\Users\r.razavi\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Crack\Designers\.NET\Stimulsoft.Dashboard.Viewer.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Dashboard.Viewer.Wpf, Version=2021.1.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a">
+      <HintPath>C:\Users\r.razavi\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Crack\Designers\.NET\Stimulsoft.Dashboard.Viewer.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report, Version=2021.1.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a">
+      <HintPath>C:\Users\r.razavi\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Crack\Designers\.NET\Stimulsoft.Report.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.Web, Version=2021.1.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a">
+      <HintPath>C:\Users\r.razavi\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Crack\Designers\.NET\Stimulsoft.Report.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.WebDesign, Version=2021.1.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a">
+      <HintPath>C:\Users\r.razavi\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Crack\Designers\.NET\Stimulsoft.Report.WebDesign.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.Win, Version=2021.1.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a">
+      <HintPath>C:\Users\r.razavi\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Crack\Designers\.NET\Stimulsoft.Report.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.Wpf, Version=2021.1.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a">
+      <HintPath>C:\Users\r.razavi\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Crack\Designers\.NET\Stimulsoft.Report.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Report.WpfDesign, Version=2021.1.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a">
+      <HintPath>C:\Users\r.razavi\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Stimulsoft.Reports.Ultimate-Designer.2021.1.1\Crack\Designers\.NET\Stimulsoft.Report.WpfDesign.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enumerations\BlockDocumentStatus.cs" />
+    <Compile Include="Enumerations\City.cs" />
+    <Compile Include="Enumerations\DeviceType.cs" />
+    <Compile Include="Enumerations\DocumentType.cs" />
+    <Compile Include="Enumerations\EntityType.cs" />
+    <Compile Include="Enumerations\ActivityType.cs" />
+    <Compile Include="Enumerations\Marketer.cs" />
+    <Compile Include="Enumerations\MessageStatus.cs" />
+    <Compile Include="Enumerations\Nationality.cs" />
+    <Compile Include="Enumerations\RequestStatus.cs" />
+    <Compile Include="Enumerations\PspCompany.cs" />
+    <Compile Include="Enumerations\TerminalStatus.cs" />
+    <Compile Include="Enumerations\TransactionStatus.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\FileExtensions.cs" />
+    <Compile Include="Extensions\PersianExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="YeKe.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.3.6.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.3.6.0\build\Microsoft.Net.Compilers.props'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

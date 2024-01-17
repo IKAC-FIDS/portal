@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "گزارش کارهای زمانبندی شده";
+}
+
+<div class="page-header">
+    <h1>گزارش کارهای زمانبندی شده</h1>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center" id="DataTable">
+        <thead>
+            <tr>
+                <th>عنوان</th>
+                <th>زمان اجرا</th>
+                <th>عنوان عمل</th>
+                <th>پیام</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="4"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">
+                    <ul id="Pagination" class="pagination-sm"></ul>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/automatedTaskLogManageScripts", "~/Scripts/jquery.twbsPagination.js")
+
+    <script type="text/javascript">
+        function loadData(retriveTotalPageCount, page) {
+            $('#DataTable tbody').empty().append('<tr><td colspan="5"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+            if (retriveTotalPageCount) {
+                var pagingData = $('#Pagination').data('twbs-pagination');
+                if (pagingData) $('#Pagination').twbsPagination('destroy');
+            }
+
+            var data = {
+                retriveTotalPageCount: retriveTotalPageCount,
+                page: page
+            };
+
+            return $.get('@Url.Action("GetData", "AutomatedTaskLog")', data).done(function (result) {
+                $('#DataTable tbody').empty();
+                var html = '';
+
+                if (!result.success) {
+                    $('#DataTable tbody').empty().append('<tr><td colspan="4"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                    return false;
+                }
+
+                if (result.data.rows.length === 0) {
+                    $('#DataTable tbody').empty().append('<tr><td colspan="4"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                    return false;
+                }
+
+                if (retriveTotalPageCount && result.data.totalRowsCount > 0) {
+                    $('#Pagination').twbsPagination({
+                        totalPages: Math.ceil(result.data.totalRowsCount / 20),
+                        visiblePages: 7,
+                        last: '<i class="fa fa-fast-backward"></i>',
+                        next: '<i class="fa fa-backward"></i>',
+                        prev: '<i class="fa fa-forward"></i>',
+                        first: '<i class="fa fa-fast-forward"></i>',
+                        initiateStartPageClick: false,
+                        onPageClick: function (event, page) {
+                            loadData(false, page);
+                        }
+                    });
+                }
+
+                for (var i = 0; i < result.data.rows.length; i++) {
+                    var item = result.data.rows[i];
+
+                    html += '<tr>' +
+                        '<td>' + item.taskName + '</td>' +
+                        '<td><span title="' + item.relativeExecutionTime + '" data-toggle="tooltip">' + item.executionTime + '<span></td>' +
+                        '<td>' + item.activityTitle + '</td>' +
+                        '<td>' + (item.message || '') + '</td>' +
+                        '</tr>';
+                }
+
+                $('#DataTable tbody').empty().append(html);
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
+
+        function refreshCurrentPage() {
+            var currentPageNo = $('#Pagination li.page.active').data('page');
+            loadData(false, currentPageNo);
+        }
+
+        $(document).ready(function () {
+            loadData(true, 1);
+        });
+    </script>
+}

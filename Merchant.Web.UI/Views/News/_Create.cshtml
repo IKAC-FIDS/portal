@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.PageTitle = "ثبت خبر یا اطلاعیه جدید";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+<form action="@Url.Action("Create", "News")" method="post" class="form-horizontal" id="NewsCreateForm">
+    <div class="form-group">
+        <label class="control-label col-md-2 required" for="Title">عنوان</label>
+        <div class="col-md-10">
+            <input type="text" id="Title" name="Title" class="form-control" autocomplete="off" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2 required" for="Body">متن خبر</label>
+        <div class="col-md-10">
+            <textarea id="Body" name="Body" class="form-control" rows="5"></textarea>
+        </div>
+    </div>
+      <div class="form-group">
+ <label class="control-label col-md-2" for="PostedFiles">فایل</label>
+      <div class="col-md-4">
+          <div class="fileinput fileinput-new" data-provides="fileinput">
+              <span class="btn btn-default btn-file" tabindex="6">
+
+                  <label for="PostedFiles" class="custom-file-upload">
+                      <i class="fa fa-cloud-upload"></i> انتخاب کنید
+                  </label>
+
+                  <input type="file" id="PostedFiles" style="display: none" name="PostedFiles" multiple
+                         accept=".mp4,.pdf">
+              </span>
+              <span class="fileinput-filename"></span>
+              <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+          </div>
+      </div>
+      </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button id="ConfirmButton" type="submit" class="btn btn-success btn-lg" data-loading-text="درحال ثبت...">ثبت</button>
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">انصراف</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+        
+ $('#PostedFiles').change(function() {
+   
+   var i = $(this).prev('label').clone();
+   var file ="";// $('#PostedFiles')[0].files[0].name;
+   let q = $('#PostedFiles')[0].files;
+   
+       if (q.length ==1 )
+       {
+            file  =$('#PostedFiles')[0].files[0].name ;
+           }
+      
+       else
+ {
+       for (var j = 0; j < q.length; j++) {
+           
+           if (j != q.length -1)
+              file += q[j].name + ",";
+           else
+                           file += q[j].name ;
+
+        }
+     }
+   console.log('aaaaaaaaaaaaan' , q, file );
+   
+   $(this).prev('label').text(file);
+ });
+ 
+ 
+ 
+ 
+        $('#NewsCreateForm').validate({
+            rules: {
+                Title: { required: true },
+                Body: { required: true }
+            },
+            submitHandler: function (form) {
+                var $button = $('#ConfirmButton', '#NewsCreateForm');
+                $button.button('loading');
+
+                $(form).ajaxSubmit({
+                    success: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+
+                        if (result.success) {
+                            $.closeModal('ok');
+                        }
+                    }, error: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+                    }
+                });
+            }
+        });
+    });
+</script>

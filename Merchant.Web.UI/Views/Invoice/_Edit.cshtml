@@ -1,0 +1,329 @@
+﻿@model InvoiceViewModel
+
+@{
+    ViewBag.PageTitle = "ویرایش تنظیمات صورت وضعیت";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+<form action="@Url.Action("Edit", "Invoice")" method="post" class="form-horizontal" id="InvoiceEditForm">
+    <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label col-md-6 required" for="InvoiceTypeId">نوع صورت وضعیت</label>
+                <div class="col-md-6">
+                    @Html.DropDownList("InvoiceTypeId", (IEnumerable<SelectListItem>)ViewBag.InvoiceTypeList, "انتخاب نمایید", new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label col-md-6 required">نوع</label>
+                <div class="col-md-6">
+                    <div class="btn-group btn-group-sm" data-toggle="buttons">
+                        <label class="btn btn-default @(Model.IsConfirmed ? "active" : "")">
+                            <input type="radio" name="IsConfirmed" value="true" @(Model.IsConfirmed ? "checked" : "")> تایید شده
+                        </label>
+                        <label class="btn btn-default @(!Model.IsConfirmed ? "active" : "")">
+                            <input type="radio" name="IsConfirmed" value="false" @(!Model.IsConfirmed ? "checked" : "")> تایید نشده
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-6 required" for="FromDate">از تاریخ</label>
+                <div class="col-md-6">
+                    <div class="left-inner-addon">
+                        <i class="fa fa-calendar-o"></i>
+                        <input type="text" id="FromDate" name="FromDate" class="form-control date-picker" maxlength="10" value="@Model.FromDate.ToPersianDate()" autocomplete="off" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label col-md-6 required" for="ToDate">تا تاریخ</label>
+                <div class="col-md-6">
+                    <div class="left-inner-addon">
+                        <i class="fa fa-calendar-o"></i>
+                        <input type="text" id="ToDate" name="ToDate" class="form-control date-picker" maxlength="10" value="@Model.ToDate.ToPersianDate()" autocomplete="off" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-6 required" for="WirlessBankMarketerPrice">مبلغ اجاره دستگاه های سیار منصوبه بازاریابی بانک - ریال</label>
+                <div class="col-md-6">
+                    <input type="text" id="WirlessBankMarketerPrice" name="WirlessBankMarketerPrice" class="form-control only-number" maxlength="50" value="@Model.WirlessBankMarketerPrice" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label col-md-6 required" for="WithWireMarketerPrice">مبلغ اجاره دستگاه های ثابت منصوبه بازاریابی بانک - ریال</label>
+                <div class="col-md-6">
+                    <input type="text" id="WithWireMarketerPrice" name="WithWireMarketerPrice" class="form-control only-number" maxlength="50" value="@Model.WithWireMarketerPrice" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-6 required" for="WirlessTesMarketerPrice">مبلغ اجاره دستگاه های سیار منصوبه(پرتراکنش) شرکت - ریال</label>
+                    <div class="col-md-6">
+                        <input type="text" id="WirlessTesMarketerPrice" name="WirlessTesMarketerPrice" class="form-control only-number" maxlength="50" value="@Model.WirlessTesMarketerPrice" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label col-md-6 required" for="WithWireTesMarketerPrice">مبلغ اجاره دستگاه های ثابت منصوبه( پرتراکنش) شرکت - ریال</label>
+                    <div class="col-md-6">
+                        <input type="text" id="WithWireTesMarketerPrice" name="WithWireTesMarketerPrice" class="form-control only-number" maxlength="50" value="@Model.WithWireTesMarketerPrice" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-6 required" for="TransactionAmountForReward">مبلغ تراکنش جهت دریافت پاداش - ریال</label>
+                    <div class="col-md-6">
+                        <input type="text" id="TransactionAmountForReward" name="TransactionAmountForReward" class="form-control only-number" maxlength="50" value="@Model.TransactionAmountForReward" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label col-md-6 required" for="maxRewardPricePerDevice">حداکثر مبلغ پاداش هر دستگاه - ریال</label>
+                    <div class="col-md-6">
+                        <input type="text" id="MaxRewardPricePerDevice" name="MaxRewardPricePerDevice" class="form-control only-number" maxlength="50" value="@Model.MaxRewardPricePerDevice" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-6 required" for="MinWirlessTesMarketerCount">حداقل تعداد دستگاه سیار بازاریابی شرکت - تعداد</label>
+                    <div class="col-md-6">
+                        <input type="text" id="MinWirlessTesMarketerCount" name="MinWirlessTesMarketerCount" class="form-control only-number" maxlength="50" value="@Model.MinWirlessTesMarketerCount" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label col-md-6 required" for="MinWithWireTesMarketerCount">حداقل تعداد دستگاه ثابت بازاریابی شرکت - تعداد</label>
+                    <div class="col-md-6">
+                        <input type="text" id="MinWithWireTesMarketerCount" name="MinWithWireTesMarketerCount" class="form-control only-number" maxlength="50" value="@Model.MinWithWireTesMarketerCount" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-6 required" for="CoefficientFine">ضریب جریمه - درصد</label>
+                    <div class="col-md-6">
+                        <input type="text" id="CoefficientFine" name="CoefficientFine" class="form-control only-number" maxlength="50" value="@Model.CoefficientFine" />
+                    </div>
+                </div>
+            </div>*@
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label col-md-6 required" for="NotPMFinePricePerDevice">مبلغ جریمه دستگاه های pm نشده - ریال</label>
+                <div class="col-md-6">
+                    <input type="text" id="NotPMFinePricePerDevice" name="NotPMFinePricePerDevice" class="form-control" maxlength="50" value="@Model.NotPMFinePricePerDevice" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-6 required" for="MinNotPMFinePercentage">درصد مجاز تعداد دستگاه های pm نشده - تعداد</label>
+                <div class="col-md-6">
+                    <input type="text" id="MinNotPMFinePercentage" name="MinNotPMFinePercentage" class="form-control only-number" maxlength="50" value="@Model.MinNotPMFinePercentage" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label col-md-6 required" for="NotEMFinePricePerWorkDay">مبلغ جریمه روزانه دستگاه های Em نشده - ریال</label>
+                <div class="col-md-6">
+                    <input type="text" id="NotEMFinePricePerWorkDay" name="NotEMFinePricePerWorkDay" class="form-control" maxlength="50" value="@Model.NotEMFinePricePerWorkDay" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-6 required" for="NotEMDelayAllowedWorkDay">تاخیر مجاز Em - روزکاری</label>
+                <div class="col-md-6">
+                    <input type="text" id="NotEMDelayAllowedWorkDay" name="NotEMDelayAllowedWorkDay" class="form-control only-number" maxlength="50" value="@Model.NotEMDelayAllowedWorkDay" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label col-md-6 required" for="NotInstalledFinePricePerWorkDay">مبلغ جریمه روزانه دستگاه های نصب نشده - ریال</label>
+                <div class="col-md-6">
+                    <input type="text" id="NotInstalledFinePricePerWorkDay" name="NotInstalledFinePricePerWorkDay" class="form-control" maxlength="50" value="@Model.NotInstalledFinePricePerWorkDay" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-6 required" for="NotInstalledDelayAllowedWorkDay">تاخیر مجاز عدم نصب   - روزکاری</label>
+                <div class="col-md-6">
+                    <input type="text" id="NotInstalledDelayAllowedWorkDay" name="NotInstalledDelayAllowedWorkDay" class="form-control only-number" maxlength="50" value="@Model.NotInstalledDelayAllowedWorkDay" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label col-md-6 required" for="NotGetTerminalNoFinePricePerWorkDay">مبلغ جریمه روزانه دستگاه های ترمینال نگرفته - ریال</label>
+                <div class="col-md-6">
+                    <input type="text" id="NotGetTerminalNoFinePricePerWorkDay" name="NotGetTerminalNoFinePricePerWorkDay" class="form-control" maxlength="50" value="@Model.NotGetTerminalNoFinePricePerWorkDay" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-6 required" for="WirelessNotRevokePrice"> مبلغ جریمه تاخیر در جمع آوری  دستگاه های سیار - ریال </label>
+                    <div class="col-md-6">
+                        <input type="text" id="WirelessNotRevokePrice" name="WirelessNotRevokePrice" class="form-control only-number" maxlength="50" />
+                    </div>
+                </div>
+            </div>
+       <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-6 required" for="NotWirelessNotRevokePrice"> مبلغ جریمه تاخیر در جمع آوری  دستگاه های منصوبه - ریال </label>
+                    <div class="col-md-6">
+                        <input type="text" id="NotWirelessNotRevokePrice" name="NotWirelessNotRevokePrice" class="form-control only-number" maxlength="50" />
+                    </div>
+                </div>
+            </div>  
+        </div>
+
+
+<div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-6 required" for="GetTerminalNoDelayAllowedWorkDay">تاخیر مجاز عدم دریافت شماره ترمینال - روزکاری</label>
+                <div class="col-md-6">
+                    <input type="text" id="GetTerminalNoDelayAllowedWorkDay" name="GetTerminalNoDelayAllowedWorkDay" class="form-control only-number" maxlength="50" value="@Model.GetTerminalNoDelayAllowedWorkDay" />
+                </div>
+            </div>
+        </div>
+
+        @*<div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label col-md-6 required" for="CoefficientReward">ضریب پاداش</label>
+                <div class="col-md-6">
+                    <input type="text" id="CoefficientReward" name="CoefficientReward" class="form-control" maxlength="50" value="@Model.CoefficientReward" />
+                </div>
+            </div>
+        </div>*@
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-12">
+            <input type="submit" value="ثبت" id="ConfirmButton" data-loading-text="در حال ثبت..." class="btn btn-success btn-lg" />
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">انصراف</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.only-number', '#InvoiceEditForm').filter_input({ regex: '[0-9]' });
+
+        $('.date-picker', '#InvoiceEditForm').on('click', function () {
+            PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDate()', true);
+        });
+
+        $('#InvoiceEditForm').validate({
+            rules: {
+                InvoiceTypeId: { required: true },
+                FromDate: { required: true },
+                ToDate: { required: true },
+                WirlessBankMarketerPrice: { required: true },
+                WithWireMarketerPrice: { required: true },
+                WirlessTesMarketerPrice: { required: true },
+                WithWireTesMarketerPrice: { required: true },
+                TransactionAmountForReward: { required: true },
+                CoefficientReward: { required: true },
+                MaxRewardPricePerDevice: { required: true },
+                MinWirlessTesMarketerCount: { required: true },
+                MinWithWireTesMarketerCount: { required: true },
+                CoefficientFine: { required: true },
+                NotPMFinePricePerDevice: { required: true },
+                MinNotPMFinePercentage: { required: true },
+                NotEMFinePricePerWorkDay: { required: true },
+                NotEMDelayAllowedWorkDay: { required: true },
+                NotInstalledFinePricePerWorkDay: { required: true },
+                NotInstalledDelayAllowedWorkDay: { required: true },
+                NotGetTerminalNoFinePricePerWorkDay: { required: true },
+                GetTerminalNoDelayAllowedWorkDay: { required: true }
+            },
+            submitHandler: function (form) {
+                var $button = $('#ConfirmButton', '#InvoiceEditForm');
+                $button.button('loading');
+
+                $(form).ajaxSubmit({
+                    success: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+
+                        if (result.success) {
+                            $.closeModal('ok');
+                        }
+                    }, error: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+                    }
+                });
+
+                return false;
+            }
+        });
+    });
+</script>

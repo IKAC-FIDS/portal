@@ -1,0 +1,152 @@
+﻿@model BankInvoiceViewModel
+
+@{
+    ViewBag.Title = "گزارش  کارمزد  ";
+}
+
+<div class="page-header">
+    <h1>گزارش    کارمزد</h1>
+</div>
+
+<div class="form-horizontal">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Year">سال</label>
+                <div class="col-md-8">
+                    <select id="Year" name="Year" class="form-control">
+                        @for (int i = DateTime.Now.GetPersianYear(); i >= 1395; i--)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    
+        
+
+        <div class="col-md-3">
+            <button type="button" id="btnDisplayReport" class="btn btn-success" data-loading-text="در حال بارگزاری...">نمایش</button>
+            
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div id="ReportContent" dir="rtl">
+    <table class="table table-bordered table-hover table-striped" id="tblResult">
+        <thead>
+        <tr>
+            <th>   ماه</th>
+            <th> تعداد پایانه</th>
+             <th>مقدار کارمزد (ریال)</th>
+ <th>      تعداد پایانه متفرقه</th>
+             <th>مقدار کارمزد  متفرقه (ریال)</th>
+            <th class="no-print" width="1px"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<div style="z-index: 10000;" class="modal fade" id="downloadFileModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p><a class="btn btn-success btn-lg btn-block" id="DownloadFileLink" href="#">دریافت فایل</a></p>
+                <button type="button" class="btn btn-default btn-lg btn-block" data-dismiss="modal">انصراف</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+
+    @BundleConfig.AddScripts("~/bundles/bankInvoiceScripts", "~/Scripts/jQuery.print.js")
+
+<script type="text/javascript">
+        $(document).ready(function () {
+
+            @if (ViewBag.Year != null)
+            {
+                <text>
+                    $('#Year').val(@ViewBag.Year);
+                </text>
+
+                if (ViewBag.Month != null)
+                {
+                    <text>
+                        $('#Month').val(@ViewBag.Month);
+                    </text>
+                }
+            }
+
+            $('#btnDisplayReport').click(function () {
+                var $button = $(this);
+                $button.button('loading');
+
+                $.post('@Url.Action("GetTerminalWageReportData", "Report")', { year: $('#Year').val(), month: $('#Month').val(), invoiceTypeId: $('#InvoiceTypeId').val() }).done(function (result) {
+                    $.processMessage(result);
+                    if (result.success) {
+                        var html = '';
+
+                        for (var i = 0; i < result.data.length; i++) {
+                            var item = result.data[i];
+
+                            html += '<tr>' +
+                                '<td>' + item.month + '</td>' +
+                                '<td>' + (item.terminalCount == null ? "0" :  convertToPersianNumbersThreeDigitsSeparated(item.terminalCount) )+ '</td>' +
+                                '<td>' + (item.value == null ? "0" :    convertToPersianNumbersThreeDigitsSeparated(item.value) )+ '</td>' +
+                                '<td>' + (item.terminalCount == null ? "0" :  convertToPersianNumbersThreeDigitsSeparated(item.otherTerminalCount) )+ '</td>' +
+                                                               '<td>' + (item.value == null ? "0" :    convertToPersianNumbersThreeDigitsSeparated(item.otherValue) )+ '</td>' +
+                                '<td class="no-print"><button class="btn btn-info btn-xs btn-export" data-report-id="' + item.monthId + '">دانلود گزارش</button></td>' +
+                                '</tr>';
+                        }
+
+                        $('#tblResult tbody').empty().append(html);
+                    }
+                }).always(function () {
+                    $button.button('reset');
+                });
+            });
+
+
+            $('#DownloadFileLink').click(function() {
+                $('#downloadFileModal').modal('hide');
+            });
+
+            $('#ExportButton').on('click', function () {
+                $('#ReportContent').print();
+            });
+
+            $('body').on('click', 'button.btn-export', function () {
+                var $exportButton = $(this);
+                $exportButton.button('loading');
+                var reportId = $(this).data('report-id');
+                
+              
+                var url = '';
+               
+                    url = '@Url.Action("DownloadMonthData", "Terminal")';
+                
+                $.post(url, { year: $('#Year').val(), month: reportId, invoiceTypeId: $('#InvoiceTypeId').val() }).done(function (result) {
+                    $.processMessage(result);
+                    $exportButton.button('reset');
+
+                    if (result.success) {
+                        var $downloadLink = $('#downloadFileModal .modal-body a');
+                        $downloadLink.prop('href', '@Url.Action("DownloadReportOutputFile", "TempReportData")?fileKey=' + result.data);
+                        $('#downloadFileModal').modal();
+                    }
+                }).always(function () {
+                    $exportButton.button('reset');
+                });
+            });
+        });
+</script>
+}

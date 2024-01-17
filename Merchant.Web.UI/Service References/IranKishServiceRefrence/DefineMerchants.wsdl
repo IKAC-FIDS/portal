@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="DefineMerchants" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="BasicHttpBinding_IDefineMerchants_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Lax />
+              </wsp:Policy>
+            </sp:Layout>
+            <sp:IncludeTimestamp />
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <sp:SignedSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+              <wsp:Policy>
+                <sp:WssUsernameToken10 />
+              </wsp:Policy>
+            </sp:UsernameToken>
+          </wsp:Policy>
+        </sp:SignedSupportingTokens>
+        <sp:Wss10 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy />
+        </sp:Wss10>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="https://mms.irankish.com/Services/DefineMerchant?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="https://mms.irankish.com/Services/DefineMerchant?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="https://mms.irankish.com/Services/DefineMerchant?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" />
+      <xsd:import schemaLocation="https://mms.irankish.com/Services/DefineMerchant?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Model" />
+      <xsd:import schemaLocation="https://mms.irankish.com/Services/DefineMerchant?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IDefineMerchants_AddAcceptor_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddAcceptor" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_AddAcceptor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddAcceptorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_AddAcceptorAndAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddAcceptorAndAccount" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_AddAcceptorAndAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddAcceptorAndAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_AddAcceptorAndDocs_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddAcceptorAndDocs" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_AddAcceptorAndDocs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddAcceptorAndDocsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_AddRequestDocument_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddRequestDocument" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_AddRequestDocument_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddRequestDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_AddAcceptorReqDocument_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddAcceptorReqDocument" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_AddAcceptorReqDocument_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddAcceptorReqDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_EditAcceptor_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditAcceptor" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_EditAcceptor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditAcceptorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_AddDocument_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddDocument" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_AddDocument_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_GetProvinceInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProvinceInfo" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_GetProvinceInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProvinceInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_GetProvince_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProvince" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_GetProvince_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProvinceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_GetCityInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCityInfo" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_GetCityInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCityInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_GetBussinessInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBussinessInfo" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_GetBussinessInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBussinessInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_GetActivityInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetActivityInfo" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_GetActivityInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetActivityInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_GetTerminalTypes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTerminalTypes" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_GetTerminalTypes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTerminalTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_Inquery_InputMessage">
+    <wsdl:part name="parameters" element="tns:Inquery" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_Inquery_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InqueryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_AccountInquery_InputMessage">
+    <wsdl:part name="parameters" element="tns:AccountInquery" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_AccountInquery_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AccountInqueryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_AcceptorInquery_InputMessage">
+    <wsdl:part name="parameters" element="tns:AcceptorInquery" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_AcceptorInquery_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AcceptorInqueryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_AcceptorInqueryByAcceptorCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:AcceptorInqueryByAcceptorCode" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_AcceptorInqueryByAcceptorCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AcceptorInqueryByAcceptorCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_SetTms_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetTms" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_SetTms_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetTmsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_RefuseRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:RefuseRequest" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_RefuseRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RefuseRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_ChangeAccountNO_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeAccountNO" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_ChangeAccountNO_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeAccountNOResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_ChangeAccountByIban_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeAccountByIban" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_ChangeAccountByIban_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeAccountByIbanResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_ChangeAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeAccount" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_ChangeAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_EditAcceptorRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditAcceptorRequest" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_EditAcceptorRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditAcceptorRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_InqueryComp_InputMessage">
+    <wsdl:part name="parameters" element="tns:InqueryComp" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_InqueryComp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InqueryCompResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_GetBankAndBranches_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBankAndBranches" />
+  </wsdl:message>
+  <wsdl:message name="IDefineMerchants_GetBankAndBranches_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBankAndBranchesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IDefineMerchants">
+    <wsdl:operation name="AddAcceptor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/AddAcceptor" message="tns:IDefineMerchants_AddAcceptor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/AddAcceptorResponse" message="tns:IDefineMerchants_AddAcceptor_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAcceptorAndAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/AddAcceptorAndAccount" message="tns:IDefineMerchants_AddAcceptorAndAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/AddAcceptorAndAccountResponse" message="tns:IDefineMerchants_AddAcceptorAndAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAcceptorAndDocs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/AddAcceptorAndDocs" message="tns:IDefineMerchants_AddAcceptorAndDocs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/AddAcceptorAndDocsResponse" message="tns:IDefineMerchants_AddAcceptorAndDocs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddRequestDocument">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/AddRequestDocument" message="tns:IDefineMerchants_AddRequestDocument_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/AddRequestDocumentResponse" message="tns:IDefineMerchants_AddRequestDocument_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAcceptorReqDocument">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/AddAcceptorReqDocument" message="tns:IDefineMerchants_AddAcceptorReqDocument_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/AddAcceptorReqDocumentResponse" message="tns:IDefineMerchants_AddAcceptorReqDocument_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditAcceptor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/EditAcceptor" message="tns:IDefineMerchants_EditAcceptor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/EditAcceptorResponse" message="tns:IDefineMerchants_EditAcceptor_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddDocument">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/AddDocument" message="tns:IDefineMerchants_AddDocument_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/AddDocumentResponse" message="tns:IDefineMerchants_AddDocument_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProvinceInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/GetProvinceInfo" message="tns:IDefineMerchants_GetProvinceInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/GetProvinceInfoResponse" message="tns:IDefineMerchants_GetProvinceInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProvince">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/GetProvince" message="tns:IDefineMerchants_GetProvince_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/GetProvinceResponse" message="tns:IDefineMerchants_GetProvince_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCityInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/GetCityInfo" message="tns:IDefineMerchants_GetCityInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/GetCityInfoResponse" message="tns:IDefineMerchants_GetCityInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBussinessInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/GetBussinessInfo" message="tns:IDefineMerchants_GetBussinessInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/GetBussinessInfoResponse" message="tns:IDefineMerchants_GetBussinessInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/GetActivityInfo" message="tns:IDefineMerchants_GetActivityInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/GetActivityInfoResponse" message="tns:IDefineMerchants_GetActivityInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTerminalTypes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/GetTerminalTypes" message="tns:IDefineMerchants_GetTerminalTypes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/GetTerminalTypesResponse" message="tns:IDefineMerchants_GetTerminalTypes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Inquery">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/Inquery" message="tns:IDefineMerchants_Inquery_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/InqueryResponse" message="tns:IDefineMerchants_Inquery_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AccountInquery">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/AccountInquery" message="tns:IDefineMerchants_AccountInquery_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/AccountInqueryResponse" message="tns:IDefineMerchants_AccountInquery_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AcceptorInquery">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/AcceptorInquery" message="tns:IDefineMerchants_AcceptorInquery_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/AcceptorInqueryResponse" message="tns:IDefineMerchants_AcceptorInquery_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AcceptorInqueryByAcceptorCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/AcceptorInqueryByAcceptorCode" message="tns:IDefineMerchants_AcceptorInqueryByAcceptorCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/AcceptorInqueryByAcceptorCodeResponse" message="tns:IDefineMerchants_AcceptorInqueryByAcceptorCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetTms">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/SetTms" message="tns:IDefineMerchants_SetTms_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/SetTmsResponse" message="tns:IDefineMerchants_SetTms_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RefuseRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/RefuseRequest" message="tns:IDefineMerchants_RefuseRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/RefuseRequestResponse" message="tns:IDefineMerchants_RefuseRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeAccountNO">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/ChangeAccountNO" message="tns:IDefineMerchants_ChangeAccountNO_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/ChangeAccountNOResponse" message="tns:IDefineMerchants_ChangeAccountNO_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeAccountByIban">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/ChangeAccountByIban" message="tns:IDefineMerchants_ChangeAccountByIban_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/ChangeAccountByIbanResponse" message="tns:IDefineMerchants_ChangeAccountByIban_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/ChangeAccount" message="tns:IDefineMerchants_ChangeAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/ChangeAccountResponse" message="tns:IDefineMerchants_ChangeAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditAcceptorRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/EditAcceptorRequest" message="tns:IDefineMerchants_EditAcceptorRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/EditAcceptorRequestResponse" message="tns:IDefineMerchants_EditAcceptorRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InqueryComp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/InqueryComp" message="tns:IDefineMerchants_InqueryComp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/InqueryCompResponse" message="tns:IDefineMerchants_InqueryComp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAndBranches">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDefineMerchants/GetBankAndBranches" message="tns:IDefineMerchants_GetBankAndBranches_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDefineMerchants/GetBankAndBranchesResponse" message="tns:IDefineMerchants_GetBankAndBranches_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IDefineMerchants" type="tns:IDefineMerchants">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IDefineMerchants_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddAcceptor">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/AddAcceptor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAcceptorAndAccount">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/AddAcceptorAndAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAcceptorAndDocs">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/AddAcceptorAndDocs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddRequestDocument">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/AddRequestDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAcceptorReqDocument">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/AddAcceptorReqDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditAcceptor">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/EditAcceptor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddDocument">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/AddDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProvinceInfo">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/GetProvinceInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProvince">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/GetProvince" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCityInfo">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/GetCityInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBussinessInfo">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/GetBussinessInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActivityInfo">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/GetActivityInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTerminalTypes">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/GetTerminalTypes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Inquery">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/Inquery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AccountInquery">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/AccountInquery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AcceptorInquery">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/AcceptorInquery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AcceptorInqueryByAcceptorCode">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/AcceptorInqueryByAcceptorCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetTms">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/SetTms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefuseRequest">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/RefuseRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeAccountNO">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/ChangeAccountNO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeAccountByIban">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/ChangeAccountByIban" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeAccount">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/ChangeAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditAcceptorRequest">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/EditAcceptorRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InqueryComp">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/InqueryComp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankAndBranches">
+      <soap:operation soapAction="http://tempuri.org/IDefineMerchants/GetBankAndBranches" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DefineMerchants">
+    <wsdl:port name="BasicHttpBinding_IDefineMerchants" binding="tns:BasicHttpBinding_IDefineMerchants">
+      <soap:address location="https://mms.irankish.com/Services/DefineMerchant" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

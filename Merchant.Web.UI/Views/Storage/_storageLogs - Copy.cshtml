@@ -1,0 +1,178 @@
+﻿ @model StorageLogDto
+ @{
+    ViewBag.PageTitle = "مدیریت منابع";
+}
+
+<div class="page-header">
+    <h1>@(Model != null ? Model.StorageTitle : "" )</h1> 
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center" id="DataTable">
+        <thead>
+            <tr>
+                <th>کاربر</th>
+                            <th> عملیات</th>
+                            <th> تاریخ</th>
+                            <th> مقدار</th>
+
+                <th width="1px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="3"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/newsManageScripts",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.confirm.js")
+
+    <script type="text/javascript">
+     function buildSearchParams() {
+               
+                return  {
+                                                   statusId: $('input[name=StatusId]:checked').val() || null,
+                                                   justNotReviewingMessages: $('input[name=JustNotReviewingMessages]:checked').val() || false,
+                                                 BranchId: $("#BranchId",'#SearchForm').val(),
+                                                   searchGuid: $('#Id', '#SearchForm').val(),
+                                                   Id: $('#Id', '#SearchForm').val(),
+                                                   fromCreationDate: $('#FromCreationDate', '#SearchForm').val(),
+                                                   toCreationDate: $('#ToCreationDate', '#SearchForm').val()
+                                               };
+            }
+            
+        function loadData(retriveTotalPageCount, page) {
+            $('#DataTable tbody').empty().append('<tr><td colspan="3"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+              var orderClause = '';
+                    var orderByDirection = '';
+                var params = $.extend({ retriveTotalPageCount: retriveTotalPageCount, page: page,
+                           orderByColumn: orderClause,orderByDirection : orderByDirection }, buildSearchParams());
+
+                if (@Model != null )
+          {
+                return 
+                            $.get('../Storage/GetStorageLogData?id=@Model?.StorageId'  ).done(function (result) {
+                              $('#DataTable tbody').empty();
+                              var html = '';
+              
+                              if (!result.success) {
+                                  $('#DataTable tbody').empty().append('<tr><td colspan="3"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                                  return false;
+                              }
+              
+                              if (result.data.length === 0) {
+                                  $('#DataTable tbody').empty().append('<tr><td colspan="3"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                                  return false;
+                              }
+              
+                              console.log('ionaaaa',result)
+                              for (var i = 0; i < result.data.rows.length; i++) {
+                                  var item = result.data.rows[i];
+              
+                                  
+                                  html += '<tr>' +
+                                      '<td>' + item.user   + '</td>' +
+                                                              '<td>' + item.operation   + '</td>' +
+                                                               '<td>' + item.date   + '</td>' +
+                                                               '<td>' + (item.value)      + '</td>' +
+              
+                                      '<td class="text-nowrap">' +
+                                      
+                                    
+                                      '</td>' +
+                                      '</tr>';
+                              }
+              
+                              $('#DataTable tbody').empty().append(html);
+                              $('[data-toggle="tooltip"]').tooltip();
+                          });
+              }
+                else
+                    return;
+        }
+
+        $(document).ready(function () {
+            loadData(false,1);
+
+            $('#CreateButton').on('click', function () {
+                $.showModal({
+                    modalSize: 'xlg',
+                    url: '@Url.Action("Create", "Storage")',
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            loadData(false,1);
+                        }
+                    }
+                });
+            });
+            
+            
+            $('#DataTable').on('click.btn-subject', '.btn-subject', function () {
+                window.location =   "../Storage/StorageLogs?id=" + $(this).data('id'); 
+             
+            });
+            
+            
+             $('#DataTable').on('click.btn-addValue', '.btn-addValue', function () {
+                $.showModal({
+                    modalSize: 'xlg',
+                    url: '@Url.Action("AddValue", "Storage")',
+                    data: { id: $(this).data('id') },
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            loadData(false,1);
+                        }
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-edit', '.btn-edit', function () {
+                $.showModal({
+                    modalSize: 'xlg',
+                    url: '@Url.Action("Edit", "Storage")',
+                    data: { id: $(this).data('id') },
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            loadData(false,1);
+                        }
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-delete', '.btn-delete', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("Delete", "TicketSubjects")', { id: $button.data('id') }).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                $button.closest('tr').remove();
+
+                                if ($('#DataTable tbody').is(":empty")) {
+                                    $('#DataTable tbody').empty().append('<tr><td colspan="3"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+          
+        });
+    </script>
+}

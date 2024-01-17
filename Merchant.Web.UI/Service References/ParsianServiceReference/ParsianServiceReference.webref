@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd9" filename="PosRequestService.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd8" filename="PosRequestService0.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd3" filename="PosRequestService1.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd2" filename="PosRequestService2.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd1" filename="PosRequestService3.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd0" filename="PosRequestService4.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="https://portal.pec.ir/services/PosRequestService.svc?disco" filename="PosRequestService.disco" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd6" filename="PosRequestService5.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd5" filename="PosRequestService6.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd4" filename="PosRequestService7.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd10" filename="PosRequestService8.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd7" filename="PosRequestService9.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="https://portal.pec.ir/services/PosRequestService.svc?wsdl" filename="PosRequestService.wsdl" />
+  </Results>
+</DiscoveryClientResultsFile>

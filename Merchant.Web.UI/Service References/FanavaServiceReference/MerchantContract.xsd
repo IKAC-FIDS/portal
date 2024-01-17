@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/TMMS.Common.Enums.Helper" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TMMS.Common.Enums.Helper" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ActorType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HasActorEntity" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ActorType" nillable="true" type="tns:ActorType" />
+  <xs:complexType name="EntityType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HasEnityStructure" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EntityType" nillable="true" type="tns:EntityType" />
+  <xs:complexType name="AccessLevel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AccessLevel" nillable="true" type="tns:AccessLevel" />
+  <xs:complexType name="UserStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserStatus" nillable="true" type="tns:UserStatus" />
+  <xs:complexType name="ActiveStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ActiveStatus" nillable="true" type="tns:ActiveStatus" />
+  <xs:complexType name="PspActorStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PspActorStatus" nillable="true" type="tns:PspActorStatus" />
+  <xs:complexType name="ChangeAccountBatchStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ChangeAccountBatchStatus" nillable="true" type="tns:ChangeAccountBatchStatus" />
+  <xs:complexType name="ChangeAccountRequestStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ChangeAccountRequestStatus" nillable="true" type="tns:ChangeAccountRequestStatus" />
+  <xs:complexType name="DisableReason">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DisableReason" nillable="true" type="tns:DisableReason" />
+  <xs:complexType name="DisableRequestType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DisableRequestType" nillable="true" type="tns:DisableRequestType" />
+  <xs:complexType name="DisableBatchStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DisableBatchStatus" nillable="true" type="tns:DisableBatchStatus" />
+  <xs:complexType name="PosFlag">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FAHtml" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="IsEquipmentFlag" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsHasEquipmentFlag" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsWreckEquipmentFlag" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SingleFAHtml" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SingleTitle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PosFlag" nillable="true" type="tns:PosFlag" />
+  <xs:complexType name="PosModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Code" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="PosModel" nillable="true" type="tns:PosModel" />
+  <xs:complexType name="DisableRequestStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CauseToCommit" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DisableRequestStatus" nillable="true" type="tns:DisableRequestStatus" />
+  <xs:complexType name="BatchStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BatchStatus" nillable="true" type="tns:BatchStatus" />
+  <xs:complexType name="SwitchReceivedStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SwitchReceivedStatus" nillable="true" type="tns:SwitchReceivedStatus" />
+  <xs:complexType name="MchCtrContactValueType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MchCtrContactValueType" nillable="true" type="tns:MchCtrContactValueType" />
+  <xs:complexType name="MerchantContractStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="MerchantContractStatus" nillable="true" type="tns:MerchantContractStatus" />
+  <xs:complexType name="PosDamageCategory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PosDamageCategory" nillable="true" type="tns:PosDamageCategory" />
+  <xs:complexType name="BlStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BlStatus" nillable="true" type="tns:BlStatus" />
+  <xs:complexType name="DraftType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DraftType" nillable="true" type="tns:DraftType" />
+  <xs:complexType name="SimCardDraftStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SimCardDraftStatus" nillable="true" type="tns:SimCardDraftStatus" />
+  <xs:complexType name="WFService">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WFService" nillable="true" type="tns:WFService" />
+  <xs:complexType name="StockReceiptStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StockReceiptStatus" nillable="true" type="tns:StockReceiptStatus" />
+  <xs:complexType name="WFNodeStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WFNodeStatus" nillable="true" type="tns:WFNodeStatus" />
+  <xs:complexType name="WFRecordStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WFRecordStatus" nillable="true" type="tns:WFRecordStatus" />
+  <xs:complexType name="SimCardStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SimCardStatus" nillable="true" type="tns:SimCardStatus" />
+  <xs:complexType name="SimCradOperator">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SimCradOperator" nillable="true" type="tns:SimCradOperator" />
+  <xs:complexType name="SimCradType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SimCradType" nillable="true" type="tns:SimCradType" />
+  <xs:complexType name="PosStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PosStatus" nillable="true" type="tns:PosStatus" />
+  <xs:complexType name="DraftStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DraftStatus" nillable="true" type="tns:DraftStatus" />
+  <xs:complexType name="MerchantContractType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MerchantContractType" nillable="true" type="tns:MerchantContractType" />
+  <xs:complexType name="AmendRequestStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AmendRequestStatus" nillable="true" type="tns:AmendRequestStatus" />
+  <xs:complexType name="ArrayOfDisableReason">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DisableReason" nillable="true" type="tns:DisableReason" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDisableReason" nillable="true" type="tns:ArrayOfDisableReason" />
+</xs:schema>

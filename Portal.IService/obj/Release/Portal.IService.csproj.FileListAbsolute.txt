@@ -1,0 +1,44 @@
+D:\01 Projects\OldPortal\Portal.IService\bin\Release\Portal.IService.dll
+D:\01 Projects\OldPortal\Portal.IService\bin\Release\Portal.IService.pdb
+D:\01 Projects\OldPortal\Portal.IService\bin\Release\TES.Common.dll
+D:\01 Projects\OldPortal\Portal.IService\bin\Release\TES.Data.dll
+D:\01 Projects\OldPortal\Portal.IService\bin\Release\Persia.dll
+D:\01 Projects\OldPortal\Portal.IService\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\01 Projects\OldPortal\Portal.IService\bin\Release\EntityFramework.dll
+D:\01 Projects\OldPortal\Portal.IService\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\01 Projects\OldPortal\Portal.IService\bin\Release\Dapper.dll
+D:\01 Projects\OldPortal\Portal.IService\bin\Release\TES.Common.pdb
+D:\01 Projects\OldPortal\Portal.IService\bin\Release\TES.Common.dll.config
+D:\01 Projects\OldPortal\Portal.IService\bin\Release\TES.Data.pdb
+D:\01 Projects\OldPortal\Portal.IService\bin\Release\TES.Data.dll.config
+D:\01 Projects\OldPortal\Portal.IService\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\01 Projects\OldPortal\Portal.IService\bin\Release\EntityFramework.xml
+D:\01 Projects\OldPortal\Portal.IService\bin\Release\Microsoft.AspNet.Identity.Core.xml
+D:\01 Projects\OldPortal\Portal.IService\bin\Release\Dapper.xml
+D:\01 Projects\OldPortal\Portal.IService\obj\Release\Portal.IService.csproj.AssemblyReference.cache
+D:\01 Projects\OldPortal\Portal.IService\obj\Release\Portal.IService.csproj.CoreCompileInputs.cache
+D:\01 Projects\OldPortal\Portal.IService\obj\Release\Portal.IService.csproj.CopyComplete
+D:\01 Projects\OldPortal\Portal.IService\obj\Release\Portal.IService.dll
+D:\01 Projects\OldPortal\Portal.IService\obj\Release\Portal.IService.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\bin\Release\Portal.IService.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\bin\Release\Portal.IService.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\bin\Release\TES.Common.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\bin\Release\TES.Data.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\bin\Release\Persia.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\bin\Release\EntityFramework.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\bin\Release\Microsoft.AspNet.Identity.Core.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\bin\Release\Dapper.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\bin\Release\TES.Common.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\bin\Release\TES.Common.dll.config
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\bin\Release\TES.Data.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\bin\Release\TES.Data.dll.config
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\bin\Release\EntityFramework.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\bin\Release\Microsoft.AspNet.Identity.Core.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\bin\Release\Dapper.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\obj\Release\Portal.IService.csproj.AssemblyReference.cache
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\obj\Release\Portal.IService.csproj.CoreCompileInputs.cache
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\obj\Release\Portal.IService.csproj.CopyComplete
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\obj\Release\Portal.IService.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\obj\Release\Portal.IService.pdb

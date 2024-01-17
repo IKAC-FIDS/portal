@@ -1,0 +1,416 @@
+﻿@{
+    ViewBag.Title = "ورود اطلاعات فن آوا";
+}
+<div class="page-header">
+    @*<a class="btn btn-info pull-left" target="_blank" href="~/Download/MerchantProfiles.xlsx">نمونه فایل جهت ورود اطلاعات</a>*@
+    <h1>ورود اطلاعات</h1>
+</div>
+@*/////////////////////////////////////////////////////////////////////////////////////////*@
+<form enctype="multipart/form-data" action="@Url.Action("ImportFanAva","NormalRep")" method="post" id="NormalRepImportFanavaForm">
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">انتخاب فایل(.xlsx)</span><span class="fileinput-exists">تغییر</span><input accept=".xlsx" type="file" name="File1" id="File1"></span>
+                <div class="form-control" data-trigger="fileinput">
+                    <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span>
+                </div>
+                <span class="input-group-btn">
+                    <button id="ConfirmButtonFanAva" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">ثبت</button>
+                </span>
+            </div>
+            <small class="help-block">انتخاب اطلاعات فن آوا</small>
+        </div>
+    </div>
+    <div class="table-responsive hidden" id="ErrorsSection">
+    </div>
+</form>
+@*/////////////////////////////////////////////////////////////////////////////////////////*@
+<form enctype="multipart/form-data" action="@Url.Action("ImportIranKish","NormalRep")" method="post" id="NormalRepImportIranKishForm">
+    @*<div class="row">*@
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">انتخاب فایل(.xlsx)</span><span class="fileinput-exists">تغییر</span><input accept=".xlsx" type="file" name="File2" id="File2"></span>
+                <div class="form-control" data-trigger="fileinput">
+                    <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span>
+                </div>
+                <span class="input-group-btn">
+                    <button id="ConfirmButtonIranKish" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">ثبت</button>
+                </span>
+            </div>
+            <small class="help-block">انتخاب اطلاعات ایران کیش </small>
+        </div>
+    </div>
+    @*</div>*@
+    <div class="table-responsive hidden" id="ErrorsSection">
+    </div>
+</form>
+@*/////////////////////////////////////////////////////////////////////////////////////////*@
+<form enctype="multipart/form-data" action="@Url.Action("ImportParsian","NormalRep")" method="post" id="NormalRepImportParsianForm">
+    @*<div class="row">*@
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">انتخاب فایل(.xlsx)</span><span class="fileinput-exists">تغییر</span><input accept=".xlsx" type="file" name="File3" id="File3"></span>
+                <div class="form-control" data-trigger="fileinput">
+                    <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span>
+                </div>
+                <span class="input-group-btn">
+                    <button id="ConfirmButtonParsian" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">ثبت</button>
+                </span>
+            </div>
+            <small class="help-block">انتخاب اطلاعات پارسیان</small>
+
+        </div>
+    </div>
+    @*</div>*@
+    <div class="table-responsive hidden" id="ErrorsSection">
+    </div>
+</form>
+@*/////////////////////////////////////////////////////////////////////////////////////////*@
+<form enctype="multipart/form-data" action="@Url.Action("ImportSerriall","NormalRep")" method="post" id="NormalRepImportSeriallForm">
+    @*<div class="row">*@
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">انتخاب فایل(.xlsx)</span><span class="fileinput-exists">تغییر</span><input accept=".xlsx" type="file" name="File4" id="File4"></span>
+                <div class="form-control" data-trigger="fileinput">
+                    <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span>
+                </div>
+                <span class="input-group-btn">
+                    <button id="ConfirmButtonSeriall" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">ثبت</button>
+                </span>
+            </div>
+            <small class="help-block">انتخاب اطلاعات سریال دستگاه </small>
+        </div>
+    </div>
+    @*</div>*@
+    <div class="table-responsive hidden" id="ErrorsSection">
+    </div>
+</form>
+@*/////////////////////////////////////////////////////////////////////////////////////////*@
+<form enctype="multipart/form-data" action="@Url.Action("ImportDeviceModel","NormalRep")" method="post" id="NormalRepImportDeviceModelForm">
+    @*<div class="row">*@
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">انتخاب فایل(.xlsx)</span><span class="fileinput-exists">تغییر</span><input accept=".xlsx" type="file" name="File5" id="File5"></span>
+                <div class="form-control" data-trigger="fileinput">
+                    <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span>
+                </div>
+                <span class="input-group-btn">
+                    <button id="ConfirmButtonDeviceModel" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">ثبت</button>
+                </span>
+            </div>
+            <small class="help-block">انتخاب اطلاعات مدل دستگاه </small>
+
+        </div>
+    </div>
+    @*</div>*@
+    <div class="table-responsive hidden" id="ErrorsSection">
+    </div>
+</form>
+@*/////////////////////////////////////////////////////////////////////////////////////////*@
+<form enctype="multipart/form-data" action="@Url.Action("ImportMarketer","NormalRep")" method="post" id="NormalRepImportMarkerter">
+    @*<div class="row">*@
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">انتخاب فایل(.xlsx)</span><span class="fileinput-exists">تغییر</span><input accept=".xlsx" type="file" name="File6" id="File6"></span>
+                <div class="form-control" data-trigger="fileinput">
+                    <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span>
+                </div>
+                <span class="input-group-btn">
+                    <button id="ConfirmButtonMarkerter" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">ثبت</button>
+                </span>
+            </div>
+            <small class="help-block">انتخاب اطلاعات مشخصات بازاریاب </small>
+
+        </div>
+    </div>
+    @*</div>*@
+    <div class="table-responsive hidden" id="ErrorsSection">
+    </div>
+</form>
+@*/////////////////////////////////////////////////////////////////////////////////////////*@
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/merchantProfileImportScripts", "~/Scripts/jasny-bootstrap.js", "~/Scripts/jquery.confirm.js", "~/Scripts/jquery.form.js")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ConfirmButtonFanAva').on('click', function (e) {
+                if (!$("#File1").val()) {
+                    toastr.error('فایل مورد نظر را انتخاب نمایید.');
+                    return false;
+                }
+                var $button = $('#ConfirmButtonFanAva');
+                $.showConfirm({
+                    onConfirm: function () {
+                        var interval = setInterval(function () {
+                            toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                        }, 12000);
+
+                        $('#NormalRepImportFanavaForm').ajaxSubmit({
+                            sync: true, 
+                            success: function (result) {
+                                clearInterval(interval);
+                                $button.button('reset');
+                                $.processMessage(result);
+                                if (result.success) {
+                                    $('#ErrorsSection').addClass('hidden').empty();
+                                } else {
+                                    clearInterval(interval);
+                                    var html = '';
+                                    for (var i = 0; i < result.data.length; i++) {
+                                        var item = result.data[i];
+                                        html += '<div style="margin-top: 15px;" class="alert alert-danger alert-labeled">' +
+                                            '<div class="alert-labeled-row"><span class="alert-label alert-labelled-cell">' +
+                                            '<i class="fa fa-times"></i></span><p class="alert-labelled-cell alert-body">' + item + '</p>' +
+                                            '</div></div>';
+                                    }
+                                    $('#ErrorsSection').removeClass('hidden').empty().append(html);
+                                    $("html, body").animate({ scrollTop: $('#ErrorsSection').offset().top }, 1000);
+                                }
+                            }, error: function (result) {
+                                $button.button('reset');
+                                $.processMessage(result);
+                                clearInterval(interval);
+                            }
+                            
+                        });
+                        $button.button('loading');
+                        return false;
+                    }
+                });
+            });
+        });
+ @*/////////////////////////////////////////////////////////////////////////////////////////*@
+        $(document).ready(function () {
+            $('#ConfirmButtonIranKish').on('click', function (e) {
+                if (!$("#File2").val()) {
+                    toastr.error('فایل مورد نظر را انتخاب نمایید.');
+                    return false;
+                }
+                var $button = $('#ConfirmButtonIranKish');
+                $.showConfirm({
+                    onConfirm: function () {
+                        var interval = setInterval(function () {
+                            toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                        }, 12000);
+                        $('#NormalRepImportIranKishForm').ajaxSubmit({
+                                     async:true ,             
+                             success:function (result) {
+                                clearInterval(interval);
+                                $button.button('reset');
+                                $.processMessage(result);
+                                if (result.success) {
+                                    $('#ErrorsSection').addClass('hidden').empty();
+                                } else {
+                                    clearInterval(interval);
+                                    var html = '';
+                                    for (var i = 0; i < result.data.length; i++) {
+                                        var item = result.data[i];
+                                        html += '<div style="margin-top: 15px;" class="alert alert-danger alert-labeled">' +
+                                            '<div class="alert-labeled-row"><span class="alert-label alert-labelled-cell">' +
+                                            '<i class="fa fa-times"></i></span><p class="alert-labelled-cell alert-body">' + item + '</p>' +
+                                            '</div></div>';
+                                    }
+                                    $('#ErrorsSection').removeClass('hidden').empty().append(html);
+                                    $("html,body").animate({ scrollTop: $('#ErrorsSection').offset().top }, 1000);
+                                }
+                            }, error: function (result) {
+                                $button.button('reset');
+                                $.processMessage(result);
+                                clearInterval(interval);
+                            }
+                                                                     
+                        });
+                        $button.button('loading');
+                        return false;
+                    }
+                });
+            });
+        });
+ @*/////////////////////////////////////////////////////////////////////////////////////////*@
+        $(document).ready(function () {
+            $('#ConfirmButtonParsian').on('click', function (e) {
+                if (!$("#File3").val()) {
+                    toastr.error('فایل مورد نظر را انتخاب نمایید.');
+                    return false;
+                }
+                var $button = $('#ConfirmButtonParsian');
+                $.showConfirm({
+                    onConfirm: function () {
+                        var interval = setInterval(function () {
+                            toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                        }, 12000);
+                        $('#NormalRepImportParsianForm').ajaxSubmit({
+                        async: true,
+                            success: function (result) {
+                                clearInterval(interval);
+                                $button.button('reset');
+                                $.processMessage(result);
+                                if (result.success) {
+                                    $('#ErrorsSection').addClass('hidden').empty();
+                                } else {
+                                    clearInterval(interval);
+                                    var html = '';
+                                    for (var i = 0; i < result.data.length; i++) {
+                                        var item = result.data[i];
+                                        html += '<div style="margin-top: 15px;" class="alert alert-danger alert-labeled">' +
+                                            '<div class="alert-labeled-row"><span class="alert-label alert-labelled-cell">' +
+                                            '<i class="fa fa-times"></i></span><p class="alert-labelled-cell alert-body">' + item + '</p>' +
+                                            '</div></div>';
+                                    }
+                                    $('#ErrorsSection').removeClass('hidden').empty().append(html);
+                                    $("html, body").animate({ scrollTop: $('#ErrorsSection').offset().top }, 1000);
+                                }
+                            }, error: function (result) {
+                                $button.button('reset');
+                                $.processMessage(result);
+                                clearInterval(interval);
+                            }
+                        });
+                        $button.button('loading');
+                        return false;
+                    }
+                });
+            });
+        });
+ @*/////////////////////////////////////////////////////////////////////////////////////////*@
+        $(document).ready(function () {
+            $('#ConfirmButtonSeriall').on('click', function (e) {
+                if (!$("#File4").val()) {
+                    toastr.error('فایل مورد نظر را انتخاب نمایید.');
+                    return false;
+                }
+                var $button = $('#ConfirmButtonSeriall');
+                $.showConfirm({
+                    onConfirm: function () {
+                        var interval = setInterval(function () {
+                            toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                        }, 12000);
+                        $('#NormalRepImportSeriallForm').ajaxSubmit({
+                            success: function (result) {
+                                clearInterval(interval);
+                                $button.button('reset');
+                                $.processMessage(result);
+                                if (result.success) {
+                                    $('#ErrorsSection').addClass('hidden').empty();
+                                } else {
+                                    clearInterval(interval);
+                                    var html = '';
+                                    for (var i = 0; i < result.data.length; i++) {
+                                        var item = result.data[i];
+                                        html += '<div style="margin-top: 15px;" class="alert alert-danger alert-labeled">' +
+                                            '<div class="alert-labeled-row"><span class="alert-label alert-labelled-cell">' +
+                                            '<i class="fa fa-times"></i></span><p class="alert-labelled-cell alert-body">' + item + '</p>' +
+                                            '</div></div>';
+                                    }
+                                    $('#ErrorsSection').removeClass('hidden').empty().append(html);
+                                    $("html, body").animate({ scrollTop: $('#ErrorsSection').offset().top }, 1000);
+                                }
+                            }, error: function (result) {
+                                $button.button('reset');
+                                $.processMessage(result);
+                                clearInterval(interval);
+                            }
+                        });
+                        $button.button('loading');
+                        return false;
+                    }
+                });
+            });
+        });
+ @*/////////////////////////////////////////////////////////////////////////////////////////*@
+        $(document).ready(function () {
+            $('#ConfirmButtonDeviceModel').on('click', function (e) {
+                if (!$("#File5").val()) {
+                    toastr.error('فایل مورد نظر را انتخاب نمایید.');
+                    return false;
+                }
+                var $button = $('#ConfirmButtonDeviceModel');
+                $.showConfirm({
+                   onConfirm: function () {
+                        var interval = setInterval(function () {
+                            toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                        }, 12000);
+                        $('#NormalRepImportDeviceModelForm').ajaxSubmit({
+                            success: function (result) {
+                                clearInterval(interval);
+                                $button.button('reset');
+                                $.processMessage(result);
+                                if (result.success) {
+                                    $('#ErrorsSection').addClass('hidden').empty();
+                                } else {
+                                    clearInterval(interval);
+                                    var html = '';
+                                    for (var i = 0; i < result.data.length; i++) {
+                                        var item = result.data[i];
+                                        html += '<div style="margin-top: 15px;" class="alert alert-danger alert-labeled">' +
+                                            '<div class="alert-labeled-row"><span class="alert-label alert-labelled-cell">' +
+                                            '<i class="fa fa-times"></i></span><p class="alert-labelled-cell alert-body">' + item + '</p>' +
+                                            '</div></div>';
+                                    }
+                                    $('#ErrorsSection').removeClass('hidden').empty().append(html);
+                                    $("html, body").animate({ scrollTop: $('#ErrorsSection').offset().top }, 1000);
+                                }
+                            }, error: function (result) {
+                                $button.button('reset');
+                                $.processMessage(result);
+                                clearInterval(interval);
+                            }
+                        });
+                        $button.button('loading');
+                        return false;
+                    }
+                });
+            });
+        });
+ @*/////////////////////////////////////////////////////////////////////////////////////////*@
+        $(document).ready(function () {
+            $('#ConfirmButtonMarkerter').on('click', function (e) {
+                if (!$("#File6").val()) {
+                    toastr.error('فایل مورد نظر را انتخاب نمایید.');
+                    return false;
+                }
+                var $button = $('#ConfirmButtonMarkerter');
+                $.showConfirm({
+                    onConfirm: function () {
+                        var interval = setInterval(function () {
+                            toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                        }, 12000);
+                        $('#NormalRepImportMarkerter').ajaxSubmit({
+                            success: function (result) {
+                                clearInterval(interval);
+                                $button.button('reset');
+                                $.processMessage(result);
+
+                                if (result.success) {
+                                    $('#ErrorsSection').addClass('hidden').empty();
+                                } else {
+                                    clearInterval(interval);
+                                    var html = '';
+                                    for (var i = 0; i < result.data.length; i++) {
+                                        var item = result.data[i];
+                                        html += '<div style="margin-top: 15px;" class="alert alert-danger alert-labeled">' +
+                                            '<div class="alert-labeled-row"><span class="alert-label alert-labelled-cell">' +
+                                            '<i class="fa fa-times"></i></span><p class="alert-labelled-cell alert-body">' + item + '</p>' +
+                                            '</div></div>';
+                                    }
+                                    $('#ErrorsSection').removeClass('hidden').empty().append(html);
+                                    $("html, body").animate({ scrollTop: $('#ErrorsSection').offset().top }, 1000);
+                                }
+                            }, error: function (result) {
+                                $button.button('reset');
+                                $.processMessage(result);
+                                clearInterval(interval);
+                            }
+                        });
+                        $button.button('loading');
+                        return false;
+                    }
+                });
+            });
+        });
+    </script>
+}

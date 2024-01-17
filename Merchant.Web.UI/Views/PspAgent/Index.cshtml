@@ -1,0 +1,184 @@
+﻿@{
+    ViewBag.Title = "لیست نمایندگی ها";
+}
+
+<div class="page-header">
+    @if (User.IsAdmin())
+    {
+        <button id="CreateButton" class="btn btn-success pull-left">ثبت نمایندگی جدید</button>
+    }
+    <h1>لیست نمایندگی ها</h1>
+</div>
+
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="col-sm-12">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default active">
+                    <input type="radio" name="PspId" checked value="@PspCompany.Fanava.ToInt64()" /> فن آوا
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="PspId" value="@PspCompany.IranKish.ToInt64()" /> ایران کیش
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="PspId" value="@PspCompany.Parsian.ToInt64()" /> پارسیان
+                </label>
+                  <label class="btn btn-default">
+                                    <input type="radio" name="PspId" value="@PspCompany.PardakhNovin.ToInt64()" /> پرداخت نوین
+                                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-6">
+            <div class="left-inner-addon">
+                <i class="fa fa-search"></i>
+                <input type="search" class="form-control" maxlength="100" id="SearchField" name="SearchField" placeholder="برای شروع جستجو، عبارت مورد نظر خود را تایپ کنید..." />
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center" id="DataTable">
+        <thead>
+            <tr class="header">
+                <th>نام</th>
+                <th>شهر</th>
+                <th>تلفن</th>
+                <th>تلفن اضطراری</th>
+                <th>آدرس</th>
+                @if (User.IsAdmin() || User.IsAcceptorsExpertUser())
+                {
+                    <th width="1px"></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="6"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/pspAgentIndexScripts",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.confirm.js")
+
+    <script type="text/javascript">
+
+        function loadData() {
+            $('#DataTable tbody').empty().append('<tr><td colspan="6"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+            return $.get('@Url.Action("GetData", "PspAgent")', { pspId: $('input[name=PspId]:checked').val() }).done(function (result) {
+                $('#DataTable tbody').empty();
+                var html = '';
+
+                if (!result.success) {
+                    $('#DataTable tbody').empty().append('<tr><td colspan="6"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                    return false;
+                }
+
+                if (result.data.length === 0) {
+                    $('#DataTable tbody').empty().append('<tr><td colspan="6"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                    return false;
+                }
+
+                for (var i = 0; i < result.data.length; i++) {
+                    var item = result.data[i];
+
+                    html += '<tr>' +
+                        '<td>' + item.title + '</td>' +
+                        '<td>' + item.cityName + '</td>' +
+                        '<td>' + (item.tel || '') + '</td>' +
+                        '<td>' + (item.emergencyTel || '') + '</td>' +
+                        '<td>' + item.address + '</td>' +
+                         showAdministratorButtons(item) +
+                        '</tr>';
+                }
+
+                $('#DataTable tbody').empty().append(html);
+            });
+        }
+
+        function showAdministratorButtons(item) {
+            @if (User.Identity.IsAuthenticated && (User.IsAdmin() || User.IsAcceptorsExpertUser()))
+            {
+                <text>
+                    return '<td class="text-nowrap"><button class="btn btn-xs btn-danger btn-delete" data-id=' + item.id + '><i class="fa fa-trash"></i></button> <button class="btn btn-xs btn-default btn-edit" data-id=' + item.id + '><i class="fa fa-pencil"></i></button></td>';
+                </text>
+            }
+        }
+
+        $(document).ready(function () {
+            loadData();
+
+            $('#CreateButton').on('click', function () {
+                $.showModal({
+                    url: '@Url.Action("Create", "PspAgent")',
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            loadData();
+                        }
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-edit', '.btn-edit', function () {
+                $.showModal({
+                    url: '@Url.Action("Edit", "PspAgent")',
+                    data: { id: $(this).data('id') },
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            loadData();
+                        }
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-delete', '.btn-delete', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("Delete", "PspAgent")', { id: $button.data('id') }).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                $button.closest('tr').remove();
+
+                                if ($('#DataTable tbody').is(":empty")) {
+                                    $('#DataTable tbody').empty().append('<tr><td colspan="6"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+            $('#SearchField').on('keyup', function () {
+                var rex = new RegExp($(this).val(), 'i');
+                $('#DataTable tr:not(".header")').hide();
+                $('#DataTable tr:not(".header")').filter(function () {
+                    return rex.test($(this).text());
+                }).show();
+            });
+
+            $('input[type=radio][name=PspId]').on('change', function () {
+                loadData();
+            });
+        });
+    </script>
+}

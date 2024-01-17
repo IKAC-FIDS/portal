@@ -1,0 +1,291 @@
+﻿@{
+    ViewBag.Title = "گزارش EM";
+    var years = Enumerable.Range(1395, DateTime.Now.ToPersianYear() - 1394);
+}
+
+<div class="page-header">
+    
+    <h1>گزارش EM</h1>
+</div>
+
+<div class="form-horizontal">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Year">سال</label>
+                <div class="col-md-8">
+                    <select id="Year" name="Year" class="form-control">
+                        @foreach (var year in years)
+                        {
+                            <option @(year == DateTime.Now.ToPersianYear() ? "selected" : "") value="@year">@year</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Month">ماه</label>
+                <div class="col-md-8">
+                    <select id="Month" name="Month" class="form-control">
+                        <option value="1">فروردین</option>
+                        <option value="2">اردیبهشت</option>
+                        <option value="3">خرداد</option>
+                        <option value="4">تیر</option>
+                        <option value="5">مرداد</option>
+                        <option value="6">شهریور</option>
+                        <option value="7">مهر</option>
+                        <option value="8">آبان</option>
+                        <option value="9">آذر</option>
+                        <option value="10">دی</option>
+                        <option value="11">بهمن</option>
+                        <option value="12">اسفند</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="button" id="SearchButton" class="btn btn-primary" data-loading-text="در حال جستجو...">جستجو</button>
+            <button type="button" id="ExportButton" class="btn btn-default" data-loading-text="در حال تهیه خروجی. لطفاً منتظر بمانید...">دریافت خروجی</button>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div id="TotalSearchResultSection"></div>
+
+<br />
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center" id="DataTable">
+        <thead>
+            <tr>
+              
+                <th>شماره پایانه</th>
+                <th>   موضوع  </th>
+                <th>تاریخ اولین عملیات</th>
+                <th>تاریخ آخرین عملیات</th>
+                <th>نوع صورت وضعیت بانک</th>
+                <th>شهر</th>
+                <th>نوع sla    </th>
+                <th>روز مجاز</th>
+                   <th>میزان تاخیر</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr><td colspan="12"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <td colspan="15">
+                    <ul id="terminalEmPagination" class="pagination-sm"></ul>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div style="z-index: 10000;" class="modal fade" id="DownloadFileModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p><a class="btn btn-success btn-lg btn-block" id="DownloadFileLink" href="#">دانلود</a></p>
+                <button type="button" class="btn btn-default btn-lg btn-block" data-dismiss="modal">انصراف</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/terminalEmIndexScripts",
+        "~/Scripts/jquery.twbsPagination.js",
+        "~/Scripts/jquery.filter_input.js")
+
+    <script type="text/javascript">
+        function loadData(retriveTotalPageCount, page) {
+            $('#DataTable tbody').empty().append('<tr><td colspan="12"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+            var $searchButton = $('#SearchButton');
+            $searchButton.button('loading');
+
+            if (retriveTotalPageCount) {
+                var pagingData = $('#terminalEmPagination').data('twbs-pagination');
+                if (pagingData) $('#terminalEmPagination').twbsPagination('destroy');
+                $('#SearchButton').removeData('total-pages');
+            }
+
+            var data = {
+                pspId: $('#PspId').val(),
+                year: $('#Year').val(),
+                month: $('#Month').val(),
+                retriveTotalPageCount: retriveTotalPageCount,
+                page: page
+            };
+
+            return $.post('@Url.Action("GetData", "TerminalEm")', data).done(function (result) {
+                $searchButton.button('reset');
+                $('#DataTable tbody').empty();
+                $('#TotalSearchResultSection').empty();
+                var html = '';
+
+                if (!result.success) {
+                    $('#DataTable tbody').empty().append('<tr><td colspan="12"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                    return false;
+                }
+
+                if (result.data.rows.length === 0) {
+                    $('#DataTable tbody').empty().append('<tr><td colspan="12"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                    return false;
+                }
+
+                if (retriveTotalPageCount) {
+                    $('#TotalSearchResultSection').empty().append('<b>تعداد موارد یافت شده: </b>' + convertToPersianNumbers(result.data.totalRowsCount) + ' مورد');
+                } else {
+                    $('#TotalSearchResultSection').empty();
+                }
+
+                if (retriveTotalPageCount && result.data.totalRowsCount > 0) {
+                    $('#SearchButton').data('total-pages', result.data.totalRowsCount);
+
+                    $('#terminalEmPagination').twbsPagination({
+                        totalPages: Math.ceil(result.data.totalRowsCount / 300),
+                        visiblePages: 7,
+                        last: '<i class="fa fa-fast-backward"></i>',
+                        next: '<i class="fa fa-backward"></i>',
+                        prev: '<i class="fa fa-forward"></i>',
+                        first: '<i class="fa fa-fast-forward"></i>',
+                        initiateStartPageClick: false,
+                        onPageClick: function (event, page) {
+                            loadData(false, page);
+                        }
+                    });
+                }
+
+                for (var i = 0; i < result.data.rows.length; i++) {
+                    var item = result.data.rows[i];
+
+                    html += '<tr data-terminal-id="' + item.terminalId + '" data-status-id="' + item.statusId + '">' +
+                       
+                        '<td>' + item.terminalNo + '</td>' +
+                        '<td>' + item.subject + '</td>' +
+                        '<td>' + (item.firstOperationDate || '') + '</td>' +
+                        '<td>' + item.lastOperationDate + '</td>' +
+                        '<td>' + item.type + '</td>' +
+                        '<td>' + (item.city  ) + '</td>' +
+                        '<td>' + item.sla + '</td>' +                        
+                        '<td>' + item.validDay + '</td>' +    
+                                                '<td>' + item.installationDelay + '</td>' +                        
+                    
+                        '</tr>';
+                }
+
+                $('#DataTable tbody').empty().append(html);
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
+
+        function createPspIcon(pspId, pspTitle) {
+            var pspColor, pspShortTitle;
+
+            switch (pspId) {
+            case @PspCompany.Fanava.ToInt32():
+                pspShortTitle = 'FA';
+                pspColor = '#5C6BC0';
+                break;
+            case @PspCompany.IranKish.ToInt32():
+                pspShortTitle = 'IK';
+                pspColor = '#E91E63';
+                break;
+            case @PspCompany.Parsian.ToInt32():
+                pspShortTitle = 'PA';
+                pspColor = '#FFB300';
+                break;
+                  case @PspCompany.PardakhNovin.ToByte():
+                                                                pspShortTitle = 'PN';
+                                                                pspColor = '#0f4158';
+                                                                break;
+            default:
+                pspShortTitle = '??';
+                pspTitle = 'تخصیص داده نشده';
+                pspColor = '#9E9E9E';
+                break;
+            }
+
+            return '<span style="background-color: ' + pspColor + '; font-weight: 500;" data-toggle="tooltip" title="' + pspTitle + '" class="label label-default small-label">' + pspShortTitle + '</span>';
+        }
+
+        function createStatusIcon(statusId, statusTitle) {
+            var statusColor = '#D7CCC8';
+            switch (statusId) {
+            case @TerminalStatus.New.ToInt32():
+                statusColor = '#FFC107';
+                break;
+            case @TerminalStatus.NotReturnedFromSwitch.ToInt32():
+                statusColor = '#607D8B';
+                break;
+            case @TerminalStatus.NeedToReform.ToInt32():
+                statusColor = '#009688';
+                break;
+            case @TerminalStatus.ReadyForAllocation.ToInt32():
+                statusColor = '#CDDC39';
+                break;
+            case @TerminalStatus.Allocated.ToInt32():
+                statusColor = '#8BC34A';
+                break;
+            case @TerminalStatus.Test.ToInt32():
+                statusColor = '#03A9F4';
+                break;
+            case @TerminalStatus.Installed.ToInt32():
+                statusColor = '#4CAF50';
+                break;
+            case @TerminalStatus.Revoked.ToInt32():
+                statusColor = '#f44336';
+                break;
+            }
+
+            return '<span style="background-color: ' + statusColor + '; font-weight: 500;" class="label label-default">' + statusTitle + '</span>';
+        }
+
+        $(document).ready(function () {
+            $('.only-number').filter_input({ regex: '[0-9]' });
+
+            $('#SearchButton').on('click', function () {
+                loadData(true, 1);
+            });
+
+            $('#DownloadFileLink').click(function () {
+                $('#DownloadFileModal').modal('hide');
+            });
+
+            $('#ExportButton').on('click', function () {
+                var $exportButton = $(this);
+                $exportButton.button('loading');
+
+                var data = {
+                    pspId: $('#PspId').val(),
+                    year: $('#Year').val(),
+                    month: $('#Month').val()
+                };
+
+                $.post('@Url.Action("ExportTerminalEm", "Export")', data).done(function (result) {
+                    $.processMessage(result);
+                    $exportButton.button('reset');
+
+                    if (result.success) {
+                        var $downloadLink = $('#DownloadFileModal .modal-body a');
+                        $downloadLink.prop('href', '@Url.Action("DownloadReportOutputFile", "Export")?fileKey=' + result.data);
+                        $('#DownloadFileModal').modal();
+                    }
+                });
+            });
+        });
+    </script>
+}

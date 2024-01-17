@@ -1,0 +1,158 @@
+﻿@model DamageRequestViewModel
+@{
+    ViewBag.PageTitle = "ثبت درخواست اعلام خسارت";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+<script>
+function  Validate()
+{
+    
+    }
+</script>
+<form action="@Url.Action("Create", "PropertyDamageRequest")" onsubmit="Validate()" method="post" class="form-horizontal" id="frmCreateMessage">
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="FullName"> ارجاع دهنده    </label>
+        <div class="col-md-10">
+            
+                        
+
+            @Html.Hidden( "FUllName",@User.Identity.GetFullName())
+            @User.Identity.GetFullName() 
+                   
+        </div>
+  
+                 
+                @Html.Hidden( "TerminalId",@Model.TerminalId )
+               
+            
+        </div>
+    
+
+    <div class="form-group">
+        <label class="control-label col-md-2  " for="ExtraDataTopic">اطلاعات تکمیلی</label>
+        <div class="col-md-4">
+
+            @Html.DropDownList("ExtraDataTopic", (IEnumerable<SelectListItem>) ViewBag.TypeList, "انتخاب نمایید", new {@class = "form-control"})
+
+        </div>
+        <label class="control-label col-md-2  " for="ExtraDataTopicValue"> مقدار</label>
+        <div class="col-md-4">
+
+            <input type="text" value="@Model.ExtraDataTopicValue"  id="ExtraDataTopicValue" name="ExtraDataTopicValue" class="form-control" maxlength="300" autocomplete="off"/>
+
+        </div>
+
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label col-md-2  " for="OrganizationUnitId"> شعبه</label>
+        <div class="col-md-4">
+
+            @Html.DropDownList("OrganizationUnitId", (IEnumerable<SelectListItem>) ViewBag.BranchList, "انتخاب نمایید", new {@class = "form-control"})
+
+        </div>
+        <label class="control-label col-md-2  " for="DamageValue"> مبلغ</label>
+        <div class="col-md-4">
+
+            <input type="text" id="DamageValue" name="DamageValue" class="form-control" maxlength="300" autocomplete="off"/>
+
+        </div>
+
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2 required" for="SerialNumber">شماره سریال</label>
+        <div class="col-md-10">
+
+            <input type="text" id="SerialNumber" name="SerialNumber" class="form-control" maxlength="300" autocomplete="off"/>
+
+        </div>
+
+
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2 required" for="Subject">موضوع</label>
+        <div class="col-md-10">
+
+             <input type="text" id="Subject" name="Subject" class="form-control" maxlength="300" autocomplete="off"/>
+
+        </div>
+
+
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2 required" for="Body">متن پیام</label>
+        <div class="col-md-10">
+            <textarea id="Body" name="Body" class="form-control" rows="5"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="PostedFiles">فایل</label>
+        <div class="col-md-10">
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+                <span class="btn btn-default btn-file" tabindex="6">
+                    <label for="PostedFiles" class="custom-file-upload">
+                        <i class="fa fa-cloud-upload"></i> انتخاب کنید
+                    </label>
+
+                    <input type="file" id="PostedFiles" name="PostedFiles" multiple accept=".jpg,.jpeg,.pdf,.docx,.png,.xls,.xslx">
+                </span>
+                <span class="fileinput-filename"></span>
+                <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button id="btnConfirm" type="submit" class="btn btn-success btn-lg" data-loading-text="درحال ارسال...">ارسال</button>
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">انصراف</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+
+ $('#PostedFiles').change(function() {
+   
+   var i = $(this).prev('label').clone();
+   var file = $('#PostedFiles')[0].files[0].name;
+   
+   $(this).prev('label').text(file);
+ });
+ 
+ 
+ 
+    $(document).ready(function () {
+        $('#frmCreateMessage').validate({
+            rules: {
+                Subject: { required: true, maxlength: 3000 },
+                Body: { required: true }
+            },
+            submitHandler: function (form) {
+                var $button = $('#btnConfirm', '#frmCreateMessage');
+                $button.button('loading');
+
+                $(form).ajaxSubmit({
+                    success: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+
+                        if (result.success) {
+                            $.closeModal('ok');
+                        }
+                    }, error: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+                    }
+                });
+            }
+        });
+    });
+</script>

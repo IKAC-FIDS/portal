@@ -1,0 +1,1890 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://service.yaghut.modern.tosan.com/" targetNamespace="http://service.yaghut.modern.tosan.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="AmountConstrainViolationWSException" type="tns:AmountConstrainViolationWSException" />
+  <xs:element name="AuthenticationWSException" type="tns:AuthenticationWSException" />
+  <xs:element name="BillTypeSupportWSException" type="tns:BillTypeSupportWSException" />
+  <xs:element name="BusinessWSException" type="tns:BusinessWSException" />
+  <xs:element name="CardNotFoundWSException" type="tns:CardNotFoundWSException" />
+  <xs:element name="CommissionIllegalDepositStateWSException" type="tns:CommissionIllegalDepositStateWSException" />
+  <xs:element name="CommissionInsufficientFundWSException" type="tns:CommissionInsufficientFundWSException" />
+  <xs:element name="CommissionInvalidAccountWSException" type="tns:CommissionInvalidAccountWSException" />
+  <xs:element name="CommissionInvalidCurrencyWSException" type="tns:CommissionInvalidCurrencyWSException" />
+  <xs:element name="CommissionInvalidDepositWSException" type="tns:CommissionInvalidDepositWSException" />
+  <xs:element name="DuplicateTransactionWSException" type="tns:DuplicateTransactionWSException" />
+  <xs:element name="ExceedDailyTransferAmountWSException" type="tns:ExceedDailyTransferAmountWSException" />
+  <xs:element name="ExceedMonthlyTransferAmountWSException" type="tns:ExceedMonthlyTransferAmountWSException" />
+  <xs:element name="ExceedWithdrawalWSException" type="tns:ExceedWithdrawalWSException" />
+  <xs:element name="ExchangeBrokerRelationWSException" type="tns:ExchangeBrokerRelationWSException" />
+  <xs:element name="ExchangeContractExpirationWSException" type="tns:ExchangeContractExpirationWSException" />
+  <xs:element name="IllegalBankWSException" type="tns:IllegalBankWSException" />
+  <xs:element name="IllegalDepositStateWSException" type="tns:IllegalDepositStateWSException" />
+  <xs:element name="InsufficientFundsWSException" type="tns:InsufficientFundsWSException" />
+  <xs:element name="InvalidBrokerIdWSException" type="tns:InvalidBrokerIdWSException" />
+  <xs:element name="InvalidBrokerStateWSException" type="tns:InvalidBrokerStateWSException" />
+  <xs:element name="InvalidCardStatusWSException" type="tns:InvalidCardStatusWSException" />
+  <xs:element name="InvalidChequeNumberWSException" type="tns:InvalidChequeNumberWSException" />
+  <xs:element name="InvalidChequeStatusWSException" type="tns:InvalidChequeStatusWSException" />
+  <xs:element name="InvalidContractDurationRangeWSException" type="tns:InvalidContractDurationRangeWSException" />
+  <xs:element name="InvalidContractEndDateWSException" type="tns:InvalidContractEndDateWSException" />
+  <xs:element name="InvalidCurrencyWSException" type="tns:InvalidCurrencyWSException" />
+  <xs:element name="InvalidCustomerWSException" type="tns:InvalidCustomerWSException" />
+  <xs:element name="InvalidDepositOrCardWSException" type="tns:InvalidDepositOrCardWSException" />
+  <xs:element name="InvalidExchangeIdWSException" type="tns:InvalidExchangeIdWSException" />
+  <xs:element name="InvalidExchangeStateWSException" type="tns:InvalidExchangeStateWSException" />
+  <xs:element name="InvalidIBANWSException" type="tns:InvalidIBANWSException" />
+  <xs:element name="InvalidLoanNumberWSException" type="tns:InvalidLoanNumberWSException" />
+  <xs:element name="InvalidReasonCodeWSException" type="tns:InvalidReasonCodeWSException" />
+  <xs:element name="NoSufficientFundWSException" type="tns:NoSufficientFundWSException" />
+  <xs:element name="NotAuthorizableDepositTypeWSException" type="tns:NotAuthorizableDepositTypeWSException" />
+  <xs:element name="NotPayableLoanWSException" type="tns:NotPayableLoanWSException" />
+  <xs:element name="PermissionWSException" type="tns:PermissionWSException" />
+  <xs:element name="TransactionReasonCodeIsRequiredWSException" type="tns:TransactionReasonCodeIsRequiredWSException" />
+  <xs:element name="assignExchangeBroker" type="tns:assignExchangeBroker" />
+  <xs:element name="assignExchangeBrokerResponse" type="tns:assignExchangeBrokerResponse" />
+  <xs:element name="authorizeDeposit" type="tns:authorizeDeposit" />
+  <xs:element name="authorizeDepositResponse" type="tns:authorizeDepositResponse" />
+  <xs:element name="batchTransfer" type="tns:batchTransfer" />
+  <xs:element name="batchTransferResponse" type="tns:batchTransferResponse" />
+  <xs:element name="cashCheque" type="tns:cashCheque" />
+  <xs:element name="cashChequeResponse" type="tns:cashChequeResponse" />
+  <xs:element name="chargeCard" type="tns:chargeCard" />
+  <xs:element name="chargeCardResponse" type="tns:chargeCardResponse" />
+  <xs:element name="convertDepositNumberToIban" type="tns:convertDepositNumberToIban" />
+  <xs:element name="convertDepositNumberToIbanResponse" type="tns:convertDepositNumberToIbanResponse" />
+  <xs:element name="customerExchangeContract" type="tns:customerExchangeContract" />
+  <xs:element name="customerExchangeContractResponse" type="tns:customerExchangeContractResponse" />
+  <xs:element name="depositBillPayment" type="tns:depositBillPayment" />
+  <xs:element name="depositBillPaymentResponse" type="tns:depositBillPaymentResponse" />
+  <xs:element name="getBillInfo" type="tns:getBillInfo" />
+  <xs:element name="getBillInfoResponse" type="tns:getBillInfoResponse" />
+  <xs:element name="getBillPaymentDetail" type="tns:getBillPaymentDetail" />
+  <xs:element name="getBillPaymentDetailResponse" type="tns:getBillPaymentDetailResponse" />
+  <xs:element name="getCardDeposits" type="tns:getCardDeposits" />
+  <xs:element name="getCardDepositsResponse" type="tns:getCardDepositsResponse" />
+  <xs:element name="getCardTransactions" type="tns:getCardTransactions" />
+  <xs:element name="getCardTransactionsResponse" type="tns:getCardTransactionsResponse" />
+  <xs:element name="getCustomerDetailInfo" type="tns:getCustomerDetailInfo" />
+  <xs:element name="getCustomerDetailInfoResponse" type="tns:getCustomerDetailInfoResponse" />
+  <xs:element name="getDepositBalance" type="tns:getDepositBalance" />
+  <xs:element name="getDepositBalanceResponse" type="tns:getDepositBalanceResponse" />
+  <xs:element name="getDepositCustomer" type="tns:getDepositCustomer" />
+  <xs:element name="getDepositCustomerResponse" type="tns:getDepositCustomerResponse" />
+  <xs:element name="getDepositOwnerName" type="tns:getDepositOwnerName" />
+  <xs:element name="getDepositOwnerNameResponse" type="tns:getDepositOwnerNameResponse" />
+  <xs:element name="getDeposits" type="tns:getDeposits" />
+  <xs:element name="getDepositsResponse" type="tns:getDepositsResponse" />
+  <xs:element name="getGuarantyList" type="tns:getGuarantyList" />
+  <xs:element name="getGuarantyListResponse" type="tns:getGuarantyListResponse" />
+  <xs:element name="getLoanDetail" type="tns:getLoanDetail" />
+  <xs:element name="getLoanDetailResponse" type="tns:getLoanDetailResponse" />
+  <xs:element name="getLoanList" type="tns:getLoanList" />
+  <xs:element name="getLoanListResponse" type="tns:getLoanListResponse" />
+  <xs:element name="getLoans" type="tns:getLoans" />
+  <xs:element name="getLoansResponse" type="tns:getLoansResponse" />
+  <xs:element name="getRequestStatus" type="tns:getRequestStatus" />
+  <xs:element name="getRequestStatusResponse" type="tns:getRequestStatusResponse" />
+  <xs:element name="getStatement" type="tns:getStatement" />
+  <xs:element name="getStatementResponse" type="tns:getStatementResponse" />
+  <xs:element name="login" type="tns:login" />
+  <xs:element name="loginResponse" type="tns:loginResponse" />
+  <xs:element name="loginStatic" type="tns:loginStatic" />
+  <xs:element name="loginStaticResponse" type="tns:loginStaticResponse" />
+  <xs:element name="logout" type="tns:logout" />
+  <xs:element name="logoutResponse" type="tns:logoutResponse" />
+  <xs:element name="normalTransfer" type="tns:normalTransfer" />
+  <xs:element name="normalTransferResponse" type="tns:normalTransferResponse" />
+  <xs:element name="payBill" type="tns:payBill" />
+  <xs:element name="payBillResponse" type="tns:payBillResponse" />
+  <xs:element name="payLoan" type="tns:payLoan" />
+  <xs:element name="payLoanResponse" type="tns:payLoanResponse" />
+  <xs:element name="requestHarimOtp" type="tns:requestHarimOtp" />
+  <xs:element name="requestHarimOtpResponse" type="tns:requestHarimOtpResponse" />
+  <xs:complexType name="requestHarimOtp">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:harimOtpRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="context">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="data" nillable="true" type="tns:contextEntry" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="contextEntry">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="key" type="xs:string" />
+      <xs:element minOccurs="0" name="value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="harimOtpRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="amount" type="xs:decimal" />
+      <xs:element name="cardInfoBean" type="tns:cardInfoBean" />
+      <xs:element minOccurs="0" name="merchantId" type="xs:string" />
+      <xs:element minOccurs="0" name="otpRequesterId" type="xs:string" />
+      <xs:element minOccurs="0" name="paymentService" type="xs:boolean" />
+      <xs:element minOccurs="0" name="paymentServiceDetail" type="tns:paymentServiceDetailBean" />
+      <xs:element minOccurs="0" name="processDetail" type="tns:processDetailBean" />
+      <xs:element name="processType" type="tns:processTypeBean" />
+      <xs:element minOccurs="0" name="terminalId" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cardInfoBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cvv2" type="xs:string" />
+      <xs:element minOccurs="0" name="expireDate" type="xs:string" />
+      <xs:element name="pan" type="xs:string" />
+      <xs:element minOccurs="0" name="pin2" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="paymentServiceDetailBean">
+    <xs:sequence>
+      <xs:element name="inputParameters">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="entry">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element minOccurs="0" name="key" type="xs:string" />
+                  <xs:element minOccurs="0" name="value" type="xs:string" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="paymentServiceId" type="xs:string" />
+      <xs:element name="paymentServiceName" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="processDetailBean">
+    <xs:sequence>
+      <xs:element name="parameterType" type="tns:parameterTypeBean" />
+      <xs:element name="value" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="requestHarimOtpResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:harimOtpResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="harimOtpResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="correlationId" type="xs:string" />
+      <xs:element name="referenceNumber" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InvalidCardStatusWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getRequestStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:reqStatusRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="reqStatusRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="length" type="xs:long" />
+      <xs:element minOccurs="0" name="likeMatch" type="xs:boolean" />
+      <xs:element minOccurs="0" name="offset" type="xs:long" />
+      <xs:element name="requestId" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getRequestStatusResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:reqStatusResponseBeans" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="reqStatusResponseBeans">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="statuses" nillable="true" type="tns:reqStatusBean" />
+      <xs:element name="totalRecordCount" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="reqStatusBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="applyAmount" type="xs:string" />
+      <xs:element minOccurs="0" name="currency" type="xs:string" />
+      <xs:element minOccurs="0" name="requestStatus" type="tns:requestStatusTypeWS" />
+      <xs:element minOccurs="0" name="requestTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="switchResponseRRN" type="xs:string" />
+      <xs:element minOccurs="0" name="traceNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="trackerId" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCustomerDetailInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:customerDetailRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="customerDetailRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element minOccurs="0" name="code" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCustomerDetailInfoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:customrerDetailResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="customrerDetailResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="addresses" nillable="true" type="tns:addressBean" />
+      <xs:element minOccurs="0" name="birthDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="birthLocation" type="xs:string" />
+      <xs:element minOccurs="0" name="birthLocationCode" type="xs:string" />
+      <xs:element minOccurs="0" name="certificateSerial" type="xs:string" />
+      <xs:element minOccurs="0" name="certificateSeries" type="xs:string" />
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element minOccurs="0" name="code" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="customerRelations" nillable="true" type="tns:customerRelationBean" />
+      <xs:element minOccurs="0" name="fatherLatinName" type="xs:string" />
+      <xs:element minOccurs="0" name="fatherName" type="xs:string" />
+      <xs:element minOccurs="0" name="firstName" type="xs:string" />
+      <xs:element minOccurs="0" name="gender" type="tns:genderWS" />
+      <xs:element minOccurs="0" name="group" type="xs:string" />
+      <xs:element minOccurs="0" name="lastName" type="xs:string" />
+      <xs:element minOccurs="0" name="latinFirstName" type="xs:string" />
+      <xs:element minOccurs="0" name="latinLastName" type="xs:string" />
+      <xs:element minOccurs="0" name="latinTitle" type="xs:string" />
+      <xs:element minOccurs="0" name="mobile" type="xs:string" />
+      <xs:element minOccurs="0" name="name" type="xs:string" />
+      <xs:element minOccurs="0" name="personalityType" type="tns:personalityType" />
+      <xs:element minOccurs="0" name="pervasiveId" type="xs:string" />
+      <xs:element minOccurs="0" name="ssn" type="xs:string" />
+      <xs:element minOccurs="0" name="title" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="addressBean">
+    <xs:sequence>
+      <xs:element name="addressType" type="tns:addressType" />
+      <xs:element minOccurs="0" name="email" type="xs:string" />
+      <xs:element minOccurs="0" name="faxNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="phoneNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="postalAddress" type="xs:string" />
+      <xs:element name="postalCode" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="customerRelationBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="customerLatinName" type="xs:string" />
+      <xs:element minOccurs="0" name="customerName" type="xs:string" />
+      <xs:element minOccurs="0" name="relatedCif" type="xs:string" />
+      <xs:element minOccurs="0" name="relationExpirationDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="relationStartDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="relationType" type="tns:customerRelationType" />
+      <xs:element minOccurs="0" name="relationTypeName" type="tns:customerRelationTypeNameBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="customerRelationTypeNameBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="latinName" type="xs:string" />
+      <xs:element minOccurs="0" name="name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InvalidCustomerWSException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+      <xs:element minOccurs="0" name="nationalCode" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="logout">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="logoutResponse">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getBillInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:billInfoSearchRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="billInfoSearchRequestBean">
+    <xs:sequence>
+      <xs:element name="billId" type="xs:string" />
+      <xs:element minOccurs="0" name="merchantIdentity" type="xs:string" />
+      <xs:element name="payId" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getBillInfoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:billInfoResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="billInfoResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="foreignTitle" type="xs:string" />
+      <xs:element name="paid" type="xs:boolean" />
+      <xs:element minOccurs="0" name="payDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="referenceNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="title" type="xs:string" />
+      <xs:element minOccurs="0" name="type" type="tns:billType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BillTypeSupportWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getDeposits">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:depositSearchRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="depositSearchRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="depositNumbers" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="depositStatus" type="tns:depositStatusWS" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="excludeCurrency" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="excludeType" nillable="true" type="tns:depositGroupTypeWS" />
+      <xs:element minOccurs="0" default="false" name="includeCreditAccount" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="includeCurrency" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" default="false" name="includeSupportAccount" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="includeType" nillable="true" type="tns:depositGroupTypeWS" />
+      <xs:element minOccurs="0" name="length" type="xs:long" />
+      <xs:element minOccurs="0" name="needBlockedAmount" type="xs:boolean" />
+      <xs:element minOccurs="0" name="needWithdrawableBalance" type="xs:boolean" />
+      <xs:element minOccurs="0" name="offset" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="personality" nillable="true" type="tns:personalityType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="signatureStatus" nillable="true" type="tns:signatureOwnerStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getDepositsResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:depositResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="depositResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="depositBeans" nillable="true" type="tns:depositBean" />
+      <xs:element name="totalRecord" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="depositBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="availableBalance" type="xs:decimal" />
+      <xs:element minOccurs="0" name="balance" type="xs:decimal" />
+      <xs:element minOccurs="0" name="blockedAmount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="branchCode" type="xs:string" />
+      <xs:element minOccurs="0" name="creditDeposit" type="xs:string" />
+      <xs:element minOccurs="0" name="creditLoanRemainAmount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="creditRateAmount" type="xs:double" />
+      <xs:element minOccurs="0" name="creditRemainAmount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="currency" type="xs:string" />
+      <xs:element minOccurs="0" name="depositNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="depositStatus" type="tns:depositStatusWS" />
+      <xs:element minOccurs="0" name="depositTitle" type="xs:string" />
+      <xs:element minOccurs="0" name="depositType" type="xs:long" />
+      <xs:element minOccurs="0" name="expireDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="extraAvailableBalance" type="xs:decimal" />
+      <xs:element minOccurs="0" name="group" type="tns:depositGroupTypeWS" />
+      <xs:element minOccurs="0" name="ibanNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="inaugurationDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="maximumBalance" type="xs:decimal" />
+      <xs:element minOccurs="0" name="minAmountForInterestInclusion" type="xs:decimal" />
+      <xs:element minOccurs="0" name="minimumBalance" type="xs:decimal" />
+      <xs:element minOccurs="0" name="owner" type="tns:depositOwnerTypeWS" />
+      <xs:element minOccurs="0" name="personality" type="tns:personalityType" />
+      <xs:element minOccurs="0" name="signature" type="tns:signatureOwnerStatus" />
+      <xs:element minOccurs="0" name="supportCurrency" type="xs:string" />
+      <xs:element minOccurs="0" name="supportDepositNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="supportDepositStatus" type="tns:depositStatusWS" />
+      <xs:element minOccurs="0" name="supportStatus" type="tns:supportStatus" />
+      <xs:element minOccurs="0" name="withdrawalOption" type="tns:withdrawalOptionWS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PermissionWSException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getStatement">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:statementSearchRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="statementSearchRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="action" type="tns:actionType" />
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element name="depositNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="description" type="xs:string" />
+      <xs:element minOccurs="0" name="fromDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="length" type="xs:long" />
+      <xs:element minOccurs="0" name="offset" type="xs:long" />
+      <xs:element minOccurs="0" name="order" type="tns:orderStatus" />
+      <xs:element minOccurs="0" name="payId" type="xs:string" />
+      <xs:element minOccurs="0" name="toDate" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getStatementResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:statementResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="statementResponseBean">
+    <xs:sequence>
+      <xs:element name="hasMoreItem" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="statementBeans" nillable="true" type="tns:statementBean" />
+      <xs:element name="totalRecord" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="statementBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="agentBranchCode" type="xs:string" />
+      <xs:element minOccurs="0" name="agentBranchName" type="xs:string" />
+      <xs:element minOccurs="0" name="balance" type="xs:decimal" />
+      <xs:element minOccurs="0" name="branchCode" type="xs:string" />
+      <xs:element minOccurs="0" name="branchName" type="xs:string" />
+      <xs:element minOccurs="0" name="date" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="description" type="xs:string" />
+      <xs:element minOccurs="0" name="paymentId" type="xs:string" />
+      <xs:element minOccurs="0" name="referenceNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="registrationNumber" type="xs:long" />
+      <xs:element minOccurs="0" name="serial" type="xs:long" />
+      <xs:element minOccurs="0" name="serialNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="statementId" type="xs:string" />
+      <xs:element minOccurs="0" name="transferAmount" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="chargeCard">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:chargeCardRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="chargeCardRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="chargeCards" nillable="true" type="tns:chargeCardBean" />
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element name="depositNumber" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="chargeCardBean">
+    <xs:sequence>
+      <xs:element name="amount" type="xs:decimal" />
+      <xs:element name="cardPan" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="chargeCardResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:chargeCardResponseBeans" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="chargeCardResponseBeans">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="chargeCardResult" nillable="true" type="tns:chargeCardResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="chargeCardResponseBean">
+    <xs:sequence>
+      <xs:element name="doneCompletely" type="xs:boolean" />
+      <xs:element minOccurs="0" name="errorType" type="tns:chargeCardErrorTypeWS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="depositBillPayment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:depositBillPaymentRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="depositBillPaymentRequestBean">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:billPaymentBean">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="cif" type="xs:string" />
+          <xs:element name="depositNumber" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="billPaymentBean">
+    <xs:sequence>
+      <xs:element name="billInfo" type="tns:billInfoSearchRequestBean" />
+      <xs:element minOccurs="0" name="requireVerification" type="xs:boolean" />
+      <xs:element minOccurs="0" name="verificationExpirationTimeOut" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="depositBillPaymentResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:billPaymentResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="billPaymentResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="billForeignTitle" type="xs:string" />
+      <xs:element minOccurs="0" name="billId" type="xs:string" />
+      <xs:element minOccurs="0" name="billTitle" type="xs:string" />
+      <xs:element minOccurs="0" name="billType" type="tns:billType" />
+      <xs:element minOccurs="0" name="cycle" type="xs:string" />
+      <xs:element minOccurs="0" name="date" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="fileCode" type="xs:string" />
+      <xs:element minOccurs="0" name="payId" type="xs:string" />
+      <xs:element minOccurs="0" name="referralNumber" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DuplicateTransactionWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ExceedWithdrawalWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InvalidCurrencyWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AmountConstrainViolationWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InsufficientFundsWSException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="amount" type="xs:decimal" />
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="payBill">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:billPaymentRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="billPaymentRequestBean">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:billInfoSearchRequestBean">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="cardAuthorizeParams" type="tns:cardAuthorizeParamsBean" />
+          <xs:element minOccurs="0" name="merchantId" type="xs:string" />
+          <xs:element name="pan" type="xs:string" />
+          <xs:element minOccurs="0" name="requireVerification" type="xs:boolean" />
+          <xs:element minOccurs="0" name="verificationExpirationTimeOut" type="xs:long" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="cardAuthorizeParamsBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cvv2" type="xs:string" />
+      <xs:element minOccurs="0" name="expDate" type="xs:string" />
+      <xs:element name="pin" type="xs:string" />
+      <xs:element name="pinType" type="tns:pinType" />
+      <xs:element minOccurs="0" name="track2" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="payBillResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:billPaymentResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AuthenticationWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="failCause" type="tns:authenticationFailCauseWS" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NoSufficientFundWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InvalidDepositOrCardWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BusinessWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="convertDepositNumberToIban">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:depositNumberToIbanRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="depositNumberToIbanRequestBean">
+    <xs:sequence>
+      <xs:element name="depositNumber" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="convertDepositNumberToIbanResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="batchTransfer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:batchTransferRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="batchTransferRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="additionalDocumentDesc" type="xs:string" />
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element maxOccurs="unbounded" name="destinationBatchTransferBeans" type="tns:destinationBatchTransferBean" />
+      <xs:element minOccurs="0" name="ignoreError" type="xs:boolean" />
+      <xs:element minOccurs="0" name="reasonCode" type="xs:string" />
+      <xs:element name="sourceDepositNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="sourceDescription" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="destinationBatchTransferBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="destinationBatchTransferInfoBean" type="tns:destinationBatchTransferInfoBean" />
+      <xs:element name="destinationDepositNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="payId" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="destinationBatchTransferInfoBean">
+    <xs:sequence>
+      <xs:element name="amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="description" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="batchTransferResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:batchTransferResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="batchTransferResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="balance" type="xs:decimal" />
+      <xs:element minOccurs="0" name="commissionResultInfo" type="tns:commissionResultInfoBean" />
+      <xs:element minOccurs="0" name="currency" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="depositProblem" nillable="true" type="tns:depositProblemBean" />
+      <xs:element minOccurs="0" name="doneCompletely" type="xs:boolean" />
+      <xs:element minOccurs="0" name="transferId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="transferResults" nillable="true" type="tns:batchTransferResultBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="commissionResultInfoBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="commissionAmount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="commissionCurrency" type="xs:string" />
+      <xs:element minOccurs="0" name="commissionDepositNumber" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="depositProblemBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="key" type="xs:string" />
+      <xs:element minOccurs="0" name="problemType" type="tns:problemType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="batchTransferResultBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="depositError" type="tns:transferProblemTypeWS" />
+      <xs:element minOccurs="0" name="depositOwnerName" type="xs:string" />
+      <xs:element minOccurs="0" name="destinationDeposit" type="xs:string" />
+      <xs:element minOccurs="0" name="errorDescription" type="xs:string" />
+      <xs:element minOccurs="0" name="payId" type="xs:string" />
+      <xs:element name="transferred" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InvalidReasonCodeWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransactionReasonCodeIsRequiredWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ExceedMonthlyTransferAmountWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ExceedDailyTransferAmountWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getLoanList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:loansSearchListRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="loansSearchListRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="branchCode" type="xs:string" />
+      <xs:element minOccurs="0" name="cbLoanNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element minOccurs="0" name="currency" type="xs:string" />
+      <xs:element minOccurs="0" name="length" type="xs:long" />
+      <xs:element minOccurs="0" name="loanNumber" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="loanStates" nillable="true" type="tns:loanState" />
+      <xs:element minOccurs="0" name="loanTitle" type="xs:string" />
+      <xs:element minOccurs="0" name="offset" type="xs:long" />
+      <xs:element minOccurs="0" name="type" type="tns:loanClass" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getLoanListResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:loansListResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="loansListResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="loanListBeans" nillable="true" type="tns:loanListBean" />
+      <xs:element name="totalRecord" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="loanListBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="beginDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="branchCode" type="xs:string" />
+      <xs:element minOccurs="0" name="branchName" type="xs:string" />
+      <xs:element minOccurs="0" name="cbLoanNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="currency" type="xs:string" />
+      <xs:element minOccurs="0" name="endDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="loanNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="loanRemainder" type="xs:decimal" />
+      <xs:element minOccurs="0" name="payNumber" type="xs:short" />
+      <xs:element minOccurs="0" name="preAmount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="states" type="tns:loanState" />
+      <xs:element minOccurs="0" name="type" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getLoans">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:loansSearchRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="loansSearchRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="branchCode" type="xs:string" />
+      <xs:element minOccurs="0" name="cbLoanNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element minOccurs="0" name="currency" type="xs:string" />
+      <xs:element minOccurs="0" name="length" type="xs:long" />
+      <xs:element minOccurs="0" name="loanStatus" type="tns:loanStatus" />
+      <xs:element minOccurs="0" name="loanTitle" type="xs:string" />
+      <xs:element minOccurs="0" name="offset" type="xs:long" />
+      <xs:element minOccurs="0" name="type" type="tns:loanType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getLoansResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:loansResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="loansResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="loanBeans" nillable="true" type="tns:loanBean" />
+      <xs:element name="totalRecord" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="loanBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="beginDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="branchCode" type="xs:string" />
+      <xs:element minOccurs="0" name="branchName" type="xs:string" />
+      <xs:element minOccurs="0" name="cbLoanNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="currency" type="xs:string" />
+      <xs:element minOccurs="0" name="endDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="loanNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="loanRemainder" type="xs:decimal" />
+      <xs:element minOccurs="0" name="payNumber" type="xs:short" />
+      <xs:element minOccurs="0" name="preAmount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="status" type="tns:loanStatus" />
+      <xs:element minOccurs="0" name="type" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="normalTransfer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:normalTransferRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="normalTransferRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="additionalDocumentDesc" type="xs:string" />
+      <xs:element name="amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element minOccurs="0" name="destinationComment" type="xs:string" />
+      <xs:element name="destinationDeposit" type="xs:string" />
+      <xs:element minOccurs="0" name="payId" type="xs:string" />
+      <xs:element minOccurs="0" name="reasonCode" type="xs:string" />
+      <xs:element minOccurs="0" name="referenceNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="sourceComment" type="xs:string" />
+      <xs:element name="sourceDeposit" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="normalTransferResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="login">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:userInfoRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="userInfoRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="includeSubscribers" type="xs:boolean" />
+      <xs:element name="password" type="xs:string" />
+      <xs:element name="username" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="loginResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getDepositOwnerName">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:depositOwnerRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="depositOwnerRequestBean">
+    <xs:sequence>
+      <xs:element name="depositNumber" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getDepositOwnerNameResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getBillPaymentDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:searchBillPaymentBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="searchBillPaymentBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="billId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="billTypes" nillable="true" type="tns:billType" />
+      <xs:element minOccurs="0" name="cardPan" type="xs:string" />
+      <xs:element minOccurs="0" name="depositNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="fromPaymentAmount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="fromPaymentDate" type="xs:dateTime" />
+      <xs:element name="length" type="xs:long" />
+      <xs:element name="offset" type="xs:long" />
+      <xs:element minOccurs="0" name="payId" type="xs:string" />
+      <xs:element minOccurs="0" name="paymentBillStatus" type="tns:paymentBillStatus" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="paymentClientTypes" nillable="true" type="tns:clientType" />
+      <xs:element minOccurs="0" name="paymentServiceId" type="xs:string" />
+      <xs:element minOccurs="0" name="referenceNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="toPaymentAmount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="toPaymentDate" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getBillPaymentDetailResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:billPaymentsDetailsResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="billPaymentsDetailsResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="billPaymentDetailsResponseBeans" nillable="true" type="tns:billPaymentDetailsResponseBean" />
+      <xs:element name="totalRecord" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="billPaymentDetailsResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="billId" type="xs:string" />
+      <xs:element minOccurs="0" name="billType" type="tns:billType" />
+      <xs:element minOccurs="0" name="cardPan" type="xs:string" />
+      <xs:element minOccurs="0" name="depositNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="payId" type="xs:string" />
+      <xs:element minOccurs="0" name="paymentAmount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="paymentBillStatus" type="tns:paymentBillStatus" />
+      <xs:element minOccurs="0" name="paymentClient" type="tns:clientType" />
+      <xs:element minOccurs="0" name="paymentDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="paymentServiceId" type="xs:string" />
+      <xs:element minOccurs="0" name="paymentServiceTitle" type="xs:string" />
+      <xs:element minOccurs="0" name="referenceNumber" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CardNotFoundWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="payLoan">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:loanPaymentRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="loanPaymentRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="additionalDescription" type="xs:string" />
+      <xs:element name="amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element minOccurs="0" name="customDepositNumber" type="xs:string" />
+      <xs:element name="loanNumber" type="xs:string" />
+      <xs:element name="paymentMethod" type="tns:loanPaymentMethodWS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="payLoanResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:loanPaymentResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="loanPaymentResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="appliedAmount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="currency" type="xs:string" />
+      <xs:element minOccurs="0" name="documentNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="documentTitle" type="xs:string" />
+      <xs:element minOccurs="0" name="loanState" type="tns:loanState" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InvalidLoanNumberWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NotPayableLoanWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cashCheque">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:cashChequeRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cashChequeRequestBean">
+    <xs:sequence>
+      <xs:element name="amount" type="xs:decimal" />
+      <xs:element name="checkRegisteredInfo" type="xs:boolean" />
+      <xs:element name="chequeDate" type="xs:dateTime" />
+      <xs:element name="chequeNumber" type="xs:string" />
+      <xs:element name="depositNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="description" type="xs:string" />
+      <xs:element name="destination" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cashChequeResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:cashChequeResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cashChequeResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="issueDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="referenceNumber" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InvalidChequeNumberWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InvalidChequeStatusWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CommissionIllegalDepositStateWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CommissionInsufficientFundWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CommissionInvalidAccountWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CommissionInvalidCurrencyWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CommissionInvalidDepositWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getDepositBalance">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:depositBalanceRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="depositBalanceRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element name="depositNumber" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getDepositBalanceResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:depositBalanceResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="depositBalanceResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="balance" type="tns:supplyBean" />
+      <xs:element minOccurs="0" name="blockedBalance" type="xs:decimal" />
+      <xs:element minOccurs="0" name="currency" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="supplyBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="availablePrice" type="xs:decimal" />
+      <xs:element minOccurs="0" name="price" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="assignExchangeBroker">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:assignExchangeBrokerRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="assignExchangeBrokerRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="exchangeBrokers" nillable="true" type="tns:exchangeBrokerBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="exchangeBrokerBean">
+    <xs:sequence>
+      <xs:element name="brokerId" type="xs:string" />
+      <xs:element name="exchangeId" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="assignExchangeBrokerResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:assignExchangeBrokerResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="assignExchangeBrokerResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="assignBrokerResults" nillable="true" type="tns:assignExchangeBrokerResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="assignExchangeBrokerResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="brokerId" type="xs:string" />
+      <xs:element minOccurs="0" name="brokerName" type="xs:string" />
+      <xs:element minOccurs="0" name="exchangeId" type="xs:string" />
+      <xs:element minOccurs="0" name="exchangeName" type="xs:string" />
+      <xs:element minOccurs="0" name="problemType" type="tns:assignBrokerProblemWSType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="customerExchangeContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:customerExchangeContractRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="customerExchangeContractRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element minOccurs="0" name="contractDuration" type="xs:short" />
+      <xs:element name="startDate" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="customerExchangeContractResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:customerExchangeContractResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="customerExchangeContractResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="activeDate" type="xs:dateTime" />
+      <xs:element name="contractId" type="xs:long" />
+      <xs:element minOccurs="0" name="endDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="startDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="status" type="tns:contractStatusWS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InvalidContractEndDateWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InvalidContractDurationRangeWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getGuarantyList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:guarantiesRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="guarantiesRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="centerBankCode" type="xs:string" />
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element name="length" type="xs:long" />
+      <xs:element minOccurs="0" name="loanNumber" type="xs:string" />
+      <xs:element name="offset" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getGuarantyListResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:guarantiesResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="guarantiesResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="guaranties" nillable="true" type="tns:guarantyBean" />
+      <xs:element minOccurs="0" name="totalRecord" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="guarantyBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="beginDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="branchCode" type="xs:string" />
+      <xs:element minOccurs="0" name="branchName" type="xs:string" />
+      <xs:element minOccurs="0" name="centerBankCode" type="xs:string" />
+      <xs:element minOccurs="0" name="centralBankId" type="xs:string" />
+      <xs:element minOccurs="0" name="creditStatus" type="tns:loanStatus" />
+      <xs:element minOccurs="0" name="currency" type="xs:string" />
+      <xs:element minOccurs="0" name="customerName" type="xs:string" />
+      <xs:element name="duration" type="xs:int" />
+      <xs:element minOccurs="0" name="endDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="id" type="xs:string" />
+      <xs:element minOccurs="0" name="stakeHolderAddress" type="xs:string" />
+      <xs:element minOccurs="0" name="stakeHolderIban" type="xs:string" />
+      <xs:element minOccurs="0" name="stakeHolderIdentity" type="xs:string" />
+      <xs:element minOccurs="0" name="stakeHolderName" type="xs:string" />
+      <xs:element minOccurs="0" name="stakeHolderPostalCode" type="xs:string" />
+      <xs:element minOccurs="0" name="stakeHolderTelephoneNo" type="xs:string" />
+      <xs:element minOccurs="0" name="status" type="tns:guarantyStateWS" />
+      <xs:element minOccurs="0" name="typeDescription" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="authorizeDeposit">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:authorizeDepositRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="authorizeDepositRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="brokerId" type="xs:string" />
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element name="exchangeId" type="xs:string" />
+      <xs:element name="iban" type="xs:string" />
+      <xs:element minOccurs="0" name="maxWithdrawalAmount" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="authorizeDepositResponse">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="InvalidExchangeIdWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IllegalBankWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InvalidBrokerStateWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IllegalDepositStateWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InvalidBrokerIdWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InvalidExchangeStateWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ExchangeBrokerRelationWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ExchangeContractExpirationWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InvalidIBANWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NotAuthorizableDepositTypeWSException">
+    <xs:sequence>
+      <xs:element name="code" type="xs:int" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="loginStatic">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:userInfoRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="loginStaticResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:loginResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="loginResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element minOccurs="0" name="code" type="xs:string" />
+      <xs:element minOccurs="0" name="email" type="xs:string" />
+      <xs:element minOccurs="0" name="foreignName" type="xs:string" />
+      <xs:element minOccurs="0" name="gender" type="tns:genderWS" />
+      <xs:element minOccurs="0" name="lastLoginTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="mobile" type="xs:string" />
+      <xs:element minOccurs="0" name="name" type="xs:string" />
+      <xs:element minOccurs="0" name="refreshToken" type="xs:string" />
+      <xs:element minOccurs="0" name="sessionExpirationDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="sessionId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="subscribers" nillable="true" type="tns:subscriberUserInfoBean" />
+      <xs:element minOccurs="0" name="temporaryCause" type="tns:sessionTemporaryCause" />
+      <xs:element minOccurs="0" name="temporarySessionId" type="xs:string" />
+      <xs:element minOccurs="0" name="title" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="subscriberUserInfoBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:string" />
+      <xs:element minOccurs="0" name="name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCardTransactions">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:cardTransactionsRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cardTransactionsRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="activityTypes" nillable="true" type="tns:cardActivityTypeWS" />
+      <xs:element minOccurs="0" name="description" type="xs:string" />
+      <xs:element minOccurs="0" name="fromAmount" type="xs:decimal" />
+      <xs:element name="fromDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="issuerNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="length" type="xs:long" />
+      <xs:element minOccurs="0" name="offset" type="xs:long" />
+      <xs:element minOccurs="0" name="opponentIssuerNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="opponentPan" type="xs:string" />
+      <xs:element minOccurs="0" name="pan" type="xs:string" />
+      <xs:element minOccurs="0" name="referralNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="showSystemReturnTransactions" type="xs:boolean" />
+      <xs:element name="showTotalRecord" type="xs:boolean" />
+      <xs:element minOccurs="0" name="toAmount" type="xs:decimal" />
+      <xs:element name="toDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="types" nillable="true" type="tns:cardTransactionTypeWS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCardTransactionsResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:cardTransactionsResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cardTransactionsResponseBean">
+    <xs:sequence>
+      <xs:element name="totalRecordCount" type="xs:long" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="transactions" nillable="true" type="tns:cardTransactionResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cardTransactionResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="activityType" type="tns:cardActivityTypeWS" />
+      <xs:element minOccurs="0" name="amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="description" type="xs:string" />
+      <xs:element minOccurs="0" name="issuerName" type="xs:string" />
+      <xs:element minOccurs="0" name="issuerNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="opponentDepositNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="opponentIssuerName" type="xs:string" />
+      <xs:element minOccurs="0" name="opponentIssuerNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="opponentPan" type="xs:string" />
+      <xs:element minOccurs="0" name="pan" type="xs:string" />
+      <xs:element minOccurs="0" name="referenceNumber" type="xs:string" />
+      <xs:element name="showSystemReturnTransactions" type="xs:boolean" />
+      <xs:element minOccurs="0" name="traceNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="transactionDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="transactionSentDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="transactionType" type="tns:cardTransactionTypeWS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getLoanDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:loanDetailSearchRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="loanDetailSearchRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cbLoanNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element name="hasDetail" type="xs:boolean" />
+      <xs:element minOccurs="0" name="length" type="xs:long" />
+      <xs:element minOccurs="0" name="loanNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="offset" type="xs:long" />
+      <xs:element minOccurs="0" name="payStatus" type="tns:payStatusWS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getLoanDetailResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:loanDetailResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="loanDetailResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="amount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="automaticPaymentAccountNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="cbLoanNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="countOfMaturedUnpaid" type="xs:int" />
+      <xs:element minOccurs="0" name="countOfPaid" type="xs:int" />
+      <xs:element minOccurs="0" name="countOfUnpaid" type="xs:int" />
+      <xs:element minOccurs="0" name="currency" type="xs:string" />
+      <xs:element minOccurs="0" name="discount" type="xs:decimal" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="loanRows" nillable="true" type="tns:loanRowBean" />
+      <xs:element minOccurs="0" name="penalty" type="xs:decimal" />
+      <xs:element minOccurs="0" name="state" type="tns:loanState" />
+      <xs:element minOccurs="0" name="totalMaturedUnpaidAmount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="totalPaidAmount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="totalRecord" type="xs:int" />
+      <xs:element minOccurs="0" name="totalUnpaidAmount" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="loanRowBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="delayDay" type="xs:int" />
+      <xs:element minOccurs="0" name="payDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="payStatus" type="tns:payStatusWS" />
+      <xs:element minOccurs="0" name="payedAmount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="penaltyAmount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="unpaidAmount" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getDepositCustomer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:depositCustomerRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="depositCustomerRequestBean">
+    <xs:sequence>
+      <xs:element name="attachedSignature" type="xs:boolean" />
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element name="depositNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="length" type="xs:long" />
+      <xs:element minOccurs="0" name="offset" type="xs:long" />
+      <xs:element minOccurs="0" name="validityDate" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getDepositCustomerResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:depositCustomerResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="depositCustomerResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="depositCustomers" nillable="true" type="tns:depositCustomerBean" />
+      <xs:element minOccurs="0" name="openerCustomerCif" type="xs:string" />
+      <xs:element minOccurs="0" name="openerCustomerName" type="xs:string" />
+      <xs:element name="totalRecord" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="depositCustomerBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element minOccurs="0" name="name" type="xs:string" />
+      <xs:element minOccurs="0" name="relationExpireDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="sharePercent" type="xs:int" />
+      <xs:element minOccurs="0" name="signature" type="tns:customerSignatureBean" />
+      <xs:element minOccurs="0" name="signatureStatus" type="tns:signatureOwnerStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="customerSignatureBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="expireDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="image" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCardDeposits">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="context" type="tns:context" />
+      <xs:element minOccurs="0" name="request" type="tns:cardDepositRequestBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cardDepositRequestBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cif" type="xs:string" />
+      <xs:element name="pan" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCardDepositsResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:cardDepositResponseBean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cardDepositResponseBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="deposits" nillable="true" type="tns:relatedDepositOfCardBean" />
+      <xs:element name="totalRecord" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="relatedDepositOfCardBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cardDepositType" type="tns:cardDepositTypeWS" />
+      <xs:element minOccurs="0" name="depositNumber" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="parameterTypeBean">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PAN" />
+      <xs:enumeration value="MOBILE" />
+      <xs:enumeration value="TEXT" />
+      <xs:enumeration value="IBAN" />
+      <xs:enumeration value="DEPOSIT_NUMBER" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="processTypeBean">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PURCHASE" />
+      <xs:enumeration value="CASH" />
+      <xs:enumeration value="PURCHASE_REVERSE" />
+      <xs:enumeration value="BALANCE_INQUIRY" />
+      <xs:enumeration value="INVESTIGATE_REQUEST" />
+      <xs:enumeration value="SUMMARY_REQUEST" />
+      <xs:enumeration value="TRANSFER_REQUEST" />
+      <xs:enumeration value="TRANSFER_FROM" />
+      <xs:enumeration value="TRANSFER_TO" />
+      <xs:enumeration value="PAYMENT" />
+      <xs:enumeration value="PASSWORD_CONFIRM_REQUEST" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="requestStatusTypeWS">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INPROGRESS" />
+      <xs:enumeration value="SUCCESS" />
+      <xs:enumeration value="FAILED" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="addressType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="HOME" />
+      <xs:enumeration value="OFFICE" />
+      <xs:enumeration value="TEMPORARY" />
+      <xs:enumeration value="CENTRAL_OFFICE" />
+      <xs:enumeration value="FACTORY" />
+      <xs:enumeration value="WORKSHOP" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="customerRelationType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PARENT" />
+      <xs:enumeration value="GUARDIAN" />
+      <xs:enumeration value="EXECUTOR" />
+      <xs:enumeration value="SPOUSE" />
+      <xs:enumeration value="SISTER" />
+      <xs:enumeration value="BROTHER" />
+      <xs:enumeration value="DAUGHTER" />
+      <xs:enumeration value="SON" />
+      <xs:enumeration value="FATHER" />
+      <xs:enumeration value="MOTHER" />
+      <xs:enumeration value="CHAIRMAN" />
+      <xs:enumeration value="DIRECTOR" />
+      <xs:enumeration value="BOARD_OF_DIRECTORS" />
+      <xs:enumeration value="SHAREHOLDER" />
+      <xs:enumeration value="ATTORNEY" />
+      <xs:enumeration value="REPRESENTATIVE" />
+      <xs:enumeration value="CHAIRMAN_OF_THE_CHAMBER_OF_COMMERCE" />
+      <xs:enumeration value="TREASURER" />
+      <xs:enumeration value="FINANCIAL_MANAGER" />
+      <xs:enumeration value="HEAD_OF_ACCOUNTING_DEPARTMENT" />
+      <xs:enumeration value="FINANCIAL_INFERIOR" />
+      <xs:enumeration value="ACCOUNTING_INFERIOR" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="genderWS">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MALE" />
+      <xs:enumeration value="FEMALE" />
+      <xs:enumeration value="LEGAL" />
+      <xs:enumeration value="PUBLIC" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="personalityType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ACTUAL" />
+      <xs:enumeration value="LEGAL" />
+      <xs:enumeration value="SPECIAL" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="billType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="UNKNOWN" />
+      <xs:enumeration value="WATER" />
+      <xs:enumeration value="ELECTRICITY" />
+      <xs:enumeration value="GAS" />
+      <xs:enumeration value="IMMOBILE_PHONE" />
+      <xs:enumeration value="MOBILE_PHONE" />
+      <xs:enumeration value="MUNICIPALITY_DUE" />
+      <xs:enumeration value="CUSTOM" />
+      <xs:enumeration value="MUNICIPALITY_7" />
+      <xs:enumeration value="TAX" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="depositStatusWS">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CLOSE" />
+      <xs:enumeration value="OPEN" />
+      <xs:enumeration value="NEGATIVE_BLOCK" />
+      <xs:enumeration value="POSITIVE_BLOCK" />
+      <xs:enumeration value="BLOCK" />
+      <xs:enumeration value="RESTING" />
+      <xs:enumeration value="OLD" />
+      <xs:enumeration value="OPENING" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="depositGroupTypeWS">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="JARI_ACCOUNT" />
+      <xs:enumeration value="SPECIAL_LONG_ACCOUNT" />
+      <xs:enumeration value="OTHERS" />
+      <xs:enumeration value="EDARE_SHODE" />
+      <xs:enumeration value="ANDOKHTE_ACCOUNT" />
+      <xs:enumeration value="SPECIAL_SHORT_ACCOUNT" />
+      <xs:enumeration value="PASANDAZ" />
+      <xs:enumeration value="SHORT_ACCOUNT" />
+      <xs:enumeration value="LONG_ACCOUNT" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="signatureOwnerStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DEPOSIT_OWNER" />
+      <xs:enumeration value="OWNER_OF_DEPOSIT_AND_SIGNATURE" />
+      <xs:enumeration value="SIGNATURE_OWNER" />
+      <xs:enumeration value="BROKER" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="depositOwnerTypeWS">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MOSHTARAK" />
+      <xs:enumeration value="BE_TANHAYI" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="supportStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ACCOUNT" />
+      <xs:enumeration value="DEPOSIT" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="withdrawalOptionWS">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NONE" />
+      <xs:enumeration value="MASHRUT" />
+      <xs:enumeration value="BE_TANHAYEE" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="actionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CREDIT" />
+      <xs:enumeration value="DEBIT" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="orderStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DESC" />
+      <xs:enumeration value="ASC" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="chargeCardErrorTypeWS">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ServiceException" />
+      <xs:enumeration value="PermissionException" />
+      <xs:enumeration value="InvalidDepositException" />
+      <xs:enumeration value="InsufficientFundsException" />
+      <xs:enumeration value="InvalidCardException" />
+      <xs:enumeration value="InvalidCardStatusException" />
+      <xs:enumeration value="AmountCostraintException" />
+      <xs:enumeration value="MultiCurrencyNotSupportedException" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="pinType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CARD" />
+      <xs:enumeration value="EPAY" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="authenticationFailCauseWS">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INVALID_PIN" />
+      <xs:enumeration value="INVALID_EXP_DATE" />
+      <xs:enumeration value="INVALID_CVV2" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="problemType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INVALID_DEPOSIT_NUMBER" />
+      <xs:enumeration value="INVALID_PRICE" />
+      <xs:enumeration value="USER_PERMISSION_DENIED" />
+      <xs:enumeration value="INVALID_CURRENCY" />
+      <xs:enumeration value="INSUFFICIENT_FUNDS" />
+      <xs:enumeration value="ILLEGAL_DEPOSIT_STATE" />
+      <xs:enumeration value="UNKNOWN" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="transferProblemTypeWS">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INVALID_DEPOSIT_NUMBER" />
+      <xs:enumeration value="INVALID_AMOUNT" />
+      <xs:enumeration value="USER_PERMISSION_DENIED" />
+      <xs:enumeration value="INVALID_CURRENCY" />
+      <xs:enumeration value="INSUFFICIENT_FUNDS" />
+      <xs:enumeration value="ILLEGAL_DESTINATION_DEPOSIT_STATE" />
+      <xs:enumeration value="ILLEGAL_SOURCE_DEPOSIT_STATE" />
+      <xs:enumeration value="DESTINATION_MAX_BALANCE_VIOLATION" />
+      <xs:enumeration value="INVALID_PAYMENT_ID" />
+      <xs:enumeration value="PAY_ID_REQUIRED" />
+      <xs:enumeration value="DOES_NOT_ACCEPT_PAY_ID" />
+      <xs:enumeration value="UNKNOWN" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="loanState">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="UNPAID" />
+      <xs:enumeration value="PAID_INCOMPLETE" />
+      <xs:enumeration value="ACTIVE" />
+      <xs:enumeration value="DOUBTFUL_RECEIPT" />
+      <xs:enumeration value="SETTLEMENT_READY" />
+      <xs:enumeration value="FREE" />
+      <xs:enumeration value="SUSPEND" />
+      <xs:enumeration value="SARRESID_GOZASHTE" />
+      <xs:enumeration value="OTHER" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="loanClass">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MOZAREBE" />
+      <xs:enumeration value="MOSHAREKATE_MADANI" />
+      <xs:enumeration value="MOSHAREKATE_HOGHOGHY" />
+      <xs:enumeration value="FOROOSHE_AGHSATY" />
+      <xs:enumeration value="EJARE_BE_SHARTE_TAMLIK" />
+      <xs:enumeration value="SALAF" />
+      <xs:enumeration value="JOALE" />
+      <xs:enumeration value="SARMAYEGOZARIE_MOSTAGHIM" />
+      <xs:enumeration value="GHARZOLHASANE" />
+      <xs:enumeration value="ZEMAN" />
+      <xs:enumeration value="KHARIDE_DEYN" />
+      <xs:enumeration value="MOZARE_EH" />
+      <xs:enumeration value="MOSAGHAT" />
+      <xs:enumeration value="KHADAMATE_ETEBARY" />
+      <xs:enumeration value="MOZAREBE_AAM" />
+      <xs:enumeration value="MOSHAREKAT_AAM" />
+      <xs:enumeration value="ESTESNA" />
+      <xs:enumeration value="MORABEHE" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="loanStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="UNPAID" />
+      <xs:enumeration value="PAID_INCOMPLETE" />
+      <xs:enumeration value="ACTIVE" />
+      <xs:enumeration value="DOUBTFUL_RECEIPT" />
+      <xs:enumeration value="SETTLEMENT_READY" />
+      <xs:enumeration value="FREE" />
+      <xs:enumeration value="OTHER" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="loanType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MOZAREBE" />
+      <xs:enumeration value="MOSHAREKATE_MADANI" />
+      <xs:enumeration value="MOSHAREKATE_HOGHOGHY" />
+      <xs:enumeration value="FOROOSHE_AGHSATY" />
+      <xs:enumeration value="EJARE_BE_SHARTE_TAMLIK" />
+      <xs:enumeration value="SALAF" />
+      <xs:enumeration value="JOALE" />
+      <xs:enumeration value="SARMAYEGOZARIE_MOSTAGHIM" />
+      <xs:enumeration value="GHARZOLHASANE" />
+      <xs:enumeration value="ZEMAN" />
+      <xs:enumeration value="KHARIDE_DEYN" />
+      <xs:enumeration value="MOZARE_EH" />
+      <xs:enumeration value="MOSAGHAT" />
+      <xs:enumeration value="KHADAMATE_ETEBARY" />
+      <xs:enumeration value="MOZAREBE_AAM" />
+      <xs:enumeration value="MOSHAREKAT_AAM" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="paymentBillStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NOT_PAYED" />
+      <xs:enumeration value="REVERSED" />
+      <xs:enumeration value="PAYED_WITH_CONFIRM" />
+      <xs:enumeration value="PAYED_WITHOUT_CONFIRM" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="clientType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ATM" />
+      <xs:enumeration value="POS" />
+      <xs:enumeration value="PINPAD" />
+      <xs:enumeration value="INTERNET" />
+      <xs:enumeration value="VRU" />
+      <xs:enumeration value="POSCONDCOD" />
+      <xs:enumeration value="PHONE" />
+      <xs:enumeration value="OTHER" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="loanPaymentMethodWS">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AUTO_GET_DEPOSIT" />
+      <xs:enumeration value="CUSTOM_DEPOSIT" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="assignBrokerProblemWSType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INVALID_EXCHANGE_BROKER_ID" />
+      <xs:enumeration value="INACTIVE_EXCHANGE_BROKER" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="contractStatusWS">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OPEN" />
+      <xs:enumeration value="CLOSED" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="guarantyStateWS">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PAID" />
+      <xs:enumeration value="NOT_PAID" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="sessionTemporaryCause">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TICKET_LOGIN" />
+      <xs:enumeration value="DIGITAL_SIGNATURE_LOGIN" />
+      <xs:enumeration value="OTHER" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="cardActivityTypeWS">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TRANSFER" />
+      <xs:enumeration value="BILL_PAYMENT" />
+      <xs:enumeration value="PURCHASE" />
+      <xs:enumeration value="DEPOSIT" />
+      <xs:enumeration value="WITHDRAWAL" />
+      <xs:enumeration value="CHARGE_BACK" />
+      <xs:enumeration value="CHANGE_SECOND_PIN" />
+      <xs:enumeration value="CHANGE_FIRST_PIN" />
+      <xs:enumeration value="UNBLOCK" />
+      <xs:enumeration value="CAPTURED" />
+      <xs:enumeration value="STATEMENT" />
+      <xs:enumeration value="BALANCE" />
+      <xs:enumeration value="RETURN" />
+      <xs:enumeration value="OTHER" />
+      <xs:enumeration value="CREDIT_DEBIT" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="cardTransactionTypeWS">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CREDIT" />
+      <xs:enumeration value="DEBIT" />
+      <xs:enumeration value="ACTIVITY" />
+      <xs:enumeration value="OTHER" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="payStatusWS">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PAID" />
+      <xs:enumeration value="NOT_PAID_BEFORE_MATURITY" />
+      <xs:enumeration value="NOT_PAID_AFTER_MATURITY" />
+      <xs:enumeration value="UNKNOWN" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="cardDepositTypeWS">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MAIN" />
+      <xs:enumeration value="SECONDARY" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

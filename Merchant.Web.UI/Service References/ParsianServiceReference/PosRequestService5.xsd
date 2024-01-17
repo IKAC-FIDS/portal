@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PecCare.Domain.Cartable.Request" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PecCare.Domain.Cartable.Request" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Model" />
+  <xs:complexType name="RequestBaseModelOfanyTypeNBSRequestMCDSNBSRequestMCDS.NBSRequestMCDataTableNBSRequestMCDS.NBSRequestMCRowV9Agphu2">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="RequestBaseModelOf{0}{1}{2}{3}{#}" Namespace="http://schemas.datacontract.org/2004/07/PecCare.Domain.Cartable.Request" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="anyType" Namespace="http://www.w3.org/2001/XMLSchema" />
+          <GenericParameter Name="NBSRequestMCDS" Namespace="http://schemas.datacontract.org/2004/07/PecCare.Common.Data" />
+          <GenericParameter Name="NBSRequestMCDS.NBSRequestMCDataTable" Namespace="http://schemas.datacontract.org/2004/07/PecCare.Common.Data" />
+          <GenericParameter Name="NBSRequestMCDS.NBSRequestMCRow" Namespace="http://schemas.datacontract.org/2004/07/PecCare.Common.Data" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Model" base="q1:SearchableModelOfanyTypeNBSRequestMCDSNBSRequestMCDS.NBSRequestMCDataTableNBSRequestMCDS.NBSRequestMCRowV9Agphu2">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ActionName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Area" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CallbackRoute" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ControllerName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ParentRequestId" nillable="true" type="xs:long" />
+          <xs:element minOccurs="0" name="RequestId" nillable="true" type="xs:long" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RequestBaseModelOfanyTypeNBSRequestMCDSNBSRequestMCDS.NBSRequestMCDataTableNBSRequestMCDS.NBSRequestMCRowV9Agphu2" nillable="true" type="tns:RequestBaseModelOfanyTypeNBSRequestMCDSNBSRequestMCDS.NBSRequestMCDataTableNBSRequestMCDS.NBSRequestMCRowV9Agphu2" />
+</xs:schema>

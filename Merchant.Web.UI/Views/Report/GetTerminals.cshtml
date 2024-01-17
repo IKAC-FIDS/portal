@@ -1,0 +1,142 @@
+﻿@{
+    ViewBag.Title = "گزارش وضعیت دستگاه های کارت خوان";
+}
+<div class="page-header">
+    <h1>گزارش وضعیت دستگاه های کارت خوان</h1>
+</div>
+<div class="form-horizontal" id="SearchForm">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="BranchId">کد شعبه</label>
+                <div class="col-md-8">
+                    <input type="text" id="BranchId" name="BranchId" class="form-control only-number" maxlength="10"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="BranchTitle">نام شعبه</label>
+                <div class="col-md-8">
+                    <input type="text" id="BranchTitle" name="BranchTitle" class="form-control" maxlength="100"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="button" id="btnSearch" class="btn btn-primary" data-loading-text="در حال جستجو...">جستجو</button>
+            <button type="button" id="btnExport" class="btn btn-default" data-toggle="tooltip" title="دریافت خروجی اکسل موارد یافت شده" data-loading-text="در حال تهیه خروجی. لطفاً منتظر بمانید...">دریافت خروجی</button>
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered text-center" id="DataTable">
+        <thead>
+        <tr class="active">
+            <th>ردیف</th>
+            <th width="1px">کد شعبه</th>
+            <th>نام شعبه</th>
+            <th>تعداد دستگاه های کارتخوان</th>
+            <th>تعداد دستگاه های سیار</th>
+            <th>تعداد دستگاه های ثابت</th>
+            <th>تعداد دستگاه های MPOS</th>
+            <th>دستگاه سیار (درصد)</th>
+            <th>دستگاه ثابت (درصد)</th>
+            <th> تعداد کل تراکنش </th>
+            <th>تعداد تراکنش های بالا </th>
+            <th>تعداد تراکنش های پایین </th>
+            <th>تعداد دستگاه های فاقد تراکنش</th>
+            <th>نسبت تراکنش بالا (درصد) </th>
+            <th>نسبت تراکنش پایین (درصد) </th>
+            <th>نسبت فاقد تراکنش (درصد) </th>
+            <th>مجموع فاقد تراکنش و کم تراکنش (درصد)</th>
+            <th> جمع مبلغ تراکنش سیار</th>
+            <th> جمع مبلغ تراکنش ثابت</th>
+            <th> جمع مبلغ تراکنش MPOS</th>
+            <th>جمع مبلغ تراکنش</th>
+             <th>متوسط مبلغ تراکنش بر تعداد تراکنش</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td colspan="15">
+                <div class="status-section">
+                    <i class="fa fa-folder-o"></i>
+                    <p>هیچ موردی یافت نشد</p>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br/>
+@section scripts {
+    <script type="text/javascript">
+        function loadData() {
+              $('#DataTable tbody').empty();
+              var html ='<tr><td colspan="15"><div class="status-section"><i class="fa fa-spin fa-cog"></i><p>در حال بارگذاری اطلاعات...</p></div></td></tr>';
+              $('#DataTable tbody').append(html);
+              var branchId = $('#BranchId','#SearchForm').val();
+              var branchTitle = $('#BranchTitle','#SearchForm').val();
+              return $.getJSON('@Url.Action("GetData", "Report")', { branchId: branchId, branchTitle: branchTitle })
+                  .done(function (result) {
+                              $.processMessage(result);                      
+                              $('#DataTable tbody').empty();         
+                              if (!result.success) {
+                                  $('#DataTable tbody').empty().append('<tr><td colspan="15"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                                  return false;
+                              }         
+                              if (result.data.length === 0) {
+                                  $('#DataTable tbody').empty().append('<tr><td colspan="15"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                                  return false;
+                              }                                       
+                    html = '';
+                              
+                              console.log(
+                                 'dddd', result
+                             )
+                    for (var i = 0; i < result.data.length; i++) {
+                        html += '<tr>' +
+                            '<th class="text-nowrap">' + (i + 1) + '</th>' +
+                            '<td>' + result.data[i].id + '</td>' +
+                            '<td>' + result.data[i].title + '</td>' +
+                            '<td>' + result.data[i].countTotalDevice + '</td>' +
+                            '<td>' + result.data[i].countWirelessDevice + '</td>' +
+                            '<td>' + result.data[i].countConstDevice + '</td>' +  
+                            '<td>' + result.data[i].countMPOSDevice + '</td>' +  
+                            '<td>' + result.data[i].percentWireless + '</td>' + 
+                            '<td>' + result.data[i].percentConst + '</td>' +
+                            '<td>' + result.data[i].countTotalTransaction + '</td>' +
+                            '<td>' + result.data[i].countHihgTransaction + '</td>' +
+                            '<td>' + result.data[i].countLowTransaction + '</td>' +
+                            '<td>' + result.data[i].countWithoutTransaction + '</td>' +
+                            '<td>' + result.data[i].percentHihgTransaction + '</td>' +
+                            '<td>' + result.data[i].percentLowTransaction + '</td>' +
+                            '<td>' + result.data[i].percentWithoutTransaction + '</td>' +
+                            '<td>' + result.data[i].percentTotalLowAndWithoutTransaction + '</td>' +                    
+                            '<td>' + result.data[i].sumPriceWirelessTransaction + '</td>' +                    
+                            '<td>' + result.data[i].sumPriceConstTransaction + '</td>' +                    
+                            '<td>' + result.data[i].sumPricePosTransaction + '</td>' + 
+                            '<td>' + result.data[i].sumPriceTransaction + '</td>' +                    
+                            '<td>' + result.data[i].avgSumPriceTransaction + '</td>' +                    
+                         //   '<td>' + result.data.result[i].totalCountTransaction + '</td>' +                    
+                            '</tr>';
+                    }
+                    $('#DataTable tbody').append(html);
+              });          
+        }
+        $(document).ready(function () {
+            loadData();
+            $('#btnSearch').on('click', function () {
+                loadData();
+            });        
+           $('#btnExport').on('click', function () {
+               var params = '?branchId=' + $('#BranchId').val() +
+                   '&branchTitle=' + $('#BranchTitle').val();
+               $('#btnExport').prop('href', '@Url.Action("ExportData", "Report")' + params);
+               window.location.href = ('@Url.Action("ExportData", "Report")' + params);
+           });
+        });
+    </script>
+}

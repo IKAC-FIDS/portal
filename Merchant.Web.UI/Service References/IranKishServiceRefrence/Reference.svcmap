@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="d791dacd-f260-4883-8c8e-96a13cee2878" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="https://mms.irankish.com/Services/DefineMerchant" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="DefineMerchant.xsd" MetadataType="Schema" ID="e2730b4e-25f8-4e32-9eb2-918508d18426" SourceId="1" SourceUrl="https://mms.irankish.com/Services/DefineMerchant?xsd=xsd1" />
+    <MetadataFile FileName="DefineMerchant1.xsd" MetadataType="Schema" ID="4b8156d3-7ba4-4b7a-881f-789a270258ba" SourceId="1" SourceUrl="https://mms.irankish.com/Services/DefineMerchant?xsd=xsd4" />
+    <MetadataFile FileName="DefineMerchants.wsdl" MetadataType="Wsdl" ID="4d61ac66-4530-4773-a9ce-299fa77a9f7f" SourceId="1" SourceUrl="https://mms.irankish.com/Services/DefineMerchant?wsdl" />
+    <MetadataFile FileName="DefineMerchant2.xsd" MetadataType="Schema" ID="22105d89-5e0f-4df2-8ca3-4a6cd205c824" SourceId="1" SourceUrl="https://mms.irankish.com/Services/DefineMerchant?xsd=xsd2" />
+    <MetadataFile FileName="DefineMerchant3.xsd" MetadataType="Schema" ID="5ad6c6de-79ea-4138-8809-80c6bd8bf8f7" SourceId="1" SourceUrl="https://mms.irankish.com/Services/DefineMerchant?xsd=xsd3" />
+    <MetadataFile FileName="DefineMerchant4.xsd" MetadataType="Schema" ID="54ab94eb-8453-4e58-9a33-a632712badc0" SourceId="1" SourceUrl="https://mms.irankish.com/Services/DefineMerchant?xsd=xsd0" />
+    <MetadataFile FileName="DefineMerchant.disco" MetadataType="Disco" ID="df4bda84-61d6-4ec1-96bb-d4c45cf1a806" SourceId="1" SourceUrl="https://mms.irankish.com/Services/DefineMerchant?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

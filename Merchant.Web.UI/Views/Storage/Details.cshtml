@@ -1,0 +1,384 @@
+﻿@model CardReqeustDetailsViewModel
+@using Microsoft.AspNet.Identity
+@using Newtonsoft.Json
+@using TES.Merchant.Web.UI.Functions
+
+@{
+    ViewBag.PageTitle = "جزئیات درخواست صدور کارت";
+}
+
+<div class="page-header">
+    <div class="pull-left">
+      
+        
+       @if (
+        
+        (Model.StatusId == TES.Common.Enumerations.CardRequestStatus.ReadyForDeliver.ToByte() )
+        && (User.IsAcceptorsExpertUser() || User.IsCardRequestManager() || User.IsAdmin()))
+        {
+         
+            @Html.ActionLink("دریافت فایل حواله", "ActionIEnumerable", new { Id = Model.Id, Class="btn btn-success"})
+            
+        }
+        @if (
+        
+        (Model.StatusId == TES.Common.Enumerations.CardRequestStatus.Open.ToByte() )
+        && (  User.IsCardRequestManager() ))
+        {
+            
+            <button class="btn btn-success" data-message-id="@Model.Id" id="ChangeStatusToUnderReviewButton">تغییر وضعیت به "در حال اجرا"</button>
+           
+            
+           @Html.DropDownList("UserId", (IEnumerable<SelectListItem>)ViewBag.UserList, "انتخاب نمایید", new { @class = "chosen-select chosen-rtl" })
+
+            
+        }
+        
+        else if (Model.StatusId == TES.Common.Enumerations.CardRequestStatus.UnderReview.ToByte() && (User.IsAcceptorsExpertUser() || User.IsCardRequestManager() || User.IsAdmin()))
+        {
+            <button class="btn btn-danger" data-message-id="@Model.Id" id="ChangeStatusToReadyForDeliverButton">تغییر وضعیت به "اماده تحویل"</button>
+        }
+ else if (Model.StatusId == TES.Common.Enumerations.CardRequestStatus.ReadyForDeliver.ToByte() && (User.IsAcceptorsExpertUser() || User.IsCardRequestManager() || User.IsAdmin()))
+        {
+            <button class="btn btn-danger" data-message-id="@Model.Id" id="ChangeStatusToClosedButton">تغییر وضعیت به "خاتمه یافته"</button>
+        }
+        
+    </div>
+    <p>
+          <h1>
+                جزئیات درخواست صدور کارت
+                <small class="text-muted">
+                    @if (string.IsNullOrEmpty(Model.ReviewerUserFullName))
+                    {
+                        <text>(@Model.UserFullName)</text>
+                    }
+                    else
+                    {
+                        <text>
+                            (@Model.UserFullName - @Model.ReviewerUserFullName)
+                        </text>
+                    }
+                </small>
+            </h1>
+    </p>
+    <p>
+          <h4>
+               وضعیت : 
+                
+                    
+                        <text> @Model.Status </text>
+                    
+               
+            </h4>
+    </p>
+    <p>
+        <h4>
+            کد پیگیری : 
+                
+                    
+            <text> @Model.GUID </text>
+                    
+               
+        </h4>
+    </p>
+   
+</div>
+
+<div class="container">
+    
+    <div class="form-group col-md-12">
+    
+        <label class="control-label col-md-2  "  >نوع خدمت</label>
+        <div class="col-md-4">
+    
+            @Model.CardServiceType
+        </div>
+    
+        <label class="control-label col-md-2  "  > تعداد </label>
+        <div class="col-md-4">
+            @Model.Count
+        </div>
+    </div>
+    <div class="form-group col-md-12">
+        
+     
+           
+                <label class="control-label col-md-2  "  > مبلغ </label>
+                <div class="col-md-4">
+                    @Model.Price
+                </div>
+          
+           
+                <label class="control-label col-md-2  "> شعبه </label>
+                <div class="col-md-4">
+                    @Model.Branch
+                </div>
+          
+       
+    </div>
+    
+    <div class="form-group col-md-12">
+        
+        <label class="control-label col-md-2  "  >نوع کارت  </label>
+        <div class="col-md-4">
+        
+            @Model.Type
+        </div>
+        
+        <label class="control-label col-md-2  "  >  نوع چاپ </label>
+        <div class="col-md-4">
+            @Model.PrintType
+        </div>
+    </div>
+    
+    
+        <div class="form-group col-md-12">
+            
+            <label class="control-label col-md-2  "  > ارجحیت    </label>
+            <div class="col-md-4">
+            
+                @Model.Priority
+            </div>
+            
+            <label class="control-label col-md-2  "  >  نحوه تحویل   </label>
+            <div class="col-md-4">
+                @Model.DeliveryType
+            </div>
+        </div>
+   <div class="form-group col-md-12">
+               
+               <label class="control-label col-md-2  "  >  پاکت گذاری    </label>
+               <div class="col-md-4">
+               
+                   @Model.HasPacket
+               </div>
+               
+              
+           </div>
+         <div class="form-group col-md-12">
+                 <br  >
+                   
+                <label class="control-label col-md-2  "  > طرح  </label>
+             <div class="col-md-4">
+                
+                 <img  style="width: 100%;
+                 border: 1px solid #ebebf7;
+                                               object-fit: cover;
+                                               
+                     " src="~/Content/images/CardTemplate/@Model.TemplateId" alt="">
+                      @Model.TemplateCode                         
+             </div>
+             
+             </div>
+         </div>
+
+
+<div class="row">
+        <div class="col-sm-12">
+            <div class="right-bubble">
+
+                <div>
+                    <h4>توضیحات  : </h4>
+                    <p>@Model.Body</p>
+                </div>
+                <small style="margin-left: 10px;">@Model.CreationDate.ToPersianDateTime()</small> <small class="text-muted">@Model.CreationDate.ToRelativeDate()</small>
+                <div style="margin-top: 6px;">
+                    @foreach (var item in Model.Documents)
+                    {
+                        <a class="btn btn-default btn-sm" href="@Url.Action("GetDocument", "CardRequestDocument", new {id = item.Key})" target="_blank"><i class="fa fa-paperclip"></i> @item.Value</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+
+    @foreach (var item in Model.Replies.OrderBy(x => x.Id))
+    {
+        <div class="row">
+            <div class="col-sm-12">
+                <div>
+                    <b><i>@item.UserFullName:</i></b>
+    
+                    <span style="line-height: 2;"  >@item.Body</span>
+                </div>
+                <small style="margin-left: 10px;">@item.CreationDate.ToPersianDateTime()</small>
+                <div style="margin-top: 6px;">
+                    @foreach (var document in item.Documents)
+                    {
+                        <a class="btn btn-default btn-sm" href="@Url.Action("GetDocument", "CardRequestReplyDocument", new { id = document.Key })" target="_blank"><i class="fa fa-paperclip"></i> @document.Value</a>
+                    }
+                </div>
+            </div>
+        </div>
+    
+        <hr />
+    }
+
+    @if (Model.StatusId == MessageStatus.Close.ToByte())
+    {
+        
+    }
+    else if (Model.StatusId == MessageStatus.Open.ToByte() && User.Identity.GetUserId<long>() != Model.UserId)
+    {
+        
+    }
+    else
+    {
+        <form action="@Url.Action("Create", "CardRequestReply")" method="post" class="form-horizontal" id="frmSendMessage" enctype="multipart/form-data">
+            <textarea class="form-control" id="Body" name="Body" placeholder="متن پاسخ"></textarea>
+
+            <br/>
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+                <span class="btn btn-default btn-file" tabindex="6"><span class="fileinput-new">انتخاب فایل</span><span class="fileinput-exists">انتخاب فایل</span><input type="file" id="PostedFiles" name="PostedFiles" multiple accept=".jpg,.jpeg,.pdf,.docx,.png"></span>
+                <span class="fileinput-filename"></span>
+                <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+            </div>
+            <br/>
+            <button id="btnConfirm" class="btn btn-success" type="submit" data-loading-text="در حال ارسال...">ارسال</button>
+        </form>
+    }
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/messageDetailsScripts",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.confirm.js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ChangeStatusToUnderReviewButton').on('click', function () {
+                var $button = $(this);
+ 
+                let vava  = $('#UserId').val();
+                if (vava === '')
+                    {
+                                $.showConfirm({
+                                             body: 'انتخاب یک کارشناس پذیرنده الزامی می باشد',
+                                           
+                                            onConfirm: function () {
+                                              
+                                            }
+                                        });
+                        return 0;
+                        }
+                
+                
+                $.showConfirm({
+                     body: 'آیا نسبت به تغییر وضعیت تیکت به حالت "در حال اجرا" مطمئن هستید؟',
+                   
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("ChangeStatus", "CardRequest")',
+                         {
+                            messageId: $button.data('message-id'),
+                         statusId: '@TES.Common.Enumerations.CardRequestStatus.UnderReview.ToByte()',
+                         UserId : $('#UserId').val()
+                       
+                         }
+                         
+                         ).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                });
+            });
+
+            $('#ChangeStatusToClosedButton').on('click', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    body: 'آیا نسبت به تغییر وضعیت تیکت به حالت "خاتمه یافته" مطمئن هستید؟',
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("ChangeStatus", "CardRequest")', { messageId: $button.data('message-id'), statusId: '@TES.Common.Enumerations.CardRequestStatus.Closed.ToByte()' }).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                });
+            });
+              $('#ChangeStatusToReadyForDeliverButton').on('click', function () {
+                            var $button = $(this);
+            
+                            $.showConfirm({
+                                body: 'آیا نسبت به تغییر وضعیت تیکت به حالت "آماده تحویل" مطمئن هستید؟',
+                                onConfirm: function () {
+                                    $button.button('loading');
+            
+                                    $.post('@Url.Action("ChangeStatus", "CardRequest")',
+                                     { messageId: $button.data('message-id'), statusId: '@TES.Common.Enumerations.CardRequestStatus.ReadyForDeliver.ToByte()' }).done(function (result) {
+                                        $.processMessage(result);
+                                        $button.button('reset');
+            
+                                        if (result.success) {
+                                            window.location.reload();
+                                        }
+                                    });
+                                }
+                            });
+                        });
+            
+            
+            $('#ChangeStatusToOpenButton').on('click', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    body: 'آیا نسبت به تغییر وضعیت تیکت به حالت "باز" مطمئن هستید؟',
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("ChangeStatus", "CardRequest")', { messageId: $button.data('message-id'), statusId: '@TES.Common.Enumerations.CardRequestStatus.Open.ToByte()' }).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                });
+            });
+
+            $('#frmSendMessage').validate({
+                rules: {
+                    Body: { required: true }
+                },
+                submitHandler: function (form) {
+                    var $button = $('#btnConfirm', '#frmSendMessage');
+                    $button.button('loading');
+
+                    $(form).ajaxSubmit({
+                        data: { messageId: @Model.Id },
+                        success: function (result) {
+                            $button.button('reset');
+                            $.processMessage(result);
+
+                            if (result.success) {
+                                window.location.reload();
+                            }
+                        }, error: function (result) {
+                            $button.button('reset');
+                            $.processMessage(result);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

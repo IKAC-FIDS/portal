@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Model" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/PecSite.Core.Caching" />
+  <xs:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Helpers" />
+  <xs:complexType name="SearchableModelOfanyTypeNBSRequestMCDSNBSRequestMCDS.NBSRequestMCDataTableNBSRequestMCDS.NBSRequestMCRowV9Agphu2">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="SearchableModelOf{0}{1}{2}{3}{#}" Namespace="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Model" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="anyType" Namespace="http://www.w3.org/2001/XMLSchema" />
+          <GenericParameter Name="NBSRequestMCDS" Namespace="http://schemas.datacontract.org/2004/07/PecCare.Common.Data" />
+          <GenericParameter Name="NBSRequestMCDS.NBSRequestMCDataTable" Namespace="http://schemas.datacontract.org/2004/07/PecCare.Common.Data" />
+          <GenericParameter Name="NBSRequestMCDS.NBSRequestMCRow" Namespace="http://schemas.datacontract.org/2004/07/PecCare.Common.Data" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:StaticSearchableModelOfNBSRequestMCDS.NBSRequestMCRow_P2ND0c3f">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CacheDuration" type="ser:duration" />
+          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/PecSite.Core.Caching" minOccurs="0" name="CacheScopeType" type="q1:CacheScopeType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SearchableModelOfanyTypeNBSRequestMCDSNBSRequestMCDS.NBSRequestMCDataTableNBSRequestMCDS.NBSRequestMCRowV9Agphu2" nillable="true" type="tns:SearchableModelOfanyTypeNBSRequestMCDSNBSRequestMCDS.NBSRequestMCDataTableNBSRequestMCDS.NBSRequestMCRowV9Agphu2" />
+  <xs:complexType name="StaticSearchableModelOfNBSRequestMCDS.NBSRequestMCRow_P2ND0c3f">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="StaticSearchableModelOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Model" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="NBSRequestMCDS.NBSRequestMCRow" Namespace="http://schemas.datacontract.org/2004/07/PecCare.Common.Data" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CallbackCause" type="tns:CallbackCause" />
+      <xs:element minOccurs="0" name="GroupIndex" nillable="true" type="tns:ArrayOfGroupCloumn" />
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="NestedModels" nillable="true" type="q2:ArrayOfanyType" />
+      <xs:element minOccurs="0" name="PageIndex" type="xs:int" />
+      <xs:element minOccurs="0" name="PageSize" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StaticSearchableModelOfNBSRequestMCDS.NBSRequestMCRow_P2ND0c3f" nillable="true" type="tns:StaticSearchableModelOfNBSRequestMCDS.NBSRequestMCRow_P2ND0c3f" />
+  <xs:simpleType name="CallbackCause">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PageIndexChange">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Invalidate">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Refresh">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ExportToCSV">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ExportToExcel">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Group">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="CallbackCause" nillable="true" type="tns:CallbackCause" />
+  <xs:complexType name="ArrayOfGroupCloumn">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GroupCloumn" nillable="true" type="tns:GroupCloumn" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGroupCloumn" nillable="true" type="tns:ArrayOfGroupCloumn" />
+  <xs:complexType name="GroupCloumn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ColumnHeaderText" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ColumnName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ColumnOrder" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GroupCloumn" nillable="true" type="tns:GroupCloumn" />
+  <xs:complexType name="StaticLookupModelOfLookupItemdr1xjEZd">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="StaticLookupModelOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Model" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="LookupItem" Namespace="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Model" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:StaticSearchableModelOfLookupItemdr1xjEZd">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Owner" nillable="true" type="xs:anyType" />
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Helpers" minOccurs="0" name="SelectedValues" nillable="true" type="q3:ArrayOfLookupSelectedItem" />
+          <xs:element minOccurs="0" name="lookupText" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="StaticLookupModelOfLookupItemdr1xjEZd" nillable="true" type="tns:StaticLookupModelOfLookupItemdr1xjEZd" />
+  <xs:complexType name="StaticSearchableModelOfLookupItemdr1xjEZd">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="StaticSearchableModelOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Model" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="LookupItem" Namespace="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Model" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CallbackCause" type="tns:CallbackCause" />
+      <xs:element minOccurs="0" name="GroupIndex" nillable="true" type="tns:ArrayOfGroupCloumn" />
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string" />
+      <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="NestedModels" nillable="true" type="q4:ArrayOfanyType" />
+      <xs:element minOccurs="0" name="PageIndex" type="xs:int" />
+      <xs:element minOccurs="0" name="PageSize" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StaticSearchableModelOfLookupItemdr1xjEZd" nillable="true" type="tns:StaticSearchableModelOfLookupItemdr1xjEZd" />
+  <xs:complexType name="LookupModelOfanyTypeBKCityDSBKCityDS.BKCityDataTableBKCityDS.BKCityRowQOZLuZJP">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="LookupModelOf{0}{1}{2}{3}{#}" Namespace="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Model" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="anyType" Namespace="http://www.w3.org/2001/XMLSchema" />
+          <GenericParameter Name="BKCityDS" Namespace="http://schemas.datacontract.org/2004/07/PecSys.Common.Data" />
+          <GenericParameter Name="BKCityDS.BKCityDataTable" Namespace="http://schemas.datacontract.org/2004/07/PecSys.Common.Data" />
+          <GenericParameter Name="BKCityDS.BKCityRow" Namespace="http://schemas.datacontract.org/2004/07/PecSys.Common.Data" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:SearchableModelOfanyTypeBKCityDSBKCityDS.BKCityDataTableBKCityDS.BKCityRowQOZLuZJP">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Owner" nillable="true" type="xs:anyType" />
+          <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Helpers" minOccurs="0" name="SelectedValues" nillable="true" type="q5:ArrayOfLookupSelectedItem" />
+          <xs:element minOccurs="0" name="lookupText" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="LookupModelOfanyTypeBKCityDSBKCityDS.BKCityDataTableBKCityDS.BKCityRowQOZLuZJP" nillable="true" type="tns:LookupModelOfanyTypeBKCityDSBKCityDS.BKCityDataTableBKCityDS.BKCityRowQOZLuZJP" />
+  <xs:complexType name="SearchableModelOfanyTypeBKCityDSBKCityDS.BKCityDataTableBKCityDS.BKCityRowQOZLuZJP">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="SearchableModelOf{0}{1}{2}{3}{#}" Namespace="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Model" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="anyType" Namespace="http://www.w3.org/2001/XMLSchema" />
+          <GenericParameter Name="BKCityDS" Namespace="http://schemas.datacontract.org/2004/07/PecSys.Common.Data" />
+          <GenericParameter Name="BKCityDS.BKCityDataTable" Namespace="http://schemas.datacontract.org/2004/07/PecSys.Common.Data" />
+          <GenericParameter Name="BKCityDS.BKCityRow" Namespace="http://schemas.datacontract.org/2004/07/PecSys.Common.Data" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:StaticSearchableModelOfBKCityDS.BKCityRowjWZ3klD_P">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CacheDuration" type="ser:duration" />
+          <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/PecSite.Core.Caching" minOccurs="0" name="CacheScopeType" type="q6:CacheScopeType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SearchableModelOfanyTypeBKCityDSBKCityDS.BKCityDataTableBKCityDS.BKCityRowQOZLuZJP" nillable="true" type="tns:SearchableModelOfanyTypeBKCityDSBKCityDS.BKCityDataTableBKCityDS.BKCityRowQOZLuZJP" />
+  <xs:complexType name="StaticSearchableModelOfBKCityDS.BKCityRowjWZ3klD_P">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="StaticSearchableModelOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Model" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="BKCityDS.BKCityRow" Namespace="http://schemas.datacontract.org/2004/07/PecSys.Common.Data" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CallbackCause" type="tns:CallbackCause" />
+      <xs:element minOccurs="0" name="GroupIndex" nillable="true" type="tns:ArrayOfGroupCloumn" />
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string" />
+      <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="NestedModels" nillable="true" type="q7:ArrayOfanyType" />
+      <xs:element minOccurs="0" name="PageIndex" type="xs:int" />
+      <xs:element minOccurs="0" name="PageSize" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StaticSearchableModelOfBKCityDS.BKCityRowjWZ3klD_P" nillable="true" type="tns:StaticSearchableModelOfBKCityDS.BKCityRowjWZ3klD_P" />
+  <xs:complexType name="ArrayOfArrayOfFormatAddress">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfFormatAddress" nillable="true" type="tns:ArrayOfFormatAddress" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfArrayOfFormatAddress" nillable="true" type="tns:ArrayOfArrayOfFormatAddress" />
+  <xs:complexType name="ArrayOfFormatAddress">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FormatAddress" nillable="true" type="tns:FormatAddress" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFormatAddress" nillable="true" type="tns:ArrayOfFormatAddress" />
+  <xs:complexType name="FormatAddress">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Label" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Type" type="xs:int" />
+      <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FormatAddress" nillable="true" type="tns:FormatAddress" />
+</xs:schema>

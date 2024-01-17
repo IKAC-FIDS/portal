@@ -1,0 +1,266 @@
+﻿@model MerchantProfileImportViewModel
+
+@{
+    ViewBag.Title = "بروز رسانی اطلاعات پایانه ها";
+}
+
+<div class="page-header">
+    <a class="btn btn-info pull-left" target="_blank" href="~/Download/batchImportsample.xlsx">نمونه فایل جهت ورود اطلاعات</a>
+    <h1>بروز رسانی اطلاعات پایانه ها</h1>
+</div>
+
+<form enctype="multipart/form-data" action="@Url.Action("BatchImport", "MerchantProfile")" method="post" id="MerchantProfileImportForm">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    
+                    <span class="input-group-btn">
+                        <button id="ConfirmButton" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">ثبت اطلاعات</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="col-md-12">
+             <div class="form-group">
+                  
+                     <div class="container">
+                       <div class="row"   >
+                         <div class="col-sm-2">
+                       شروع
+                         </div>
+                       <div class="col-sm-2">
+                          پایان
+                         </div>
+                           <div class="col-sm-2">
+                               تعدا کل رکورد ها
+                           </div>
+                           
+                           <div class="col-sm-2">
+                               رکورد های پردازش شده
+                           </div>
+                           
+                           <div class="col-sm-2">
+                               خطا
+                           </div>
+                                  <div class="col-sm-2">
+                                                                                                    پیغام خطا
+                                                                                                          </div>
+                       </div>
+                     </div>
+                  
+    
+     
+     
+                 
+             </div>
+         </div>
+ 
+     <div class="col-md-12">
+         <div class="form-group">
+              
+                 <div class="container"  id="tblData">
+                 در حال بارگذاری
+              
+                 </div>
+              
+
+ 
+ 
+             
+         </div>
+     </div>
+ 
+    <div class="table-responsive hidden" id="ErrorsSection">
+    </div>
+</form>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/merchantProfileImportScripts", "~/Scripts/jasny-bootstrap.js", "~/Scripts/jquery.confirm.js", "~/Scripts/jquery.form.js")
+
+     @BundleConfig.AddScripts("~/bundles/messageIndexScripts",
+            "~/Scripts/jquery.twbsPagination.js",
+            "~/Scripts/jquery.form.js",
+            "~/Scripts/jquery.modal.js",
+            "~/Scripts/PersianDatePicker.js",
+            "~/Scripts/jquery.validate.js",
+            "~/Scripts/jquery.validation-extensions.js",
+            "~/Scripts/jquery.validation-messages.fa.js",
+            "~/Scripts/jquery.confirm.js",
+            "~/Scripts/chosen.jquery.js")
+    
+    <script type="text/javascript">
+    
+       function loadData(retriveTotalPageCount, page, upId) {
+              
+                if (retriveTotalPageCount) {
+                    var pagingData = $('#Pagination').data('twbs-pagination');
+                    if (pagingData) $('#Pagination').twbsPagination('destroy');
+                    $('#SearchButton').removeData('total-pages');
+                }
+    
+                var $button = $('#SearchButton');
+                $button.button('loading');
+    
+                  console.log('aaaaa',    @ViewBag.UserId);
+               
+                return $.post('@Url.Action("GetData", "MerchantProfile")', {
+                    upId:  upId,
+                     page: page,
+                  
+                }).done(function (result) {
+                    $button.button('reset');
+                    $('#ResultSection').empty();
+                    var html = '';
+    
+                    $('#SearchButton').data('total-pages', result.data.totalRowsCount);
+    
+                    if (!result.success) {
+                        $('#ResultSection').empty().append('<div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div>');
+                        return false;
+                    }
+    
+                    if (result.data.rows.length === 0) {                     
+                        $('#tblData tbody').empty().append('' +
+                                 '' +
+                            '<td colspan="8"><div   class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>');                  
+                        return false;
+                    }
+    
+                    if (result.data.totalRowsCount > 0) {
+                        $('#SearchButton').data('total-pages', result.data.totalRowsCount);
+    
+                        $('#Pagination').twbsPagination({
+                            totalPages: Math.ceil(result.data.totalRowsCount / 20),
+                            visiblePages: 7,
+                            last: '<i class="fa fa-fast-backward"></i>',
+                            next: '<i class="fa fa-backward"></i>',
+                            prev: '<i class="fa fa-forward"></i>',
+                            first: '<i class="fa fa-fast-forward"></i>',
+                            initiateStartPageClick: false,
+                            onPageClick: function (event, page) {
+                                loadData(false, page);
+                            }
+                        });
+                    }
+    
+                  
+                   
+                    html = '';
+                   
+             
+                       for (let i = 0; i < result.data.rows.length; i++) {
+                           
+                           
+                                                        var item = result.data.rows[i];
+                        
+                           
+                                                        html += '<div class="row" data-terminal-id="' + item.terminalId + '" data-status-id="' + item.statusId + '">' +
+                                                          //  '<td class="text-nowrap">' + ((item.statusId === @TerminalStatus.New.ToInt32() && @JsonNet.Encode(User.IsAcceptorsExpertUser())) ? '<input type="checkbox" class="send-to-psp" /></td>' : '') +
+                                                            
+                         '   <div class="col-sm-2" style=" background: #eaeaff;  margin: auto;    padding: 10px;height:40px"> ' + ( item.start ) + '</div>' +
+                         '   <div class="col-sm-2" style=" background: #eaeaff;  margin: auto;    padding: 10px;height:40px"> ' + (item.end == null ? "" : item.end) + '</div>' +
+                         '   <div class="col-sm-2" style=" background: #eaeaff;  margin: auto;    padding: 10px;height:40px"> ' + (  item.rowNumber == null ? "" :  item.rowNumber) + '</div>' +
+                         '   <div class="col-sm-2" style=" background: #eaeaff;  margin: auto;    padding: 10px;height:40px"> ' + (item.processedRow == null ? "" : item.processedRow) + '</div>' +
+                         '   <div class="col-sm-2" style=" background: #eaeaff;  margin: auto;    padding: 10px;height:40px"> ' +  (item.error  == null ? 'بدون خطا' : item.error ) + '</div>' +
+                         '   <div class="col-sm-2" style=" background: #eaeaff;  margin: auto;    padding: 10px;height:40px"> ' + (item.errorMessage  == null ? '' : item.errorMessage )   + '</div>' ;
+
+
+
+                                                                                
+    
+                                                             
+                                                          
+                                                                           
+                                                                              html += ' </div>';
+                                    
+                                                       
+                                                      
+                                                    }
+                       console.log('xvxcvxcvxcvxccv',html);
+                    
+                                          $('#tblData').empty().append(html);
+    
+                       
+                });
+            }
+
+            
+            
+       
+        $(document).ready(function () {
+            
+              loadData(true, 1,1);
+              
+            $('#ConfirmButton').on('click', function (e) {
+                
+
+                var $button = $('#ConfirmButton');
+
+                $.showConfirm({
+                    onConfirm: function () {
+                        var interval = setInterval(function () {
+                            
+                            toastr.options = {
+                              "closeButton": false,
+                              "debug": false,
+                              "newestOnTop": false,
+                              "progressBar": false,
+                               "positionClass": "toast-top-full-width",
+                              "preventDuplicates": false,
+                              "onclick": null,
+                              "showDuration": "300",
+                              "hideDuration": "1000",
+                              "timeOut": "5000",
+                              "extendedTimeOut": "1000",
+                              "showEasing": "swing",
+                              "hideEasing": "linear",
+                              "showMethod": "fadeIn",
+                              "hideMethod": "fadeOut"
+                            }
+                            
+                            toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                        }, 12000);
+
+                        $('#MerchantProfileImportForm').ajaxSubmit({
+                             async: true,
+                            success: function (result) {
+                                clearInterval(interval);
+                                $button.button('reset');
+                                $.processMessage(result);
+
+                                if (result.success) {
+                                    $('#ErrorsSection').addClass('hidden').empty();
+                                } else {
+                                    clearInterval(interval);
+                                    var html = '';
+                                    console.log('amooreza',result);
+                                    
+                                    for (var i = 0; i < result.data.length; i++) {
+                                        var item = result.data[i];
+                                        html += '<div style="margin-top: 15px;" class="alert alert-danger alert-labeled">' +
+                                            '<div class="alert-labeled-row"><span class="alert-label alert-labelled-cell">' +
+                                            '<i class="fa fa-times"></i></span><p class="alert-labelled-cell alert-body">' + item + '</p>' +
+                                            '</div></div>';
+                                    }
+
+                                    $('#ErrorsSection').removeClass('hidden').empty().append(html);
+                                    $("html, body").animate({ scrollTop: $('#ErrorsSection').offset().top }, 1000);
+                                }
+                            }, error: function (result) {
+                                $button.button('reset');
+                                $.processMessage(result);
+                                clearInterval(interval);
+                            }
+                        });
+
+                        $button.button('loading');
+
+                        return false;
+                    }
+                });
+            });
+        });
+    </script>
+}

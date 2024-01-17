@@ -1,0 +1,84 @@
+﻿@model OrganizationUnitViewModel
+
+@{
+    ViewBag.PageTitle = "ویرایش شعبه";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+<form action="@Url.Action("Edit", "OrganizationUnit")" method="post" class="form-horizontal" id="OrganizationUnitEditForm">
+    <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+
+    <div class="form-group">
+        <label class="control-label col-md-3 required">عنوان</label>
+        <div class="col-md-9">
+            <input type="text" id="Title" name="Title" class="form-control" maxlength="100" autocomplete="off" value="@Model.Title" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-5 required">امکان ثبت پایانه</label>
+        <div class="col-md-7">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default @(Model.DisableNewTerminalRequest ? "active" : "")">
+                    <input type="radio" name="DisableNewTerminalRequest" value="true" @(Model.DisableNewTerminalRequest ? "checked" : "") /> خیر
+                </label>
+                <label class="btn btn-default @(!Model.DisableNewTerminalRequest ? "active" : "")">
+                    <input type="radio" name="DisableNewTerminalRequest" value="false" @(!Model.DisableNewTerminalRequest ? "checked" : "") /> بله
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-5 required">امکان ثبت پایانه سیار</label>
+        <div class="col-md-7">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default @(Model.DisableWirelessTerminalRequest ? "active" : "")">
+                    <input type="radio" name="DisableWirelessTerminalRequest" value="true" @(Model.DisableWirelessTerminalRequest ? "checked" : "") /> خیر
+                </label>
+                <label class="btn btn-default @(!Model.DisableWirelessTerminalRequest ? "active" : "")">
+                    <input type="radio" name="DisableWirelessTerminalRequest" value="false" @(!Model.DisableWirelessTerminalRequest ? "checked" : "") /> بله
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-12">
+            <input type="submit" value="ثبت" id="ConfirmButton" data-loading-text="در حال ثبت..." class="btn btn-success btn-lg" />
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">انصراف</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#OrganizationUnitEditForm').validate({
+            rules: {
+                Title: { required: true, maxlength: 500 }
+            },
+            submitHandler: function (form) {
+                var $button = $('#ConfirmButton', '#OrganizationUnitEditForm');
+                $button.button('loading');
+
+                $(form).ajaxSubmit({
+                    success: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+
+                        if (result.success) {
+                            $.closeModal('ok');
+                        }
+                    }, error: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+                    }
+                });
+
+                return false;
+            }
+        });
+    });
+</script>

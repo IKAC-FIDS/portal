@@ -1,0 +1,582 @@
+﻿@model MerchantProfileImportViewModel
+
+@{
+    ViewBag.Title = "بارگذاری فایل های فرآیند ارزیابی پایانه";
+}
+@section styles {
+    @BundleConfig.AddStyles("~/Content/terminalManageStyles",
+        "~/Content/PersianDatePicker.css",
+        "~/Content/chosen.css")
+}
+
+<div class="page-header">
+    
+    <h1>  تعیین وضعیت پایانه ها      </h1>
+</div>
+
+<form enctype="multipart/form-data" action="@Url.Action("ImportWage", "Terminal")" method="post" id="MerchantProfileImportForm">
+
+   <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Year">سال</label>
+                <div class="col-md-8">
+                    <select id="Year" name="Year" class="form-control">
+                        @for (int i = DateTime.Now.GetPersianYear(); i >= 1395; i--)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+       <div class="col-md-3">
+           <div class="form-group">
+               <label class="control-label col-md-4" for="Month">ماه</label>
+               <div class="col-md-8">
+                   <select id="Month" name="Month" class="form-control">
+                       <option selected value="">انتخاب نمایید</option>
+                       <option value="1">فروردین</option>
+                       <option value="2">اردیبهشت</option>
+                       <option value="3">خرداد</option>
+                       <option value="4">تیر</option>
+                       <option value="5">مرداد</option>
+                       <option value="6">شهریور</option>
+                       <option value="7">مهر</option>
+                       <option value="8">آبان</option>
+                       <option value="9">آذر</option>
+                       <option value="10">دی</option>
+                       <option value="11">بهمن</option>
+                       <option value="12">اسفند</option>
+                   </select>
+               </div>
+           </div>
+       </div>
+       
+       <div class="col-md-3">
+               <button id="ShowData" type="button" class="btn btn-success" data-loading-text="در حال ثبت..."> نمایش تاریخچه         </button>
+       </div>
+   </div>
+
+    <br />
+    
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+               
+                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    @* <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">انتخاب فایل (.xlsx)</span><span class="fileinput-exists">تغییر</span> *@
+                    @*     <input accept=".xlsx" type="file" name="WageFile" id="WageFile"></span> *@
+                    @* <div class="form-control" data-trigger="fileinput"> *@
+                    @*     <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span> *@
+                    @* </div> *@
+                    @* <span class="input-group-btn"> *@
+                        <button id="UploadWageButton" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل کارمزد شاپرکی   </button>
+                    @* </span> *@
+                </div>
+                
+              
+               
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                       
+                  @* <div class="fileinput fileinput-new input-group" data-provides="fileinput"> *@
+                  @*                   <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">انتخاب فایل (.xlsx)</span><span class="fileinput-exists">تغییر</span> *@
+                  @*                       <input accept=".xlsx" type="file" name="MinFile" id="MinFile"></span> *@
+                  @*                   <div class="form-control" data-trigger="fileinput"> *@
+                  @*                       <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span> *@
+                  @*                   </div> *@
+                  @*                   <span class="input-group-btn"> *@
+                                        <button id="UploadMinButton" type="button" class="btn btn-success" data-loading-text="در حال ثبت..."> بارگذاری فایل  حداقل کارکرد     </button>
+                                    @* </span> *@
+                       </div> 
+            </div>
+        <div class="col-md-2">
+            <div class="form-group">
+     
+                        @* <div class="fileinput fileinput-new input-group" data-provides="fileinput"> *@
+                        @*                             <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">انتخاب فایل (.xlsx)</span><span class="fileinput-exists">تغییر</span> *@
+                        @*               <input accept=".xlsx" type="file" name="AvgFile" id="AvgFile"></span> *@
+                        @*                             <div class="form-control" data-trigger="fileinput"> *@
+                        @*      <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span> *@
+                        @*                             </div> *@
+                        @*      <span class="input-group-btn"> *@
+                                 <button id="UploadAvgButton" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">   بارگذاری فایل   میانگین کارکرد   
+                                     </button>
+                                                    @* </span> *@
+                        </div> 
+ 
+            </div>
+        <div class="col-md-2">
+                    <div class="form-group">
+                       
+                       
+                        @* *@
+                        @* <div class="fileinput fileinput-new input-group" data-provides="fileinput"> *@
+                        @*     <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">انتخاب فایل (.xlsx)</span> *@
+                        @*         <span class="fileinput-exists">تغییر</span> *@
+                        @*               <input accept=".xlsx" type="file" name="InstalledFile" id="InstalledFile"></span> *@
+                        @*     <div class="form-control" data-trigger="fileinput"> *@
+                        @*      <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span> *@
+                        @*                             </div> *@
+                        @*      <span class="input-group-btn"> *@
+              <button id="UploadInstalledButton" type="button" class="btn btn-success" data-loading-text="در حال ثبت..."> بارگذاری فایل  پایانه های منصوبه    </button>
+                             @* </span> *@
+                        </div> 
+                    </div>
+                    <div class="col-md-2">
+                                        <div class="form-group">
+                                           
+                                           
+                                           
+                                  <button id="CalculateResultButton" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">  محاسبه  </button>
+                                                 @* </span> *@
+                                            </div> 
+                                        </div>
+    </div>
+
+     <div class="col-md-12">
+                      <div class="form-group">
+                           
+                              <div class="container">
+                                <div class="row"   >
+                                  
+                                    <div class="col-sm-1">
+                                     سال
+                                    </div>
+                                     
+                                    <div class="col-sm-1">
+                                     ماه
+                                    </div>
+                                    <div class="col-sm-2">
+                                        فایل کارمزد شاپرکی
+                                    </div>
+    
+                                    <div class="col-sm-2">
+                                      فایل حداقل کارکرد
+                                    </div>
+                                    
+                                    <div class="col-sm-2">
+                                    میانگین کارکرد
+                                    </div>
+                                    
+                                    <div class="col-sm-2">
+                                       پایانه های منصوبه
+                                    </div>
+                                           <div class="col-sm-2">
+                                  محاسبه نهایی
+                                        </div>
+                                </div>
+                              </div>
+                           
+             
+              
+              
+                          
+                      </div>
+                  </div>
+            <div class="col-md-12">
+                        <div class="form-group">
+                             
+                                <div class="container"  id="tblData">
+                               <div class="col-md-12" id="tblDataBody">در حال بارگذاری</div>
+                                </div> 
+                        </div>
+                    </div>
+          
+    <div class="table-responsive hidden" id="ErrorsSection">
+         </div>
+</form>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/merchantProfileImportScripts",
+        "~/Scripts/jasny-bootstrap.js", "~/Scripts/jquery.confirm.js", "~/Scripts/jquery.form.js"
+        ,
+        "~/bundles/terminalManageScripts",
+        "~/Scripts/jquery.twbsPagination.js",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/PersianDatePicker.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.filter_input.js",
+        "~/Scripts/jquery.confirm.js",
+        "~/Scripts/jasny-bootstrap.js",
+        "~/Scripts/chosen.jquery.js",
+        "~/Scripts/addressCreator.js"
+        )
+
+    <script type="text/javascript">
+    
+        function loadData(retriveTotalPageCount, page, upId) {
+                    $('#tblData').empty();
+                    
+                    if (retriveTotalPageCount) {
+                        var pagingData = $('#Pagination').data('twbs-pagination');
+                        if (pagingData) $('#Pagination').twbsPagination('destroy');
+                        $('#SearchButton').removeData('total-pages');
+                    }
+        
+                    var $button = $('#SearchButton');
+                    $button.button('loading');
+        
+                    
+                   
+                    return $.post('@Url.Action("GetUploadTerminalValidationData", "Terminal")', {
+                        Year:  $("#Year").val(),
+                       
+                      
+                    }).done(function (result) {
+                        $button.button('reset');
+                        $('#ResultSection').empty();
+                        var html = '';
+        
+                        $('#SearchButton').data('total-pages', result.data.totalRowsCount);
+        
+                        if (!result.success) {
+                            $('#ResultSection').empty().append('<div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div>');
+                            return false;
+                        }
+        
+                        
+                        if (result.data.rows.length === 0) {                     
+                            $('#tblDataBody').empty().append('' +
+                                     '' +
+                                '<td colspan="8"><div   class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>');                  
+                            return false;
+                        }
+        
+                        if (result.data.totalRowsCount > 0) {
+                            $('#SearchButton').data('total-pages', result.data.totalRowsCount);
+        
+                            $('#Pagination').twbsPagination({
+                                totalPages: Math.ceil(result.data.totalRowsCount / 20),
+                                visiblePages: 7,
+                                last: '<i class="fa fa-fast-backward"></i>',
+                                next: '<i class="fa fa-backward"></i>',
+                                prev: '<i class="fa fa-forward"></i>',
+                                first: '<i class="fa fa-fast-forward"></i>',
+                                initiateStartPageClick: false,
+                                onPageClick: function (event, page) {
+                                    loadData(false, page);
+                                }
+                            });
+                        }
+        
+                      
+                       
+                        html = '';
+                       
+                 console.log('xcvxcvxcvzxcvzxvc',result.data.rows)
+                           for (let i = 0; i < result.data.rows.length; i++) {
+                               
+                               
+                                                            var item = result.data.rows[i];
+                            
+                               
+                                                            html += '<div class="row" data-terminal-id="' + item.terminalId + '" data-status-id="' + item.statusId + '">' +
+                                                              //  '<td class="text-nowrap">' + ((item.statusId === @TerminalStatus.New.ToInt32() && @JsonNet.Encode(User.IsAcceptorsExpertUser())) ? '<input type="checkbox" class="send-to-psp" /></td>' : '') +
+                         '   <div class="col-sm-1" style=" background: #eaeaff;  margin: auto;    padding: 10px;height:40px"> ' + ( item.year == null ? "" :  item.year  ) + '</div>' +
+       '   <div class="col-sm-1" style=" background: #eaeaff;  margin: auto;    padding: 10px;height:40px"> ' + ( item.month == null ? "خیر" : item.month) + '</div>' +
+                                              
+       '   <div class="col-sm-2" style=" background: #eaeaff;  margin: auto;    padding: 10px;height:40px"> ' + ( item.wage == null ? "خیر" :   ( item.wage ? "بله" : "خیر") ) + '</div>' +
+              '   <div class="col-sm-2" style=" background: #eaeaff;  margin: auto;    padding: 10px;height:40px"> ' + (item.min == null ? "خیر" :  ( item.min ? "بله" : "خیر") ) + '</div>' +
+           '   <div class="col-sm-2" style=" background: #eaeaff;  margin: auto;    padding: 10px;height:40px"> ' + (item.avg == null ? "خیر" : ( item.avg ? "بله" : "خیر")  ) + '</div>' +
+            '   <div class="col-sm-2" style=" background: #eaeaff;  margin: auto;    padding: 10px;height:40px"> ' + (item.installed == null ? "خیر" : ( item.installed ? "بله" : "خیر")  ) + '</div>' + 
+         '   <div class="col-sm-2" style=" background: #eaeaff;  margin: auto;    padding: 10px;height:40px"> ' + (item.result == null ? "خیر" : ( item.result ? "بله" : "خیر") ) + '</div>'  
+
+ 
+                              ;
+                                            
+                                                                                  html += ' </div>';
+                                         
+                                                        } 
+                                              $('#tblData').empty().append(html);
+        
+                           
+                    });
+                }
+    
+       
+                
+                
+        $(document).ready(function () {
+            
+            
+              loadData(true, 1,1);
+              
+               $('.date-picker').on('click', function () {
+                        PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDate()', true);
+                    });
+
+               
+                  $('#ShowData').on('click', function (e) {
+                                       loadData(true, 1,1);
+            
+                      });
+               //=======================  Upload Wage Button  =============================
+                $('#UploadWageButton').on('click', function (e) {
+                               
+               
+                               let $button = $('#UploadWageButton');
+               
+                             
+                                          var Year = $("#Year").val() ;
+                                                          var Month = $("#Month").val() ;
+
+                
+                               $.showConfirm({
+                                   onConfirm: function () {
+                                       let interval = setInterval(function () {
+                                           toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                                       }, 12000)  ;
+               
+                                        $.ajax({  
+                                                       url: '/Terminal/UploadWageFile?year=' + Year + "&month=" + Month,  
+                                                       type: "POST", 
+                                                        async: true, 
+                                                       contentType: false, // Not to set any content header  
+                                                       processData: false, // Not to process data  
+                                                      
+                                                       success: function (result) {  
+                                                           clearInterval(interval);
+                                                              $button.button('reset');
+                                                       },  
+                                                       error: function (err) {  
+                                                           $button.button('reset');
+                                                                                                   
+                                                                clearInterval(interval);
+                                                       }  
+                                                   });
+                                        
+                                   
+               
+                                       $button.button('loading');
+               
+                                       return false;
+                                   }
+                               });
+                           });
+                //===================== Upload Wage Button
+               
+               
+                 //=======================  Upload Min Button  =============================
+                  $('#UploadMinButton').on('click', function (e) {
+                 
+                                              let $button = $('#UploadMinButton');
+                              
+                                               var Year = $("#Year").val() ;
+                             var Month = $("#Month").val() ;
+
+                                                          
+                                              $.showConfirm({
+                                                  onConfirm: function () {
+                                                      let interval = setInterval(function () {
+                                                          toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                                                      }, 12000)  ;
+                              
+                                                       $.ajax({  
+                                                                      url: '/Terminal/UploadMinFile?year=' + Year + "&month=" + Month ,  
+                                                                      type: "POST", 
+                                                                       async: true, 
+                                                                      contentType: false, // Not to set any content header  
+                                                                      processData: false, // Not to process data  
+                                                                     
+                                                                      success: function (result) {  
+                                                                          clearInterval(interval);
+                                                                             $button.button('reset');
+                                                                      },  
+                                                                      error: function (err) {  
+                                                                          $button.button('reset');
+                                                                                                                  
+                                                                               clearInterval(interval);
+                                                                      }  
+                                                                  });
+                                                       
+                                                  
+                              
+                                                      $button.button('loading');
+                              
+                                                      return false;
+                                                  }
+                                              });
+                                          });
+                  //===================== Upload Min Button
+                               
+                 //=======================  Upload Avg Button  =============================
+                  $('#UploadAvgButton').on('click', function (e) {
+                                    let $button = $('#UploadAvgButton');
+                                                        
+                        var Year = $("#Year").val() ;
+                          var Month = $("#Month").val() ;
+                          
+                                                                                    
+                                                                        $.showConfirm({
+                                                                            onConfirm: function () {
+                                                                                let interval = setInterval(function () {
+                                                                                    toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                                                                                }, 12000)  ;
+                                                        
+                                                                                 $.ajax({  
+                                                                                                url: '/Terminal/UploadAvgFile?year=' + Year + "&month=" + Month ,  
+                                                                                                type: "POST", 
+                                                                                                 async: true, 
+                                                                                                contentType: false, // Not to set any content header  
+                                                                                                processData: false, // Not to process data  
+                                                                                               
+                                                                                                success: function (result) {  
+                                                                                                    clearInterval(interval);
+                                                                                                       $button.button('reset');
+                                                                                                },  
+                                                                                                error: function (err) {  
+                                                                                                    $button.button('reset');
+                                                                                                                                            
+                                                                                                         clearInterval(interval);
+                                                                                                }  
+                                                                                            });
+                                                                                 
+                                                                            
+                                                        
+                                                                                $button.button('loading');
+                                                        
+                                                                                return false;
+                                                                            }
+                                                                        });
+                                                                    });
+                 //===================== Upload Avg Button     
+                   
+                  //=======================  Upload Installed Button  =============================
+                 $('#UploadInstalledButton').on('click', function (e) {
+                    let $button = $('#UploadInstalledButton');
+                                                                           
+                   var Year = $("#Year").val() ;
+                   var Month = $("#Month").val() ;
+                        
+                    $.showConfirm({
+                       onConfirm: function () {
+                           let interval = setInterval(function () {
+                               toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                  }, 12000)  ;
+                                                                           
+                        $.ajax({  
+                           url: '/Terminal/UploadInstalledFile?year=' + Year + "&month=" + Month ,  
+                           type: "POST", 
+                             async: true, 
+                             contentType: false, // Not to set any content header  
+                      processData: false, // Not to process data  
+                                                                                                                  
+                          success: function (result) {  
+                             clearInterval(interval);
+                                 $button.button('reset');
+                        },  
+                 error: function (err) {  
+                        $button.button('reset');
+                                                                                                                                                               
+          clearInterval(interval);
+                          }  
+      });
+                      $button.button('loading');
+                                                                           
+                return false;
+                                                                                               }
+                                                                                           });
+                                                                                       });
+                //===================== Upload Installed Button     
+                                      
+           //=======================  Upload CalculateResult Button    =============================
+            $('#CalculateResultButton').on('click', function (e) {
+                                       let $button = $('#CalculateResultButton');
+                                                                                              
+                                      var Year = $("#Year").val() ;
+                                      var Month = $("#Month").val() ;
+                                           
+                                       $.showConfirm({
+                                          onConfirm: function () {
+                                              let interval = setInterval(function () {
+                                                  toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                                     }, 12000)  ;
+                                                                                              
+                                           $.ajax({  
+                                              url: '/Terminal/CalculateResult?year=' + Year + "&month=" + Month ,  
+                                              type: "POST", 
+                                                async: true, 
+                                                contentType: false, // Not to set any content header  
+                                         processData: false, // Not to process data  
+                                                                                                                                     
+                                             success: function (result) {  
+                                                clearInterval(interval);
+                                                    $button.button('reset');
+                                           },  
+                                    error: function (err) {  
+                                           $button.button('reset');
+                                                                                                                                                                                  
+                             clearInterval(interval);
+                                             }  
+                         });
+                                         $button.button('loading');
+                                                                                              
+                                   return false;
+                                                                                                                  }
+                                                                                                              });
+                                                                                                          });
+         //===================== Upload CalculateResult Button     =============================
+                                        
+                   
+                               
+            $('#ConfirmButton').on('click', function (e) {
+                if (!$("#File").val()) {
+                    toastr.error('فایل مورد نظر را انتخاب نمایید.');
+                    return false;
+                }
+
+                var $button = $('#ConfirmButton');
+
+                $.showConfirm({
+                    onConfirm: function () {
+                        var interval = setInterval(function () {
+                            toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                        }, 12000);
+
+                        $('#MerchantProfileImportForm').ajaxSubmit({
+                             async: true,
+                            success: function (result) {
+                                clearInterval(interval);
+                                $button.button('reset');
+                                $.processMessage(result);
+
+                                if (result.success) {
+                                    $('#ErrorsSection').addClass('hidden').empty();
+                                } else {
+                                    clearInterval(interval);
+                                    var html = '';
+                                    for (var i = 0; i < result.data.length; i++) {
+                                        var item = result.data[i];
+                                        html += '<div style="margin-top: 15px;" class="alert alert-danger alert-labeled">' +
+                                            '<div class="alert-labeled-row"><span class="alert-label alert-labelled-cell">' +
+                                            '<i class="fa fa-times"></i></span><p class="alert-labelled-cell alert-body">' + item + '</p>' +
+                                            '</div></div>';
+                                    }
+
+                                    $('#ErrorsSection').removeClass('hidden').empty().append(html);
+                                    $("html, body").animate({ scrollTop: $('#ErrorsSection').offset().top }, 1000);
+                                }
+                            }, error: function (result) {
+                                $button.button('reset');
+                                $.processMessage(result);
+                                clearInterval(interval);
+                            }
+                        });
+
+                        $button.button('loading');
+
+                        return false;
+                    }
+                });
+            });
+        });
+    </script>
+}

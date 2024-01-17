@@ -1,0 +1,82 @@
+﻿@model OrganizationUnitGroupChangePermissionsViewModel
+
+@{
+    ViewBag.PageTitle = "ویرایش دسترسی شعب";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+<form action="@Url.Action("GroupChangePermissions", "OrganizationUnit")" method="post" class="form-horizontal" id="OrganizationUnitGroupChangePermissionsForm">
+    <div class="form-group">
+        <label class="control-label col-md-5 required">امکان ثبت پایانه</label>
+        <div class="col-md-7">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default">
+                    <input type="radio" name="DisableNewTerminalRequest" value="true" /> خیر
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="DisableNewTerminalRequest" value="false" /> بله
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-5 required">امکان ثبت پایانه سیار</label>
+        <div class="col-md-7">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default">
+                    <input type="radio" name="DisableWirelessTerminalRequest" value="true" /> خیر
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="DisableWirelessTerminalRequest" value="false" /> بله
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-12">
+            <input type="submit" value="ثبت" id="ConfirmButton" data-loading-text="در حال ثبت..." class="btn btn-success btn-lg" />
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">انصراف</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#OrganizationUnitGroupChangePermissionsForm').validate({
+            rules: {
+                DisableNewTerminalRequest: { required: true },
+                DisableWirelessTerminalRequest: { required: true }
+            },
+            submitHandler: function (form) {
+                var $button = $('#ConfirmButton', '#OrganizationUnitGroupChangePermissionsForm');
+                $button.button('loading');
+
+                var organizationUnitIdList = [];
+                $('#DataTable tbody tr.info').each(function () {
+                    organizationUnitIdList.push($(this).data('organization-unit-id'));
+                });
+
+                $(form).ajaxSubmit({
+                    data: { organizationUnitIdList: organizationUnitIdList },
+                    success: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+
+                        if (result.success) {
+                            $.closeModal('ok');
+                        }
+                    }, error: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+                    }
+                });
+
+                return false;
+            }
+        });
+    });
+</script>

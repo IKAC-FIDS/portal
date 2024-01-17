@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "استعلام";
+
+}
+
+
+@section styles {
+    @BundleConfig.AddStyles("~/Content/terminalManageStyles",
+        "~/Content/PersianDatePicker.css",
+        "~/Content/chosen.css")
+}
+
+<div class="page-header">
+    @if (User.IsAcceptorsExpertUser() || User.IsItUser() || User.IsBranchUser())
+    {
+        <div class="row">
+            <div class="col-md-8">
+                <h1> استعلام </h1>
+            </div>
+
+
+        </div>
+    }
+
+
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label class="control-label col-md-2" for="PspId">شرکت</label>
+            <div class="col-md-10">
+                @Html.DropDownList("PspId", (IEnumerable<SelectListItem>) ViewBag.PspList, "انتخاب نمایید", new {@class = "form-control"})
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label col-md-4" for="TerminalNo">شماره پایانه</label>
+            <div class="col-md-8">
+                <input type="text" id="TerminalNo" name="TerminalNo" class="form-control only-number" maxlength="18"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label col-md-4" for="TerminalId">شماره پیگیری</label>
+            <div class="col-md-8">
+                <input type="text" id="TerminalId" name="TerminalId" class="form-control only-number" maxlength="10"/>
+            </div>
+        </div>
+    </div>
+    
+    <button data-topiar-id="' + topiarId +   '" data-terminal-id="' + terminalId + '" data-toggle="tooltip"
+            data-loading-text="..." title="استعلام وضعیت" style="background-color:dodgerblue" class="btn btn-success btn-xs btn-getTerminalStatus">
+        <i class="fa fa-info-circle"></i>
+    </button> &nbsp;
+</div>
+
+<script>
+     $('#tblData').on('click.btn-getTerminalStatus', '.btn-getTerminalStatus', function () {
+               
+                 let terminalId = $(this).data('terminal-id');
+                                 let topiarId = $(this).data('topiar-id');
+
+                                $.showModal({
+                                    modalSize: 'lg',
+                                    url: '@Url.Action("GetRequestStatus", "Terminal")',
+                                    data: {topiarId : topiarId, TerminalId: terminalId },
+                                    onClose: function (modalResult) {
+                                        
+                                        console.log('asdfasdfasdf',modalResult);
+                                        
+                                        if (modalResult === 'ok') {
+                                            loadData(true, 1);
+                                        } else if (modalResult == 'showEdit') {
+                                            showEditDialog(terminalId);
+                                        } else if (modalResult == 'showBlockDocumentEdit') {
+                                            showBlockDocumentEditDialog(terminalId);
+                                        }
+                                    }
+                                });
+            });
+        
+</script>

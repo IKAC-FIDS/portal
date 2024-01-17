@@ -1,0 +1,533 @@
+﻿@{
+    ViewBag.Title = "     وضعیت تسک های خودکار      ";
+}
+
+@section styles {
+    @BundleConfig.AddStyles("~/Content/blockDocumentIndexStyles",
+        "~/Content/PersianDatePicker.css",
+        "~/Content/chosen.css")
+}
+
+<div class="page-header">
+    <h1>  وضعیت تسک های خودکار    </h1>
+</div>
+
+<form id="frmSearch" class="form-horizontal">
+   
+
+   
+
+    <div id="pnlAdvancedSearchFields" style="display: none;">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="NationalCode">کد ملی</label>
+                    <div class="col-md-8">
+                        <input type="text" id="NationalCode" name="NationalCode" class="form-control only-number" maxlength="10"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4">شرکت PSP</label>
+                    <div class="col-md-8">
+                        <select class="form-control" id="PspId">
+                            <option selected>همه</option>
+                            <option value="@PspCompany.Fanava.ToInt32()">فن آوا</option>
+                            <option value="@PspCompany.IranKish.ToInt32()">ایرانکیش</option>
+                            <option value="@PspCompany.Parsian.ToInt32()">پارسیان</option>
+                            <option>تخصیص داده نشده</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="Title">نام فروشگاه/شرکت</label>
+                    <div class="col-md-8">
+                        <input type="text" id="Title" name="Title" class="form-control" maxlength="500"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="BranchId">شعبه حساب</label>
+                    <div class="col-md-8">
+                         </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="CustomerNumber">شماره مشتری</label>
+                    <div class="col-md-8">
+                        <input type="text" id="CustomerNumber" name="CustomerNumber" class="form-control" maxlength="8"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="FullName">نام و نام خانوادگی</label>
+                    <div class="col-md-8">
+                        <input type="text" id="FullName" name="FullName" class="form-control" maxlength="100"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="DeviceTypeId">نوع دستگاه</label>
+                    <div class="col-md-8">
+                       </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="FromBlockDocumentDate">از تاریخ مسدودی</label>
+                    <div class="col-md-6">
+                        <div class="left-inner-addon">
+                            <i class="fa fa-calendar-o"></i>
+                            <input type="text" id="FromBlockDocumentDate" name="FromBlockDocumentDate" class="form-control date-picker" maxlength="10"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="ToBlockDocumentDate">تا تاریخ مسدودی</label>
+                    <div class="col-md-6">
+                        <div class="left-inner-addon">
+                            <i class="fa fa-calendar-o"></i>
+                            <input گزارش دسترسی شعبtype="text" id="ToBlockDocumentDate" name="ToBlockDocumentDate" class="form-control date-picker" maxlength="10"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+</form>
+
+<hr/>
+ 
+ 
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center" id="tblData">
+        <thead>
+        <tr>
+
+            <th> taskName </th>
+              <th> isRunning   </th>
+            
+            <th> isPaused   </th>
+                        <th> isShutDown   </th>
+
+            
+            <th>  lastRunTime       </th>
+            <th>   lastRunWasSuccessful       </th>
+           
+            <th width="1px">   </th>
+            <th width="1px">   </th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td colspan="15">
+                <div class="status-section">
+                    <i class="fa fa-folder-o"></i>
+                    <p>هیچ موردی یافت نشد</p>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="15">
+                <ul id="terminalPagination" class="pagination-sm"></ul>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div style="z-index: 10000;" class="modal fade" id="downloadFileModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>
+                    <a class="btn btn-success btn-lg btn-block" id="DownloadFileLink" href="#">دریافت فایل</a>
+                </p>
+                <button type="button" class="btn btn-default btn-lg btn-block" data-dismiss="modal">انصراف</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/blockDocumentIndexScripts",
+        "~/Scripts/jquery.twbsPagination.js",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/PersianDatePicker.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.filter_input.js",
+        "~/Scripts/jasny-bootstrap.js",
+        "~/Scripts/chosen.jquery.js")
+
+    <script type="text/javascript">
+        function buildSearchParams() {
+            return {
+               
+                statusId: $('#BlockDocumentStatusId', '#frmSearch').val(),
+                
+                branchId: $('#BranchId', '#frmSearch').val(),
+                
+            };
+        }
+
+        function loadData(retriveTotalPageCount, page) {
+            $('#tblData tbody').empty().append('<tr><td colspan="15"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+            if (retriveTotalPageCount) {
+                var pagingData = $('#terminalPagination').data('twbs-pagination');
+                if (pagingData) $('#terminalPagination').twbsPagination('destroy');
+                $('#btnSearch').removeData('total-pages');
+            }
+
+            var params = $.extend({ retriveTotalPageCount: retriveTotalPageCount, page: page }, buildSearchParams());
+            var $searchButton = $('#btnSearch');
+            $searchButton.button('loading');
+
+            return $.post('@Url.Action("GetData", "TaskMonitor")', params).done(function (result) {
+                $searchButton.button('reset');
+                $('#tblData tbody').empty();
+                $('#TotalSearchResultSection').empty();
+                var html = '';
+
+                if (!result.success) {
+                    $('#tblData tbody').empty().append('<tr><td colspan="15"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                    return false;
+                }
+
+                console.log('amoooo',result.data);
+                if (result.data.q.length === 0) {
+                    $('#tblData tbody').empty().append('<tr><td colspan="15"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                    return false;
+                }
+
+                if (retriveTotalPageCount) {
+                    $('#TotalSearchResultSection').empty().append('<b>تعداد موارد یافت شده: </b>' + convertToPersianNumbers(result.data.totalRowsCount) + ' مورد');
+                
+                 
+                
+                } else {
+                    $('#TotalSearchResultSection').empty();
+                }
+
+                if (retriveTotalPageCount && result.data.totalRowsCount > 0) {
+                    $('#btnSearch').data('total-pages', result.data.totalRowsCount);
+
+                    $('#terminalPagination').twbsPagination({
+                        totalPages: Math.ceil(result.data.totalRowsCount / 300),
+                        visiblePages: 7,
+                        last: '<i class="fa fa-fast-backward"></i>',
+                        next: '<i class="fa fa-backward"></i>',
+                        prev: '<i class="fa fa-forward"></i>',
+                        first: '<i class="fa fa-fast-forward"></i>',
+                        initiateStartPageClick: false,
+                        onPageClick: function (event, page) {
+                            loadData(false, page);
+                        }
+                    });
+                }
+
+                 $('#sone').empty().append($.grep(result.data.q, function (item, index) { return item.statusId ==1; }).length);
+ $('#stwo').empty().append($.grep(result.data.q, function (item, index) { return item.statusId ==2; }).length);
+ $('#sthree').empty().append($.grep(result.data.q, function (item, index) { return  item.statusId ==3; }).length);
+
+                for (var i = 0; i < result.data.q.length; i++) {
+                    var item = result.data.q[i];
+
+                    html += '<tr data-terminal-id="' + item.id + '" data-status-id="' + item.statusId + '">' +
+                        
+                        '<td>' + item.taskName + '</td>' +
+                                            '<td>' + item.isRunning + '</td>' +
+
+                    
+                        '<td>' + item.isPaused + '</td>' +
+                                                '<td>' + item.isShutDown + '</td>' +
+
+                        
+                        '<td>' +  item.lastRunTime+ '</td>' +
+                        '<td  >' + item.lastRunWasSuccessful + '</td>' +
+                        
+                          '<td class="text-nowrap actions">';
+                    
+                    
+
+                          html += showDetailsButton(item.branchId );
+                                                
+
+                         html += '</td>';
+                         
+                         html +=                                 '<td class="no-print"><button class="btn btn-info btn-xs btn-detail-export" data-report-id="' + (item.branchId) + '">دانلود گزارش</button></td></tr>' ;
+                         
+                }
+
+                $('#tblData tbody').empty().append(html);
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
+
+        function showEditButton(terminalId) {
+            if (@JsonNet.Encode(User.IsAdmin()))
+            {
+                return '<button data-toggle="tooltip" title="ویرایش اطلاعات" data-terminal-id="' + terminalId + '" class="btn btn-default btn-xs btn-edit"><i class="fa fa-pencil"></i></button> &nbsp;';
+            } else
+            {
+                return '';
+            }
+        }
+
+        function showDetailsButton(terminalId) {
+            return '<button data-toggle="tooltip" title="مشاهده  جزئیات  " data-terminal-id="' + terminalId + '" class="btn btn-default btn-xs btn-details"><i class="fa fa-eye"></i></button>';
+        }
+
+        function createPspIcon(pspId, pspTitle) {
+            var pspColor, pspShortTitle;
+
+            switch (pspId) {
+            case @PspCompany.Fanava.ToByte():
+                pspShortTitle = 'FA';
+                pspColor = '#5C6BC0';
+                break;
+            case @PspCompany.IranKish.ToByte():
+                pspShortTitle = 'IK';
+                pspColor = '#E91E63';
+                break;
+            case @PspCompany.Parsian.ToByte():
+                pspShortTitle = 'PA';
+                pspColor = '#FFB300';
+                break;
+            default:
+                pspShortTitle = '??';
+                pspTitle = 'تخصیص داده نشده';
+                pspColor = '#9E9E9E';
+                break;
+            }
+
+            return '<span style="background-color: ' + pspColor + '; margin-left: 4px; font-weight: 500;" data-toggle="tooltip" title="' + pspTitle + '" class="label label-default small-label">' + pspShortTitle + '</span>';
+        }
+
+        function createBlockDocumentStatusIcon(statusId, statusTitle) {
+            var color;
+
+            switch (statusId) {
+            case @BlockDocumentStatus.NotRegistered.ToByte():
+                color = '#5C6BC0';
+                break;
+            case @BlockDocumentStatus.Registered.ToByte():
+                color = '#E91E63';
+                break;
+            case @BlockDocumentStatus.WaitingForPeriodicMonitoring.ToByte():
+                color = '#FFB300';
+                break;
+            case @BlockDocumentStatus.WaitingForReview.ToByte():
+                color = '#FFB300';
+                break;
+            default:
+                statusTitle = 'تخصیص داده نشده';
+                color = '#9E9E9E';
+                break;
+            }
+
+            return '<span style="border-bottom: 2px solid ' + color + '; background-color: transparent; color: #333; border-radius: 0; font-weight: 500; font-size: 11px;" class="label label-default small-label">' + statusTitle + '</span>';
+        }
+
+        function createStatusIcon(statusId, statusTitle) {
+            var statusColor = '#D7CCC8';
+            switch (statusId) {
+            case @TerminalStatus.New.ToByte():
+                statusColor = '#FFC107';
+                break;
+            case @TerminalStatus.NotReturnedFromSwitch.ToByte():
+                statusColor = '#607D8B';
+                break;
+            case @TerminalStatus.NeedToReform.ToByte():
+                statusColor = '#009688';
+                break;
+            case @TerminalStatus.ReadyForAllocation.ToByte():
+                statusColor = '#CDDC39';
+                break;
+            case @TerminalStatus.Allocated.ToByte():
+                statusColor = '#8BC34A';
+                break;
+            case @TerminalStatus.Test.ToByte():
+                statusColor = '#03A9F4';
+                break;
+            case @TerminalStatus.Installed.ToByte():
+                statusColor = '#4CAF50';
+                break;
+            case @TerminalStatus.Revoked.ToByte():
+                statusColor = '#f44336';
+                break;
+            case @TerminalStatus.UnsuccessfulReturnedFromSwitch.ToByte():
+                statusColor = '#00BFA5';
+                break;
+            }
+
+            return '<span style="background-color: ' + statusColor + '; font-weight: 500;" class="label label-default">' + statusTitle + '</span>';
+        }
+
+        function refreshCurrentPage(){
+            var currentPageNo = $('#terminalPagination li.page.active').data('page');
+            loadData(false, currentPageNo);
+        }
+     function buildSearchPdddarams( reportId) {
+                              return {
+                                 
+                                   
+                                  branchId:  reportId,
+                                  
+                              };
+                          }
+        $(document).ready(function () {
+            loadData(true, 1);
+
+            $('.only-number', '#frmSearch').filter_input({ regex: '[0-9]' });
+            $('#BranchId').chosen({ width: "100%" });
+            $('#TerminalStatusIdList').chosen({ width: "100%", rtl: true });
+            $('.date-picker').on('click', function () {
+                PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDate()', true);
+            });
+
+        $('#tblData').on('click.btn-details', '.btn-details', function () {
+                var terminalId = $(this).data('terminal-id');
+
+                
+                console.log('ssaaa',terminalId)
+                 
+                $.showModal({
+                    modalSize: 'lg',
+                    url: '@Url.Action("Details", "BlockBranchPermission")',
+                    data: { terminalId: terminalId },
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            loadData(true, 1);
+                        } else if (modalResult == 'showEdit') {
+                            showEditDialog(terminalId);
+                        } else if (modalResult == 'showBlockDocumentEdit') {
+                            showBlockDocumentEditDialog(terminalId);
+                        }
+                    }
+                });
+            });
+        
+            $('#tblData').on('click.btn-edit', '.btn-edit', function () {
+                var terminalId = $(this).data('terminal-id');
+
+                $.showModal({
+                    modalSize: 'lg',
+                    url: '@Url.Action("Edit", "BlockBranchPermission")',
+                    data: { terminalId: terminalId },
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            refreshCurrentPage();
+                        }
+                    }
+                });
+            });
+
+        
+
+            $('#btnShowAdvancedSearchFields').on('click', function () {
+                $('#pnlAdvancedSearchFields').slideToggle(500);
+
+                if ($(this).text() === "نمایش جستجوی پیشرفته") {
+                    $(this).text("عدم نمایش جستجوی پیشرفته");
+                } else {
+                    $(this).text("نمایش جستجوی پیشرفته");
+                    $('#pnlAdvancedSearchFields').find('input:text').val('');
+                    $('#pnlAdvancedSearchFields').find('select').val('');
+                }
+            });
+
+            $('#DownloadFileLink').click(function() {
+                $('#downloadFileModal').modal('hide');
+            });
+  $('body').on('click', 'button.btn-detail-export', function () {
+      
+         var reportId = $(this).data('report-id');
+         
+               
+                          
+            $.post( '@Url.Action("ExportDetails", "BlockBranchPermission")', buildSearchPdddarams(reportId)).done(function (result) {
+                              $.processMessage(result);
+                              
+                              if (result.success) {
+                                  var $downloadLink = $('#downloadFileModal .modal-body a');
+                                  $downloadLink.prop('href', '@Url.Action("DownloadBlockDocumentOutputFile", "Export")?fileKey=' + result.data);
+                                  $('#downloadFileModal').modal();
+                              }
+                          });
+            
+      });
+      
+           $('#btnExportByTerminal').on('click', function () {
+                      var $exportButton = $(this);
+                      $exportButton.button('loading');
+      
+                      $.post('@Url.Action("ExportByTerminal", "BlockBranchPermission")', buildSearchParams()).done(function (result) {
+                          $.processMessage(result);
+                          $exportButton.button('reset');
+      
+                          if (result.success) {
+                              var $downloadLink = $('#downloadFileModal .modal-body a');
+                              $downloadLink.prop('href', '@Url.Action("DownloadBlockDocumentOutputFile", "Export")?fileKey=' + result.data);
+                              $('#downloadFileModal').modal();
+                          }
+                      });
+                  });
+            $('#btnExport').on('click', function () {
+                var $exportButton = $(this);
+                $exportButton.button('loading');
+
+                $.post('@Url.Action("Export", "BlockBranchPermission")', buildSearchParams()).done(function (result) {
+                    $.processMessage(result);
+                    $exportButton.button('reset');
+
+                    if (result.success) {
+                        var $downloadLink = $('#downloadFileModal .modal-body a');
+                        $downloadLink.prop('href', '@Url.Action("DownloadBlockDocumentOutputFile", "Export")?fileKey=' + result.data);
+                        $('#downloadFileModal').modal();
+                    }
+                });
+            });
+
+            $('#btnSearch').on('click', function () {
+                loadData(true, 1);
+            });
+        });
+    </script>
+}

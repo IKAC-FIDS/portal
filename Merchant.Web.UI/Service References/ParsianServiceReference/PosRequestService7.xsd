@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ChangeIbanRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccDocument" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="AccountNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccountOwner" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BranchCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Iban" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IbanBank" type="xs:int" />
+      <xs:element minOccurs="0" name="NationalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TermNo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ChangeIbanRequest" nillable="true" type="tns:ChangeIbanRequest" />
+  <xs:complexType name="ChangeIbanResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionState" type="xs:int" />
+      <xs:element minOccurs="0" name="ChannelState" type="xs:int" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequestId" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ChangeIbanResponse" nillable="true" type="tns:ChangeIbanResponse" />
+  <xs:complexType name="ChangeIbanStatusRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="RequestId" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ChangeIbanStatusRequest" nillable="true" type="tns:ChangeIbanStatusRequest" />
+  <xs:complexType name="ChangeIbanStatusResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionState" type="xs:int" />
+      <xs:element minOccurs="0" name="ChannelState" type="xs:int" />
+      <xs:element minOccurs="0" name="Data" nillable="true" type="tns:ArrayOfChangeIbanStatus" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ChangeIbanStatusResponse" nillable="true" type="tns:ChangeIbanStatusResponse" />
+  <xs:complexType name="ArrayOfChangeIbanStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ChangeIbanStatus" nillable="true" type="tns:ChangeIbanStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfChangeIbanStatus" nillable="true" type="tns:ArrayOfChangeIbanStatus" />
+  <xs:complexType name="ChangeIbanStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccDoc" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="AccOwner" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COCU_FAMILY" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COCU_ID" type="xs:decimal" />
+      <xs:element minOccurs="0" name="COCU_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Iban" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IbanBankCode" type="xs:short" />
+      <xs:element minOccurs="0" name="IbanBankF" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LastChangeDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastStateDesc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LastStateId" type="xs:short" />
+      <xs:element minOccurs="0" name="LastUserId" type="xs:long" />
+      <xs:element minOccurs="0" name="LastUserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NationalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OldBankCode" type="xs:short" />
+      <xs:element minOccurs="0" name="OldIban" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequestDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="RequestId" type="xs:long" />
+      <xs:element minOccurs="0" name="ShaparakStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TermNo" type="xs:int" />
+      <xs:element minOccurs="0" name="oldBankF" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ChangeIbanStatus" nillable="true" type="tns:ChangeIbanStatus" />
+  <xs:complexType name="CheckPosShaparakStatusResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionState" type="xs:int" />
+      <xs:element minOccurs="0" name="ChannelState" type="xs:int" />
+      <xs:element minOccurs="0" name="Data" nillable="true" type="tns:ArrayOfCheckPosShaparakStatus" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CheckPosShaparakStatusResponse" nillable="true" type="tns:CheckPosShaparakStatusResponse" />
+  <xs:complexType name="ArrayOfCheckPosShaparakStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CheckPosShaparakStatus" nillable="true" type="tns:CheckPosShaparakStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCheckPosShaparakStatus" nillable="true" type="tns:ArrayOfCheckPosShaparakStatus" />
+  <xs:complexType name="CheckPosShaparakStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Error" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FieldName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PosId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="RequestStatusName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CheckPosShaparakStatus" nillable="true" type="tns:CheckPosShaparakStatus" />
+  <xs:complexType name="PmResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionState" type="xs:int" />
+      <xs:element minOccurs="0" name="ChannelState" type="xs:int" />
+      <xs:element minOccurs="0" name="Data" nillable="true" type="tns:ArrayOfPmData" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PmResponse" nillable="true" type="tns:PmResponse" />
+  <xs:complexType name="ArrayOfPmData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PmData" nillable="true" type="tns:PmData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPmData" nillable="true" type="tns:ArrayOfPmData" />
+  <xs:complexType name="PmData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MaintenanceResultDateTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MaintenanceResultDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MaintenanceResultId" type="xs:int" />
+      <xs:element minOccurs="0" name="TerminalNo" type="xs:int" />
+      <xs:element minOccurs="0" name="TitleFa" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PmData" nillable="true" type="tns:PmData" />
+  <xs:complexType name="MarketingResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionState" type="xs:int" />
+      <xs:element minOccurs="0" name="ChannelState" type="xs:int" />
+      <xs:element minOccurs="0" name="Data" nillable="true" type="tns:ArrayOfMarketingData" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MarketingResponse" nillable="true" type="tns:MarketingResponse" />
+  <xs:complexType name="ArrayOfMarketingData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MarketingData" nillable="true" type="tns:MarketingData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMarketingData" nillable="true" type="tns:ArrayOfMarketingData" />
+  <xs:complexType name="MarketingData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MarketerBranchCode" type="xs:int" />
+      <xs:element minOccurs="0" name="MarketerBranchName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrganizatinId" type="xs:int" />
+      <xs:element minOccurs="0" name="TerminalNo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MarketingData" nillable="true" type="tns:MarketingData" />
+  <xs:complexType name="PmcRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="COCUIssueId" type="xs:int" />
+      <xs:element minOccurs="0" name="COCU_BIRTH_DATE" type="xs:int" />
+      <xs:element minOccurs="0" name="COCU_BIRTH_DATEMILADI" type="xs:int" />
+      <xs:element minOccurs="0" name="COCU_FAMILY_ENG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COCU_Family" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COCU_Father_Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COCU_ID_CARD_NO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COCU_Mail_Address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COCU_Mobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COCU_Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COCU_Name_ENG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GenderId" type="xs:int" />
+      <xs:element minOccurs="0" name="OfficeCityId" type="xs:int" />
+      <xs:element minOccurs="0" name="Office_Address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Office_Fax" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Office_Tel1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Office_Tel2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PostCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ResidencyCityId" type="xs:int" />
+      <xs:element minOccurs="0" name="ResidencyPos_Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Residency_Address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Residency_Fax" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Residency_Tel" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PmcRequest" nillable="true" type="tns:PmcRequest" />
+  <xs:complexType name="EditPosDataResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionState" type="xs:int" />
+      <xs:element minOccurs="0" name="ChannelState" type="xs:int" />
+      <xs:element minOccurs="0" name="Data" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequestId" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EditPosDataResponse" nillable="true" type="tns:EditPosDataResponse" />
+  <xs:complexType name="DocInfoRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DocFile" nillable="true" type="tns:ArrayOfDoc" />
+      <xs:element minOccurs="0" name="Term_No" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DocInfoRequest" nillable="true" type="tns:DocInfoRequest" />
+  <xs:complexType name="ArrayOfDoc">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Doc" nillable="true" type="tns:Doc" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDoc" nillable="true" type="tns:ArrayOfDoc" />
+  <xs:complexType name="Doc">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Attachment" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="FileName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Doc" nillable="true" type="tns:Doc" />
+  <xs:complexType name="DocInfoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionState" type="xs:int" />
+      <xs:element minOccurs="0" name="ChannelState" type="xs:int" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DocInfoResponse" nillable="true" type="tns:DocInfoResponse" />
+  <xs:complexType name="SetSerialRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="OrganizationUnitId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="posSerialNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="posTermNo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SetSerialRequest" nillable="true" type="tns:SetSerialRequest" />
+  <xs:complexType name="SetSerialResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionState" type="xs:int" />
+      <xs:element minOccurs="0" name="ChannelState" type="xs:int" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SetSerialResponse" nillable="true" type="tns:SetSerialResponse" />
+  <xs:complexType name="RemoveSerialRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="OrganizationUnitId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="posSerialNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="posTermNo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RemoveSerialRequest" nillable="true" type="tns:RemoveSerialRequest" />
+  <xs:complexType name="RemoveSerialResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionState" type="xs:int" />
+      <xs:element minOccurs="0" name="ChannelState" type="xs:int" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RemoveSerialResponse" nillable="true" type="tns:RemoveSerialResponse" />
+  <xs:complexType name="PosConfirmDateRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="posTermNo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PosConfirmDateRequest" nillable="true" type="tns:PosConfirmDateRequest" />
+  <xs:complexType name="PosConfirmDateResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActionState" type="xs:int" />
+      <xs:element minOccurs="0" name="ChannelState" type="xs:int" />
+      <xs:element minOccurs="0" name="ConfirmDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequestDate" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PosConfirmDateResponse" nillable="true" type="tns:PosConfirmDateResponse" />
+</xs:schema>

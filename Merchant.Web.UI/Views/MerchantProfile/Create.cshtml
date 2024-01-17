@@ -1,0 +1,913 @@
+﻿@{
+    ViewBag.Title = "درخواست نصب پایانه فروش";
+}
+
+@section styles {
+    @BundleConfig.AddStyles("~/Content/merchantProfileCreateStyles",
+        "~/Content/PersianDatePicker.css",
+        "~/Content/chosen.css")
+}
+
+<div class="page-header">
+    <h1>درخواست نصب پایانه فروش</h1>
+</div>
+
+<form class="form-horizontal" method="post" action="@Url.Action("Create", "MerchantProfile")" id="MerchantProfileCreateForm" enctype="multipart/form-data">
+<input type="hidden" id="FirstName" name="FirstName" value="" />
+ 
+  <input type="text" class="form-control account-number text-center only-number disabled" 
+         readonly data-order="5"
+         style="width: 60px; max-width: 60px; min-width: 60px; display: none;" id="BirthCrtfctSerial"
+         name="BirthCrtfctSerial" maxlength="4" data-toggle="tooltip" title="کد شعبه (4 رقم)" tabindex="8" autocomplete="off" />
+  
+
+ <input type="text" class="form-control account-number text-center only-number disabled" 
+        readonly data-order="5"
+        style="width: 60px; max-width: 60px; min-width: 60px; display: none;" id="PersianCharRefId"
+        name="PersianCharRefId" maxlength="4" data-toggle="tooltip" title="کد شعبه (4 رقم)" tabindex="8" autocomplete="off" />
+ 
+
+<input type="text" class="form-control account-number text-center only-number disabled" 
+       readonly data-order="5"
+       style="width: 60px; max-width: 60px; min-width: 60px; display: none;" id="BirthCrtfctSeriesNumber"
+       name="BirthCrtfctSeriesNumber" maxlength="4" data-toggle="tooltip" title="کد شعبه (4 رقم)" tabindex="8" autocomplete="off" />
+
+
+
+<input type="hidden" id="LastName" name="LastName" value="" />
+    <input type="hidden" id="EnglishFirstName" name="EnglishFirstName" value="" />
+    <input type="hidden" id="EnglishLastName" name="EnglishLastName" value="" />
+    <input type="hidden" id="IdentityNumber" name="IdentityNumber" value="" />
+    <input type="hidden" id="NationalCode" name="NationalCode" value="" />
+    <input type="hidden" id="FatherName" name="FatherName" value="" />
+    <input type="hidden" id="EnglishFatherName" name="EnglishFatherName" value="" />
+    <input type="hidden" id="Birthdate" name="Birthdate" value="" />
+    <input type="hidden" id="LegalNationalCode" name="LegalNationalCode" value="" />
+    <input type="hidden" id="Mobile" name="Mobile" value="" />
+    <input type="hidden" id="HomeAddress" name="HomeAddress" value="" />
+    <input type="hidden" id="HomePostCode" name="HomePostCode" value="" />
+    <input type="hidden" id="HomeTel" name="HomeTel" value="" />
+    <input type="hidden" id="IsMale" name="IsMale" value="" />
+    <input type="hidden" id="IsLegalPersonality" name="IsLegalPersonality" value="" />
+    <input type="hidden" id="CompanyRegistrationNumber" name="CompanyRegistrationNumber" value="" />
+    <input type="hidden" id="CompanyRegistrationDate" name="CompanyRegistrationDate" value="" />
+    <input type="hidden" id="CustomerNumber" name="CustomerNumber" value="" />
+    
+    @if (ViewBag.DisableWirelessTerminalRequest)
+    {
+        <div class="alert alert-danger">
+            عطف به اطلاعیه شماره 39905/99 مورخ 1399/04/28 اداره سازمان و برنامه ریزی در خصوص ضرورت رعایت نسبت ثبت درخواست های پایانه های فروش به نسبت 70 درصد دستگاه ثابت و 30 درصد دستگاه سیار (بیسیم)، به استحضار می رساند در شعبه شما نسبت مجاز اشاره شده رعایت نشده است و لذا دسترسی ثبت درخواست جدید پایانه فروش سیار برای آن شعبه به صورت موقت غیرفعال شده است.
+            جهت فعال شدن دسترسی ثبت درخواست جدید پایانه فروش سیار میبایست در پورتال مدیریت پذیرندگان پایانه‌های فروش و از طریق منوی مدیریت پذیرندگان، تعداد و نسبت پایانه‌های ثبت‌شده شعبه را رصد نموده و به‌منظور اصلاح آن، نسبت به افزایش پایانه‌های ثابت پرتراکنش و یا جمع‌آوری پایانه‌های سیار کم تراکنش و فاقد تراکنش اقدام نمایند.
+        </div>
+    }
+
+    <div id="IncompleteDataSection" class="alert alert-warning hidden"></div>
+
+    <div id="pnlBasicInformations" class="row">
+        <div class="col-sm-12">
+            <div class="alert alert-info hidden" id="IfNotCorrectAlert">
+                در صورتی که اطلاعات دریافت شده صحیح نیست نسبت به اصلاح در سیستم فرانگین اقدام نموده و مجدداً نسبت به ثبت اقدام نمایید.
+            </div>
+        </div>
+
+        @if (!User.IsBranchUser())
+        {
+            <div id="BranchIdSection" class="form-group">
+                <label class="control-label col-md-2 required" for="BranchId">شعبه حساب</label>
+                <div class="col-md-3">
+                    @Html.DropDownList("BranchId", (IEnumerable<SelectListItem>)ViewBag.BranchList, "انتخاب نمایید", new { @class = "chosen-select chosen-rtl", tabindex = 1 })
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            <label class="col-md-2 control-label required">شماره حساب</label>
+            <div class="col-md-10" id="AccountNumberSection">
+                <input type="text" class="form-control account-number text-center only-number" data-order="4" style="width: 60px; max-width: 60px; min-width: 60px; display: inline;" id="AccountRow" name="AccountRow" maxlength="3" data-toggle="tooltip" title="ردیف (3 رقم)" tabindex="5" autocomplete="off" />
+                <input type="text" class="form-control account-number text-center only-number" data-order="3" style="width: 100px; max-width: 100px; min-width: 100px; display: inline;" id="AccountCustomerNumber" name="AccountCustomerNumber" maxlength="8" data-toggle="tooltip" title="شماره مشتری (8 رقم)" tabindex="4" autocomplete="off" />
+                <input type="text" class="form-control account-number text-center only-number" data-order="2" style="width: 55px; max-width: 55px; min-width: 55px; display: inline;" id="AccountType" name="AccountType" maxlength="3" data-toggle="tooltip" title="نوع حساب (3 رقم)" tabindex="3" autocomplete="off" />
+                <input type="text" class="form-control account-number text-center only-number disabled changable" readonly data-order="1" style="width: 60px; max-width: 60px; min-width: 60px; display: inline;" id="AccountBranchCode" name="AccountBranchCode" maxlength="4" data-toggle="tooltip" title="کد شعبه (4 رقم)" tabindex="2" value="@(User.IsBranchUser() ? User.Identity.GetBranchId() : null)" autocomplete="off" />
+
+                <button type="button" id="ContinueButton" class="btn btn-primary" data-loading-text="لطفاً منتظر بمانید...">دریافت اطلاعات</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default hidden" id="pnlAccountCustomers">
+        <div class="panel-heading"><b>فرد / افراد صاحب حساب</b></div>
+        <table class="table" id="AccountCustomersTable">
+            <thead>
+                <tr>
+                    <th>نام</th>
+                    <th>شماره مشتری</th>
+                    <th width="1px"></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div id="pnlInformations" class="hidden">
+        <div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>
+                        اطلاعات فردی پذیرنده
+                    </strong>
+                </div>
+                <div id="BasicInfo" class="panel-collapse collapse in" role="tabpanel">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td><strong class="pull-left">نام:</strong></td>
+                                <td id="FirstNameLabel"></td>
+                                <td><strong class="pull-left">نام خانوادگی: </strong></td>
+                                <td id="LastNameLabel"></td>
+                            </tr>
+                            <tr>
+                                <td><strong class="pull-left">نام انگلیسی:</strong></td>
+                                <td id="EnglishFirstNameLabel"></td>
+                                <td><strong class="pull-left">نام خانوادگی انگلیسی: </strong></td>
+                                <td id="EnglishLastNameLabel"></td>
+                            </tr>
+                            <tr>
+                                <td><strong class="pull-left">شماره شناسنامه: </strong></td>
+                                <td id="IdentityNumberLabel"></td>
+                                <td><strong class="pull-left">نام پدر: </strong></td>
+                                <td id="FatherNameLabel"></td>
+                            </tr>
+                            <tr>
+                                <td><strong class="pull-left">نام پدر انگلیسی: </strong></td>
+                                <td id="EnglishFatherNameLabel"></td>
+                                <td><strong class="pull-left">کد ملی: </strong></td>
+                                <td id="NationalCodeLabel"></td>
+                            </tr>
+                            <tr>
+                                <td><strong class="pull-left">تاریخ تولد: </strong></td>
+                                <td colspan="3" id="BirthdateLabel"></td>
+                            </tr>
+                            <tr>
+                                <td><strong class="pull-left">شخصیت:</strong></td>
+                                <td id="LegalPersonalityLabel"></td>
+                                <td><strong class="pull-left">جنسیت:</strong></td>
+                                <td id="GenderLabel"></td>
+                            </tr>
+                            <tr>
+                                <td><strong class="pull-left">کد پستی منزل: </strong></td>
+                                <td id="HomePostCodeLabel"></td>
+                                <td><strong class="pull-left">تلفن منزل: </strong></td>
+                                <td id="HomeTelLabel" dir="ltr" style="text-align: right;"></td>
+                            </tr>
+                            <tr>
+                                <td><strong class="pull-left">تلفن همراه: </strong></td>
+                                <td colspan="3" id="MobileLabel"></td>
+                            </tr>
+                            <tr>
+                                <td><strong class="pull-left">آدرس منزل: </strong></td>
+                                <td colspan="3" id="HomeAddressLabel"></td>
+                            </tr>
+                            <tr class="legal-only hidden">
+                                <td><strong class="pull-left">شماره ثبت شرکت:</strong></td>
+                                <td id="CompanyRegistrationNumberLabel"></td>
+                                <td><strong class="pull-left">تاریخ ثبت شرکت:</strong></td>
+                                <td id="CompanyRegistrationDateLabel"></td>
+                            </tr>
+                            <tr class="legal-only hidden">
+                                <td><strong class="pull-left">شناسه ملی شرکت:</strong></td>
+                                <td colspan="3" id="LegalNationalCodeLabel"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 required" for="NationalityId">ملیت</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownList("NationalityId", (IEnumerable<SelectListItem>)ViewBag.NationalityList, "انتخاب نمایید", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 required" for="BirthCertificateIssueDate">تاریخ صدور شناسنامه</label>
+                                <div class="col-md-8">
+                                    <div class="left-inner-addon">
+                                        <i class="fa fa-calendar-o"></i>
+                                        <input type="text" id="BirthCertificateIssueDate" name="BirthCertificateIssueDate" class="form-control date-picker" maxlength="10" autocomplete="off" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group legal-only hidden">
+                        <label class="control-label col-md-2 required" for="SignatoryPosition">سِمت صاحب امضاء</label>
+                        <div class="col-md-4">
+                            <input type="text" id="SignatoryPosition" name="SignatoryPosition" class="form-control legal-only" maxlength="150" autocomplete="off" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>اطلاعات فروشگاه</strong>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4 required" for="Title">نام فروشگاه/شرکت</label>
+                            <div class="col-md-8">
+                                <input type="text" id="Title" placeholder=" کیبورد می بایست فارسی باشد / کاراکتر عددی قابل استفاده نمی باشد"
+                                       name="Title" class="form-control"   autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4 required" for="EnglishTitle">نام فروشگاه/شرکت (انگلیسی)</label>
+                            <div class="col-md-8">
+                                <input type="text" id="EnglishTitle" placeholder="کیبورد می بایست انگلیسی باشد" name="EnglishTitle" class="form-control" maxlength="500" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4 required" for="ActivityTypeId">نوع فعالیت</label>
+                            <div class="col-md-6">
+                                @Html.DropDownList("ActivityTypeId", (IEnumerable<SelectListItem>)ViewBag.ActivityTypeList, "انتخاب نمایید", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4 required" for="GuildId">صنف</label>
+                            <div class="col-md-8">
+                                <select class="form-control chosen-select chosen-rtl" id="GuildId" name="GuildId">
+                                    <option value="">انتخاب نمایید</option>
+                                    @foreach (var parent in (IEnumerable<GuildViewModel>)ViewBag.GuildList)
+                                    {
+                                        <optgroup label="@parent.Title">
+                                            @foreach (var child in parent.ChildGuilds)
+                                            {
+                                                <option value="@child.Id">@child.Title</option>
+                                            }
+                                        </optgroup>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="TaxPayerCode">کد رهگیری ثبت نام مالیاتی</label>
+                            <div class="col-md-8">
+                                <input type="text" id="TaxPayerCode" placeholder="10 رقم عددی" name="TaxPayerCode" class="form-control" maxlength="10" autocomplete="off" />
+                                <small class="help-block">کد 10 رقمی که شخص دارای پرونده مالیاتی قبلاً با ثبت نام و تشکیل پرونده در سازمان امور مالیاتی نسبت به اخذ آن اقدام نموده است</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                     <div class="col-md-2">
+                                            <div class="form-group">
+                                                            <button type="button" id="btnSendTaxMsg" class="btn btn-primary"  >ارسال پیامک</button>
+                     <small class="help-block">ارسال پیامک ثبت نام در سامانه سازمان امور مالیاتی کشور (برای مشتریان فاقد کد رهگیری ثبت نام مالیاتی) </small>
+                                            </div>
+                                        </div>
+                </div>
+               
+                <div class="form-group">
+                    <label class="control-label col-md-2 required" for="CityId">شهر</label>
+                    <div class="col-md-4">
+                        <select class="form-control chosen-select chosen-rtl" id="CityId" name="CityId">
+                            <option value="">انتخاب نمایید</option>
+                            @foreach (var state in (IEnumerable<StateViewModel>)ViewBag.StateList)
+                            {
+                                <optgroup label="@state.Title">
+                                    @foreach (var city in state.Cities)
+                                    {
+                                        <option data-state-id="@state.Id" value="@city.Id">@city.Title</option>
+                                    }
+                                </optgroup>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group hidden">
+                    <label class="control-label col-md-2 required" for="RegionalMunicipalityId">منطقه شهرداری</label>
+                    <div class="col-md-4">
+                        <select id="RegionalMunicipalityId" name="RegionalMunicipalityId" class="form-control"></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2 required" for="Address">آدرس محل پذیرنده</label>
+                    <div class="col-md-10">
+                        <div id="Address"></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 required" for="PostCode">کد پستی محل پذیرنده</label>
+                                <div class="col-md-8">
+                                    <input type="text" id="PostCode" placeholder="عدد وارد شود" name="PostCode" class="form-control only-number" maxlength="10" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 required" for="Tel">تلفن محل پذیرنده</label>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="text" id="Tel" placeholder="عدد وارد شود" name="Tel" class="form-control only-number" maxlength="8" autocomplete="off" />
+                                        <span class="input-group-addon">-</span>
+                                        <input type="text" id="TelCode" name="TelCode" class="form-control only-number" maxlength="3" style="max-width: 60px;" data-toggle="tooltip" title="پیش شماره" autocomplete="off" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>اطلاعات تکمیلی</strong>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    @if (!User.IsBranchUser())
+                    {
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 required" for="MarketerId">نحوه بازاریابی</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownList("MarketerId", (IEnumerable<SelectListItem>)ViewBag.MarketerList, "انتخاب نمایید", new { @class = "form-control", tabindex = 6 })
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4 required" for="DeviceTypeId">مدل دستگاه</label>
+                            <div class="col-md-8">
+                                <select id="DeviceTypeId" name="DeviceTypeId" class="form-control" tabindex="7">
+                                    <option value="">انتخاب نمایید</option>
+                                    @foreach (var deviceType in (IEnumerable<DeviceTypeViewModel>)ViewBag.DeviceTypeList)
+                                    {
+                                        <option value="@deviceType.Id" data-block-price="@deviceType.BlockPrice">@deviceType.Title</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="PreferredPspId">شرکت PSP ترجیحی</label>
+                    <div class="col-md-4">
+                        @Html.DropDownList("PreferredPspId", (IEnumerable<SelectListItem>)ViewBag.PspList, "انتخاب نمایید", new { @class = "form-control" })
+                    </div>
+                </div>
+                
+                @* *@
+                @* <div class="form-group"> *@
+                @*     <label class="control-label col-md-2 required" for="CustomerCategoryId"> دسته بندی مشتری </label> *@
+                @*     <div class="col-md-4"> *@
+                @*         @Html.DropDownList("CustomerCategoryId", (IEnumerable<SelectListItem>)ViewBag.CustomerCategory, "انتخاب نمایید", new { @class = "form-control" }) *@
+                @*     </div> *@
+                @* </div> *@
+            </div>
+        </div>
+
+        <div class="panel panel-default hidden" id="pnlBlockInfo">
+            <div class="panel-heading">
+                <strong>اطلاعات مسدودی</strong>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4 required" for="BlockDocumentDate">تاریخ سند مسدودی</label>
+                            <div class="col-md-8">
+                                <div class="left-inner-addon">
+                                    <i class="fa fa-calendar-o"></i>
+                                    <input type="text" id="BlockDocumentDate" name="BlockDocumentDate" class="form-control date-picker" maxlength="10" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4 required" for="BlockDocumentNumber">شماره سند مسدودی</label>
+                            <div class="col-md-8">
+                                <input type="text" id="BlockDocumentNumber" placeholder="عدد وارد شود" name="BlockDocumentNumber" class="form-control only-number" maxlength="50" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4 required" for="BlockAccountNumberSection">شماره حساب مسدودی</label>
+                            <div class="col-md-8" id="BlockAccountNumberSection">
+                                <input type="text" class="form-control account-number text-center only-number" data-order="8" style="width: 60px; max-width: 60px; min-width: 60px; display: inline;" id="BlockAccountRow" name="BlockAccountRow" maxlength="3" data-toggle="tooltip" title="ردیف (3 رقم)" tabindex="11" autocomplete="off" />
+                                <input type="text" class="form-control account-number text-center only-number disabled" readonly data-order="7" style="width: 100px; max-width: 100px; min-width: 100px; display: inline;" id="BlockAccountCustomerNumber" name="BlockAccountCustomerNumber" maxlength="8" data-toggle="tooltip" title="شماره مشتری (8 رقم)" tabindex="10" autocomplete="off" />
+                                <input type="text" class="form-control account-number text-center only-number" data-order="6" style="width: 55px; max-width: 55px; min-width: 55px; display: inline;" id="BlockAccountType" name="BlockAccountType" maxlength="3" data-toggle="tooltip" title="نوع حساب (3 رقم)" tabindex="9" autocomplete="off" />
+                                <input type="text" class="form-control account-number text-center only-number disabled" readonly data-order="5" style="width: 60px; max-width: 60px; min-width: 60px; display: inline;" id="BlockAccountBranchCode" name="BlockAccountBranchCode" maxlength="4" data-toggle="tooltip" title="کد شعبه (4 رقم)" tabindex="8" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4">مبلغ مسدودی</label>
+                            <div class="col-md-8">
+                                <p id="BlockPrice" class="form-control-static">0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>مدارک</strong>
+                <small class="help-block">فرمت قابل قبول برای تمامی مدارک pdf می باشد</small>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    @{ var documentTypes = (List<DocumentTypeViewModel>)ViewBag.DocumentTypeList; }
+                    @for (int i = 0; i < documentTypes.Count; i++)
+                    {
+                        <div data-is-for-legal-personality="@JsonNet.Encode(documentTypes[i].IsForLegalPersonality)" id="DocumentType@(documentTypes[i].Id)" class="col-md-4">
+                            <div class="fileinput fileinput-new @(documentTypes[i].IsRequired ? "required" : "")" id="DocType@(documentTypes[i].Id)" data-provides="fileinput">
+                                <span class="btn btn-default btn-file">
+                                    <span class="fileinput-new">@documentTypes[i].Title</span>
+                                    <span class="fileinput-exists">@documentTypes[i].Title</span>
+                                    <input type="file" name="@string.Format("PostedFiles[{0}].PostedFile", i)" accept=".pdf" />
+                                </span>
+                                <span class="fileinput-filename"></span>
+                                <input type="hidden" value="@documentTypes[i].Id" name="@string.Format("PostedFiles[{0}].DocumentTypeId", i)" />
+                                <input type="hidden" value="@(JsonNet.Encode(documentTypes[i].IsRequired))" name="@string.Format("PostedFiles[{0}].IsRequired", i)" />
+                                <input type="hidden" value="@(JsonNet.Encode(documentTypes[i].Id))" name="@string.Format("PostedFiles[{0}].Id", i)" />
+                                <input type="hidden" value="@(JsonNet.Encode(documentTypes[i].ForEntityTypeId))" name="@string.Format("PostedFiles[{0}].ForEntityTypeId", i)" />
+                                <input type="hidden" value="@(documentTypes[i].IsForLegalPersonality.HasValue ? JsonNet.Encode(documentTypes[i].IsForLegalPersonality) : null)" name="@string.Format("PostedFiles[{0}].IsForLegalPersonality", i)" />
+                                <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="submit" data-loading-text="در حال ثبت ..." id="ConfirmButton" class="btn btn-success btn-lg">ثبت</button>
+                <a href="@Url.Action("Manage", "Terminal")" class="btn btn-default btn-lg">بازگشت</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/merchantProfileCreateScripts",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.filter_input.js",
+        "~/Scripts/PersianDatePicker.js",
+        "~/Scripts/jasny-bootstrap.js",
+        "~/Scripts/chosen.jquery.js",
+        "~/Scripts/jquery.confirm.js",
+        "~/Scripts/addressCreator.js")
+
+    <script type="text/javascript">
+    
+    var phoneNumber=  "";
+        function submitForm(form) {
+           
+            $.showConfirm({
+                body: 'آیا از صحت اطلاعات وارد شده اطمینان دارید؟',
+                onConfirm: function () {
+                    $('#ConfirmButton').button('loading');
+
+                    $(form).ajaxSubmit({
+                        data: { blockPrice: $("#DeviceTypeId option:selected").data('block-price') },
+                        success: function (result) {
+                            $('#ConfirmButton').button('reset');
+                            $.processMessage(result);
+
+                            if (result.success) {
+                                $.showDialog({
+                                    body: 'پذیرنده جدید با شماره <strong>' + result.data + '</strong> ثبت گردید',
+                                    closeText: 'تایید',
+                                    onClose: function () {
+                                        window.location.href = "@Url.Action("Manage", "Terminal")";
+                                    }
+                                });
+                            }
+                        }, error: function (result) {
+                            $('#ConfirmButton').button('reset');
+                            $.processMessage(result);
+                        }
+                    });
+                }
+            });
+        }
+
+        function getData(customerNumber) {
+            var $that = $('#ContinueButton');
+            $that.button('loading');
+
+            $('.btn-choose-customer').button('loading');
+            $('input.account-number,button', '#pnlBasicInformations').attr('readonly', 'readonly');
+            $('#BranchIdSection').addClass('hidden');
+
+            $.get('@Url.Action("GetExistedMerchantProfile", "MerchantProfile")', { primaryAccountCustomerNumber: $('#AccountCustomerNumber').val(), selectedAccountCustomerNumber: customerNumber }, function (result) {
+                if (result.success) {
+                    $('#pnlAccountCustomers').remove();
+                    $that.remove();
+                    $('#IncompleteDataSection').addClass('hidden').empty();
+                    var inquiredData = result.data.inquiredData;
+
+                    var accountBranchCode = $('#AccountBranchCode').val();
+                    var accountCustomerNumber = $('#AccountCustomerNumber').val();
+                    $('#BlockAccountBranchCode').val(accountBranchCode);
+                    $('#BlockAccountCustomerNumber').val(accountCustomerNumber);
+
+                    $('#FirstName').val(inquiredData.firstName);
+                    $('#LastName').val(inquiredData.lastName);
+                    $('#IdentityNumber').val(inquiredData.identityNumber);
+                    $('#FatherName').val(inquiredData.fatherName);
+                    $('#EnglishFatherName').val(inquiredData.englishFatherName);
+                    $('#Birthdate').val(inquiredData.birthdate);
+                    $('#NationalCode').val(inquiredData.nationalCode);
+                    $('#Mobile').val(inquiredData.mobile);
+                    $('#HomeAddress').val(inquiredData.homeAddress);
+                    $('#HomePostCode').val(inquiredData.homePostCode);
+                    $('#HomeTel').val(inquiredData.homeTel);
+                    $('#EnglishFirstName').val(inquiredData.englishFirstName);
+                    $('#EnglishLastName').val(inquiredData.englishLastName);
+                    $('#IsMale').val(inquiredData.isMale);
+                    $('#IsLegalPersonality').val(inquiredData.isLegalPersonality);
+                    $('#CompanyRegistrationDate').val(inquiredData.companyRegistrationDate);
+                    $('#LegalNationalCode').val(inquiredData.legalNationalCode);
+                    $('#CompanyRegistrationNumber').val(inquiredData.companyRegistrationNumber);
+
+                    $('#FirstNameLabel').empty().append(inquiredData.firstName);
+                    $('#LastNameLabel').empty().append(inquiredData.lastName);
+                    $('#IdentityNumberLabel').empty().append(inquiredData.identityNumber);
+                    $('#FatherNameLabel').empty().append(inquiredData.fatherName);
+                    $('#EnglishFatherNameLabel').empty().append(inquiredData.englishFatherName);
+                    $('#BirthdateLabel').empty().append(inquiredData.birthdate);
+                    $('#NationalCodeLabel').empty().append(inquiredData.nationalCode);
+                    $('#MobileLabel').empty().append(inquiredData.mobile);
+                    phoneNumber = inquiredData.mobile;
+                    $('#HomeAddressLabel').empty().append(inquiredData.homeAddress);
+                    $('#HomePostCodeLabel').empty().append(inquiredData.homePostCode);
+                    
+                    $('#BirthCrtfctSerial').val(inquiredData.certificateSerial);
+                    $('#PersianCharRefId').val(inquiredData.certificateCharSeries);
+                    $('#BirthCrtfctSeriesNumber').val(inquiredData.certificateNumberSeries);
+                             
+                       
+                    $('#HomeTelLabel').empty().append(inquiredData.homeTel);
+                    $('#EnglishFirstNameLabel').empty().append(inquiredData.englishFirstName);
+                    $('#EnglishLastNameLabel').empty().append(inquiredData.englishLastName);
+                    $('#GenderLabel').empty().append(inquiredData.isMale ? 'مرد' : 'زن');
+                    $('#LegalPersonalityLabel').empty().append(inquiredData.isLegalPersonality ? 'حقوقی' : 'حقیقی');
+                    $('#CompanyRegistrationDateLabel').empty().append(inquiredData.companyRegistrationDate);
+                    $('#LegalNationalCodeLabel').empty().append(inquiredData.legalNationalCode);
+                    $('#CompanyRegistrationNumberLabel').empty().append(inquiredData.companyRegistrationNumber);
+
+                    if (inquiredData.isLegalPersonality) {
+                        $('.legal-only').removeClass('hidden');
+                    } else {
+                        $('.legal-only').addClass('hidden');
+                    }
+
+                    if (result.data.merchantProfileData) {
+                        var merchantProfileData = result.data.merchantProfileData;
+
+                        $('#BirthCertificateIssueDate').val(merchantProfileData.birthCertificateIssueDate);
+                        $('#SignatoryPosition').val(merchantProfileData.signatoryPosition);
+                        $('#BirthCertificateIssueDateLabel').empty().append(merchantProfileData.birthCertificateIssueDate);
+                    }
+
+                    if (inquiredData.isLegalPersonality == true) {
+                        $('div[data-is-for-legal-personality="true"]').removeClass('hidden');
+                        $('div[data-is-for-legal-personality="false"]').addClass('hidden');
+                    } else {
+                        $('div[data-is-for-legal-personality="false"]').removeClass('hidden');
+                        $('div[data-is-for-legal-personality="true"]').addClass('hidden');
+                    }
+
+                    $('#pnlInformations').removeClass('hidden');
+                    $('#IfNotCorrectAlert').removeClass('hidden');
+                } else {
+                    $('.btn-choose-customer').button('reset');
+                    $that.button('reset');
+                    if (result.data && result.data.incompleteCustomerInfo) {
+                        $('#IncompleteDataSection').removeClass('hidden').empty().append(result.messages[0].messages[0]);
+                    } else {
+                        $.processMessage(result);
+                    }
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $('.date-picker').on('click', function () {
+                PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDate()', true);
+            });
+
+               $('#btnSendTaxMsg').on('click', function () {
+                   var FullName =   $('#FirstName').val( ) +  ' ' +  $('#LastName').val( );
+                   var gender =  $('#IsMale').val();
+          
+                           console.log(FullName , gender , phoneNumber  );
+//phoneNumber
+//FullName
+//gender
+
+  $.get(`http://newportal.tes.ir:3019/api/v1/sms/SendTaxMethod?phonenumber=${phoneNumber}&fullname=${FullName}&gender=${gender}`).done(function (result) {
+                    if (result.data && result.data.length !== 0) {
+                        $('#RegionalMunicipalityId').closest('.form-group').removeClass('hidden');
+                        $.each(result.data, function (index, item) {
+                            $('#RegionalMunicipalityId').append('<option value="' + item.value + '">' + item.text + '</option>');
+                        });
+                    } else {
+                        $('#RegionalMunicipalityId').closest('.form-group').addClass('hidden');
+                    }
+                });
+  
+                        });
+            $('#GuildId').chosen({ width: "100%" });
+            $('#BranchId').chosen({ width: "100%" });
+            $('#CityId').chosen({ group_search: false, width: "100%" });
+
+            $('#BranchId').on('change', function () {
+                if ($(this).val()) {
+                    $('#AccountBranchCode').val($(this).val());
+                }
+            });
+         
+            $(' #Address').filter_input({ regex: "^[-/،0-9\'ا-یآ-ئ\'\'-\'\\s]{1,40}$" })
+            $('#Title').filter_input({ regex: "^[\'ا-یآ-ئ\'\'-\'\\s]{1}$" });
+            $('#EnglishTitle').filter_input({ regex: "[a-zA-Z\'\'-\'\\s]" });
+
+            $('.only-number').filter_input({ regex: '[0-9]' });
+
+            $('input.account-number').keyup(function () {
+                if ($(this).val().length == $(this).attr('maxlength')) {
+                    var order = $(this).data('order');
+                    $('input.account-number[data-order="' + (order + 1) + '"]').focus();
+                }
+            });
+
+            var prefixArray = @Html.Raw(
+                                  Json.Encode(
+                                      ((IEnumerable<AddressComponentViewModel>) ViewBag.AddressComponentList).Select(x => new
+                                      {
+                                          x.PrefixTypeCode,
+                                          x.PriorityNumber,
+                                          x.Title,
+                                          x.Id
+                                      })
+                                      )
+                                  );
+
+            $('#Address').createAddress(prefixArray, 'ShaparakAddressFormat', null);
+
+            $('#ContinueButton').on('click', function () {
+                var validator = $("#MerchantProfileCreateForm").validate();
+                if (($('#BranchId').length && !validator.element('#BranchId')) || !validator.element('#AccountBranchCode') || !validator.element('#AccountType') || !validator.element('#AccountCustomerNumber') || !validator.element('#AccountRow')) {
+                    var message = 'شعبه حساب و شماره حساب را وارد نمایید';
+                    toastr.warning(message);
+                    return false;
+                }
+
+                var $button = $('#ContinueButton');
+                $button.button('loading');
+                $('#BranchIdSection').addClass('hidden');
+                $('input.account-number,button', '#pnlBasicInformations').attr('readonly', 'readonly');
+                $('#AccountCustomersTable tbody').empty();
+
+                var accountNumber = $('#AccountBranchCode').val() + '-' + $('#AccountType').val() + '-' + $('#AccountCustomerNumber').val() + '-' + $('#AccountRow').val();
+
+                $.post('@Url.Action("GetCustomersOfAccountNumber", "MerchantProfile")', { accountNumber: accountNumber }, function (result) {
+                    if (result.success) {
+                        var html = '';
+                        for (var i = 0; i < result.data.length; i++) {
+                            var item = result.data[i];
+                            html += '<tr><td>' + item.name + '</td><td class="monospaced-number">' + item.customerNumber + '</td><td class="text-nowrap"><button data-customer-number="' + item.customerNumber + '" class="btn btn-success btn-sm btn-choose-customer" data-loading-text="...">انتخاب</button></td></tr>';
+                        }
+
+                        $('#pnlAccountCustomers').removeClass('hidden');
+                        $('#AccountCustomersTable tbody').append(html);
+                        $('#ContinueButton').addClass('hidden');
+                    } else {
+                        $.processMessage(result);
+                        $('#BranchIdSection').removeClass('hidden');
+                        $('input.account-number,button', '#pnlBasicInformations').removeAttr('readonly');
+                        $button.button('reset');
+                    }
+                }).fail(function () {
+                    $('#BranchIdSection').removeClass('hidden');
+                    $('input.account-number,button', '#pnlBasicInformations').removeAttr('readonly');
+                    $button.button('reset');
+                });
+            });
+
+            $('#CityId').on('change', function () {
+                $('#RegionalMunicipalityId').empty().append('<option value="">انتخاب نمایید</option>');
+
+                $.get('@Url.Action("GetRegionalMunicipalities", "RegionalMunicipality")', { stateId: $(this).find(':selected').data('state-id') }).done(function (result) {
+                    if (result.data && result.data.length !== 0) {
+                        $('#RegionalMunicipalityId').closest('.form-group').removeClass('hidden');
+                        $.each(result.data, function (index, item) {
+                            $('#RegionalMunicipalityId').append('<option value="' + item.value + '">' + item.text + '</option>');
+                        });
+                    } else {
+                        $('#RegionalMunicipalityId').closest('.form-group').addClass('hidden');
+                    }
+                });
+            });
+
+            $('#AccountCustomersTable').on('click.btn-choose-customer', '.btn-choose-customer', function () {
+                var customerNumber = $(this).data('customer-number');
+                $('#CustomerNumber').val(customerNumber);
+                getData(customerNumber);
+            });
+
+            $('#DeviceTypeId').on('change', function () {
+                var blockPrice = $("#DeviceTypeId option:selected").data('block-price');
+
+                if (blockPrice > 0) {
+                    $('#BlockPrice').empty().append(convertToPersianNumbersThreeDigitsSeparated(blockPrice));
+                    $('#pnlBlockInfo').removeClass('hidden');
+                    $('#DocumentType' + @DocumentType.SanadMasdoodi.ToInt32()).removeClass('hidden');
+                } else {
+                    $('#pnlBlockInfo').addClass('hidden');
+                    $('#BlockDocumentDate').val('');
+                    $('#BlockDocumentNumber').val('');
+                    $('#BlockPrice').empty();
+                    $('#DocumentType' + @DocumentType.SanadMasdoodi.ToInt32()).addClass('hidden');
+                    $('#DocType' + @DocumentType.SanadMasdoodi.ToInt32()).fileinput('clear');
+                }
+            });
+
+            $('select.chosen-select').each(function() {
+                $(this).on('change', function() {
+                    $(this).valid();
+                });
+            });
+
+            $('#MerchantProfileCreateForm').validate({
+                ignore: ":hidden:not(select)",
+                rules: {
+                    CompanyRegistrationDate: {
+                        required: {
+                            depends: function () {
+                                return $('input[name=IsLegalPersonality]').val() == true;
+                            }
+                        }
+                    },
+                    CompanyRegistrationNumber: {
+                        digits: true,
+                        maxlength: 50,
+                        required: {
+                            depends: function () {
+                                return $('input[name=IsLegalPersonality]').val() == true;
+                            }
+                        }
+                    },
+                    SignatoryPosition: {
+                        maxlength: 150,
+                        required: {
+                            depends: function () {
+                                return $('input[name=IsLegalPersonality]').val() == true;
+                            }
+                        }
+                    },
+                    BlockDocumentDate: {
+                        required: {
+                            depends: function () {
+                                return !$('#pnlBlockInfo').hasClass('hidden');
+                            }
+                        }
+                    },
+                    BlockDocumentNumber: {
+                        required: {
+                            depends: function () {
+                                return !$('#pnlBlockInfo').hasClass('hidden');
+                            }
+                        }
+                    },
+                    BlockAccountRow: {
+                        digits: true,
+                        maxlength: 3,
+                        required: {
+                            depends: function () {
+                                return !$('#pnlBlockInfo').hasClass('hidden');
+                            }
+                        }
+                    },
+                    BlockAccountType: {
+                        digits: true,
+                        maxlength: 3,
+                        required: {
+                            depends: function () {
+                                return !$('#pnlBlockInfo').hasClass('hidden');
+                            }
+                        }
+                    },
+                    NationalityId: { required: true },
+                    BirthCertificateIssueDate: { required: true, maxlength: 10, minlength: 10 },
+                    Title: { required: true },
+                    EnglishTitle: { required: true, maxlength: 500 },
+                    EnglishFirstName: { required: true, maxlength: 200 },
+                    EnglishLastName: { required: true, maxlength: 200 },
+                    EnglishFatherName: { required: true, maxlength: 200 },
+                    GuildId: { required: true },
+                    TaxPayerCode: { required: true, maxlength: 10, minlength: 10, digits: true },
+                    ActivityTypeId: { required: true },
+                    CityId: { required: true },
+                    RegionalMunicipalityId: {
+                        required: {
+                            depends: function () {
+                                return $('#RegionalMunicipalityId option').length > 1;
+                            }
+                        }
+                    },
+                    PostCode: { required: true, maxlength: 10, digits: true, minlength: 10 },
+                    TelCode: { required: true, maxlength: 3, minlength: 3, digits: true },
+                    Tel: { required: true, maxlength: 8, minlength: 8, digits: true },
+                    BranchId: { required: true },
+                    AccountRow: { required: true, digits: true, maxlength: 3 },
+                    AccountCustomerNumber: { required: true, digits: true, maxlength: 8 },
+                    AccountType: { required: true, digits: true, maxlength: 3 },
+                    AccountBranchCode: { required: true, digits: true, maxlength: 4 },
+                    MarketerId: { required: true },
+                    DeviceTypeId: { required: true },
+                      CustomerCategoryId: { required: true }
+                }, messages: {
+                    AccountRow: '',
+                    AccountCustomerNumber: '',
+                    AccountType: '',
+                    AccountBranchCode: '',
+                    BlockAccountRow: '',
+                    BlockAccountType: '',
+                    TelCode: '',
+                    Tel: ''
+                }, submitHandler: function (form) {
+                    submitForm(form);
+                }, errorPlacement: function (error, element) {
+                    if (element.is('select.chosen-select')) {
+                        element.next('div.chosen-container').append(error);
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+
+            $(document).tooltip({
+                selector: '#MerchantProfileCreateForm [title]',
+                placement: 'bottom',
+                trigger: 'focus',
+                animation: false
+            });
+        });
+    </script>
+}

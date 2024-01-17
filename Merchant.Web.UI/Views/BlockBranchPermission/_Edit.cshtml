@@ -1,0 +1,145 @@
+﻿@model BlockDocumentEditViewModel
+
+@{
+    ViewBag.PageTitle = "مشاهده و ویرایش اطلاعات سند مسدودی";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+<form method="post" action="@Url.Action("Edit", "BlockDocument")" id="EditBlockDocumentForm" class="form-horizontal" enctype="multipart/form-data">
+    @if (Model.BlockDocumentId.HasValue)
+    {
+        <div class="form-group">
+            <label class="control-label col-md-3">فایل سند مسدودی</label>
+            <div class="col-md-4">
+                <a class="btn btn-warning" target="_blank" href="@Url.Action("GetDocument", "TerminalDocument", new { id = Model.BlockDocumentId })">دانلود فایل سند مسدودی</a>
+            </div>
+        </div>
+    }
+
+    <div class="form-group">
+        <label class="control-label col-md-3" for="BlockDocumentStatusId">وضعیت سند مسدودی</label>
+        <div class="col-md-4">
+            @Html.DropDownList("BlockDocumentStatusId", (IEnumerable<SelectListItem>)ViewBag.BlockDocumentStatusList, "انتخاب نمایید", new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 required" for="BlockDocumentDate">تاریخ سند مسدودی</label>
+        <div class="col-md-5">
+            <div class="left-inner-addon">
+                <i class="fa fa-calendar-o"></i>
+                <input type="text" id="BlockDocumentDate" name="BlockDocumentDate" class="form-control date-picker" maxlength="10" autocomplete="off" value="@Model.BlockDocumentDate.ToPersianDate()" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 required" for="BlockDocumentNumber">شماره سند مسدودی</label>
+        <div class="col-md-5">
+            <input type="text" id="BlockDocumentNumber" placeholder="عدد وارد شود" name="BlockDocumentNumber" class="form-control only-number" maxlength="50" autocomplete="off" value="@Model.BlockDocumentNumber" />
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-md-3 required" for="BlockPrice">مبلغ مسدودی</label>
+        <div class="col-md-5">
+            <input type="text" id="BlockPrice" placeholder="عدد وارد شود" name="BlockPrice" class="form-control only-number" maxlength="50" autocomplete="off" value="@Model.BlockPrice" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 required" for="BlockAccountNumberSection">شماره حساب مسدودی</label>
+        <div class="col-md-9" id="BlockAccountNumberSection">
+            <input type="text" class="form-control account-number text-center only-number" data-order="8" style="width: 60px; max-width: 60px; min-width: 60px; display: inline;" id="AccountRow" name="AccountRow" maxlength="3" data-toggle="tooltip" title="ردیف (3 رقم)" tabindex="11" autocomplete="off" value="@Model.AccountRow" />
+            <input type="text" class="form-control account-number text-center only-number" data-order="7" style="width: 100px; max-width: 100px; min-width: 100px; display: inline;" id="AccountCustomerNumber" name="AccountCustomerNumber" maxlength="8" data-toggle="tooltip" title="شماره مشتری (8 رقم)" tabindex="10" autocomplete="off" value="@Model.AccountCustomerNumber" />
+            <input type="text" class="form-control account-number text-center only-number" data-order="6" style="width: 55px; max-width: 55px; min-width: 55px; display: inline;" id="AccountType" name="AccountType" maxlength="3" data-toggle="tooltip" title="نوع حساب (3 رقم)" tabindex="9" autocomplete="off" value="@Model.AccountType" />
+            <input type="text" class="form-control account-number text-center only-number" data-order="5" style="width: 60px; max-width: 60px; min-width: 60px; display: inline;" id="AccountBranchCode" name="AccountBranchCode" maxlength="4" data-toggle="tooltip" title="کد شعبه (4 رقم)" tabindex="8" autocomplete="off" value="@Model.AccountBranchCode" />
+        </div>
+    </div>
+
+  
+@if (User.IsAcceptorsExpertUser())
+{
+    <div class="form-group">
+        <label class="control-label col-md-3">فایل سند مسدودی جدید</label>
+        <div class="col-md-9">
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+                <span class="btn btn-default btn-file">
+                    <span class="fileinput-new">سند مسدودی</span>
+                    <span class="fileinput-exists">سند مسدودی</span>
+                    <input type="file" name="Document" accept=".pdf" />
+                </span>
+                <span class="fileinput-filename"></span>
+                <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+            </div>
+            <small class=" help-block text-muted">در صورت انتخاب ، فایل انتخابی جایگزین فایل سند مسدودی فعلی خواهد شد</small>
+        </div>
+    </div>
+}
+else
+{
+    <div class="form-group">
+        <label class="control-label col-md-3 required">فایل سند مسدودی جدید</label>
+        <div class="col-md-9">
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+                <span class="btn btn-default btn-file">
+                    <span class="fileinput-new">سند مسدودی</span>
+                    <span class="fileinput-exists">سند مسدودی</span>
+                    <input type="file" name="Document" accept=".pdf" />
+                </span>
+                <span class="fileinput-filename"></span>
+                <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+            </div>
+            <small class=" help-block text-muted">در صورت انتخاب ، فایل انتخابی جایگزین فایل سند مسدودی فعلی خواهد شد</small>
+        </div>
+    </div> 
+}
+
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="submit" class="btn btn-success btn-lg" id="btnConfirm" data-loading-text="در حال ثبت...">ثبت</button>
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">بستن</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.date-picker', '#EditBlockDocumentForm').on('click', function () {
+            PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDate()', true);
+        });
+
+        $('.only-number', '#EditBlockDocumentForm').filter_input({ regex: '[0-9]' });
+
+        $('#EditBlockDocumentForm').validate({
+            rules: {
+                BlockDocumentStatusId: { required: true }
+                ,
+                 Document: { required:  "@User.IsAcceptorsExpertUser()"==="False"  }
+            },
+            submitHandler: function (form) {
+                var $button = $('#btnConfirm', '#EditBlockDocumentForm');
+                $button.button('loading');
+
+                $(form).ajaxSubmit({
+                    data: { terminalId: '@Model.TerminalId' },
+                    success: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+
+                        if (result.success) {
+                            $.closeModal('ok');
+                        }
+                    }, error: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+                    }
+                });
+
+                return false;
+            }
+        });
+    });
+</script>

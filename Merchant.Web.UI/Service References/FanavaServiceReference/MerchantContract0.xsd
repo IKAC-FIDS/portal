@@ -1,0 +1,931 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/TMMS.Common.Messages" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TMMS.Common.Messages" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" />
+  <xs:import schemaLocation="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/TMMS.Common.Enums" />
+  <xs:import schemaLocation="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/TMMS.Common.Enums.Helper" />
+  <xs:import schemaLocation="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO.Reports" />
+  <xs:complexType name="WSInputMerchantContractAdd">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="MerchantContract" nillable="true" type="q1:MerchantContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputMerchantContractAdd" nillable="true" type="tns:WSInputMerchantContractAdd" />
+  <xs:complexType name="WSInputLogin">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputLogin" nillable="true" type="tns:WSInputLogin" />
+  <xs:complexType name="WSOutput">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/TMMS.Common.Enums" minOccurs="0" name="Type" type="q2:MessageType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSOutput" nillable="true" type="tns:WSOutput" />
+  <xs:complexType name="WSOutputResultLookupList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="DataList" nillable="true" type="q3:ArrayOfLookup" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultLookupList" nillable="true" type="tns:WSOutputResultLookupList" />
+  <xs:complexType name="WSOutputResult">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Data" nillable="true" type="xs:anyType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResult" nillable="true" type="tns:WSOutputResult" />
+  <xs:complexType name="WSOutputResultEnumList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="DataList" nillable="true" type="tns:ArrayOfWSEnumObject" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultEnumList" nillable="true" type="tns:WSOutputResultEnumList" />
+  <xs:complexType name="ArrayOfWSEnumObject">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WSEnumObject" nillable="true" type="tns:WSEnumObject" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWSEnumObject" nillable="true" type="tns:ArrayOfWSEnumObject" />
+  <xs:complexType name="WSEnumObject">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSEnumObject" nillable="true" type="tns:WSEnumObject" />
+  <xs:complexType name="WSOutputResultLocationList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="Locations" nillable="true" type="q4:ArrayOfLocation" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultLocationList" nillable="true" type="tns:WSOutputResultLocationList" />
+  <xs:complexType name="WSOutputResultPspActorList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="PspActors" nillable="true" type="q5:ArrayOfPspActor" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultPspActorList" nillable="true" type="tns:WSOutputResultPspActorList" />
+  <xs:complexType name="WSOutputResultBankActorList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="BankActors" nillable="true" type="q6:ArrayOfBankActor" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultBankActorList" nillable="true" type="tns:WSOutputResultBankActorList" />
+  <xs:complexType name="WSOutputResultCategoryList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="Categories" nillable="true" type="q7:ArrayOfCategory" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultCategoryList" nillable="true" type="tns:WSOutputResultCategoryList" />
+  <xs:complexType name="WSOutputResultActivityPermissionList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="ActivityPermissions" nillable="true" type="q8:ArrayOfActivityPermission" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultActivityPermissionList" nillable="true" type="tns:WSOutputResultActivityPermissionList" />
+  <xs:complexType name="WSOutputResultActivityLicenseList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="ActivityLicenses" nillable="true" type="q9:ArrayOfActivityLicense" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultActivityLicenseList" nillable="true" type="tns:WSOutputResultActivityLicenseList" />
+  <xs:complexType name="WSOutputResultJobPositionList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="JobPositions" nillable="true" type="q10:ArrayOfJobPosition" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultJobPositionList" nillable="true" type="tns:WSOutputResultJobPositionList" />
+  <xs:complexType name="WSOutputResultMerchantContract">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="MerchantContract" nillable="true" type="q11:MerchantContract" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultMerchantContract" nillable="true" type="tns:WSOutputResultMerchantContract" />
+  <xs:complexType name="WSOutputResultMerchantLocationList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="MessageMerchantLocation" nillable="true" type="q12:ArrayOfMessageMerchantLocation" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultMerchantLocationList" nillable="true" type="tns:WSOutputResultMerchantLocationList" />
+  <xs:complexType name="WSOutputResultMerchantContractList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="MerchantContracts" nillable="true" type="q13:ArrayOfMerchantContract" />
+          <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="MerchantLocation" nillable="true" type="q14:ArrayOfMerchantLocation" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultMerchantContractList" nillable="true" type="tns:WSOutputResultMerchantContractList" />
+  <xs:complexType name="WSOutputResultPersonList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="People" nillable="true" type="q15:ArrayOfPerson" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultPersonList" nillable="true" type="tns:WSOutputResultPersonList" />
+  <xs:complexType name="WSOutputResultPerson">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="Person" nillable="true" type="q16:Person" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultPerson" nillable="true" type="tns:WSOutputResultPerson" />
+  <xs:complexType name="WSOutputResultEducationList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="Educations" nillable="true" type="q17:ArrayOfEducation" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultEducationList" nillable="true" type="tns:WSOutputResultEducationList" />
+  <xs:complexType name="WSOutputResultChangeAccount">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="ChangeAccountRequests" nillable="true" type="q18:ChangeAccountRequest" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultChangeAccount" nillable="true" type="tns:WSOutputResultChangeAccount" />
+  <xs:complexType name="WSOutputResultChangeAccountList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ChangeAccountRequests" nillable="true" type="tns:ArrayOfChangeAccountRequestResult" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultChangeAccountList" nillable="true" type="tns:WSOutputResultChangeAccountList" />
+  <xs:complexType name="ArrayOfChangeAccountRequestResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ChangeAccountRequestResult" nillable="true" type="tns:ChangeAccountRequestResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfChangeAccountRequestResult" nillable="true" type="tns:ArrayOfChangeAccountRequestResult" />
+  <xs:complexType name="ChangeAccountRequestResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeAccountReason" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NewAccount" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OldAccount" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ShabaNew" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ShabaOld" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Status" type="xs:long" />
+      <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/TMMS.Common.Enums" minOccurs="0" name="StatusHelper" type="q19:ChangeAccountRequestStatus" />
+      <xs:element minOccurs="0" name="TerminalNo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ChangeAccountRequestResult" nillable="true" type="tns:ChangeAccountRequestResult" />
+  <xs:complexType name="WSOutputResultDisableRequest">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="DisableRequest" nillable="true" type="q20:DisableRequest" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultDisableRequest" nillable="true" type="tns:WSOutputResultDisableRequest" />
+  <xs:complexType name="WSOutputResultDisableRequestList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="DisableRequests" nillable="true" type="q21:ArrayOfDisableRequest" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultDisableRequestList" nillable="true" type="tns:WSOutputResultDisableRequestList" />
+  <xs:complexType name="WSOutputResultAmendRequest">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="AmendRequests" nillable="true" type="q22:AmendRequest" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultAmendRequest" nillable="true" type="tns:WSOutputResultAmendRequest" />
+  <xs:complexType name="WSOutputResultAmendRequestList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="AmendRequests" nillable="true" type="q23:ArrayOfAmendRequest" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultAmendRequestList" nillable="true" type="tns:WSOutputResultAmendRequestList" />
+  <xs:complexType name="WSOutputDisableRequestByTerminalNoAndSerialNo">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="MerchantContract" nillable="true" type="q24:MerchantContract" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputDisableRequestByTerminalNoAndSerialNo" nillable="true" type="tns:WSOutputDisableRequestByTerminalNoAndSerialNo" />
+  <xs:complexType name="WSOutputResultMchContractAccount">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="MchContractAccount" nillable="true" type="q25:ArrayOfMchContractAccount" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultMchContractAccount" nillable="true" type="tns:WSOutputResultMchContractAccount" />
+  <xs:complexType name="WSOutputResultDocumentList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="Documents" nillable="true" type="q26:ArrayOfMchCtrDocument" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultDocumentList" nillable="true" type="tns:WSOutputResultDocumentList" />
+  <xs:complexType name="WSOutputResultEntityStructureList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="EntityStructures" nillable="true" type="q27:ArrayOfEntityStructure" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultEntityStructureList" nillable="true" type="tns:WSOutputResultEntityStructureList" />
+  <xs:complexType name="WSOutputResultBankContractList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="BankContract" nillable="true" type="q28:ArrayOfBankContract" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultBankContractList" nillable="true" type="tns:WSOutputResultBankContractList" />
+  <xs:complexType name="WSOutputResoneDisableRequestList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/TMMS.Common.Enums.Helper" minOccurs="0" name="ReasonDisables" nillable="true" type="q29:ArrayOfDisableReason" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResoneDisableRequestList" nillable="true" type="tns:WSOutputResoneDisableRequestList" />
+  <xs:complexType name="WSOutputProvinceRequestList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="Locations" nillable="true" type="q30:ArrayOfLocation" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputProvinceRequestList" nillable="true" type="tns:WSOutputProvinceRequestList" />
+  <xs:complexType name="WSOutputPspActorRequestList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="PspActors" nillable="true" type="q31:ArrayOfActor" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputPspActorRequestList" nillable="true" type="tns:WSOutputPspActorRequestList" />
+  <xs:complexType name="WsOutputFindInstalledTermialByNationalCode">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="MerchantContracts" nillable="true" type="tns:ArrayOfWsMerchantContractOutPutData" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WsOutputFindInstalledTermialByNationalCode" nillable="true" type="tns:WsOutputFindInstalledTermialByNationalCode" />
+  <xs:complexType name="ArrayOfWsMerchantContractOutPutData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WsMerchantContractOutPutData" nillable="true" type="tns:WsMerchantContractOutPutData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWsMerchantContractOutPutData" nillable="true" type="tns:ArrayOfWsMerchantContractOutPutData" />
+  <xs:complexType name="WsMerchantContractOutPutData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="InstalledDateTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="InstalledDateTimeShamsi" nillable="true" type="xs:string" />
+      <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/TMMS.Common.Enums.Helper" minOccurs="0" name="MerchantContractStatusHelper" nillable="true" type="q32:MerchantContractStatus" />
+      <xs:element minOccurs="0" name="Status" type="xs:long" />
+      <xs:element minOccurs="0" name="TerminalNo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WsMerchantContractOutPutData" nillable="true" type="tns:WsMerchantContractOutPutData" />
+  <xs:complexType name="WSOutputFindAccountByNationalCode">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ChangeAccountRequests" nillable="true" type="tns:ArrayOfWsInputChangeAccountRequest" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputFindAccountByNationalCode" nillable="true" type="tns:WSOutputFindAccountByNationalCode" />
+  <xs:complexType name="ArrayOfWsInputChangeAccountRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WsInputChangeAccountRequest" nillable="true" type="tns:WsInputChangeAccountRequest" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWsInputChangeAccountRequest" nillable="true" type="tns:ArrayOfWsInputChangeAccountRequest" />
+  <xs:complexType name="WsInputChangeAccountRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccountNew" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccountOld" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IbanNew" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IbanOld" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StatusHelper" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Terminal" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WsInputChangeAccountRequest" nillable="true" type="tns:WsInputChangeAccountRequest" />
+  <xs:complexType name="WSOutputTerminalSerialDedication">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="Merchants" nillable="true" type="q33:ArrayOfMerchantContract" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputTerminalSerialDedication" nillable="true" type="tns:WSOutputTerminalSerialDedication" />
+  <xs:complexType name="WSOutputPosStatus">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="PosStatus" nillable="true" type="tns:WSOutputPosStatusFields" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputPosStatus" nillable="true" type="tns:WSOutputPosStatus" />
+  <xs:complexType name="WSOutputPosStatusFields">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="HolderName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputPosStatusFields" nillable="true" type="tns:WSOutputPosStatusFields" />
+  <xs:complexType name="WSOutputGetMerchantStatusWithRequestNo">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="MerchantContractStatus" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputGetMerchantStatusWithRequestNo" nillable="true" type="tns:WSOutputGetMerchantStatusWithRequestNo" />
+  <xs:complexType name="WSOutputResultFileAttachmentList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="MchCtrDocuments" nillable="true" type="q34:ArrayOfMchCtrDocument" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultFileAttachmentList" nillable="true" type="tns:WSOutputResultFileAttachmentList" />
+  <xs:complexType name="WSOutputShaparakList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="ShaparakFailureReport" nillable="true" type="q35:ArrayOfShaparakFailureReport" />
+          <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="ShaparakWSReptemp" nillable="true" type="q36:ArrayOfShaparakWSReptemp" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputShaparakList" nillable="true" type="tns:WSOutputShaparakList" />
+  <xs:complexType name="WSOutputResultContactTypeList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="ContactType" nillable="true" type="q37:ArrayOfContactType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultContactTypeList" nillable="true" type="tns:WSOutputResultContactTypeList" />
+  <xs:complexType name="WSOutputResultDefineTerminalStatus">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="WSResults" nillable="true" type="q38:ArrayOfWSResult" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultDefineTerminalStatus" nillable="true" type="tns:WSOutputResultDefineTerminalStatus" />
+  <xs:complexType name="WSOutputResultDisableRequests">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutputResult">
+        <xs:sequence>
+          <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="DisableRequests" nillable="true" type="q39:ArrayOfDisableRequest" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputResultDisableRequests" nillable="true" type="tns:WSOutputResultDisableRequests" />
+  <xs:complexType name="WSOutputErrorList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="WSErrors" nillable="true" type="tns:ArrayOfWSError" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputErrorList" nillable="true" type="tns:WSOutputErrorList" />
+  <xs:complexType name="ArrayOfWSError">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WSError" nillable="true" type="tns:WSError" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWSError" nillable="true" type="tns:ArrayOfWSError" />
+  <xs:complexType name="WSError">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ErrorCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RowNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Subsystem" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSError" nillable="true" type="tns:WSError" />
+  <xs:complexType name="WSOutputPaymentFacilitator">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ResultCode" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputPaymentFacilitator" nillable="true" type="tns:WSOutputPaymentFacilitator" />
+  <xs:complexType name="WSOutputGetPaymentFacilitatorTerminal">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WSOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AcceptorCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TerminalNumber" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="WSOutputGetPaymentFacilitatorTerminal" nillable="true" type="tns:WSOutputGetPaymentFacilitatorTerminal" />
+  <xs:complexType name="WSInputMerchantContractAddList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="MerchantContracts" nillable="true" type="q40:ArrayOfMerchantContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputMerchantContractAddList" nillable="true" type="tns:WSInputMerchantContractAddList" />
+  <xs:complexType name="WSInputMerchantContractAddListByTerminalNO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="MerchantContracts" nillable="true" type="q41:ArrayOfMerchantContract" />
+      <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/TMMS.Common.Enums" minOccurs="0" name="changeType" type="q42:ChangeType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputMerchantContractAddListByTerminalNO" nillable="true" type="tns:WSInputMerchantContractAddListByTerminalNO" />
+  <xs:complexType name="WSInputTerminalStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element xmlns:q43="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="WSrequestIdList" nillable="true" type="q43:ArrayOfstring" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputTerminalStatus" nillable="true" type="tns:WSInputTerminalStatus" />
+  <xs:complexType name="WSInputFindPersonById">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputFindPersonById" nillable="true" type="tns:WSInputFindPersonById" />
+  <xs:complexType name="WSInputFindPersonByNationalCodeOrUniversalId">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element minOccurs="0" name="NationalCodeOrUniversalIdInput" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputFindPersonByNationalCodeOrUniversalId" nillable="true" type="tns:WSInputFindPersonByNationalCodeOrUniversalId" />
+  <xs:complexType name="WSInputFindAccount">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ContractNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputFindAccount" nillable="true" type="tns:WSInputFindAccount" />
+  <xs:complexType name="WSInputFindChangeAccountByMchCtrRequestNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element minOccurs="0" name="MerchantContractRequestNo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputFindChangeAccountByMchCtrRequestNo" nillable="true" type="tns:WSInputFindChangeAccountByMchCtrRequestNo" />
+  <xs:complexType name="WSInputFindChangeAccountRequestByContractNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ContractNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputFindChangeAccountRequestByContractNo" nillable="true" type="tns:WSInputFindChangeAccountRequestByContractNo" />
+  <xs:complexType name="WSInputDisableRequestByIdOrRequestNoOrTerminal">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element minOccurs="0" name="WSInputDisableRequestField" nillable="true" type="tns:WSInputDisableRequestByIdOrRequestNoOrTerminalField" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputDisableRequestByIdOrRequestNoOrTerminal" nillable="true" type="tns:WSInputDisableRequestByIdOrRequestNoOrTerminal" />
+  <xs:complexType name="WSInputDisableRequestByIdOrRequestNoOrTerminalField">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="RequestNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TerminalNo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputDisableRequestByIdOrRequestNoOrTerminalField" nillable="true" type="tns:WSInputDisableRequestByIdOrRequestNoOrTerminalField" />
+  <xs:complexType name="WSInputDisableRequestByIdOrRequestNoOrTerminalList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element minOccurs="0" name="WSInputDisableRequestField" nillable="true" type="tns:ArrayOfWSInputDisableRequestByIdOrRequestNoOrTerminalField" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputDisableRequestByIdOrRequestNoOrTerminalList" nillable="true" type="tns:WSInputDisableRequestByIdOrRequestNoOrTerminalList" />
+  <xs:complexType name="ArrayOfWSInputDisableRequestByIdOrRequestNoOrTerminalField">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WSInputDisableRequestByIdOrRequestNoOrTerminalField" nillable="true" type="tns:WSInputDisableRequestByIdOrRequestNoOrTerminalField" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWSInputDisableRequestByIdOrRequestNoOrTerminalField" nillable="true" type="tns:ArrayOfWSInputDisableRequestByIdOrRequestNoOrTerminalField" />
+  <xs:complexType name="WSInputChangeAccount">
+    <xs:sequence>
+      <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO.Reports" minOccurs="0" name="ChangeAccountRequests" nillable="true" type="q44:ArrayOfChangeAccountRequestEventReport" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputChangeAccount" nillable="true" type="tns:WSInputChangeAccount" />
+  <xs:complexType name="WSInputAmendRequest">
+    <xs:sequence>
+      <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="AmendRequests" nillable="true" type="q45:AmendRequest" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputAmendRequest" nillable="true" type="tns:WSInputAmendRequest" />
+  <xs:complexType name="WSInputAmendRequestList">
+    <xs:sequence>
+      <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="AmendRequests" nillable="true" type="q46:ArrayOfAmendRequest" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputAmendRequestList" nillable="true" type="tns:WSInputAmendRequestList" />
+  <xs:complexType name="WSInputFindAmentRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element minOccurs="0" name="MerchantContractNO" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputFindAmentRequest" nillable="true" type="tns:WSInputFindAmentRequest" />
+  <xs:complexType name="WSInputDisableRequestedByTerminalNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element minOccurs="0" name="TerminalNo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputDisableRequestedByTerminalNo" nillable="true" type="tns:WSInputDisableRequestedByTerminalNo" />
+  <xs:complexType name="WSInputFindAmendRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AmendRequests" nillable="true" type="tns:WSInputFindAmendRequestField" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputFindAmendRequest" nillable="true" type="tns:WSInputFindAmendRequest" />
+  <xs:complexType name="WSInputFindAmendRequestField">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="RequestNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TerminalNo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputFindAmendRequestField" nillable="true" type="tns:WSInputFindAmendRequestField" />
+  <xs:complexType name="WSInputDisableRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DisableRequest" nillable="true" type="tns:WSInputDisableRequestField" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputDisableRequest" nillable="true" type="tns:WSInputDisableRequest" />
+  <xs:complexType name="WSInputDisableRequestField">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AdaptorCableStatus" type="xs:int" />
+      <xs:element minOccurs="0" name="AdaptorStatus" type="xs:int" />
+      <xs:element minOccurs="0" name="ApplicantDesc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CableStatus" type="xs:int" />
+      <xs:element minOccurs="0" name="DisableReason" type="xs:int" />
+      <xs:element minOccurs="0" name="LooksStatus" type="xs:int" />
+      <xs:element minOccurs="0" name="TerminalNo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputDisableRequestField" nillable="true" type="tns:WSInputDisableRequestField" />
+  <xs:complexType name="WSInputDisableRequestList">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DisableRequests" nillable="true" type="tns:ArrayOfWSInputDisableRequestField" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputDisableRequestList" nillable="true" type="tns:WSInputDisableRequestList" />
+  <xs:complexType name="ArrayOfWSInputDisableRequestField">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WSInputDisableRequestField" nillable="true" type="tns:WSInputDisableRequestField" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWSInputDisableRequestField" nillable="true" type="tns:ArrayOfWSInputDisableRequestField" />
+  <xs:complexType name="WSInputAddMerchantsAttachmentsByContractNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element minOccurs="0" name="field" nillable="true" type="tns:WSInputAddMerchantsAttachmentsByContractNoField" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputAddMerchantsAttachmentsByContractNo" nillable="true" type="tns:WSInputAddMerchantsAttachmentsByContractNo" />
+  <xs:complexType name="WSInputAddMerchantsAttachmentsByContractNoField">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MerchantContractNo" nillable="true" type="xs:string" />
+      <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="TDocuments" nillable="true" type="q47:ArrayOfMchCtrDocument" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputAddMerchantsAttachmentsByContractNoField" nillable="true" type="tns:WSInputAddMerchantsAttachmentsByContractNoField" />
+  <xs:complexType name="WSFindBankContract">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BankID" type="xs:long" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSFindBankContract" nillable="true" type="tns:WSFindBankContract" />
+  <xs:complexType name="WSInputFindProvinceByAgentId">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AgentId" type="xs:long" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputFindProvinceByAgentId" nillable="true" type="tns:WSInputFindProvinceByAgentId" />
+  <xs:complexType name="WSInputFindPspByCityShaparakCode">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BankId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="CityShaparakCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputFindPspByCityShaparakCode" nillable="true" type="tns:WSInputFindPspByCityShaparakCode" />
+  <xs:complexType name="WSInputFindBankBranchManagmement">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BankId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputFindBankBranchManagmement" nillable="true" type="tns:WSInputFindBankBranchManagmement" />
+  <xs:complexType name="WSInputFindBankBranch">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BankId" type="xs:long" />
+      <xs:element minOccurs="0" name="BankManagmentId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputFindBankBranch" nillable="true" type="tns:WSInputFindBankBranch" />
+  <xs:complexType name="WsInputFindInstalledTermialByNationalCode">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element minOccurs="0" name="NationalCode" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WsInputFindInstalledTermialByNationalCode" nillable="true" type="tns:WsInputFindInstalledTermialByNationalCode" />
+  <xs:complexType name="WsInputFindInstalledTermialByDateRange">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element minOccurs="0" name="WsGetRangeDate" nillable="true" type="tns:WsInputGetRangeDate" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WsInputFindInstalledTermialByDateRange" nillable="true" type="tns:WsInputFindInstalledTermialByDateRange" />
+  <xs:complexType name="WsInputGetRangeDate">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EndDateTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="EndDateTimeShamsi" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartDateTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="StartDateTimeShamsi" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WsInputGetRangeDate" nillable="true" type="tns:WsInputGetRangeDate" />
+  <xs:complexType name="WSInputFindAccountByNationalCode">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element minOccurs="0" name="NationalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TerminalNo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputFindAccountByNationalCode" nillable="true" type="tns:WSInputFindAccountByNationalCode" />
+  <xs:complexType name="WSInputFindAccountByDateRange">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element minOccurs="0" name="WsGetRangeDate" nillable="true" type="tns:WsInputGetRangeDate" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputFindAccountByDateRange" nillable="true" type="tns:WSInputFindAccountByDateRange" />
+  <xs:complexType name="WSInputApproveMerchantWithShaparakCoding">
+    <xs:sequence>
+      <xs:element xmlns:q48="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ContractNo" nillable="true" type="q48:ArrayOfstring" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputApproveMerchantWithShaparakCoding" nillable="true" type="tns:WSInputApproveMerchantWithShaparakCoding" />
+  <xs:complexType name="WSInputTerminalSerialDedication">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element minOccurs="0" name="WSInputTerminalSerialDedicationItems" nillable="true" type="tns:ArrayOfWSInputTerminalSerialDedicationItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputTerminalSerialDedication" nillable="true" type="tns:WSInputTerminalSerialDedication" />
+  <xs:complexType name="ArrayOfWSInputTerminalSerialDedicationItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WSInputTerminalSerialDedicationItem" nillable="true" type="tns:WSInputTerminalSerialDedicationItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWSInputTerminalSerialDedicationItem" nillable="true" type="tns:ArrayOfWSInputTerminalSerialDedicationItem" />
+  <xs:complexType name="WSInputTerminalSerialDedicationItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Serialno" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SupportId" type="xs:long" />
+      <xs:element minOccurs="0" name="Terminalno" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputTerminalSerialDedicationItem" nillable="true" type="tns:WSInputTerminalSerialDedicationItem" />
+  <xs:complexType name="WSInputPosreplacement">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element minOccurs="0" name="PosReplacement" nillable="true" type="tns:WSInputPosreplacementItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputPosreplacement" nillable="true" type="tns:WSInputPosreplacement" />
+  <xs:complexType name="WSInputPosreplacementItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NewPosSerial" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OldPosSerial" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputPosreplacementItem" nillable="true" type="tns:WSInputPosreplacementItem" />
+  <xs:complexType name="WSInputPosStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element minOccurs="0" name="SerialNo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputPosStatus" nillable="true" type="tns:WSInputPosStatus" />
+  <xs:complexType name="WSInputGetMerchantStatusWithRequestNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element minOccurs="0" name="RequestNo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputGetMerchantStatusWithRequestNo" nillable="true" type="tns:WSInputGetMerchantStatusWithRequestNo" />
+  <xs:complexType name="WSInputUpdateRequestNoWithContractNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element minOccurs="0" name="items" nillable="true" type="tns:ArrayOfWSInputUpdateRequestNoWithContractNoItems" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputUpdateRequestNoWithContractNo" nillable="true" type="tns:WSInputUpdateRequestNoWithContractNo" />
+  <xs:complexType name="ArrayOfWSInputUpdateRequestNoWithContractNoItems">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="WSInputUpdateRequestNoWithContractNoItems" nillable="true" type="tns:WSInputUpdateRequestNoWithContractNoItems" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWSInputUpdateRequestNoWithContractNoItems" nillable="true" type="tns:ArrayOfWSInputUpdateRequestNoWithContractNoItems" />
+  <xs:complexType name="WSInputUpdateRequestNoWithContractNoItems">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ContractNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequestNoNew" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputUpdateRequestNoWithContractNoItems" nillable="true" type="tns:WSInputUpdateRequestNoWithContractNoItems" />
+  <xs:complexType name="WSInputTestTerminal">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element xmlns:q49="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="TerminalNumbers" nillable="true" type="q49:ArrayOfstring" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputTestTerminal" nillable="true" type="tns:WSInputTestTerminal" />
+  <xs:complexType name="WSInputFileAttachmentListByContractNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ContractNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputFileAttachmentListByContractNo" nillable="true" type="tns:WSInputFileAttachmentListByContractNo" />
+  <xs:complexType name="WSInputPspRejectList">
+    <xs:sequence>
+      <xs:element xmlns:q50="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ContractNo" nillable="true" type="q50:ArrayOfstring" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputPspRejectList" nillable="true" type="tns:WSInputPspRejectList" />
+  <xs:complexType name="WSInputRemoveListMerchantContract">
+    <xs:sequence>
+      <xs:element xmlns:q51="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ContractNo" nillable="true" type="q51:ArrayOfstring" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputRemoveListMerchantContract" nillable="true" type="tns:WSInputRemoveListMerchantContract" />
+  <xs:complexType name="WSInputFindShaparakInvalidList">
+    <xs:sequence>
+      <xs:element xmlns:q52="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ContractNo" nillable="true" type="q52:ArrayOfstring" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element xmlns:q53="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="MerchantContracts" nillable="true" type="q53:ArrayOfMerchantContract" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputFindShaparakInvalidList" nillable="true" type="tns:WSInputFindShaparakInvalidList" />
+  <xs:complexType name="WSInputAddMerchantLocationWithTerminalNo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Login" nillable="true" type="tns:WSInputLogin" />
+      <xs:element xmlns:q54="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" minOccurs="0" name="MerchantLocations" nillable="true" type="q54:ArrayOfMerchantLocation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WSInputAddMerchantLocationWithTerminalNo" nillable="true" type="tns:WSInputAddMerchantLocationWithTerminalNo" />
+</xs:schema>

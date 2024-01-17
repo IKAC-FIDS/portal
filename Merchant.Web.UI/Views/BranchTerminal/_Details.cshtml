@@ -1,0 +1,629 @@
+﻿@model TerminalDetailsViewModel
+
+@{
+    ViewBag.PageTitle = "مشاهده اطلاعات کامل";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+@if (!string.IsNullOrEmpty(Model.ErrorComment)
+     && (Model.StatusId == TerminalStatus.NeedToReform.ToByte() || Model.StatusId == TerminalStatus.UnsuccessfulReturnedFromSwitch.ToByte()))
+{
+    <div class="alert alert-danger">
+        <strong>خطای دریافتی</strong>
+        <br />
+        <br />
+        <span style="white-space:pre-line;">@Model.ErrorComment</span>
+    </div>
+}
+
+@if (Model.PspId == 3 && Model.NewParsian.HasValue && Model.NewParsian.Value) 
+{
+    <div  >
+         
+        
+        <span style="white-space:pre-line;"> مرحله :  @Model.StepCodeTitle</span>
+        <br />
+             
+        <span style="white-space:pre-line;">وضعیت : @Model.InstallStatus</span>
+        <br />
+        <br />
+        @if (!string.IsNullOrEmpty(Model.ErrorComment) && Model.InstallStatusId == 3)
+        {
+            <strong>خطای دریافتی</strong>
+           
+            <span style="white-space:pre-line;">@Model.ErrorComment</span>   
+                                                                   
+            <br />
+            <br />
+            
+        }
+    </div>
+}
+
+<div id="TerminalDetailsSection">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong>
+                <a role="button" data-toggle="collapse" href="#BasicInfo" aria-expanded="false" aria-controls="BasicInfo">اطلاعات فردی پذیرنده</a>
+            </strong>
+        </div>
+        <div id="BasicInfo" class="panel-collapse collapse" role="tabpanel">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><strong class="pull-left">نام:</strong></td>
+                        <td>@Model.FirstName</td>
+                        <td><strong class="pull-left">نام خانوادگی: </strong></td>
+                        <td>@Model.LastName</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">نام انگلیسی:</strong></td>
+                        <td>@Model.EnglishFirstName</td>
+                        <td><strong class="pull-left">نام خانوادگی انگلیسی: </strong></td>
+                        <td>@Model.EnglishLastName</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">شماره شناسنامه: </strong></td>
+                        <td>@Model.IdentityNumber</td>
+                        <td><strong class="pull-left">نام پدر: </strong></td>
+                        <td>@Model.FatherName</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">تاریخ تولد: </strong></td>
+                        <td>@Model.Birthdate.ToPersianDate()</td>
+                        <td><strong class="pull-left">کد ملی: </strong></td>
+                        <td>@Model.NationalCode</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">جنسیت</strong></td>
+                        <td>@Model.GenderTitle</td>
+                        <td><strong class="pull-left">تاریخ صدور شناسنامه: </strong></td>
+                        <td>@Model.BirthCertificateIssueDate.ToPersianDate()</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">کد پستی منزل: </strong></td>
+                        <td>@Model.HomePostCode</td>
+                        <td><strong class="pull-left">تلفن منزل: </strong></td>
+                        <td dir="ltr" style="text-align: right;">@Model.HomeTel</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">تلفن همراه: </strong></td>
+                        <td>@Model.Mobile</td>
+                        <td><strong class="pull-left">شخصیت: </strong></td>
+                        <td>@(Model.IsLegalPersonality ? "حقوقی" : "حقیقی")</td>
+                    </tr>
+                    <tr class="@(Model.IsLegalPersonality ? "" : "hidden")">
+                        <td><strong class="pull-left">سِمت صاحب امضاء: </strong></td>
+                        <td>@Model.SignatoryPosition</td>
+                        <td><strong class="pull-left">شماره ثبت شرکت: </strong></td>
+                        <td>@Model.CompanyRegistrationNumber</td>
+                    </tr>
+                    <tr class="@(Model.IsLegalPersonality ? "" : "hidden")">
+                        <td><strong class="pull-left">شناسه ملی شرکت: </strong></td>
+                        <td>@Model.LegalNationalCode</td>
+                        <td><strong class="pull-left">تاریخ ثبت شرکت: </strong></td>
+                        <td>@Model.CompanyRegistrationDate.ToPersianDate()</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">آدرس منزل: </strong></td>
+                        <td colspan="3">@Model.HomeAddress</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a role="button" data-toggle="collapse" href="#StoreInfo" aria-expanded="false" aria-controls="StoreInfo">اطلاعات فروشگاه</a>
+        </div>
+        <div id="StoreInfo" class="panel-collapse collapse" role="tabpanel">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><strong class="pull-left">نام فروشگاه/شرکت:</strong></td>
+                        <td>@Model.Title</td>
+                        <td><strong class="pull-left">صنف: </strong></td>
+                        <td>@Model.GuildTitle</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">نوع فعالیت: </strong></td>
+                        <td colspan="3">@Model.ActivityTypeTitle</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">استان: </strong></td>
+                        <td>@Model.StateTitle</td>
+                        <td><strong class="pull-left">شهر: </strong></td>
+                        <td>@Model.CityTitle</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">منطقه شهرداری: </strong></td>
+                        <td colspan="3">@Model.RegionalMunicipalityTitle</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">کد پستی محل پذیرنده: </strong></td>
+                        <td>@Model.PostCode</td>
+                        <td><strong class="pull-left">تلفن محل پذیرنده: </strong></td>
+                        <td dir="ltr" style="text-align: right;">@Model.TelCode - @Model.Tel</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">آدرس محل پذیرنده: </strong></td>
+                        <td colspan="3">@Model.Address</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">آدرس شاپرکی محل پذیرنده: </strong></td>
+                        <td colspan="3">@Model.ShaparakAddressFormat</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a role="button" data-toggle="collapse" href="#AccountInfo" aria-expanded="false" aria-controls="AccountInfo">اطلاعات حساب</a>
+        </div>
+
+        <div id="AccountInfo" class="panel-collapse collapse" role="tabpanel">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><strong class="pull-left">شعبه حساب:</strong></td>
+                        <td>@Model.BranchTitle</td>
+                        <td><strong class="pull-left">شماره حساب: </strong></td>
+                        <td>@Model.AccountNo</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">شماره شبا:</strong></td>
+                        <td>@Model.ShebaNo</td>
+                        <td><strong class="pull-left">کد شعبه:</strong></td>
+                        <td>@Model.BranchId.ToString()</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a role="button" data-toggle="collapse" href="#SupplementaryInfo" aria-expanded="false" aria-controls="SupplementaryInfo">اطلاعات تکمیلی</a>
+        </div>
+        <div id="SupplementaryInfo" class="panel-collapse collapse" role="tabpanel">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><strong class="pull-left">نحوه بازاریابی:</strong></td>
+                        <td>@Model.MarketerTitle</td>
+                        <td><strong class="pull-left">شماره پذیرنده:</strong></td>
+                        <td>@Model.MerchantNo</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">کاربر ثبت کننده:</strong></td>
+                        <td>@Model.SubmitterUserFullName</td>
+                        <td><strong class="pull-left">شماره قرارداد:</strong></td>
+                        <td>@Model.ContractNo</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">تاریخ ثبت درخواست:</strong></td>
+                        <td>@Model.SubmitTime.ToPersianDateTime()</td>
+                        <td><strong class="pull-left">تاریخ نصب: </strong></td>
+                        <td>@Model.InstallationDate.ToPersianDateTime()</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">تاریخ جمع آوری:</strong></td>
+                        <td colspan="3">@Model.RevokeDate.ToPersianDateTime()</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">نوع دستگاه:</strong></td>
+                        <td>@Model.DeviceTypeTitle</td>
+                        <td><strong class="pull-left">تاریخ بروزرسانی:</strong></td>
+                        <td>@Model.LastUpdateTime.ToPersianDateTime()</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">تاریخ تایید شاپرک:</strong></td>
+                        <td>@Model.BatchDate.ToPersianDate()</td>
+                        <td><strong class="pull-left">شماره پایانه:</strong></td>
+                        <td>@Model.TerminalNo</td>
+                    </tr>
+                    @if (!string.IsNullOrEmpty(Model.TaxPayerCode))
+                    {
+                        <tr>
+                               @if (Model.PspId == 3)
+                                                                        {
+                            <td><strong class="pull-left">کد رهگیری ثبت نام مالیاتی:</strong></td>
+                            <td  >@Model.TaxPayerCode</td>
+
+                            <td><strong class="pull-left"> شناسه تاپیار:</strong></td>
+                            <td >@Model.TopiarId</td>
+                            }
+                               else
+                               {
+                                   <td><strong class="pull-left">کد رهگیری ثبت نام مالیاتی:</strong></td>
+                                   <td colspan="3">@Model.TaxPayerCode</td>
+
+                               }
+
+                        </tr>
+                    }
+              
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a role="button" data-toggle="collapse" href="#BlockInfo" aria-expanded="false" aria-controls="BlockInfo">اطلاعات مسدودی</a>
+        </div>
+
+        <div id="BlockInfo" class="panel-collapse collapse" role="tabpanel">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><strong class="pull-left">تاریخ سند مسدودی:</strong></td>
+                        <td>@Model.BlockDocumentDate.ToPersianDate()</td>
+                        <td><strong class="pull-left">شماره سند مسدودی: </strong></td>
+                        <td>@Model.BlockDocumentNumber</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">شماره حساب مسدودی:</strong></td>
+                        <td>@Model.BlockAccountNumber</td>
+                        <td><strong class="pull-left">مبلغ مسدودی:</strong></td>
+                        <td>@(Model.BlockPrice.HasValue ?  Model.BlockPrice.Value.ToString("N0") : "")</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            @if (User.IsAdmin() || User.IsBlockDocumentChanger())
+            {
+                <div class="panel-body">
+                    <button class="btn btn-info" id="BlockDocumentEditButton">مشاهده و تغییر اطلاعات سند مسدودی</button>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a role="button" data-toggle="collapse" href="#DocumentsInfo" aria-expanded="false" aria-controls="DocumentsInfo">مدارک</a>
+        </div>
+        <div id="DocumentsInfo" class="panel-collapse collapse" role="tabpanel" style="padding: 15px;">
+            <strong>مدارک پذیرنده: </strong>
+            @if (Model.MerchantProfileDocuments.Any())
+            {
+                foreach (var item in Model.MerchantProfileDocuments)
+                {
+                    <a class="btn btn-default" target="_blank" href="@Url.Action("GetDocument", "MerchantProfileDocument", new { id = item.Id })">@item.DocumentTypeTitle</a>
+                }
+            }
+            else
+            {
+                <span class="text-muted">هیچ مدرکی ثبت نشده است.</span>
+            }
+
+            <br />
+            <br />
+
+            <strong>مدارک پایانه:</strong>
+            @if (Model.TerminalDocuments.Any())
+            {
+                foreach (var item in Model.TerminalDocuments)
+                {
+                    <a class="btn btn-default" target="_blank" href="@Url.Action("GetDocument", "TerminalDocument", new { id = item.Id })">@item.DocumentTypeTitle</a>
+                }
+            }
+            else
+            {
+                <span class="text-muted">هیچ مدرکی ثبت نشده است.</span>
+            }
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a role="button" data-toggle="collapse" href="#ChangeAccountRequests" aria-expanded="false" aria-controls="ChangeAccountRequests">درخواست های تغییر حساب</a>
+        </div>
+
+        <div id="ChangeAccountRequests" class="panel-collapse collapse" role="tabpanel">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped text-center" id="ChangeAccountRequestTable">
+                    <thead>
+                        <tr>
+                            <th width="1px">وضعیت</th>
+                            <th>نام و نام خانوادگی کاربر</th>
+                            <th>تاریخ ثبت</th>
+                            <th>شماره حساب</th>
+                            <th>شعبه</th>
+                            <th>شماره حساب قدیم</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="8"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a role="button" data-toggle="collapse" href="#RevokeRequests" aria-expanded="false" aria-controls="RevokeRequests">درخواست های جمع آوری</a>
+        </div>
+
+        <div id="RevokeRequests" class="panel-collapse collapse" role="tabpanel">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped text-center" id="RevokeRequestTable">
+                    <thead>
+                        <tr>
+                            <th width="1px">وضعیت</th>
+                            <th>نام و نام خانوادگی کاربر</th>
+                            <th>تاریخ ثبت</th>
+                            <th>علت</th>
+                            <th>توضیحات</th>
+                            <th width="1px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="8"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+@if (Model.StatusId == (byte)TerminalStatus.New && User.IsAcceptorsExpertUser())
+{
+    <form action="@Url.Action("Details", "BranchTerminal")" method="post" class="form-horizontal" id="AssignToPspForm">
+        <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+
+        @if (!string.IsNullOrEmpty(Model.PreferredPspTitle))
+        {
+            <div class="form-group">
+                <label class="control-label col-md-2">شرکت PSP ترجیحی</label>
+                <div class="col-md-10">
+                    <p class="form-control-static">@Model.PreferredPspTitle</p>
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="StatusId">وضعیت</label>
+            <div class="col-md-10">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default active">
+                        <input type="radio" name="StatusId" value="@TerminalStatus.NotReturnedFromSwitch.ToInt32()" checked /> پذیرش
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="StatusId" value="@TerminalStatus.NeedToReform.ToInt32()" /> برگشت جهت اصلاح
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+  <div id="CustomerCategoySection" class="form-group">
+             <label class="control-label col-md-2" for="CustomerCategory">دسته بندی مشتری</label>
+            <div class="col-md-4">
+                @Model.CustomerCategory
+            </div>
+            
+            
+        </div>
+        <div id="PspIdSection" class="form-group">
+            
+            
+            <label class="control-label col-md-2" for="PspId">شرکت</label>
+            <div class="col-md-4">
+                @Html.DropDownList("PspId", (IEnumerable<SelectListItem>) ViewBag.PspList, "انتخاب نمایید", new {@class = "form-control"})
+            </div>
+        </div>
+
+        <div id="DescriptionSection" class="form-group" style="display: none;">
+            <label class="control-label col-md-2" for="ErrorComment">توضیحات</label>
+            <div class="col-md-10">
+                <textarea class="form-control" id="ErrorComment" name="ErrorComment" rows="3"></textarea>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-success btn-lg" id="btnConfirm" data-loading-text="در حال ثبت...">ثبت</button>
+                @if (Model.StatusId == (byte)TerminalStatus.New || Model.StatusId == (byte)TerminalStatus.NeedToReform)
+                {
+                    if (User.IsBranchUser())
+                    {
+                        if (Model.MarketerId == Marketer.BankOrBranch.ToInt32())
+                        {
+                            <button type="button" id="EditButton" class="btn btn-warning btn-lg">ویرایش پذیرنده</button>
+                        }
+                    }
+                    else
+                    {
+                        <button type="button" id="EditButton" class="btn btn-warning btn-lg">ویرایش پذیرنده</button>
+                    }
+                }
+                <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </form>
+}
+else
+{
+    <div class="row">
+        <div class="col-sm-12">
+            @if (!User.IsBranchManagementUser() && !User.IsTehranBranchManagementUser() && !User.IsCountyBranchManagementUser())
+            {
+                if (Model.StatusId == (byte)TerminalStatus.New || Model.StatusId == (byte)TerminalStatus.NeedToReform)
+                {
+                    if (User.IsBranchUser())
+                    {
+                        if (Model.MarketerId == Marketer.BankOrBranch.ToInt32())
+                        {
+                            <button type="button" id="EditButton" class="btn btn-warning btn-lg">ویرایش پذیرنده</button>
+                        }
+                    }
+                    else
+                    {
+                        <button type="button" id="EditButton" class="btn btn-warning btn-lg">ویرایش پذیرنده</button>
+                    }
+                }
+            }
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">بستن</button>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    function loadChangeAccountRequestsData() {
+        $('#ChangeAccountRequestTable tbody').empty().append('<tr><td colspan="8"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+        return $.post('@Url.Action("GetData", "ChangeAccountRequest")', { terminalNo: '@Model.TerminalNo' })
+            .done(function (result) {
+                $('#ChangeAccountRequestTable tbody').empty();
+                var html = '';
+
+                if (!result.success) {
+                    $('#ChangeAccountRequestTable tbody').empty().append('<tr><td colspan="8"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                    return false;
+                }
+
+                if (result.data.length === 0) {
+                    $('#ChangeAccountRequestTable tbody').empty().append('<tr><td colspan="8"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                    return false;
+                }
+
+                for (var i = 0; i < result.data.length; i++) {
+                    var item = result.data[i];
+
+                    html += '<tr>' +
+                        '<td style="text-align: right !important;" class="text-nowrap" class="text-nowrap">' + createRequestStatusIcon(item.statusId, item.statusTitle) + '</td>' +
+                        '<td>' + item.userFullName + '</td>' +
+                        '<td>' + item.submitTime + '</td>' +
+                        '<td>' + item.accountNo + '</td>' +
+                        '<td>' + item.parentBranchTitle + ' - ' + item.branchTitle + '</td>' +
+                        '<td>' + item.currentAccountNo + '</td></tr>';
+                }
+
+                $('#ChangeAccountRequestTable tbody').empty().append(html);
+            });
+    }
+
+    function loadRevokeRequestsData() {
+        $('#RevokeRequestTable tbody').empty().append('<tr><td colspan="8"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+        return $.post('@Url.Action("GetData", "RevokeRequest")', { terminalNo: '@Model.TerminalNo' })
+            .done(function (result) {
+                $('#RevokeRequestTable tbody').empty();
+                var html = '';
+
+                if (!result.success) {
+                    $('#RevokeRequestTable tbody').empty().append('<tr><td colspan="8"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                    return false;
+                }
+
+                if (result.data.length === 0) {
+                    $('#RevokeRequestTable tbody').empty().append('<tr><td colspan="8"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                    return false;
+                }
+
+                for (var i = 0; i < result.data.length; i++) {
+                    var item = result.data[i];
+
+                    html += '<tr>' +
+                        '<td style="text-align: right !important;" class="text-nowrap" class="text-nowrap">' + createRequestStatusIcon(item.statusId, item.statusTitle) + '</td>' +
+                        '<td>' + item.userFullName + '</td>' +
+                        '<td>' + item.submitTime + '</td>' +
+                        '<td>' + item.reasonTitle + '</td>' +
+                        '<td>' + (item.description ? item.description : '') + '</td></tr>';
+                }
+
+                $('#RevokeRequestTable tbody').empty().append(html);
+            });
+    }
+
+    function createRequestStatusIcon(statusId, statusTitle) {
+        var statusColor = '#ffffff';
+
+        switch (statusId) {
+            case @RequestStatus.Registered.ToInt32():
+                statusColor = '#FFC107';
+                break;
+            case @RequestStatus.SentToPsp.ToInt32():
+                statusColor = '#FF9800';
+                break;
+            case @RequestStatus.NeedToReform.ToInt32():
+                statusColor = '#009688';
+                break;
+            case @RequestStatus.Done.ToInt32():
+                statusColor = '#8BC34A';
+                break;
+            case @RequestStatus.Rejected.ToInt32():
+                statusColor = '#f44336';
+                break;
+            case @RequestStatus.WebServiceError.ToInt32():
+                statusColor = '#AD1457';
+                break;
+        }
+
+        return '<span style="background-color: ' + statusColor + '; font-weight: 500;" class="label label-default">' + statusTitle + '</span>';
+    }
+
+    $(document).ready(function () {
+        loadChangeAccountRequestsData();
+        loadRevokeRequestsData();
+
+        $('input[type=radio][name=StatusId]', '#AssignToPspForm').on('change', function () {
+            if (this.value == '@TerminalStatus.NotReturnedFromSwitch.ToInt32()') {
+                $('#PspIdSection').show();
+                $('#DescriptionSection').hide();
+                $('#Description').val('');
+            } else {
+                $('#DescriptionSection').show();
+                $('#PspIdSection').hide();
+                $('#PspId').val('');
+            }
+        });
+
+        $('#AssignToPspForm').validate({
+            rules: {
+                PspId: { required: true }
+            },
+            submitHandler: function (form) {
+                var $button = $('#btnConfirm', '#AssignToPspForm');
+                $button.button('loading');
+
+                $(form).ajaxSubmit({
+                    success: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+
+                        if (result.success) {
+                            $.closeModal('ok');
+                        }
+                    }, error: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+                    }
+                });
+
+                return false;
+            }
+        });
+
+        $('#EditButton').on('click', function () {
+            $.closeModal('showEdit');
+        });
+
+        $('#BlockDocumentEditButton').on('click', function () {
+            $.closeModal('showBlockDocumentEdit');
+        });
+    });
+</script>

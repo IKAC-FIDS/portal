@@ -1,0 +1,17 @@
+﻿@model NewsViewModel
+
+@{
+    ViewBag.PageTitle = "اخبار و اطلاعیه ها";
+}
+
+<div class="page-header">
+    <h1>@Model.Title</h1>
+    <span class="text-muted"><i class="fa fa-calendar-o"></i> <small>@Model.PublishDate.ToRelativeDate()</small></span>
+</div>
+
+<p>@Html.Raw(Model.Body)</p>
+
+@foreach (var c in Model.AttachFiles)
+{
+    <a data-toggle="tooltip" title=" دریافت @c.Title      " href="/News/GetChangeAccountRequestDocument?changeAccountRequestId=@c.Id" target="_blank" class="btn btn-default btn-xs"><i class="far fa   fa-download">@c.Title </i></a>
+}

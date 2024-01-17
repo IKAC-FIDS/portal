@@ -1,0 +1,250 @@
+﻿@{
+    ViewBag.Title = "لیست سیاه مشتریان";
+}
+
+<div class="page-header">
+    <div class="pull-left">
+        <button id="CreateButton" class="btn btn-success">ثبت شماره مشتری جدید</button>
+        <a href="@Url.Action("Import", "CustomerNumberBlackList")" class="btn btn-success">ورود اطلاعات از طریق فایل اکسل</a>
+        <a href="@Url.Action("Export", "CustomerNumberBlackList")" class="btn btn-info">دریافت خروجی</a>
+    </div>
+
+    <h1>لیست سیاه مشتریان</h1>
+</div>
+
+<form id="SearchForm" class="form-horizontal">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="CustomerNumber">شماره مشتری</label>
+                <div class="col-md-8">
+                    <input type="text" id="CustomerNumber" name="CustomerNumber" class="form-control only-number" maxlength="8" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="button" id="SearchButton" class="btn btn-primary" data-loading-text="در حال جستجو...">جستجو</button>
+        </div>
+    </div>
+</form>
+
+<hr />
+
+<div id="TotalSearchResultSection"></div>
+
+<br />
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center" id="DataTable">
+        <thead>
+            <tr class="header">
+                <th width="1px"><input type="checkbox" id="SelectAll" /></th>
+                <th width="1px">ردیف</th>
+                <th>شماره مشتری</th>
+                <th>توضیحات</th>
+                <th>کاربر ثبت کننده</th>
+                <th>تاریخ ثبت</th>
+                <th width="1px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="8"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="8">
+                    <ul id="Pagination" class="pagination-sm"></ul>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<button class="fab-button" id="GroupDeleteButton" data-toggle="tooltip" title="حذف گروهی">
+    حذف <span id="Count"></span> مورد &nbsp;
+    <i class="fa fa-trash fa-lg"></i>
+</button>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/customerNumberBlackListIndexScripts",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/jquery.twbsPagination.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.filter_input.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.confirm.js")
+
+    <script type="text/javascript">
+
+        function loadData(retriveTotalPageCount, page) {
+            $('#DataTable tbody').empty().append('<tr><td colspan="8"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+            if (retriveTotalPageCount) {
+                var pagingData = $('#Pagination').data('twbs-pagination');
+                if (pagingData) $('#Pagination').twbsPagination('destroy');
+                $('#SearchButton').removeData('total-pages');
+            }
+
+            var $searchButton = $('#SearchButton');
+            $searchButton.button('loading');
+
+            $('#GroupDeleteButton').fadeOut();
+            $('#DataTable tbody').empty().append('<tr><td colspan="8"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+            return $.post('@Url.Action("GetData", "CustomerNumberBlackList")', { retriveTotalPageCount: retriveTotalPageCount, page: page, customerNumber: $('#CustomerNumber', '#SearchForm').val() }).done(function (result) {
+                $searchButton.button('reset');
+                $('#TotalSearchResultSection').empty();
+                var html = '';
+
+                if (!result.success) {
+                    $('#DataTable tbody').empty().append('<tr><td colspan="8"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                    return false;
+                }
+
+                if (result.data.rows.length === 0) {
+                    $('#DataTable tbody').empty().append('<tr><td colspan="8"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                    return false;
+                }
+
+                if (retriveTotalPageCount) {
+                    $('#TotalSearchResultSection').empty().append('<b>تعداد موارد یافت شده: </b>' + convertToPersianNumbers(result.data.totalRowsCount) + ' مورد');
+                } else {
+                    $('#TotalSearchResultSection').empty();
+                }
+
+                if (retriveTotalPageCount && result.data.totalRowsCount > 0) {
+                    $('#SearchButton').data('total-pages', result.data.totalRowsCount);
+
+                    $('#Pagination').twbsPagination({
+                        totalPages: Math.ceil(result.data.totalRowsCount / 300),
+                        visiblePages: 7,
+                        last: '<i class="fa fa-fast-backward"></i>',
+                        next: '<i class="fa fa-backward"></i>',
+                        prev: '<i class="fa fa-forward"></i>',
+                        first: '<i class="fa fa-fast-forward"></i>',
+                        initiateStartPageClick: false,
+                        onPageClick: function (event, page) {
+                            loadData(false, page);
+                        }
+                    });
+                }
+
+                for (var i = 0; i < result.data.rows.length; i++) {
+                    var item = result.data.rows[i];
+
+                    html += '<tr data-id="' + item.id + '">' +
+                        '<td class="text-nowrap"><input type="checkbox" class="delete-checkbox" /></td>' +
+                        '<th class="text-nowrap">' + (i + 1 + ((page - 1) * 300)) + '</th>' +
+                        '<td>' + item.customerNumber + '</td>' +
+                        '<td>' + item.description + '</td>' +
+                        '<td>' + item.submitterUserFullName + '</td>' +
+                        '<td>' + toPersianDate(item.submitTime) + '</td>' +
+                        '<td class="text-nowrap"><button class="btn btn-xs btn-danger btn-delete" data-id=' + item.id + '><i class="fa fa-trash"></i></button></td>' +
+                        '</tr>';
+                }
+
+                $('#DataTable tbody').empty().append(html);
+            });
+        }
+
+        function refreshCurrentPage() {
+            var currentPageNo = $('#Pagination li.page.active').data('page');
+            loadData(false, currentPageNo);
+        }
+
+        $(document).ready(function () {
+            $('.only-number').filter_input({ regex: '[0-9]' });
+
+            loadData(true, 1);
+
+            $('#SelectAll').on('change', function () {
+                if (this.checked) {
+                    $('.delete-checkbox').prop('checked', true).trigger('change');
+                } else {
+                    $('.delete-checkbox').prop('checked', false).trigger('change');
+                }
+            });
+
+            $('#DataTable').on('change', 'tbody .delete-checkbox', function () {
+                var $row = $(this).closest('tr');
+
+                if (this.checked) {
+                    $row.addClass('info');
+                } else {
+                    $row.removeClass('info');
+                }
+
+                if ($('#DataTable tbody tr.info').length) {
+                    $('#GroupDeleteButton').fadeIn();
+                    $('#GroupDeleteButton #Count').empty().append(convertToPersianNumbers($('#DataTable tbody tr.info').length));
+                } else {
+                    $('#GroupDeleteButton').fadeOut();
+                }
+            });
+
+            $('#CreateButton').on('click', function () {
+                $.showModal({
+                    url: '@Url.Action("Create", "CustomerNumberBlackList")',
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            loadData(true, 1);
+                        }
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-delete', '.btn-delete', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("Delete", "CustomerNumberBlackList")', { idList: [ $button.data('id') ] }).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                loadData(true, 1);
+                            }
+                        });
+                    }
+                });
+            });
+
+            $('#GroupDeleteButton').on('click', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        var idList = [];
+                        $('#DataTable tbody tr.info').each(function() {
+                            idList.push($(this).data('id'));
+                        });
+
+                        $.post('@Url.Action("Delete", "CustomerNumberBlackList")', { idList: idList }).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                loadData(true, 1);
+                                $('#GroupDeleteButton').fadeOut();
+                            }
+                        });
+                    }
+                });
+            });
+
+            $('#SearchButton').on('click', function () {
+                loadData(true, 1);
+            });
+        });
+    </script>
+}

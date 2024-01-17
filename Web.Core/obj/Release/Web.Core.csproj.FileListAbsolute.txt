@@ -1,0 +1,691 @@
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\TES.Web.Core.dll.config
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\TES.Web.Core.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\TES.Web.Core.pdb
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\csc.exe
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\csc.exe.config
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\csc.rsp
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\csi.exe
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\csi.exe.config
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\csi.rsp
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.Managed.Core.targets
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.Win32.Primitives.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.AppContext.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Collections.Immutable.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Console.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Diagnostics.DiagnosticSource.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Globalization.Calendars.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.IO.Compression.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.IO.Compression.ZipFile.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.IO.FileSystem.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Net.Http.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Net.Sockets.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Reflection.Metadata.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Threading.Tasks.Extensions.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.ValueTuple.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Xml.XmlDocument.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Xml.XPath.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\vbc.exe
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\vbc.exe.config
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\vbc.rsp
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\VBCSCompiler.exe
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\roslyn\VBCSCompiler.exe.config
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.Win32.Primitives.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\netstandard.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.AppContext.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Collections.Concurrent.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Collections.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Collections.NonGeneric.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Collections.Specialized.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.ComponentModel.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.ComponentModel.EventBasedAsync.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.ComponentModel.Primitives.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.ComponentModel.TypeConverter.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Console.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Data.Common.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Diagnostics.Contracts.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Diagnostics.Debug.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Diagnostics.FileVersionInfo.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Diagnostics.Process.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Diagnostics.StackTrace.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Diagnostics.TextWriterTraceListener.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Diagnostics.Tools.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Diagnostics.TraceSource.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Diagnostics.Tracing.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Drawing.Primitives.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Dynamic.Runtime.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Globalization.Calendars.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Globalization.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Globalization.Extensions.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.IO.Compression.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.IO.Compression.ZipFile.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.IO.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.IO.FileSystem.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.IO.FileSystem.DriveInfo.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.IO.FileSystem.Primitives.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.IO.FileSystem.Watcher.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.IO.IsolatedStorage.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.IO.MemoryMappedFiles.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.IO.Pipes.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.IO.UnmanagedMemoryStream.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Linq.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Linq.Expressions.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Linq.Parallel.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Linq.Queryable.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Net.Http.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Net.NameResolution.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Net.NetworkInformation.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Net.Ping.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Net.Primitives.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Net.Requests.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Net.Security.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Net.Sockets.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Net.WebHeaderCollection.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Net.WebSockets.Client.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Net.WebSockets.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.ObjectModel.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Reflection.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Reflection.Extensions.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Reflection.Primitives.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Resources.Reader.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Resources.ResourceManager.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Resources.Writer.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Runtime.CompilerServices.VisualC.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Runtime.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Runtime.Extensions.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Runtime.Handles.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Runtime.InteropServices.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Runtime.Numerics.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Runtime.Serialization.Formatters.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Runtime.Serialization.Json.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Runtime.Serialization.Primitives.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Runtime.Serialization.Xml.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Security.Claims.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Security.Cryptography.Algorithms.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Security.Cryptography.Csp.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Security.Cryptography.Encoding.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Security.Cryptography.Primitives.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Security.Cryptography.X509Certificates.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Security.Principal.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Security.SecureString.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Text.Encoding.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Text.Encoding.Extensions.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Text.RegularExpressions.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Threading.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Threading.Overlapped.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Threading.Tasks.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Threading.Tasks.Parallel.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Threading.Thread.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Threading.ThreadPool.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Threading.Timer.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.ValueTuple.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Xml.ReaderWriter.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Xml.XDocument.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Xml.XmlDocument.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Xml.XmlSerializer.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Xml.XPath.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Xml.XPath.XDocument.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Antlr3.Runtime.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Dapper.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.AspNet.Identity.Core.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.Extensions.Configuration.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.Extensions.Primitives.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.Web.Infrastructure.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Newtonsoft.Json.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\StackExchange.Exceptional.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\StackExchange.Exceptional.Shared.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\StructureMap.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Buffers.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Memory.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Numerics.Vectors.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Web.Helpers.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Web.Mvc.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Web.Optimization.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Web.Razor.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Web.WebPages.Deployment.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Web.WebPages.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Web.WebPages.Razor.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\TES.Common.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\TES.Data.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\TES.IocConfig.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\TES.Security.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\WebGrease.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Persia.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\EntityFramework.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.Owin.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.Owin.Security.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Owin.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\TES.Common.pdb
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\TES.Common.dll.config
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\TES.Data.pdb
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\TES.Data.dll.config
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\TES.IocConfig.pdb
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\TES.IocConfig.dll.config
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\TES.Security.pdb
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\TES.Security.dll.config
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Antlr3.Runtime.pdb
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Dapper.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.AspNet.Identity.Core.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.Extensions.Configuration.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.Extensions.Configuration.Abstractions.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.Extensions.Configuration.Binder.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.Extensions.Primitives.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Newtonsoft.Json.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\StackExchange.Exceptional.pdb
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\StackExchange.Exceptional.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\StackExchange.Exceptional.Shared.pdb
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\StackExchange.Exceptional.Shared.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\StructureMap.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Buffers.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Memory.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Numerics.Vectors.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Web.Helpers.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Web.Mvc.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Web.Optimization.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Web.Razor.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Web.WebPages.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Web.WebPages.Deployment.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\System.Web.WebPages.Razor.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\EntityFramework.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.Owin.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\bin\Release\Microsoft.Owin.Security.xml
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\obj\Release\Web.Core.csproj.AssemblyReference.cache
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\obj\Release\Web.Core.csproj.CoreCompileInputs.cache
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\obj\Release\Web.Core.csproj.CopyComplete
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\obj\Release\TES.Web.Core.dll
+C:\Users\r.razavi\RiderProjects\OldPortal\Web.Core\obj\Release\TES.Web.Core.pdb
+D:\01 Projects\OldPortal\Web.Core\bin\Release\TES.Web.Core.dll.config
+D:\01 Projects\OldPortal\Web.Core\bin\Release\TES.Web.Core.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\TES.Web.Core.pdb
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\csc.exe
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\csc.exe.config
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\csc.rsp
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\csi.exe
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\csi.exe.config
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\csi.rsp
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.CodeAnalysis.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.CSharp.Core.targets
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.Managed.Core.targets
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.VisualBasic.Core.targets
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\Microsoft.Win32.Primitives.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.AppContext.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Collections.Immutable.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Console.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Diagnostics.StackTrace.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Globalization.Calendars.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.IO.Compression.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.IO.Compression.ZipFile.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.IO.FileSystem.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.IO.FileSystem.Primitives.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Net.Http.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Net.Sockets.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Reflection.Metadata.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Security.Cryptography.Encoding.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Security.Cryptography.Primitives.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Text.Encoding.CodePages.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Threading.Tasks.Extensions.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.ValueTuple.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Xml.ReaderWriter.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Xml.XmlDocument.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Xml.XPath.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\System.Xml.XPath.XDocument.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\vbc.exe
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\vbc.exe.config
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\vbc.rsp
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\VBCSCompiler.exe
+D:\01 Projects\OldPortal\Web.Core\bin\Release\roslyn\VBCSCompiler.exe.config
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.Win32.Primitives.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\netstandard.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.AppContext.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Collections.Concurrent.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Collections.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Collections.NonGeneric.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Collections.Specialized.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.ComponentModel.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.ComponentModel.EventBasedAsync.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.ComponentModel.Primitives.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.ComponentModel.TypeConverter.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Console.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Data.Common.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Diagnostics.Contracts.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Diagnostics.Debug.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Diagnostics.FileVersionInfo.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Diagnostics.Process.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Diagnostics.StackTrace.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Diagnostics.TextWriterTraceListener.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Diagnostics.Tools.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Diagnostics.TraceSource.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Diagnostics.Tracing.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Drawing.Primitives.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Dynamic.Runtime.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Globalization.Calendars.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Globalization.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Globalization.Extensions.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.IO.Compression.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.IO.Compression.ZipFile.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.IO.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.IO.FileSystem.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.IO.FileSystem.DriveInfo.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.IO.FileSystem.Primitives.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.IO.FileSystem.Watcher.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.IO.IsolatedStorage.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.IO.MemoryMappedFiles.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.IO.Pipes.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.IO.UnmanagedMemoryStream.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Linq.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Linq.Expressions.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Linq.Parallel.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Linq.Queryable.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Net.Http.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Net.NameResolution.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Net.NetworkInformation.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Net.Ping.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Net.Primitives.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Net.Requests.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Net.Security.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Net.Sockets.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Net.WebHeaderCollection.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Net.WebSockets.Client.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Net.WebSockets.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.ObjectModel.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Reflection.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Reflection.Extensions.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Reflection.Primitives.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Resources.Reader.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Resources.ResourceManager.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Resources.Writer.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Runtime.CompilerServices.VisualC.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Runtime.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Runtime.Extensions.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Runtime.Handles.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Runtime.InteropServices.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Runtime.Numerics.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Runtime.Serialization.Formatters.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Runtime.Serialization.Json.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Runtime.Serialization.Primitives.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Runtime.Serialization.Xml.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Security.Claims.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Security.Cryptography.Algorithms.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Security.Cryptography.Csp.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Security.Cryptography.Encoding.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Security.Cryptography.Primitives.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Security.Cryptography.X509Certificates.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Security.Principal.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Security.SecureString.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Text.Encoding.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Text.Encoding.Extensions.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Text.RegularExpressions.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Threading.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Threading.Overlapped.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Threading.Tasks.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Threading.Tasks.Parallel.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Threading.Thread.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Threading.ThreadPool.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Threading.Timer.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.ValueTuple.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Xml.ReaderWriter.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Xml.XDocument.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Xml.XmlDocument.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Xml.XmlSerializer.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Xml.XPath.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Xml.XPath.XDocument.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Antlr3.Runtime.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Dapper.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\EntityFramework.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.Extensions.Configuration.Binder.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.Extensions.Configuration.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.Extensions.Primitives.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Newtonsoft.Json.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Serilog.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Serilog.Sinks.File.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\StackExchange.Exceptional.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\StackExchange.Exceptional.Shared.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\StructureMap.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Buffers.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Memory.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Numerics.Vectors.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Runtime.CompilerServices.Unsafe.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Web.Helpers.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Web.Mvc.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Web.Optimization.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Web.Razor.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Web.WebPages.Deployment.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Web.WebPages.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Web.WebPages.Razor.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\TES.Common.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\TES.Data.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\TES.IocConfig.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\TES.Security.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\WebGrease.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Persia.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.AspNet.Identity.Owin.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.Owin.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.Owin.Security.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Owin.dll
+D:\01 Projects\OldPortal\Web.Core\bin\Release\TES.Common.pdb
+D:\01 Projects\OldPortal\Web.Core\bin\Release\TES.Common.dll.config
+D:\01 Projects\OldPortal\Web.Core\bin\Release\TES.Data.pdb
+D:\01 Projects\OldPortal\Web.Core\bin\Release\TES.Data.dll.config
+D:\01 Projects\OldPortal\Web.Core\bin\Release\TES.IocConfig.pdb
+D:\01 Projects\OldPortal\Web.Core\bin\Release\TES.IocConfig.dll.config
+D:\01 Projects\OldPortal\Web.Core\bin\Release\TES.Security.pdb
+D:\01 Projects\OldPortal\Web.Core\bin\Release\TES.Security.dll.config
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Antlr3.Runtime.pdb
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Dapper.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\EntityFramework.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.AspNet.Identity.Core.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.Extensions.Configuration.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.Extensions.Configuration.Abstractions.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.Extensions.Configuration.Binder.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.Extensions.Primitives.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Newtonsoft.Json.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Serilog.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Serilog.Sinks.File.pdb
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Serilog.Sinks.File.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\StackExchange.Exceptional.pdb
+D:\01 Projects\OldPortal\Web.Core\bin\Release\StackExchange.Exceptional.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\StackExchange.Exceptional.Shared.pdb
+D:\01 Projects\OldPortal\Web.Core\bin\Release\StackExchange.Exceptional.Shared.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\StructureMap.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Buffers.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Memory.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Numerics.Vectors.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Web.Helpers.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Web.Mvc.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Web.Optimization.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Web.Razor.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Web.WebPages.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Web.WebPages.Deployment.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\System.Web.WebPages.Razor.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.AspNet.Identity.Owin.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.Owin.xml
+D:\01 Projects\OldPortal\Web.Core\bin\Release\Microsoft.Owin.Security.xml
+D:\01 Projects\OldPortal\Web.Core\obj\Release\Web.Core.csproj.AssemblyReference.cache
+D:\01 Projects\OldPortal\Web.Core\obj\Release\Web.Core.csproj.CoreCompileInputs.cache
+D:\01 Projects\OldPortal\Web.Core\obj\Release\Web.Core.csproj.CopyComplete
+D:\01 Projects\OldPortal\Web.Core\obj\Release\TES.Web.Core.dll
+D:\01 Projects\OldPortal\Web.Core\obj\Release\TES.Web.Core.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\TES.Web.Core.dll.config
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\TES.Web.Core.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\TES.Web.Core.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\csc.exe
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\csc.exe.config
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\csc.rsp
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\csi.exe
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\csi.exe.config
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\csi.rsp
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\Microsoft.CodeAnalysis.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\Microsoft.CSharp.Core.targets
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\Microsoft.Managed.Core.targets
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\Microsoft.Win32.Primitives.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.AppContext.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Collections.Immutable.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Console.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Diagnostics.DiagnosticSource.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Diagnostics.FileVersionInfo.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Diagnostics.StackTrace.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Globalization.Calendars.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.IO.Compression.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.IO.Compression.ZipFile.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.IO.FileSystem.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.IO.FileSystem.Primitives.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Net.Http.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Net.Sockets.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Reflection.Metadata.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Security.Cryptography.Algorithms.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Security.Cryptography.Encoding.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Security.Cryptography.Primitives.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Security.Cryptography.X509Certificates.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Text.Encoding.CodePages.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Threading.Tasks.Extensions.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.ValueTuple.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Xml.ReaderWriter.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Xml.XmlDocument.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Xml.XPath.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\System.Xml.XPath.XDocument.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\vbc.exe
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\vbc.exe.config
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\vbc.rsp
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\VBCSCompiler.exe
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\roslyn\VBCSCompiler.exe.config
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Runtime.InteropServices.RuntimeInformation.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.Win32.Primitives.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\netstandard.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.AppContext.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Collections.Concurrent.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Collections.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Collections.NonGeneric.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Collections.Specialized.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.ComponentModel.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.ComponentModel.EventBasedAsync.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.ComponentModel.Primitives.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.ComponentModel.TypeConverter.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Console.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Data.Common.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Diagnostics.Contracts.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Diagnostics.Debug.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Diagnostics.FileVersionInfo.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Diagnostics.Process.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Diagnostics.StackTrace.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Diagnostics.TextWriterTraceListener.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Diagnostics.Tools.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Diagnostics.TraceSource.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Diagnostics.Tracing.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Drawing.Primitives.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Dynamic.Runtime.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Globalization.Calendars.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Globalization.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Globalization.Extensions.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.IO.Compression.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.IO.Compression.ZipFile.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.IO.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.IO.FileSystem.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.IO.FileSystem.DriveInfo.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.IO.FileSystem.Primitives.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.IO.FileSystem.Watcher.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.IO.IsolatedStorage.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.IO.MemoryMappedFiles.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.IO.Pipes.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.IO.UnmanagedMemoryStream.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Linq.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Linq.Expressions.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Linq.Parallel.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Linq.Queryable.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Net.Http.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Net.NameResolution.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Net.NetworkInformation.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Net.Ping.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Net.Primitives.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Net.Requests.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Net.Security.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Net.Sockets.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Net.WebHeaderCollection.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Net.WebSockets.Client.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Net.WebSockets.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.ObjectModel.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Reflection.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Reflection.Extensions.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Reflection.Primitives.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Resources.Reader.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Resources.ResourceManager.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Resources.Writer.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Runtime.CompilerServices.VisualC.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Runtime.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Runtime.Extensions.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Runtime.Handles.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Runtime.InteropServices.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Runtime.Numerics.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Runtime.Serialization.Formatters.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Runtime.Serialization.Json.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Runtime.Serialization.Primitives.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Runtime.Serialization.Xml.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Security.Claims.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Security.Cryptography.Algorithms.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Security.Cryptography.Csp.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Security.Cryptography.Encoding.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Security.Cryptography.Primitives.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Security.Cryptography.X509Certificates.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Security.Principal.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Security.SecureString.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Text.Encoding.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Text.Encoding.Extensions.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Text.RegularExpressions.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Threading.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Threading.Overlapped.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Threading.Tasks.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Threading.Tasks.Parallel.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Threading.Thread.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Threading.ThreadPool.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Threading.Timer.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.ValueTuple.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Xml.ReaderWriter.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Xml.XDocument.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Xml.XmlDocument.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Xml.XmlSerializer.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Xml.XPath.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Xml.XPath.XDocument.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Antlr3.Runtime.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Dapper.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\EntityFramework.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.AspNet.Identity.Core.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.Extensions.Configuration.Abstractions.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.Extensions.Configuration.Binder.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.Extensions.Configuration.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.Extensions.Primitives.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.Web.Infrastructure.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Newtonsoft.Json.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Serilog.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Serilog.Sinks.File.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\StackExchange.Exceptional.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\StackExchange.Exceptional.Shared.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\StructureMap.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Buffers.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Memory.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Numerics.Vectors.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Runtime.CompilerServices.Unsafe.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Web.Helpers.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Web.Mvc.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Web.Optimization.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Web.Razor.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Web.WebPages.Deployment.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Web.WebPages.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Web.WebPages.Razor.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\TES.Common.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\TES.Data.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\TES.IocConfig.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\TES.Security.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\WebGrease.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Persia.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.AspNet.Identity.Owin.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.Owin.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.Owin.Security.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Owin.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\TES.Common.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\TES.Common.dll.config
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\TES.Data.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\TES.Data.dll.config
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\TES.IocConfig.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\TES.IocConfig.dll.config
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\TES.Security.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\TES.Security.dll.config
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Antlr3.Runtime.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Dapper.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\EntityFramework.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.AspNet.Identity.Core.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.Extensions.Configuration.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.Extensions.Configuration.Abstractions.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.Extensions.Configuration.Binder.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.Extensions.Primitives.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Newtonsoft.Json.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Serilog.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Serilog.Sinks.File.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Serilog.Sinks.File.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\StackExchange.Exceptional.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\StackExchange.Exceptional.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\StackExchange.Exceptional.Shared.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\StackExchange.Exceptional.Shared.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\StructureMap.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Buffers.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Memory.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Numerics.Vectors.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Web.Helpers.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Web.Mvc.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Web.Optimization.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Web.Razor.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Web.WebPages.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Web.WebPages.Deployment.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\System.Web.WebPages.Razor.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.AspNet.Identity.Owin.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.Owin.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\bin\Release\Microsoft.Owin.Security.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\obj\Release\Web.Core.csproj.AssemblyReference.cache
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\obj\Release\Web.Core.csproj.CoreCompileInputs.cache
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\obj\Release\Web.Core.csproj.CopyComplete
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\obj\Release\TES.Web.Core.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Web.Core\obj\Release\TES.Web.Core.pdb

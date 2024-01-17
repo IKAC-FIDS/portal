@@ -1,0 +1,458 @@
+﻿@{
+    ViewBag.Title = "     مدیریت    وزن قوانین    ";
+}
+
+@section styles {
+    @BundleConfig.AddStyles("~/Content/changeAccountRequestManageStyles",
+        "~/Content/PersianDatePicker.css",
+        "~/Content/chosen.css")
+}
+
+<div class="page-header">
+     <button id="CreateButton" class="btn btn-success pull-left"> ایجاد وزن جدید</button>
+    <h1> مدیریت وزن قوانین </h1>
+</div>
+
+ 
+<hr />
+
+ 
+
+<div id="TotalSearchResultSection"></div>
+
+<br />
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center" id="DataTable">
+        <thead>
+            <tr>
+            
+                <th>  نوع قانون</th>
+                <th>  PSP </th>
+                <th>  وزن     </th>
+                 
+                <th width="1px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="15"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="15">
+                    <ul id="Pagination" class="pagination-sm"></ul>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div style="z-index: 10000;" class="modal fade" id="DownloadFileModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p><a class="btn btn-success btn-lg btn-block" id="DownloadFileLink" href="#">دانلود</a></p>
+                <button type="button" class="btn btn-default btn-lg btn-block" data-dismiss="modal">انصراف</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="showResultModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="panel-title">
+                    مشاهده متن خطا
+                </h3>
+            </div>
+            <div class="modal-body">
+                <p id="ResultText"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/changeAccountRequestManageScripts",
+        "~/Scripts/jquery.twbsPagination.js",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/PersianDatePicker.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.filter_input.js",
+        "~/Scripts/jquery.confirm.js",
+        "~/Scripts/jasny-bootstrap.js",
+        "~/Scripts/chosen.jquery.js")
+
+    <script type="text/javascript">
+        function buildSearchParams() {
+            return {
+                requestStatusId: $('#StatusId', '#SearchForm').val(),
+                pspId: $('#PspId', '#SearchForm').val(),
+                terminalNo: $('#TerminalNo', '#SearchForm').val(),
+                nationalCode: $('#NationalCode', '#SearchForm').val(),
+                branchId: $('#BranchId', '#SearchForm').val(),
+                fromRequestDate: $('#FromRequestDate', '#SearchForm').val(),
+                toRequestDate: $('#ToRequestDate', '#SearchForm').val(),
+                customerNumber: $('#CustomerNumber', '#SearchForm').val(),
+                isWireless: $('input[name=IsWireless]:checked', '#SearchForm').val()
+            };
+        }
+
+        function loadData(retriveTotalPageCount, page) {
+            $('#DataTable tbody').empty().append('<tr><td colspan="15"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+            if (retriveTotalPageCount) {
+                var pagingData = $('#Pagination').data('twbs-pagination');
+                if (pagingData) $('#Pagination').twbsPagination('destroy');
+                $('#SearchButton').removeData('total-pages');
+            }
+
+            var $button = $('#SearchButton');
+            $button.button('loading');
+
+            var data = $.extend({ retriveTotalPageCount: retriveTotalPageCount, page: page }, buildSearchParams());
+
+            return $.post('@Url.Action("GetRulePspWeight", "Rule")', data)
+                .done(function (result) {
+                    $button.button('reset');
+                    $('#DataTable tbody').empty();
+                    $('#TotalSearchResultSection').empty();
+                    var html = '';
+
+                    if (!result.success) {
+                        $('#DataTable tbody').empty().append('<tr><td colspan="15"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                        return false;
+                    }
+
+                    
+                    
+                    if (result.data.rows.length === 0) {
+                        $('#DataTable tbody').empty().append('<tr><td colspan="15"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                        return false;
+                    }
+
+                    if (retriveTotalPageCount) {
+                        $('#TotalSearchResultSection').empty().append('<b>تعداد موارد یافت شده: </b>' + convertToPersianNumbers(result.data.totalRowsCount) + ' مورد');
+                    } else {
+                        $('#TotalSearchResultSection').empty();
+                    }
+
+                    if (retriveTotalPageCount && result.data.totalRowsCount > 0) {
+                        $('#SearchButton').data('total-pages', result.data.totalRowsCount);
+
+                        $('#Pagination').twbsPagination({
+                            totalPages: Math.ceil(result.data.totalRowsCount / 300),
+                            visiblePages: 7,
+                            last: '<i class="fa fa-fast-backward"></i>',
+                            next: '<i class="fa fa-backward"></i>',
+                            prev: '<i class="fa fa-forward"></i>',
+                            first: '<i class="fa fa-fast-forward"></i>',
+                            initiateStartPageClick: false,
+                            onPageClick: function (event, page) {
+                                loadData(false, page);
+                            }
+                        });
+                    }
+
+                    for (var i = 0; i < result.data.rows.length; i++) {
+                        var item = result.data.rows[i];
+
+                      console.log('amoo',item.name);
+                        html += 
+                        
+                        '<tr class="' + (item.isDone ? 'success' : 'default') + '" data-change-account-request-id="' + item.changeAccountRequestId + '" data-status-id="' + item.statusId + '">' +
+                       //     '<td style="text-align: right !important;" class="text-nowrap">' + createRequestStatusIcon(item.statusId, item.requestStatus, item.submitterUserFullName) + '</td>' +
+                         //   '<td class="text-nowrap">' + createPspIcon(item.pspId, item.pspTitle) + '</td>' +
+                            '<td>' + (item.name || '') + '</td>' +
+                            '<td>' + (item.pspTitle || '') + '</td>' +
+                          
+                            '<td>' + item.weight + '</td>' +
+                        //   '<td>' + item.name + '</td>' +
+                         
+                          //  '<td> <span data-toggle="tooltip" title="' + item.relativeSubmitTime + '">' + item.persianSubmitTime + '</span></td>' +
+                             //   '<td>' + ( item.error ===  null  ? '' : item.error) + '</td>' +
+                            '<td class="text-nowrap actions">';
+
+                  
+                        html += showDeleteButton(item.statusId, item.id);
+                        html += showEditButton(item.statusId, item.id);
+                        
+                      //  html += showChangeAccountRequestDownloadDocumentButton(item.id, item.pspId);
+                        html += '</td></tr>';
+                    }
+
+                    $('#DataTable tbody').empty().append(html);
+                    $('[data-toggle="tooltip"]').tooltip();
+                });
+        }
+
+        function showViewErrorButton(statusId, result) {
+            if (statusId === @RequestStatus.NeedToReform.ToByte() || statusId === @RequestStatus.WebServiceError.ToByte() && @JsonNet.Encode(User.IsAcceptorsExpertUser() || User.IsItUser() || User.IsBranchUser())) {
+                return '<button data-toggle="tooltip" data-loading-text="..." title="مشاهده خطای رخ داده" class="btn btn-warning btn-xs btn-show-result" data-result="' + result + '"><i class="fa fa-bug"></i></button> &nbsp;';
+            } else {
+                return '';
+            }
+        }
+
+        function showApproveAndDisapproveButton(statusId, pspId, changeAccountRequestId) {
+            if (@JsonNet.Encode(User.IsAcceptorsExpertUser()) && statusId === @RequestStatus.SentToPsp.ToByte() && pspId === @PspCompany.Parsian.ToByte()) {
+                return '<button data-id="' + changeAccountRequestId + '" data-toggle="tooltip" data-loading-text="..." title="تایید" class="btn btn-success btn-xs btn-approve"><i class="fa fa-check"></i></button> &nbsp;<button data-id="' + changeAccountRequestId + '" data-toggle="tooltip" data-loading-text="..." title="رد" class="btn btn-danger btn-xs btn-disapprove"><i class="fa fa-ban"></i></button>&nbsp; ';
+            } else {
+                return '';
+            }
+        }
+
+        function showDeleteButton(statusId, changeAccountRequestId) {
+            if (@JsonNet.Encode(User.IsAdmin()) || @JsonNet.Encode(User.IsAcceptorsExpertUser()) && statusId === @RequestStatus.NeedToReform.ToByte() || statusId === @RequestStatus.WebServiceError.ToByte()) {
+                return '<button data-loading-text="..." data-toggle="tooltip" title="حذف" data-id="' + changeAccountRequestId + '" class="btn btn-danger btn-xs btn-delete"><i class="fa fa-trash"></i></button> &nbsp;';
+            } else {
+                return '';
+            }
+        }
+
+        function showEditButton(statusId, changeAccountRequestId) {
+            if (@JsonNet.Encode(User.IsAcceptorsExpertUser() || User.IsItUser() || User.IsBranchUser()) && statusId === @RequestStatus.NeedToReform.ToByte()) {
+                return '<button data-loading-text="..." data-toggle="tooltip" title="ویرایش" data-id="' + changeAccountRequestId + '" class="btn btn-default btn-xs btn-edit"><i class="fa fa-pencil"></i></button> &nbsp;';
+            } else {
+                              return '<button data-loading-text="..." data-toggle="tooltip" title="ویرایش" data-id="' + changeAccountRequestId + '" class="btn btn-default btn-xs btn-edit"><i class="fa fa-pencil"></i></button> &nbsp;';
+
+            }
+        }
+
+        function showSendAgainButton(statusId, changeAccountRequestId) {
+            if (@JsonNet.Encode(User.IsAcceptorsExpertUser() || User.IsItUser() || User.IsBranchUser()) && (statusId === @RequestStatus.WebServiceError.ToByte() || statusId === @RequestStatus.Registered.ToByte())) {
+                return '<button data-toggle="tooltip" title="ارسال مجدد" data-id="' + changeAccountRequestId + '" class="btn btn-info btn-xs btn-send-change-account-request"><i class="fa fa-send"></i></button> &nbsp;';
+            } else {
+                return '';
+            }
+        }
+
+        function showChangeAccountRequestDownloadDocumentButton(changeAccountRequestId, pspId) {
+            if (pspId == '@PspCompany.Fanava.ToInt64()' || @JsonNet.Encode(User.IsAcceptorsExpertUser() || User.IsItUser() || User.IsBranchUser())) {
+                return '<a data-toggle="tooltip" title="دانلود فایل درخواست" href="/Rule/GetChangeAccountRequestDocument?changeAccountRequestId=' + changeAccountRequestId + '" target="_blank" class="btn btn-default btn-xs"><i class="fa fa-file"></i></a>';
+            } else {
+                return '';
+            }
+        }
+
+        $('.date-picker').on('click', function () {
+            PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDate()', true);
+        });
+
+        function createRequestStatusIcon(statusId, statusTitle, submitterUserFullName) {
+            var statusColor = '#ffffff';
+
+            switch (statusId) {
+            case @RequestStatus.Registered.ToByte():
+                statusColor = '#FFC107';
+                break;
+            case @RequestStatus.SentToPsp.ToByte():
+                statusColor = '#FF9800';
+                break;
+            case @RequestStatus.NeedToReform.ToByte():
+                statusColor = '#009688';
+                break;
+            case @RequestStatus.Done.ToByte():
+                statusColor = '#8BC34A';
+                break;
+            case @RequestStatus.Rejected.ToByte():
+                statusColor = '#f44336';
+                break;
+            case @RequestStatus.WebServiceError.ToByte():
+                statusColor = '#AD1457';
+                break;
+            }
+            return '<span style="background-color: ' + statusColor + '; font-weight: 500;" data-toggle="tooltip" title="' + submitterUserFullName + '" class="label label-default">' + statusTitle + '</span>';
+        }
+
+        function createPspIcon(pspId, pspTitle) {
+            var pspColor, pspShortTitle;
+
+            switch (pspId) {
+            case @PspCompany.Fanava.ToByte():
+                pspShortTitle = 'FA';
+                pspColor = '#5C6BC0';
+                break;
+            case @PspCompany.IranKish.ToByte():
+                pspShortTitle = 'IK';
+                pspColor = '#E91E63';
+                break;
+            case @PspCompany.Parsian.ToByte():
+                pspShortTitle = 'PA';
+                pspColor = '#FFB300';
+                break;
+            default:
+                pspShortTitle = '??';
+                pspTitle = 'تخصیص داده نشده';
+                pspColor = '#9E9E9E';
+                break;
+            }
+
+            return '<span style="background-color: ' + pspColor + '; font-weight: 500;" data-toggle="tooltip" title="' + pspTitle + '" class="label label-default small-label">' + pspShortTitle + '</span>';
+        }
+
+        function refreshCurrentPage(){
+            var currentPageNo = $('#Pagination li.page.active').data('page');
+            loadData(false, currentPageNo);
+        }
+
+        $(document).ready(function () {
+            loadData(true, 1);
+
+               $('#CreateButton').on('click', function () {
+                            $.showModal({
+                                url: '@Url.Action("CreateRulePspWeight", "Rule")',
+                                onClose: function (modalResult) {
+                                    if (modalResult === 'ok') {
+                                        loadData();
+                                    }
+                                }
+                            });
+                        });
+               
+            $('.only-number', '#SearchForm').filter_input({ regex: '[0-9]' });
+            $('#BranchId').chosen({ width: "100%" });
+
+            $('#DataTable').on('click.btn-delete', '.btn-delete', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("DeleteRulePspWeight", "Rule")', { id: $button.data('id') }).done(function (result) {
+                            $button.button('reset');
+                            $.processMessage(result);
+
+                            if (result.success) {
+                                $button.closest('tr').remove();
+
+                                if ($('#DataTable tbody').is(":empty")) {
+                                    $('#DataTable tbody').empty().append('<tr><td colspan="15"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                                    $('#Pagination').twbsPagination('destroy');
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-edit', '.btn-edit', function () {
+                $.showModal({
+                    modalSize: 'md',
+                    url: '@Url.Action("EditRulePspWeight", "Rule")',
+                    data: { id: $(this).data('id') },
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            refreshCurrentPage();
+                        }
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-send-change-account-request', '.btn-send-change-account-request', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("Send", "ChangeAccountRequest")', { changeAccountRequestId: $button.data('id') }).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                refreshCurrentPage();
+                            }
+                        });
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-approve', '.btn-approve', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("ChangeStatus", "ChangeAccountRequest")', { changeAccountRequestId: $button.data('id'), approve: true }).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                refreshCurrentPage();
+                            }
+                        });
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-disapprove', '.btn-disapprove', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("ChangeStatus", "ChangeAccountRequest")', { changeAccountRequestId: $button.data('id'), approve: false }).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                refreshCurrentPage();
+                            }
+                        });
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-show-result', '.btn-show-result', function () {
+                $('#ResultText').empty().append($(this).data('result'));
+                $('#showResultModal').modal();
+            });
+
+            $('#SearchButton').on('click', function () {
+                loadData(true, 1);
+            });
+
+            $('#ExportButton').on('click', function () {
+                var $button = $(this);
+                $button.button('loading');
+
+                $.post('@Url.Action("ExportChangeAccountRequestData", "Export")', buildSearchParams()).done(function (result) {
+                    $.processMessage(result);
+                    $button.button('reset');
+
+                    if (result.success) {
+                        var $downloadLink = $('#DownloadFileModal .modal-body a');
+                        $downloadLink.prop('href', '@Url.Action("DownloadRequestOutputFile", "Export")?fileKey=' + result.data);
+                        $('#DownloadFileModal').modal();
+                    }
+                });
+            });
+
+            $('#DownloadFileLink').click(function () {
+                $('#DownloadFileModal').modal('hide');
+            });
+
+            $('#ClearSearchFiltersButton').on('click', function () {
+                $('input:text', '#SearchForm').val('');
+                $('#BranchId', '#SearchForm').val('').trigger("chosen:updated");
+                $('#PspId', '#SearchForm').val('@PspCompany.All.ToByte()');
+                $('#StatusId', '#SearchForm').val('');
+                $('#IsWirelessAll', '#SearchForm').click();
+            });
+        });
+    </script>
+}

@@ -1,0 +1,340 @@
+﻿@model DashboardViewModel
+
+@{
+    ViewBag.Title = "داشبورد";
+}
+
+<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h1>داشبورد</h1>
+        </div>
+        <div class="col-md-4">
+            @if (Model.NeedToReformTerminalCount > 0)
+            {
+                <a href="@Url.Action("Manage", "Terminal",
+                            new { commaSeparatedStatuses =
+                            string.Join(",", TerminalStatus.NeedToReform.ToInt64(), TerminalStatus.UnsuccessfulReturnedFromSwitch.ToInt64()) })">
+                    <div class="alert alert-labeled clickable alert-danger">
+                        <div class="alert-labeled-row">
+                            <span class="alert-label alert-labelled-cell">
+                                <i class="fa fa-pencil"></i>
+                            </span>
+                            <p class="alert-labelled-cell">
+                                تعداد
+                                <strong style="text-decoration: underline;">
+                                    @Model.NeedToReformTerminalCount.ToString()
+                            </strong> پذیرنده نیازمند اصلاح اطلاعات می‌باشد.
+                        </p>
+                    </div>
+                </div>
+            </a>
+        }
+        </div>
+    </div>
+
+</div>
+
+@foreach (var news in Model.News)
+{
+    if (news.IsMain)
+    {
+        <div class="alert alert-info">
+            <div>
+                <span class="pull-left">@news.PublishDate.ToPersianDateTime()</span>
+                <strong><a href="@Url.Action("Details", "News", new { id = news.Id })">@news.Title</a></strong>
+            </div>
+            <span style="white-space: pre-line;">
+                @Html.Raw(news.Body)
+            </span>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <span class="pull-left">@news.PublishDate.ToPersianDateTime()</span>
+            <strong><a href="@Url.Action("Details", "News", new {id = news.Id})">@news.Title</a></strong>
+        </div>
+    }
+}
+
+
+
+<div class="row">
+
+    <div class="col-md-7" style="margin-bottom: 20px;">
+        <div id="TerminalsByStatusChartContainer"></div>
+    </div>
+
+    <div class="col-md-2" style="margin-bottom: 20px;">
+        <div id="TerminalsByPspChartContainer"></div>
+    </div>
+
+    <div class="col-md-3" style="margin-bottom: 20px;">
+        <div id="TerminalsByDeviceTypeChartContainer"></div>
+    </div>
+</div>
+<div class="row" style="background-color:gainsboro;">
+    <div class="col-md-6" style="padding-top:10px;">
+        <div id="TerminalsByStateChartContainer"></div>
+    </div>
+    <div id="LastSixMonthTransactionStatusChartContainer" class="col-md-6" style="padding-top:10px;">
+        <div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    @if (!User.IsBranchUser())
+    {
+        <div id="TransactionChartsContainer">
+            <div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div>
+        </div>
+    }
+</div>
+
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/dashboardIndexScripts",
+        "~/Scripts/highcharts/highcharts.js",
+        "~/Scripts/highcharts/highcharts-more.js",
+        "~/Scripts/highcharts/exporting.js",
+        "~/Scripts/highcharts/offline-exporting.js")
+
+    <script type="text/javascript">
+        Highcharts.setOptions({
+            lang: {
+                thousandsSep: ''
+            },
+            colors: ['#8BC34A', '#E91E63', '#00BCD4', '#009688', '#9C27B0', '#FFC107', '#4CAF50', '#795548', '#03A9F4']
+        });
+//-----------------------------------------------------------------------------------------------
+
+        @if (Model.TerminalsByStatusData.Any())
+        {
+            <text>
+                $('#TerminalsByStatusChartContainer').highcharts({
+                    chart: { type: 'pie' },
+                    title: { text: 'به تفکیک وضعیت' },
+                    tooltip: {
+                        useHTML:true,
+                        crosshairs: true,
+                        formatter: function () {
+                            return '<b>' + this.point.name + '</b><br /><b>' + convertToPersianNumbers(this.y) + ' پذیرنده</b><br />'
+                                + convertToPersianNumbersThreeDigitsSeparated(this.percentage.toFixed(1)) + ' درصد';
+                        }
+                    },
+                    series: [{
+                        name: 'پذیرنده',
+                        data: @Html.Raw(Model.TerminalsByStatusData.SerializeToJson()),
+                        dataLabels: {
+                            enabled: true,
+                            crop: false,
+                            inside: false,
+                            borderWidth: 0,
+                            style: {
+                                textOutline: false
+                            },
+                            formatter: function () {
+                                return this.point.name + ' - ' + convertToPersianNumbersThreeDigitsSeparated(this.y);
+                            }
+                        }
+                    }],
+                    colors: ['#5C6BC0', '#EC407A', '#26A69A', '#FFCA28', '#26C6DA', '#7E57C2', '#66BB6A', '#FFA726', '#BDBDBD', '#78909C']
+                });
+            </text>
+        }
+//-----------------------------------------------------------------------------------------------
+        @if (!User.IsBranchUser() && Model.TerminalsByPspData.Any())
+        {
+            <text>
+                $('#TerminalsByPspChartContainer').highcharts({
+                    exporting: {
+                        chartOptions: {
+                            plotOptions: {
+                                series: {
+                                    dataLabels: {
+                                        enabled: true
+                                    }
+                                }
+                            }
+                        },
+                        fallbackToExportServer: false
+                    },
+                    title: { text: 'psp به تفکیک' },
+                    chart: { type: 'column' },
+                //    xAxis: { categories: ['ایران کیش', 'پارسیان', 'فن آوا'],
+                    xAxis: { categories: ['ایران کیش', 'پارسیان', 'پرداخت نوین', 'فن آوا'],
+                        labels: { rotation: 90 }
+                    },
+                    yAxis: {
+                        title: { enabled: false },
+                        min: 0,
+                        labels: {
+                            formatter: function () {
+                                return convertToPersianNumbersThreeDigitsSeparated(this.value);
+                            }
+                        }
+                    },
+                    legend: { enabled: false },
+                    series: [{
+                        name: ' ',
+                        data: @Html.Raw(Model.TerminalsByPspData.SerializeToJson()),
+                        dataLabels: {
+                            enabled: true,
+                            rotation: 90,
+                            crop: false,
+                            y: -20,
+                            inside: false,
+                            formatter: function () {
+                                return convertToPersianNumbersThreeDigitsSeparated(this.y);
+                            }
+                        }
+                    }],
+                    tooltip: {
+                        useHTML: true,
+                        crosshairs: true,
+                        formatter: function () {
+                            return '<b>' + convertToPersianNumbers(this.x) + '</b> <br />' + convertToPersianNumbersThreeDigitsSeparated(this.y);
+                        }
+                    },
+                    colors: ['#2d6dcc']
+                });
+            </text>
+        }
+//-----------------------------------------------------------------------------------------------
+        @if (!User.IsBranchUser() && Model.TerminalsByDeviceTypeData.Any())
+        {
+            <text>
+                $('#TerminalsByDeviceTypeChartContainer').highcharts({
+                    exporting: {
+                        chartOptions: {
+                            plotOptions: {
+                                series: {
+                                    dataLabels: {
+                                        enabled: true
+                                    }
+                                }
+                            }
+                        },
+                        fallbackToExportServer: false
+                    },
+                    title: { text: 'به تفکیک مدل دستگاه' },
+                    chart: { type: 'column' },
+                    xAxis: { categories: ['Dialup', 'GPRS', 'LAN POS', 'MPOS', 'PCPOS', 'Typica/GPRS', 'Wifi'],
+                        labels: { rotation: 90 }
+                    },
+                    yAxis: {
+                        title: { enabled: false },
+                        min: 0,
+                        labels: {
+                            formatter: function () {
+                                return convertToPersianNumbersThreeDigitsSeparated(this.value);
+                            }
+                        }
+                    },
+                    legend: { enabled: false },
+                    series: [{
+                        name: ' ',
+                        data: @Html.Raw(Model.TerminalsByDeviceTypeData.SerializeToJson()),
+                        dataLabels: {
+                            enabled: true,
+                            rotation: 90,
+                            crop: false,
+                            y: -20,
+                            inside: false,
+                            formatter: function () {
+                                return convertToPersianNumbersThreeDigitsSeparated(this.y);
+                            }
+                        }
+                    }],
+                    tooltip: {
+                        useHTML: true,
+                        crosshairs: true,
+                        formatter: function () {
+                            return '<b>' + convertToPersianNumbers(this.x) + '</b> <br />' + convertToPersianNumbersThreeDigitsSeparated(this.y);
+                        }
+                    },
+                    colors: ['#2d6dcc']
+                });
+            </text>
+        }
+//-----------------------------------------------------------------------------------------------
+
+        @if (!User.IsBranchUser() && Model.TerminalsByStateChart.ChartData.Any())
+        {
+            <text>
+                $('#TerminalsByStateChartContainer').highcharts({
+                    exporting: {
+                        chartOptions: {
+                            plotOptions: {
+                                series: {
+                                    dataLabels: {
+                                        enabled: true
+                                    }
+                                }
+                            }
+                        },
+                        fallbackToExportServer: false
+                    },
+                    title: { text: 'به تفکیک استان' },
+                    chart: { type: 'column' },
+                    xAxis: { categories: @Html.Raw(Model.TerminalsByStateChart.ChartCategories.SerializeToJson()),
+                        labels: { rotation: 90 }
+                    },
+                    yAxis: {
+                        title: { enabled: false },
+                        min: 0,
+                        labels: {
+                            formatter: function () {
+                                return convertToPersianNumbersThreeDigitsSeparated(this.value);
+                            }
+                        }
+                    },
+                    legend: { enabled: false },
+                    series: [{
+                        name: ' ',
+                        data: @Html.Raw(Model.TerminalsByStateChart.ChartData.SerializeToJson()),
+                        dataLabels: {
+                            enabled: true,
+                            rotation: 90,
+                            crop: false,
+                            y: -20,
+                            inside: false,
+                            formatter: function () {
+                                return convertToPersianNumbersThreeDigitsSeparated(this.y);
+                            }
+                        }
+                    }],
+                    tooltip: {
+                        useHTML: true,
+                        crosshairs: true,
+                        formatter: function () {
+                            return '<b>' + convertToPersianNumbers(this.x) + '</b> <br />' + convertToPersianNumbersThreeDigitsSeparated(this.y);
+                        }
+                    },
+                    colors: ['#009688']
+                });
+            </text>
+        }
+//--44444---------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
+
+        $(document).ready(function () {
+            @if (!User.IsBranchUser())
+            {
+                <text>
+                    $.get('@Url.Action("TransactionCharts", "Dashboard")', function (result) {
+                        $('#TransactionChartsContainer').empty().append(result);
+                    });
+                </text>
+            }
+
+            $.get('@Url.Action("LastSixMonthTransactionStatusChart", "Dashboard")', function (result) {
+                $('#LastSixMonthTransactionStatusChartContainer').empty().append(result);
+            });
+        });
+    </script>
+}

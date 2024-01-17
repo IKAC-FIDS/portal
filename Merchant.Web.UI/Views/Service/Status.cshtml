@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.PageTitle = "وضعیت وب سرویس ها";
+}
+
+<div class="page-header">
+    <button id="UpdateStatusButton" class="btn btn-success pull-left" data-loading-text="در حال بروزرسانی...">بروزرسانی وضعیت ها</button>
+    <h1>وضعیت وب سرویس ها</h1>
+</div>
+
+<div class="row services">
+    <div class="col-sm-3 text-center">
+        <div id="Fanava" class="alert service-item">
+            <p>فن آوا</p>
+            <i class="fa fa-refresh fa-spin fa-fw"></i>
+        </div>
+    </div>
+
+    <div class="col-sm-3 text-center">
+        <div id="IranKish" class="alert service-item">
+            <p>ایرانکیش</p>
+            <i class="fa fa-refresh fa-spin fa-fw"></i>
+        </div>
+    </div>
+
+    <div class="col-sm-3 text-center">
+        <div id="Parsian" class="alert service-item">
+            <p>پارسیان</p>
+            <i class="fa fa-refresh fa-spin fa-fw"></i>
+        </div>
+    </div>
+
+    <div class="col-sm-3 text-center">
+        <div id="Tosan" class="alert service-item">
+            <p>فرانگین (توسن)</p>
+            <i class="fa fa-refresh fa-spin fa-fw"></i>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        function getStatus() {
+            $('#UpdateStatusButton').button('loading');
+            $('.service-item').removeClass('alert-success alert-danger text-success text-danger');
+            $('.services i').removeClass('hidden');
+
+            $.get('@Url.Action("GetStatus", "Service")').done(function (result) {
+                if (result.success) {
+                    $('#Fanava').addClass(result.data.fanavaIsUp ? 'alert-success text-success' : 'alert-danger text-danger');
+                    $('#IranKish').addClass(result.data.irankishIsUp ? 'alert-success text-success' : 'alert-danger text-danger');
+                    $('#Parsian').addClass(result.data.parsianIsUp ? 'alert-success text-success' : 'alert-danger text-danger');
+                    $('#Tosan').addClass(result.data.tosanIsUp ? 'alert-success text-success' : 'alert-danger text-danger');
+                }
+            }).always(function () {
+                $('.services i').addClass('hidden');
+                $('#UpdateStatusButton').button('reset');
+            });
+        }
+
+        $(document).ready(function () {
+            getStatus();
+
+            $('#UpdateStatusButton').on('click', function () {
+                getStatus();
+            });
+        });
+    </script>
+}

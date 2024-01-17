@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd4" filename="MerchantContract.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd2" filename="MerchantContract0.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd6" filename="MerchantContract1.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd1" filename="MerchantContract2.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="https://yekta.fanavacard.com/WCF/MerchantContract.svc?disco" filename="MerchantContract.disco" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd8" filename="MerchantContract3.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd0" filename="MerchantContract4.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="https://yekta.fanavacard.com/WCF/MerchantContract.svc?wsdl" filename="MerchantContract.wsdl" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd5" filename="MerchantContract5.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd3" filename="MerchantContract6.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd7" filename="MerchantContract7.xsd" />
+  </Results>
+</DiscoveryClientResultsFile>

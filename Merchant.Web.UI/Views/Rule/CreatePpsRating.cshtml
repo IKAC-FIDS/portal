@@ -1,0 +1,101 @@
+﻿@model ChangeAccountRequestViewModel
+
+@{
+    ViewBag.PageTitle = "    ایجاد     رکورد جدید  ";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+<form action="@Url.Action("CreatePpsRating", "Rule")" method="post" class="form-horizontal" id="CreatePspRatingForm" enctype="multipart/form-data">
+   
+
+   <div id="RuleTypeSection" class="col-md-12  ">
+                 <label class="control-label col-md-3 " for="RuleTypeId">  شعبه </label>
+                 <div class="col-md-9">
+                 @Model.BranchTitle
+                     </div>
+             </div> 
+   
+   <div id="PspIdSection" class="col-md-12 form-group ">
+                 <label class="control-label col-md-3   required " for="PspId"> PSP    </label>
+                 <div class="col-md-9">
+                     @Html.DropDownList("PspId", (IEnumerable<SelectListItem>)ViewBag.PspList, "انتخاب نمایید", new { Id="PspId", @class =  "chosen-select form-control", tabindex = 1 })
+                 </div>
+             </div>
+ 
+   <div class="form-group col-md-12">
+            <label class="control-label col-md-3 required" for="Weight"> امتیاز</label>
+            <div class="col-md-9">
+                <input  type="number" max="100"  min="0" id="Weight" name="Weight" class="form-control" maxlength="500" autocomplete="off" />
+            </div>
+        </div>
+     <div class="form-group col-md-12">
+            <label class="control-label col-md-3 required" for="Description">  توضیحات    </label>
+            <div class="col-md-9">
+                <textarea id="Description" name="Description" class="form-control" rows="5"></textarea>
+            </div>
+        </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button id="ConfirmButton" type="submit" class="btn btn-success btn-lg" data-loading-text="درحال ثبت...">ثبت</button>
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">انصراف</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.only-number', '#CreatePspRatingForm').filter_input({ regex: '[0-9]' });
+
+        $('#BranchId', '#CreatePspRatingForm').chosen({ width: "100%" });
+
+        $('#BranchId', '#CreatePspRatingForm').on('change', function () {
+            if ($(this).val()) {
+                $('#AccountBranchCode', '#CreatePspRatingForm')
+                    .attr('readonly', 'readonly')
+                    .addClass('disabled')
+                    .val($(this).val());
+            }
+        });
+
+        $('input.account-number').keyup(function () {
+            if ($(this).val().length == $(this).attr('maxlength')) {
+                var order = $(this).data('order');
+                $('input.account-number[data-order="' + (order + 1) + '"]').focus();
+            }
+        });
+
+ 
+
+        $('#CreatePspRatingForm').validate({
+            ignore: ':hidden:not(select)',
+            rules: {
+                 
+                  PspId: { required: true  },
+                 
+            },
+             submitHandler: function (form) {
+                var $button = $('#ConfirmButton', '#CreatePspRatingForm');
+                $button.button('loading');
+
+                 $(form).ajaxSubmit({
+                                    success: function (result) {
+                                        $button.button('reset');
+                                        $.processMessage(result);
+                
+                                        if (result.success) {
+                                            $.closeModal('ok');
+                                        }
+                                    }, error: function (result) {
+                                        $button.button('reset');
+                                        $.processMessage(result);
+                                    }
+                                });
+                    
+                    
+           return false;
+            }
+        });
+    });
+</script>

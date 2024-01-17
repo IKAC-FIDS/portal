@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PecCare.Domain.Cartable" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PecCare.Domain.Cartable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/PecCare.Domain.Lookup" />
+  <xs:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Model" />
+  <xs:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/PecCare.Domain.Cartable.Request" />
+  <xs:complexType name="LmcModel">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:McModel">
+        <xs:sequence>
+          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/PecCare.Domain.Lookup" minOccurs="0" name="COCUIssueType" nillable="true" type="q1:CityLookup" />
+          <xs:element minOccurs="0" name="COCU_BIRTH_DATE" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="COCU_BIRTH_DATEMILADI" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="COCU_ID_CARD_NO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="COCU_Mail_Address" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="COCU_Mobile" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="COCU_Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="COCU_Name_ENG" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CustomerType" type="xs:int" />
+          <xs:element minOccurs="0" name="National_Code" nillable="true" type="xs:string" />
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Model" minOccurs="0" name="NestedTagIt" nillable="true" type="q2:ArrayOfArrayOfFormatAddress" />
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PecCare.Domain.Lookup" minOccurs="0" name="OfficeCityType" nillable="true" type="q3:CityLookup" />
+          <xs:element minOccurs="0" name="Office_Address" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Office_Fax" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Office_Tel1" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Office_Tel2" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PostCode" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="LmcModel" nillable="true" type="tns:LmcModel" />
+  <xs:complexType name="McModel">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q4="http://schemas.datacontract.org/2004/07/PecCare.Domain.Cartable.Request" base="q4:RequestBaseModelOfanyTypeNBSRequestMCDSNBSRequestMCDS.NBSRequestMCDataTableNBSRequestMCDS.NBSRequestMCRowV9Agphu2">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="COCU_ID" type="xs:decimal" />
+          <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/PecCare.Domain.Lookup" minOccurs="0" name="CustomerStatusType" nillable="true" type="q5:CustomerStatusLookUp" />
+          <xs:element minOccurs="0" name="IsForeign" nillable="true" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="McModel" nillable="true" type="tns:McModel" />
+</xs:schema>

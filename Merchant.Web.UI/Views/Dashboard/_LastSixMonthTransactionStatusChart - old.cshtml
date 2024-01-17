@@ -1,0 +1,118 @@
+﻿@model IEnumerable<LastSixMonthTransactionStatusChartViewModel>
+
+@{
+    Layout = null;
+}
+
+<div class="row">
+    <div class="col-md-12" style="padding-bottom: 10px;">
+        <div id="LastSixMonthTransactionStatusChart"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    @if (Model.Any())
+    {
+        <text>
+            $('#LastSixMonthTransactionStatusChart').highcharts({
+                exporting: {
+                    chartOptions: {
+                        plotOptions: {
+                            series: {
+                                dataLabels: {
+                                    enabled: true
+                                }
+                            }
+                        }
+                    },
+                    fallbackToExportServer: false
+                },
+                title: { text: 'وضعیت پایانه ها' },
+                chart: { type: 'column' },
+                xAxis: { categories: @Html.Raw(Model.Select(x => x.PersianLocalYearMonth.GetReadableMonthYear()).SerializeToJson()) },
+                yAxis: {
+                    allowDecimals: false,
+                    min: 0,
+                    title: {
+                        text: 'تعداد'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return convertToPersianNumbersThreeDigitsSeparated(this.value);
+                        }
+                    }
+                },
+                legend: { enabled: false },
+                series:
+                    [{
+                        name: 'پرتراکنش',
+                        data: @Html.Raw(JsonNet.Encode(Model.OrderBy(x => x.PersianLocalYearMonth).Select(x => x.HighTransactionCount))),
+                        stack: 'bisim',
+                        color: '#388E3C',
+                        dataLabels: {
+                            enabled: true,
+                            rotation: 90,
+                            crop: false,
+                            y: -20,
+                            inside: false,
+                            style: {
+                                textOutline: false
+                            },
+                            formatter: function () {
+                                return convertToPersianNumbersThreeDigitsSeparated(this.y);
+                            }
+                        }
+                    },
+                    {
+                        name: 'کم تراکنش',
+                        data: @Html.Raw(JsonNet.Encode(Model.OrderBy(x => x.PersianLocalYearMonth).Select(x => x.LowTransactionCount))),
+                        stack: 'bisim',
+                        color: '#9CCC65',
+                        dataLabels: {
+                            enabled: true,
+                            rotation: 90,
+                            crop: false,
+                            y: -20,
+                            inside: false,
+                            style: {
+                                textOutline: false
+                            },
+                            formatter: function () {
+                                return convertToPersianNumbersThreeDigitsSeparated(this.y);
+                            }
+                        }
+                    },
+                    {
+                        name: 'بدون تراکنش',
+                        data: @Html.Raw(JsonNet.Encode(Model.OrderBy(x => x.PersianLocalYearMonth).Select(x => x.WithoutTransactionCount))),
+                        stack: 'basim',
+                        color: '#BDBDBD',
+                        dataLabels: {
+                            enabled: true,
+                            rotation: 90,
+                            crop: false,
+                            y: -20,
+                            inside: false,
+                            style: {
+                                textOutline: false
+                            },
+                            formatter: function () {
+                                return convertToPersianNumbersThreeDigitsSeparated(this.y);
+                            }
+                        }
+                    }],
+                tooltip: {
+                    useHTML: true,
+                    crosshairs: true,
+                    formatter: function () {
+                        return '<b>' +
+                            this.series.name +
+                            '</b> <br />' +
+                            convertToPersianNumbersThreeDigitsSeparated(this.y);
+                    }
+                },
+                colors: ['#3F51B5']
+            });
+        </text>
+    }
+</script>

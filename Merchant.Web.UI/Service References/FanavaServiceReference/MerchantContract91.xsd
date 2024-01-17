@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO.Reports" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO.Reports" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfChangeAccountRequestEventReport">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ChangeAccountRequestEventReport" nillable="true" type="tns:ChangeAccountRequestEventReport" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfChangeAccountRequestEventReport" nillable="true" type="tns:ArrayOfChangeAccountRequestEventReport" />
+  <xs:complexType name="ChangeAccountRequestEventReport">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccHolderName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AcceptorId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccountNew" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccountOld" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BankActorCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BranchName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ChangeAccountReason" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ContractNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FK_BankId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="FK_NewBankId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="InsertDateTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="InsertUser" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsertDateTimeShamsi" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MchBanckName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MerchantName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MerchantTel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PosModelTitle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PosStatusTitle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RowNumber" type="xs:long" />
+      <xs:element minOccurs="0" name="ShabaNew" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ShabaOld" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="StatusHelper" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TerminalNo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ChangeAccountRequestEventReport" nillable="true" type="tns:ChangeAccountRequestEventReport" />
+</xs:schema>

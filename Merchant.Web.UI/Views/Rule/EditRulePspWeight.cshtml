@@ -1,0 +1,111 @@
+﻿@model RuleDefinitionRequestViewModel
+
+@{
+    ViewBag.PageTitle = "    ایجاد تعریف قوانین";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+<form action="@Url.Action("EditRuleDefinition", "Rule")" method="post" class="form-horizontal" id="ChangeAccountRequestCreateForm" enctype="multipart/form-data">
+   <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+
+
+      <div id="RuleTypeSection" class="col-md-12  ">
+                      <label class="control-label col-md-3 required" for="RuleTypeId"> نوع قانون  </label>
+                      <div class="col-md-9">
+                          @Html.DropDownList("RuleTypeId", (IEnumerable<SelectListItem>)ViewBag.RuleType, "انتخاب نمایید", new { @class = "form-control", tabindex = 1 })
+                      </div>
+                  </div>
+     
+         
+     
+        
+        <div id="PspIdSection" class="col-md-12  ">
+                      <label class="control-label col-md-3 required" for="PspId"> PSP    </label>
+                      <div class="col-md-9">
+                          @Html.DropDownList("PspId", (IEnumerable<SelectListItem>)ViewBag.PspList, "انتخاب نمایید", new { @class =  "form-control", tabindex = 1 })
+                      </div>
+                  </div>
+ 
+            <div class="form-group">
+                     <label class="control-label col-md-3 required" for="Weight"> وزن</label>
+                     <div class="col-md-9">
+                         <input type="text" id="Weight" name="Weight"  value="@Model.Weight" class="form-control" maxlength="500" autocomplete="off" />
+                     </div>
+                 </div>
+ 
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button id="ConfirmButton" type="submit" class="btn btn-success btn-lg" data-loading-text="درحال ثبت...">ثبت</button>
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">انصراف</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.only-number', '#ChangeAccountRequestCreateForm').filter_input({ regex: '[0-9]' });
+
+        $('#BranchId', '#ChangeAccountRequestCreateForm').chosen({ width: "100%" });
+
+        $('#BranchId', '#ChangeAccountRequestCreateForm').on('change', function () {
+            if ($(this).val()) {
+                $('#AccountBranchCode', '#ChangeAccountRequestCreateForm')
+                    .attr('readonly', 'readonly')
+                    .addClass('disabled')
+                    .val($(this).val());
+            }
+        });
+
+        $('input.account-number').keyup(function () {
+            if ($(this).val().length == $(this).attr('maxlength')) {
+                var order = $(this).data('order');
+                $('input.account-number[data-order="' + (order + 1) + '"]').focus();
+            }
+        });
+
+        $('.chosen-select', '#ChangeAccountRequestCreateForm').on('change', function () {
+            $(this).valid();
+        });
+
+        $('#ChangeAccountRequestCreateForm').validate({
+            ignore: ':hidden:not(select)',
+            rules: {
+                AccountRow: { required: true, digits: true, maxlength: 3 },
+                AccountType: { required: true, digits: true, maxlength: 3 },
+                PostedFile: {
+                    required: {
+                        depends: function () {
+                            return $('#PspId', '#ChangeAccountRequestCreateForm').val() == '@PspCompany.IranKish.ToInt32()' || $('#PspId', '#ChangeAccountRequestCreateForm').val() == '@PspCompany.Parsian.ToInt32()';
+                        }
+                    }
+                }
+            }, messages: {
+                AccountRow: '',
+                AccountType: ''
+            },
+             submitHandler: function (form) {
+                var $button = $('#ConfirmButton', '#ChangeAccountRequestCreateForm');
+                $button.button('loading');
+
+                 $(form).ajaxSubmit({
+                                    success: function (result) {
+                                        $button.button('reset');
+                                        $.processMessage(result);
+                
+                                        if (result.success) {
+                                            $.closeModal('ok');
+                                        }
+                                    }, error: function (result) {
+                                        $button.button('reset');
+                                        $.processMessage(result);
+                                    }
+                                });
+                    
+                    
+           return false;
+            }
+        });
+    });
+</script>

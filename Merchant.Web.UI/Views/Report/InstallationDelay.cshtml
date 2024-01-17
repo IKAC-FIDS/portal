@@ -1,0 +1,298 @@
+﻿@{
+    ViewBag.Title = "گزارش تاخیر در نصب";
+}
+
+@section styles {
+    @BundleConfig.AddStyles("~/Content/reportInstallationDelayStyles",
+        "~/Content/PersianDatePicker.css")
+}
+
+<div class="page-header">
+    <h1>گزارش تاخیر در نصب</h1>
+</div>
+
+<div class="form-horizontal">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="FromDate">از تاریخ</label>
+                <div class="col-md-6">
+                    <div class="left-inner-addon">
+                        <i class="fa fa-calendar-o"></i>
+                        <input type="text" id="FromDate" name="FromDate" class="form-control date-picker" maxlength="10" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="ToDate">تا تاریخ</label>
+                <div class="col-md-6">
+                    <div class="left-inner-addon">
+                        <i class="fa fa-calendar-o"></i>
+                        <input type="text" id="ToDate" name="ToDate" class="form-control date-picker" maxlength="10" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Month">میزان تاخیر</label>
+                <div class="col-md-8">
+                    <input type="text" id="Delay" name="Delay" class="form-control only-number" maxlength="5" value="5" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="PspId">شرکت PSP</label>
+                <div class="col-md-8">
+                    <select class="form-control" id="PspId">
+                        <option value="@PspCompany.All.ToInt32()" selected>همه</option>
+                        <option value="@PspCompany.Fanava.ToInt32()">فن آوا</option>
+                        <option value="@PspCompany.IranKish.ToInt32()">ایرانکیش</option>
+                        <option value="@PspCompany.Parsian.ToInt32()">پارسیان</option>
+                        
+                                                <option value="@PspCompany.PardakhNovin.ToInt32()">پرداخت نوین</option>
+                        <option>تخصیص داده نشده</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">وضعیت پایانه</label>
+        <div class="col-md-4">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default">
+                    <input type="radio" name="JustInstalledTerminals" value="True" /> نصب شده
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="JustInstalledTerminals" value="False" /> نصب نشده
+                </label>
+                <label class="btn btn-default active">
+                    <input type="radio" name="JustInstalledTerminals" value="" checked /> هردو
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="button" id="btnSearch" class="btn btn-primary" data-loading-text="در حال جستجو...">جستجو</button>
+            <button type="button" id="btnExport" class="btn btn-default" data-loading-text="در حال تهیه خروجی. لطفاً منتظر بمانید...">دریافت خروجی</button>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div id="TotalSearchResultSection"></div>
+
+<br />
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center" id="tblData">
+        <thead>
+            <tr>
+                <th width="1px">وضعیت</th>
+                <th>شماره پایانه</th>
+                <th>شرکت PSP</th>
+                <th>تاریخ نصب</th>
+                <th>تاریخ بچ</th>
+                <th>تاخیر در نصب</th>
+                <th>تاخیر در نصب بدون تعطیلات</th>
+                <th>کد شعبه</th>
+                <th>نام شعبه</th>
+                <th>نوع دستگاه</th>
+                <th>سیار / ثابت</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr><td colspan="12"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div style="z-index: 10000;" class="modal fade" id="downloadFileModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p><a class="btn btn-success btn-lg btn-block" id="DownloadFileLink" href="#">دانلود</a></p>
+                <button type="button" class="btn btn-default btn-lg btn-block" data-dismiss="modal">انصراف</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/reportInstallationDelayScripts",
+        "~/Scripts/jquery.filter_input.js",
+            "~/Scripts/PersianDatePicker.js")
+
+    <script type="text/javascript">
+        function buildSearchParams() {
+            return {
+                pspId: $('#PspId').val(),
+                fromDate: $('#FromDate').val(),
+                toDate: $('#ToDate').val(),
+                delay: $('#Delay').val(),
+                justInstalledTerminals: $('input[name=JustInstalledTerminals]:checked').val()
+            };
+        }
+
+        function loadData() {
+            var searchParams = buildSearchParams();
+
+            if (!searchParams.fromDate || !searchParams.toDate || !searchParams.delay) {
+                toastr.warning('لطفاً بازه زمانی و میزان تاخیر را وارد نمایید.');
+                return false;
+            }
+
+            var $searchButton = $('#btnSearch');
+            $searchButton.button('loading');
+            $('#tblData tbody').empty().append('<tr><td colspan="13"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+            return $.post('@Url.Action("GetInstallationDelayData", "Report")', searchParams)
+                .done(function (result) {
+                    $searchButton.button('reset');
+                    $('#tblData tbody').empty();
+                    $('#TotalSearchResultSection').empty();
+                    var html = '';
+
+                    if (result.success) {
+
+                        if (result.data.rows.length === 0) {
+                            $('#tblData tbody').empty().append('<tr><td colspan="13"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                            return false;
+                        }
+
+                        $('#TotalSearchResultSection').empty().append('<b>تعداد موارد یافت شده: </b>' + convertToPersianNumbers(result.data.totalRowsCount) + ' مورد');
+
+                        for (var i = 0; i < result.data.rows.length; i++) {
+                            var item = result.data.rows[i];
+
+                            html += '<tr data-terminal-id="' + item.terminalId + '" data-status-id="' + item.statusId + '">' +
+                                '<td class="text-nowrap">' + createStatusIcon(item.statusId, item.statusTitle, item.submitterUserFullName) + '</td>' +
+                                '<td>' + item.terminalNo + '</td>' +
+                                '<td>' + createPspIcon(item.pspId, item.pspTitle) + '</td>' +
+                                '<td>' + (item.persianInstallationDate || '') + '</td>' +
+                                '<td>' + (item.persianBatchDate || '') + '</td>' +
+                                '<td>' + item.delayCount + '</td>' +
+                                '<td>' + item.delayCountWithoutHoliday + '</td>' +
+                                '<td>' + item.branchId + '</td>' +
+                                '<td>' + item.branchTitle + '</td>' +
+                                '<td>' + item.deviceTypeTitle + '</td>' +
+                                '<td>' + (item.isWireless ? 'سیار' : 'ثابت') + '</td>' +
+                                '</tr>';
+                        }
+
+                        $('#tblData tbody').empty().append(html);
+                        $('[data-toggle="tooltip"]').tooltip();
+                    }
+                });
+        }
+
+        function createPspIcon(pspId, pspTitle) {
+            var pspColor, pspShortTitle;
+
+            switch (pspId) {
+                case @PspCompany.Fanava.ToInt32():
+                    pspShortTitle = 'FA';
+                    pspColor = '#5C6BC0';
+                    break;
+                case @PspCompany.IranKish.ToInt32():
+                    pspShortTitle = 'IK';
+                    pspColor = '#E91E63';
+                    break;
+                case @PspCompany.Parsian.ToInt32():
+                    pspShortTitle = 'PA';
+                    pspColor = '#FFB300';
+                    break;
+                      case @PspCompany.PardakhNovin.ToByte():
+                                                                    pspShortTitle = 'PN';
+                                                                    pspColor = '#0f4158';
+                                                                    break;
+                default:
+                    pspShortTitle = '??';
+                    pspTitle = 'تخصیص داده نشده';
+                    pspColor = '#9E9E9E';
+                    break;
+            }
+
+            return '<span style="background-color: ' + pspColor + '; font-weight: 500;" data-toggle="tooltip" title="' + pspTitle + '" class="label label-default small-label">' + pspShortTitle + '</span>';
+        }
+
+        function createStatusIcon(statusId, statusTitle, submitterUserFullName) {
+            var statusColor = '#D7CCC8';
+            switch (statusId) {
+            case @TerminalStatus.New.ToInt32():
+                statusColor = '#FFC107';
+                break;
+            case @TerminalStatus.NotReturnedFromSwitch.ToInt32():
+                statusColor = '#607D8B';
+                break;
+            case @TerminalStatus.NeedToReform.ToInt32():
+                statusColor = '#009688';
+                break;
+            case @TerminalStatus.ReadyForAllocation.ToInt32():
+                statusColor = '#CDDC39';
+                break;
+            case @TerminalStatus.Allocated.ToInt32():
+                statusColor = '#8BC34A';
+                break;
+            case @TerminalStatus.Test.ToInt32():
+                statusColor = '#03A9F4';
+                break;
+            case @TerminalStatus.Installed.ToInt32():
+                statusColor = '#4CAF50';
+                break;
+            case @TerminalStatus.Revoked.ToInt32():
+                statusColor = '#f44336';
+                break;
+            }
+
+            return '<span style="background-color: ' + statusColor + '; font-weight: 500;" class="label label-default">' + statusTitle + '</span>';
+        }
+
+        $(document).ready(function () {
+
+            $('.date-picker').on('click', function () {
+                PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDate()', true);
+            });
+
+            $('.only-number').filter_input({ regex: '[0-9]' });
+
+            $('#btnSearch').on('click', function () {
+                loadData();
+            });
+
+            $('#DownloadFileLink').click(function() {
+                $('#downloadFileModal').modal('hide');
+            });
+
+            $('#btnExport').on('click', function () {
+                var $exportButton = $(this);
+                $exportButton.button('loading');
+
+                $.post('@Url.Action("ExportInstallationDelayData", "Export")', buildSearchParams()).done(function (result) {
+                    $.processMessage(result);
+                    $exportButton.button('reset');
+
+                    if (result.success) {
+                        var $downloadLink = $('#downloadFileModal .modal-body a');
+                        $downloadLink.prop('href', '@Url.Action("DownloadReportOutputFile", "Export")?fileKey=' + result.data);
+                        $('#downloadFileModal').modal();
+                    }
+                });
+            });
+        });
+    </script>
+}

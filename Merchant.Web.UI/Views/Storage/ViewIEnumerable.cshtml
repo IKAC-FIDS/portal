@@ -1,0 +1,20 @@
+﻿@using Stimulsoft.Report.Mvc;
+@using Stimulsoft.Report.Web
+@model HavelReport
+
+@{
+    ViewBag.Title = "صدور حواله ";
+}
+
+<br />
+
+@Html.Stimulsoft().StiMvcViewer(new StiMvcViewerOptions()
+    {
+        
+        Actions =
+        {
+            GetReport = "GetReportIEnumerable?Id=" + @Model.Id,
+            
+            ViewerEvent = "ViewerEvent"
+        } 
+    })

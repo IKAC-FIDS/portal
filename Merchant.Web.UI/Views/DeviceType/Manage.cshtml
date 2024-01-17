@@ -1,0 +1,141 @@
+﻿@{
+    ViewBag.Title = "مدیریت نوع دستگاه ها";
+}
+
+<div class="page-header">
+    <h1>مدیریت نوع دستگاه ها</h1>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center" id="DataTable">
+        <thead>
+            <tr class="header">
+                <th>کد</th>
+                <th>نام</th>
+                <th>نوع</th>
+                <th>وضعیت</th>
+                <th>مبلغ مسدودی</th>
+                <th>تعداد پذیرنده</th>
+                <th width="1px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="8"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/deviceTypeManageScripts",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.confirm.js",
+        "~/Scripts/jquery.filter_input.js")
+
+    <script type="text/javascript">
+
+        function loadData() {
+            $('#DataTable tbody').empty().append('<tr><td colspan="8"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+            return $.get('@Url.Action("GetData", "DeviceType")').done(function (result) {
+                $('#DataTable tbody').empty();
+                var html = '';
+
+                if (!result.success) {
+                    $('#DataTable tbody').empty().append('<tr><td colspan="8"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                    return false;
+                }
+
+                if (result.data.length === 0) {
+                    $('#DataTable tbody').empty().append('<tr><td colspan="8"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                    return false;
+                }
+
+                for (var i = 0; i < result.data.length; i++) {
+                    var item = result.data[i];
+
+                    html += '<tr>' +
+                        '<td>' + (item.code || '') + '</td>' +
+                        '<td>' + item.title + '</td>' +
+                        '<td>' + (item.isWireless ? 'سیار' : 'ثابت') + '</td>' +
+                        '<td>' + (item.isActive ? 'فعال' : 'غیر فعال') + '</td>' +
+                        '<td>' + convertToPersianNumbersThreeDigitsSeparated(item.blockPrice) + '</td>' +
+                        '<td>' + convertToPersianNumbersThreeDigitsSeparated(item.terminalCount) + '</td>' +
+                        '<td class="text-nowrap">' +
+                        '<button data-toggle="tooltip" title="' + (item.isActive ? 'غیرفعال سازی' : 'فعال سازی') + '" class="btn ' + (item.isActive ? 'btn-warning' : 'btn-success') + ' btn-xs btn-toggle-is-active" data-id="' + item.id + '">' + (item.isActive ? '<i class="fa fa-lock"></i>' : '<i class="fa fa-unlock"></i>') + '</button> &nbsp;' +
+                        '<button data-toggle="tooltip" title="ویرایش" class="btn btn-default btn-xs btn-edit" data-id="' + item.id + '"><i class="fa fa-pencil"></i></button> &nbsp;' +
+                        '<button data-toggle="tooltip" title="حذف" class="btn btn-danger btn-xs btn-delete" data-id="' + item.id + '"><i class="fa fa-trash"></i></button>' +
+                        '</td>' +
+                        '</tr>';
+                }
+
+                $('#DataTable tbody').empty().append(html);
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
+
+        $(document).ready(function () {
+            loadData();
+
+            $('#DataTable').on('click.btn-toggle-is-active', '.btn-toggle-is-active', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    body: 'آیا مطمئن هستید که می خواهید وضعیت فعال / غیر فعال بودن این نوع دستگاه را تغییر دهید؟',
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("ToggleIsActive", "DeviceType")', { userId: $button.data('user-id') }).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                loadData();
+                            }
+                        });
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-edit', '.btn-edit', function () {
+                $.showModal({
+                    url: '@Url.Action("Edit", "DeviceType")',
+                    data: { id: $(this).data('id') },
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            loadData();
+                        }
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-delete', '.btn-delete', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("Delete", "DeviceType")', { id: $button.data('id') }).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                $button.closest('tr').remove();
+
+                                if ($('#DataTable tbody').is(":empty")) {
+                                    $('#DataTable tbody').empty().append('<tr><td colspan="8"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

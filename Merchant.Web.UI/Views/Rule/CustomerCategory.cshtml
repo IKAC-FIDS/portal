@@ -1,0 +1,127 @@
+﻿@{
+    ViewBag.Title = "   مدیریت دسته بندی مشتریان  ";
+}
+
+<div class="page-header">
+    <button id="CreateButton" class="btn btn-success pull-left">ثبت دسته بندی جدید</button>
+    <h1>مدیریت      دسته بندی مشتریان</h1>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center" id="DataTable">
+        <thead>
+            <tr class="header">
+                <th>عنوان</th>
+                <th>از</th>
+                  <th>تا</th>
+                <th width="1px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="3"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/revokeReasonManageScripts",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.confirm.js")
+
+    <script type="text/javascript">
+
+        function loadData() {
+            $('#DataTable tbody').empty().append('<tr><td colspan="8"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+            return $.get('@Url.Action("GetCustomerCategory", "Rule")').done(function (result) {
+                $('#DataTable tbody').empty();
+                var html = '';
+
+                if (!result.success) {
+                    $('#DataTable tbody').empty().append('<tr><td colspan="3"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                    return false;
+                }
+
+                if (result.data.length === 0) {
+                    $('#DataTable tbody').empty().append('<tr><td colspan="3"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                    return false;
+                }
+
+                for (var i = 0; i < result.data.length; i++) {
+                    var item = result.data[i];
+
+                  
+                    html += '<tr>' +
+                        '<td>' + item.name + '</td>' +
+                                                '<td>' + item.from + '</td>' +
+                                                '<td>' + item.to + '</td>' +
+
+                        '<td class="text-nowrap">' +
+                        '<button data-toggle="tooltip" title="ویرایش" class="btn btn-default btn-xs btn-edit" data-id="' + item.id + '"><i class="fa fa-pencil"></i></button> &nbsp;' +
+                        '<button data-toggle="tooltip" title="حذف" class="btn btn-danger btn-xs btn-delete" data-id="' + item.id + '"><i class="fa fa-trash"></i></button>' +
+                        '</td>' +
+                        '</tr>';
+                }
+
+                $('#DataTable tbody').empty().append(html);
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
+
+        $(document).ready(function () {
+            loadData();
+
+            $('#CreateButton').on('click', function () {
+                $.showModal({
+                    url: '@Url.Action("CreateCustomerCategory", "Rule")',
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            loadData();
+                        }
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-edit', '.btn-edit', function () {
+                $.showModal({
+                    url: '@Url.Action("EditCustomerCategory", "Rule")',
+                    data: { id: $(this).data('id') },
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            loadData();
+                        }
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-delete', '.btn-delete', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("DeleteCustomerCategory", "Rule")', { id: $button.data('id') }).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                $button.closest('tr').remove();
+
+                                if ($('#DataTable tbody').is(":empty")) {
+                                    $('#DataTable tbody').empty().append('<tr><td colspan="3"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

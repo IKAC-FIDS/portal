@@ -1,0 +1,201 @@
+﻿@model BankInvoiceViewModel
+
+@{
+    ViewBag.Title = "گزارش صورت وضعیت";
+}
+
+<div class="page-header">
+    <h1>گزارش صورت وضعیت</h1>
+</div>
+
+<div class="form-horizontal">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Year">سال</label>
+                <div class="col-md-8">
+                    <select id="Year" name="Year" class="form-control">
+                        @for (int i = DateTime.Now.GetPersianYear(); i >= 1395; i--)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Month">ماه</label>
+                <div class="col-md-8">
+                    <select id="Month" name="Month" class="form-control">
+                        <option selected value="">انتخاب نمایید</option>
+                        <option value="1">فروردین</option>
+                        <option value="2">اردیبهشت</option>
+                        <option value="3">خرداد</option>
+                        <option value="4">تیر</option>
+                        <option value="5">مرداد</option>
+                        <option value="6">شهریور</option>
+                        <option value="7">مهر</option>
+                        <option value="8">آبان</option>
+                        <option value="9">آذر</option>
+                        <option value="10">دی</option>
+                        <option value="11">بهمن</option>
+                        <option value="12">اسفند</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-3">نوع صورت وضعیت</label>
+                <div class="col-md-9">
+                    @Html.DropDownList("InvoiceTypeId", (IEnumerable<SelectListItem>)ViewBag.InvoiceTypeList, "انتخاب نمایید", new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <button type="button" id="btnDisplayReport" class="btn btn-success" data-loading-text="در حال بارگزاری...">نمایش</button>
+            <button type="button" id="ExportButton" class="btn btn-default" data-loading-text="در حال بارگزاری...">دریافت خروجی</button>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div id="ReportContent" dir="rtl">
+    <table class="table table-bordered table-hover table-striped" id="tblResult">
+        <thead>
+        <tr>
+            <th>شرح خدمت</th>
+            <th>قیمت واحد (ریال)</th>
+            <th>تعداد</th>
+            <th>مبلغ</th>
+            <th class="no-print" width="1px"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<div style="z-index: 10000;" class="modal fade" id="downloadFileModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p><a class="btn btn-success btn-lg btn-block" id="DownloadFileLink" href="#">دریافت فایل</a></p>
+                <button type="button" class="btn btn-default btn-lg btn-block" data-dismiss="modal">انصراف</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+
+    @BundleConfig.AddScripts("~/bundles/bankInvoiceScripts", "~/Scripts/jQuery.print.js")
+
+<script type="text/javascript">
+        $(document).ready(function () {
+
+            @if (ViewBag.Year != null)
+            {
+                <text>
+                    $('#Year').val(@ViewBag.Year);
+                </text>
+
+                if (ViewBag.Month != null)
+                {
+                    <text>
+                        $('#Month').val(@ViewBag.Month);
+                    </text>
+                }
+            }
+
+            $('#btnDisplayReport').click(function () {
+                var $button = $(this);
+                $button.button('loading');
+
+                $.post('@Url.Action("GetBankInvoiceReportData", "Report")', { year: $('#Year').val(), month: $('#Month').val(), invoiceTypeId: $('#InvoiceTypeId').val() }).done(function (result) {
+                    $.processMessage(result);
+                    if (result.success) {
+                        var html = '';
+
+                        for (var i = 0; i < result.data.length; i++) {
+                            var item = result.data[i];
+
+                            html += '<tr>' +
+                                '<td>' + item.title + '</td>' +
+                                '<td>' + convertToPersianNumbersThreeDigitsSeparated(item.unitPrice) + '</td>' +
+                                '<td>' + convertToPersianNumbersThreeDigitsSeparated(item.count) + '</td>' +
+                                '<td>' + convertToPersianNumbersThreeDigitsSeparated(item.totalPrice) + '</td>' +
+                                '<td class="no-print"><button class="btn btn-info btn-xs btn-export" data-report-id="' + (item.reportId) + '">دانلود گزارش</button></td>' +
+                                '</tr>';
+                        }
+
+                        $('#tblResult tbody').empty().append(html);
+                    }
+                }).always(function () {
+                    $button.button('reset');
+                });
+            });
+
+
+            $('#DownloadFileLink').click(function() {
+                $('#downloadFileModal').modal('hide');
+            });
+
+            $('#ExportButton').on('click', function () {
+                $('#ReportContent').print();
+            });
+
+            $('body').on('click', 'button.btn-export', function () {
+                var $exportButton = $(this);
+                $exportButton.button('loading');
+                var reportId = $(this).data('report-id');
+                var url = '';
+                if (reportId === 1) {
+                    url = '@Url.Action("DownloadTempReportData1", "TempReportData")';
+                }
+                if (reportId === 2) {
+                    url = '@Url.Action("DownloadTempReportData2", "TempReportData")';
+                }
+                if (reportId === 3) {
+                    url = '@Url.Action("DownloadTempReportData3", "TempReportData")';
+                }
+                if (reportId === 4) {
+                    url = '@Url.Action("DownloadTempReportData4", "TempReportData")';
+                }
+                if (reportId === 5) {
+                    url = '@Url.Action("DownloadTempReportData5", "TempReportData")';
+                }
+                if (reportId === 6) {
+                    url = '@Url.Action("DownloadTempReportData6", "TempReportData")';
+                }
+                if (reportId === 7) {
+                    url = '@Url.Action("DownloadTempReportData7", "TempReportData")';
+                }
+   if (reportId === 8) {
+                    url = '@Url.Action("DownloadTempReportData8", "TempReportData")';
+                }
+      if (reportId === 9) {
+                       url = '@Url.Action("DownloadTempReportData9", "TempReportData")';
+                   }
+                $.post(url, { year: $('#Year').val(), month: $('#Month').val(), invoiceTypeId: $('#InvoiceTypeId').val() }).done(function (result) {
+                    $.processMessage(result);
+                    $exportButton.button('reset');
+
+                    if (result.success) {
+                        var $downloadLink = $('#downloadFileModal .modal-body a');
+                        $downloadLink.prop('href', '@Url.Action("DownloadReportOutputFile", "TempReportData")?fileKey=' + result.data);
+                        $('#downloadFileModal').modal();
+                    }
+                }).always(function () {
+                    $exportButton.button('reset');
+                });
+            });
+        });
+</script>
+}

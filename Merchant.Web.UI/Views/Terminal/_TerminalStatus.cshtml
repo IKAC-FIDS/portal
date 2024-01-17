@@ -1,0 +1,21 @@
+﻿@model TerminalDetailsViewModel
+
+@{
+    ViewBag.PageTitle =  "وضعیت پایانه";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+<form class="form-horizontal" method="post" action="@Url.Action("Edit", "Terminal")" id="frmEdit" enctype="multipart/form-data">
+    @Model.StateTitle 
+    <br />
+       @Model.StepCodeTitle 
+ <br />
+    @Model.InstallStatus 
+    
+    <br />
+    @Model.ErrorComment 
+
+    
+
+</form>
+
+ 

@@ -1,0 +1,1620 @@
+﻿@model TerminalManageViewModel
+
+ 
+@section styles {
+    @BundleConfig.AddStyles("~/Content/terminalManageStyles",
+        "~/Content/PersianDatePicker.css",
+        "~/Content/chosen.css")
+}
+
+ <div class="page-header">
+      
+               
+         <div class="row">
+                 <div class="col-md-2 col-sm-2 pull-left">
+                     @if (User.IsAcceptorsExpertUser() || User.IsItUser() || User.IsBranchUser())
+                     {
+                         <a   style="margin-top: 3px;width: 100%;border: 1px groove #2b2b2b;color: black"  href="@Url.Action("Create", "MerchantProfile")" class="btn btn-success pull-left">پذیرنده جدید</a>
+                     }
+                 </div>
+                  <div class="col-md-2 col-sm-2  pull-left">
+                             <a  style="margin-top: 3px;width: 100%;background: #077141" href="@Url.Action("customerreport", "Terminal",
+                                           new { IsSpecial=true})" class="btn btn-success pull-left">    مشتریان    ویژه</a>
+                         </div>
+            <div class="col-md-2 col-sm-2 pull-left" s  >
+                      <a
+                           style="margin-top: 3px;width: 100%;background: #077141" 
+                          href="@Url.Action("LowTransaction", "Terminal",
+                                    new { ThreeMonthInActive=true})" class="btn btn-success pull-left">     مشتریان زیان ده در سه ماه متوالی</a>
+                  </div>
+                                                  
+                  <div class="col-md-2 pull-left" >
+                      <a     style="margin-top: 3px;width: 100%;background: #077141"   href="@Url.Action("LowTransaction", "Terminal",
+                                                                                                  
+                                                              new { TwoMonthInActive=true})"  class=" btn btn-success pull-left">    مشتریان زیان ده در دو ماه متوالی</a>
+                  </div>
+                  
+               
+                 <div class="col-md-2 pull-left">
+                     <a  style="margin-top: 3px;width: 100%;background: #077141"  href="@Url.Action("customerreport", "Terminal" ,
+                                   new { IsGood=true})"  class="btn btn-success pull-left">    مشتریان زیان ده</a>
+                 </div>
+                 
+                       
+                     <div class="col-md-2   ">
+                      <h1> @ViewBag.Title</h1>
+                     </div>
+                 </div>
+               <div class="row"> 
+                 <div class="col-md-4 pull-left">
+                                </div>
+               <div class="col-md-2 pull-left">
+                          <a  style="margin-top: 3px;width: 100%;background: #077141"   href="@Url.Action("TerminalWage", "Terminal",
+                                 new { LowTransaction=true})" class="btn btn-success pull-left">    پایانه های زیان ده</a>
+                </div>
+                                          <div class="col-md-2 pull-left">
+                                                              <a   style="margin-top: 3px;width: 100%;background: #077141"   href="@Url.Action("TerminalWage", "Terminal",
+                                                                                                                      new {    InActive=true})" class="btn btn-success  pull-left"> پایانه های غیر فعال</a>
+                                                          </div>
+                                                            
+                                         
+                                         <div class="col-md-2 pull-left"  >
+                                                               <a  style="margin-top: 3px;width: 100%;background: #077141"  href="@Url.Action("TerminalWage", "Terminal",
+                                                              new { commaSeparatedStatuses =
+                                                           string.Join(",",31,
+                                                                      31) })" class="btn btn-success  pull-left">    پایانه های تاخیر در نصب    </a>
+                                                     </div>  </div>
+         
+           
+ 
+   
+ </div>
+
+@if (Model.NeedToReformTerminalCount > 0)
+{
+    <div class="alert alert-need-to-reform-terminals alert-labeled btn-filter-status clickable" data-status-id="@TerminalStatus.NeedToReform.ToInt32(), @TerminalStatus.UnsuccessfulReturnedFromSwitch.ToInt32()">
+        <div class="alert-labeled-row">
+            <span class="alert-label alert-labelled-cell">
+                <i class="fa fa-pencil"></i>
+            </span>
+            <p class="alert-labelled-cell">
+                تعداد <strong style="text-decoration: underline;">@Model.NeedToReformTerminalCount</strong> پذیرنده نیازمند اصلاح اطلاعات می‌باشد.
+            </p>
+        </div>
+    </div>
+
+    <hr />
+}
+
+<form id="frmSearch" class="form-horizontal">
+<input type="hidden" id="TwoMonthInActive" name="TwoMonthInActive" value="@Model.TwoMonthInActive"  />
+<input type="hidden" id="ThreeMonthInActive" name="ThreeMonthInActive" value="@Model.ThreeMonthInActive"  />
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="StatusIdList">وضعیت پایانه</label>
+                <div class="col-md-8">
+                    @Html.DropDownList("StatusIdList", (IEnumerable<SelectListItem>)ViewBag.StatusList, null, new { @class = "form-control", multiple = "multiple", data_placeholder = "وضعیت های پذیرندگان" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4">شرکت PSP</label>
+                <div class="col-md-8">
+                    <select class="form-control" id="PspId">
+                        <option value="@PspCompany.All.ToInt32()" selected>همه</option>
+                        <option value="@PspCompany.Fanava.ToInt32()">فن آوا</option>
+                        <option value="@PspCompany.IranKish.ToInt32()">ایرانکیش</option>
+                        <option value="@PspCompany.Parsian.ToInt32()">پارسیان</option>
+                           <option value="@PspCompany.PardakhNovin.ToInt32()">پرداخت نوین</option>
+
+                        <option>تخصیص داده نشده</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="TerminalNo">شماره پایانه</label>
+                <div class="col-md-8">
+                    <input type="text" id="TerminalNo" name="TerminalNo" class="form-control only-number" maxlength="18" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="TerminalId">شماره پیگیری</label>
+                <div class="col-md-8">
+                    <input type="text" id="TerminalId" name="TerminalId" class="form-control only-number" maxlength="10" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="NationalCode">کد ملی</label>
+                <div class="col-md-8">
+                    <input type="text" id="NationalCode" name="NationalCode" class="form-control only-number" maxlength="10" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4">نوع دستگاه</label>
+                <div class="col-md-8">
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default active">
+                            <input type="radio" name="IsWireless" id="IsWirelessAll" checked /> همه
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" name="IsWireless" value="true" /> سیار
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" name="IsWireless" value="false" /> ثابت
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="FromSubmitTime">از تاریخ درخواست</label>
+                <div class="col-md-6">
+                    <div class="left-inner-addon">
+                        <i class="fa fa-calendar-o"></i>
+                        <input type="text" id="FromSubmitTime" name="FromSubmitTime" class="form-control date-picker" maxlength="10" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="ToSubmitTime">تا تاریخ درخواست</label>
+                <div class="col-md-6">
+                    <div class="left-inner-addon">
+                        <i class="fa fa-calendar-o"></i>
+                        <input type="text" id="ToSubmitTime" name="ToSubmitTime" class="form-control date-picker" maxlength="10" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4">از تاریخ تراکنش</label>
+                <div class="col-md-6">
+                    @Html.DropDownList("FromTransactionDate", (IEnumerable<SelectListItem>)ViewBag.TransactionDateList, "انتخاب نمایید", new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4">تا تاریخ تراکنش</label>
+                <div class="col-md-6">
+                    @Html.DropDownList("ToTransactionDate", (IEnumerable<SelectListItem>)ViewBag.TransactionDateList, "انتخاب نمایید", new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4">درخواست ها</label>
+                <div class="col-md-8" id="RequestsSection">
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="ChangeAccountRequest" name="ChangeAccountRequest"> درخواست بروزرسانی حساب
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="RevokeRequest" name="RevokeRequest"> درخواست جمع آوری
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Mobile">تلفن همراه</label>
+                <div class="col-md-8">
+                    <input type="text" id="Mobile" name="Mobile" class="form-control only-number" maxlength="11" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="BranchId">شعبه حساب</label>
+                <div class="col-md-8">
+                    @Html.DropDownList("BranchId", (IEnumerable<SelectListItem>)ViewBag.BranchList, "انتخاب نمایید", new { @class = "chosen-select chosen-rtl" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4">وضعیت فعالیت</label>
+                <div class="col-md-8" >
+                    
+                  
+                   
+                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-default " for="AllActive">
+                                          <input type="checkbox" name="AllActive" onchange="handleAllactiveChanged()"   id="AllActive"  /> همه 
+                                        </label>   
+                                            </div>                          
+                                            <div id="JustActive" class="btn-group" data-toggle="buttons" onchange="handleActiveChanged()">
+                                                  <label class="btn btn-default" for="Active">
+                                                          <input type="radio" id="Active" name="JustActive"   onchange="handleActiveChanged()"  value="true"> فعال
+                                                               </label>
+                                                    <label class="btn btn-default    @(Model.InActive  ? "active" : "")"    for="InActive">
+                                                     @{if (Model.InActive) {      <input type="radio" id="InActive" name="JustActive"  
+                                                               
+                                                                                          checked ="checked" 
+                                                               
+                                                                                          onchange="handleActiveChanged()" value="false">   }
+                                                       else
+                                                       {
+                                                           <input type="radio" id="InActive" name="JustActive"  
+                                                               
+                                                                     
+                                                               
+                                                                  onchange="handleActiveChanged()" value="false"> 
+                                                       } }
+                                                    غیرفعال
+                                                                </label>
+                                            </div>
+                                       
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="CustomerNumber">شماره مشتری</label>
+                <div class="col-md-8">
+                    <input type="text" id="CustomerNumber" name="CustomerNumber" class="form-control" maxlength="8" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="MarketerId">نحوه بازاریابی</label>
+                <div class="col-md-8">
+                    @Html.DropDownList("MarketerId", (IEnumerable<SelectListItem>)ViewBag.MarketerList, "انتخاب نمایید", new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pnlAdvancedSearchFields" style="display: none;">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="FullName">نام و نام خانوادگی</label>
+                    <div class="col-md-8">
+                        <input type="text" id="FullName" name="FullName" class="form-control" maxlength="100" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="DeviceTypeId">مدل دستگاه</label>
+                    <div class="col-md-8">
+                        @Html.DropDownList("DeviceTypeId", (IEnumerable<SelectListItem>)ViewBag.DeviceTypeList, "انتخاب نمایید", new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4">نوع شخصیت</label>
+                    <div class="col-md-8">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default active">
+                                <input type="radio" name="IsLegalPersonality" id="LegalPersonalityAll" value="" checked /> همه
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" name="IsLegalPersonality" value="false" /> حقیقی
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" name="IsLegalPersonality" value="true" /> حقوقی
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="Title">نام فروشگاه/شرکت</label>
+                    <div class="col-md-8">
+                        <input type="text" id="Title" name="Title" class="form-control" maxlength="500" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="MerchantNo">شماره پذیرندگی</label>
+                    <div class="col-md-8">
+                        <input type="text" id="MerchantNo" name="MerchantNo" class="form-control only-number" maxlength="18" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4">جنسیت</label>
+                    <div class="col-md-8">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default active">
+                                <input type="radio" name="IsMale" id="GenderAll" value="" checked /> همه
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" name="IsMale" value="true" /> مرد
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" name="IsMale" value="false" /> زن
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="ParentGuildId">صنف</label>
+                    <div class="col-md-8">
+                        @Html.DropDownList("ParentGuildId", (IEnumerable<SelectListItem>)ViewBag.ParentGuildList, "انتخاب نمایید", new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="StateId">استان</label>
+                    <div class="col-md-8">
+                        @Html.DropDownList("StateId", (IEnumerable<SelectListItem>)ViewBag.StateList, "انتخاب نمایید", new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="CityId">شهر</label>
+                    <div class="col-md-8">
+                        <select id="CityId" name="CityId" class="form-control"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="FromInstallationDate">از تاریخ نصب</label>
+                    <div class="col-md-6">
+                        <div class="left-inner-addon">
+                            <i class="fa fa-calendar-o"></i>
+                            <input type="text" id="FromInstallationDate" name="FromInstallationDate" class="form-control date-picker" maxlength="10" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="ToInstallationDate">تا تاریخ نصب</label>
+                    <div class="col-md-6">
+                        <div class="left-inner-addon">
+                            <i class="fa fa-calendar-o"></i>
+                            <input type="text" id="ToInstallationDate" name="ToInstallationDate" class="form-control date-picker" maxlength="10" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="FromRevokeDate">از تاریخ جمع آوری</label>
+                    <div class="col-md-6">
+                        <div class="left-inner-addon">
+                            <i class="fa fa-calendar-o"></i>
+                            <input type="text" id="FromRevokeDate" name="FromRevokeDate" class="form-control date-picker" maxlength="10" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="ToRevokeDate">تا تاریخ جمع آوری</label>
+                    <div class="col-md-6">
+                        <div class="left-inner-addon">
+                            <i class="fa fa-calendar-o"></i>
+                            <input type="text" id="ToRevokeDate" name="ToRevokeDate" class="form-control date-picker" maxlength="10" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="FromTransactionCount">از تعداد تراکنش</label>
+                    <div class="col-md-6">
+                        <input type="text" id="FromTransactionCount" name="FromTransactionCount" class="form-control only-number" maxlength="10" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="ToTransactionCount">تا تعداد تراکنش</label>
+                    <div class="col-md-6">
+                        <input type="text" id="ToTransactionCount" name="ToTransactionCount" class="form-control only-number" maxlength="10" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="FromBatchDate">از تاریخ بچ</label>
+                    <div class="col-md-6">
+                        <div class="left-inner-addon">
+                            <i class="fa fa-calendar-o"></i>
+                            <input type="text" id="FromBatchDate" name="FromBatchDate" class="form-control date-picker" maxlength="10" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="ToBatchDate">تا تاریخ بچ</label>
+                    <div class="col-md-6">
+                        <div class="left-inner-addon">
+                            <i class="fa fa-calendar-o"></i>
+                            <input type="text" id="ToBatchDate" name="ToBatchDate" class="form-control date-picker" maxlength="10" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="FromTransactionPrice">از مبلغ تراکنش</label>
+                    <div class="col-md-6">
+                        <input type="text" id="FromTransactionPrice" name="FromTransactionPrice" class="form-control only-number" maxlength="10" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="ToTransactionPrice">تا مبلغ تراکنش</label>
+                    <div class="col-md-6">
+                        <input type="text" id="ToTransactionPrice" name="ToTransactionPrice" class="form-control only-number" maxlength="10" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4">از تاریخ کارمزد</label>
+                <div class="col-md-6">
+                    @Html.DropDownList("FromWageTransactionDate", (IEnumerable<SelectListItem>)ViewBag.wageDateList, "انتخاب نمایید", new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4">تا تاریخ کارمزد</label>
+                <div class="col-md-6">
+                    @Html.DropDownList("ToWageTransactionDate", (IEnumerable<SelectListItem>)ViewBag.wageDateList, "انتخاب نمایید", new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4">وضعیت شاپرکی پایانه</label>
+                <div class="col-md-8">
+                    
+                         <div class="btn-group" data-toggle="buttons">
+                                               
+                         <label class="btn btn-default "  for="AllTransactionStatus">
+                             <input type="checkbox" name="AllTransactionStatus"  
+                                    onchange="handleAllTransactionStatusChanged()" 
+                                    
+                                    id="AllTransactionStatus"  /> همه
+                         </label>  </div>
+               
+                         <div class="btn-group" id="TransactionStatusSection" data-toggle="buttons">
+                                             
+                        <label class="btn btn-default" for="highTransactionStatusList">
+
+                            <input type="radio" id="highTransactionStatusList"
+                                   onchange="highTransactionStatusListChanged()" 
+                                   
+                                   name="TransactionStatusList" value="@TransactionStatus.HighTransaction.ToByte()">پرتراکنش
+                        </label>
+                             <label class="btn btn-default"
+                                    onchange="highTransactionStatusListChanged()" 
+                                    for="lowTransactionStatusList">
+
+                            <input type="radio" id="lowTransactionStatusList" name="TransactionStatusList" value="@TransactionStatus.LowTransaction.ToByte()"> کم تراکنش
+                        </label>
+                    </div>  
+                    
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="TaxPayerCode">کد رهگیری ثبت نام مالیاتی</label>
+                <div class="col-md-6">
+                    <input type="text" id="TaxPayerCode" name="TaxPayerCode" class="form-control only-number" maxlength="10" />
+                </div>
+            </div>
+        </div>
+    </div>
+    
+     <div class="col-md-6">
+              <div class="form-group">
+                  <label class="control-label col-md-4">وضعیت زیان ده / سود ده</label>
+                  <div class="col-md-8" id="TerminalTransactionStatusSection">
+                      <div class="btn-group" data-toggle="buttons">
+                                
+                          <label class="btn btn-default @(Model.LowTransaction ? "active" : "")">
+                                @{
+                                    if (Model.LowTransaction)
+                                    {
+                                        
+                                        <input type="checkbox" checked="checked" name="TerminalTransactionStatusList" value="@TransactionStatus.LowTransaction.ToByte()">
+                                    }
+                                                                                     else
+                                                                                     {
+                                        <input type="checkbox" name="TerminalTransactionStatusList" value="@TransactionStatus.LowTransaction.ToByte()">
+                                                                                     } }
+                                
+                            زیان ده
+                          </label>
+                          <label class="btn btn-default">
+                              <input type="checkbox" name="TerminalTransactionStatusList" value="@TransactionStatus.HighTransaction.ToByte()">سود ده
+                          </label>
+                      </div>
+                  </div>
+              </div>
+          </div>
+    </div>
+ 
+  
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="button" id="btnSearch" class="btn btn-primary" data-loading-text="در حال جستجو...">جستجو</button>
+            <button type="button" id="btnShowAdvancedSearchFields" class="btn btn-default">نمایش جستجوی پیشرفته</button>
+            <button type="button" id="btnExport" class="btn btn-default" data-toggle="tooltip" title="دریافت خروجی اکسل موارد یافت شده" data-loading-text="در حال تهیه خروجی. لطفاً منتظر بمانید...">دریافت خروجی</button>
+            <button type="button" id="btnClearSearchFilters" class="btn btn-default">حذف تمامی فیلترها</button>
+        </div>
+    </div>
+</form>
+
+<hr />
+
+<div id="TotalSearchResultSection"></div>
+
+<br />
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center" id="tblData">
+        <thead>
+            <tr>
+                <th width="1px"><input type="checkbox" id="SelectAllTerminals" /></th>
+                <th class="sortable" data-sort-field="StatusId" data-sort-direction="" width="1px">وضعیت درخواست</th>
+                <th class="sortable" data-sort-field="TerminalId" data-sort-direction="">شماره پیگیری</th>
+                <th class="sortable" data-sort-field="DeviceTypeTitle" data-sort-direction="">مدل</th>
+                <th class="sortable" data-sort-field="TerminalNo" data-sort-direction="">شماره پایانه</th>
+                <th class="sortable" data-sort-field="TerminalTitle" data-sort-direction="">فروشگاه / شرکت</th>
+                <th class="sortable" data-sort-field="FullName" data-sort-direction="">نام و نام خانوادگی</th>
+                <th class="sortable" data-sort-field="NationalCode" data-sort-direction="">کد ملی</th>
+                <th class="sortable" data-sort-field="AccountNo" data-sort-direction="">شماره حساب</th>
+                <th class="sortable" data-sort-field="CityTitle" data-sort-direction="">شهر</th>
+                <th class="sortable" data-sort-field="PspTitle" data-sort-direction="">PSP</th>
+                <th class="sortable" data-sort-field="isActive" data-sort-direction="">وضعیت فعالیت پایانه</th>
+                <th class="sortable" data-sort-field="lowTransaction" data-sort-direction="">وضعیت  شاپرکی پایانه</th> 
+            <th class="sortable" data-sort-field="transactionValue" data-sort-direction="">جمع تراکنش</th>
+                               <th class="sortable" data-sort-field="transactionCount" data-sort-direction="">   تعداد تراکنش</th>
+                <th class="sortable" data-sort-field="isGood" data-sort-direction="">    وضعیت ( ماه گذشته)  </th>
+                                <th class="sortable" data-sort-field="isGoodValue" data-sort-direction="">     سود / زیان  </th>
+
+                 <th class="sortable" data-sort-field="installDelayDays" data-sort-direction="">    تاخیر در نصب </th>
+                <th width="1px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="15"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="15">
+                    <ul id="terminalPagination" class="pagination-sm"></ul>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div style="z-index: 10000;" class="modal fade" id="downloadFileModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p><a class="btn btn-success btn-lg btn-block" id="DownloadFileLink" href="#">دریافت فایل</a></p>
+                <button type="button" class="btn btn-default btn-lg btn-block" data-dismiss="modal">انصراف</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="fab-button" id="btnGroupConfirm" data-toggle="tooltip" title="ارسال گروهی">
+    ارسال <span id="count"></span> مورد پذیرنده &nbsp;
+    <i class="fa fa-send fa-lg"></i>
+</button>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/terminalManageScripts",
+        "~/Scripts/jquery.twbsPagination.js",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/PersianDatePicker.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.filter_input.js",
+        "~/Scripts/jquery.confirm.js",
+        "~/Scripts/jasny-bootstrap.js",
+        "~/Scripts/chosen.jquery.js",
+        "~/Scripts/addressCreator.js")
+
+    <script type="text/javascript">
+    
+  function  highTransactionStatusListChanged()
+  {
+         $('label[for="AllTransactionStatus"]').removeAttr("active");
+                 $('label[for="AllTransactionStatus"]').removeClass("active");
+             
+              $('input[name=AllTransactionStatus]:checked', '#frmSearch').prop('checked', false);  
+             
+      }
+  function handleActiveChanged(e)
+  {
+       $('label[for="AllActive"]').removeAttr("active");
+           $('label[for="AllActive"]').removeClass("active");
+       
+        $('input[name=AllActive]:checked', '#frmSearch').prop('checked', false);  
+        
+      }
+      function  handleAllTransactionStatusChanged()
+      {
+            $('label[for="highTransactionStatusList"]').removeAttr("active");
+               $('label[for="highTransactionStatusList"]').removeClass("active");
+               
+               $('label[for="lowTransactionStatusList"]').removeAttr("active");
+               $('label[for="lowTransactionStatusList"]').removeClass("active");
+            
+         $('input[name=TransactionStatusList]:checked', '#frmSearch').prop('checked', false);  
+      }
+      
+   function handleAllactiveChanged()
+   {       
+     $('label[for="Active"]').removeAttr("active");
+     $('label[for="Active"]').removeClass("active");
+     
+     $('label[for="InActive"]').removeAttr("active");
+     $('label[for="InActive"]').removeClass("active");
+  
+     $('input[name=JustActive]:checked', '#frmSearch').prop('checked', false);  
+   }
+   
+        function buildSearchParams() {
+      
+           var transactionStatusList = [];
+              var terminalTransactionStatusList = [];
+            $('input[name=TransactionStatusList]:checked', '#frmSearch').each(function () {
+                transactionStatusList.push(this.value);
+            });
+ $('input[name=TerminalTransactionStatusList]:checked', '#frmSearch').each(function () {
+                terminalTransactionStatusList.push(this.value);
+            });
+            return {
+                statusIdList: $('#StatusIdList', '#frmSearch').val() || [],
+                pspId: $('#PspId', '#frmSearch').val(),
+                isWireless: $('input[name=IsWireless]:checked', '#frmSearch').val(),
+                terminalId: $('#TerminalId', '#frmSearch').val(),
+                terminalNo: $('#TerminalNo', '#frmSearch').val(),
+                merchantNo: $('#MerchantNo', '#frmSearch').val(),
+                changeAccountRequest: $('#ChangeAccountRequest', '#frmSearch').is(':checked'),
+                revokeRequest: $('#RevokeRequest', '#frmSearch').is(':checked'),
+                marketerId: $('#MarketerId', '#frmSearch').val(),
+                allActive :  $('#AllActive', '#frmSearch').is(':checked'),
+                                ThreeMonthInActive :  document.getElementById("ThreeMonthInActive").value  == 'value' ,
+                TwoMonthInActive : document.getElementById("TwoMonthInActive").value  == 'value',
+
+                deviceTypeId: $('#DeviceTypeId', '#frmSearch').val(),
+                isLegalPersonality: $('input[name=IsLegalPersonality]:checked', '#frmSearch').val(),
+                title: $('#Title', '#frmSearch').val(),
+                nationalCode: $('#NationalCode', '#frmSearch').val(),
+                isMale: $('input[name=IsMale]:checked', '#frmSearch').val(),
+                parentGuildId: $('#ParentGuildId', '#frmSearch').val(),
+                guildId: $('#GuildId', '#frmSearch').val(),
+                stateId: $('#StateId', '#frmSearch').val(),
+                cityId: $('#CityId', '#frmSearch').val(),
+                branchId: $('#BranchId', '#frmSearch').val(),
+                mobile: $('#Mobile', '#frmSearch').val(),
+                fromSubmitTime: $('#FromSubmitTime', '#frmSearch').val(),
+                toSubmitTime: $('#ToSubmitTime', '#frmSearch').val(),
+                fromInstallationDate: $('#FromInstallationDate', '#frmSearch').val(),
+                toInstallationDate: $('#ToInstallationDate', '#frmSearch').val(),
+                fromBatchDate: $('#FromBatchDate', '#frmSearch').val(),
+                toBatchDate: $('#ToBatchDate', '#frmSearch').val(),
+                fromRevokeDate: $('#FromRevokeDate', '#frmSearch').val(),
+                toRevokeDate: $('#ToRevokeDate', '#frmSearch').val(),
+                fromTransactionCount: $('#FromTransactionCount', '#frmSearch').val(),
+                toTransactionCount: $('#ToTransactionCount', '#frmSearch').val(),
+                fromTransactionPrice: $('#FromTransactionPrice', '#frmSearch').val(),
+                toTransactionPrice: $('#ToTransactionPrice', '#frmSearch').val(),
+                fromTransactionDate: $('#FromTransactionDate', '#frmSearch').val(),
+                toTransactionDate: $('#ToTransactionDate', '#frmSearch').val(),
+                customerNumber: $('#CustomerNumber', '#frmSearch').val(),
+                justActive: $('input[name=JustActive]:checked', '#frmSearch').val(),
+                fullName: $('#FullName', '#frmSearch').val(),
+                taxPayerCode: $('#TaxPayerCode', '#frmSearch').val(),
+                transactionStatusList: transactionStatusList,
+                   terminalTransactionStatusList: terminalTransactionStatusList
+                //justVip: $('#input[name=JustVip]:checked', '#frmSearch').val()
+            };
+        }
+
+        function loadData(retriveTotalPageCount, page) {
+            if ($('input[name=TransactionStatusList]:checked').length && !$('#FromTransactionDate', '#frmSearch').val()) {
+                toastr.warning('در صورت انتخاب وضعیت فعالیت پایانه از تاریخ تراکنش نیز بایستی وارد لطفاً از تاریخ تراکنش را وارد نمایید');
+                return false;
+            }
+
+            var sortColumn = $('#tblData th.active');
+            var orderClause = '';
+
+            if (sortColumn.length) {
+                orderClause = sortColumn.data('sort-field') + ' ' + sortColumn.data('sort-direction');
+            }
+
+            $('#btnGroupConfirm').fadeOut();
+            $('#tblData tbody').empty().append('<tr><td colspan="15"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+            if (retriveTotalPageCount) {
+                var pagingData = $('#terminalPagination').data('twbs-pagination');
+                if (pagingData) $('#terminalPagination').twbsPagination('destroy');
+                $('#btnSearch').removeData('total-pages');
+            }
+
+            $('#SelectAllTerminals').attr('checked', false);
+            $('#SelectAllTerminals').trigger('change');
+
+            var $searchButton = $('#btnSearch');
+            $searchButton.button('loading');
+
+            var params = $.extend({ retriveTotalPageCount: retriveTotalPageCount, page: page, orderByColumn: orderClause }, buildSearchParams());
+
+            return $.post('@Url.Action("GetCustomData", "Terminal")', params).done(function (result) {
+                $searchButton.button('reset');
+                $('#tblData tbody').empty();
+                $('#TotalSearchResultSection').empty();
+                var html = '';
+
+                if (!result.success) {
+                    $('#tblData tbody').empty().append('<tr><td colspan="15"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                    return false;
+                }
+
+                if (result.data.rows.length === 0) {
+                    $('#tblData tbody').empty().append('<tr><td colspan="15"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                    return false;
+                }
+
+                if (retriveTotalPageCount) {
+                    $('#TotalSearchResultSection').empty().append('<b>تعداد موارد یافت شده: </b>' + convertToPersianNumbers(result.data.totalRowsCount) + ' مورد');
+                } else {
+                    $('#TotalSearchResultSection').empty();
+                }
+
+                if (retriveTotalPageCount && result.data.totalRowsCount > 0) {
+                    $('#btnSearch').data('total-pages', result.data.totalRowsCount);
+
+                    $('#terminalPagination').twbsPagination({
+                        totalPages: Math.ceil(result.data.totalRowsCount / 300),
+                        visiblePages: 7,
+                        last: '<i class="fa fa-fast-backward"></i>',
+                        next: '<i class="fa fa-backward"></i>',
+                        prev: '<i class="fa fa-forward"></i>',
+                        first: '<i class="fa fa-fast-forward"></i>',
+                        initiateStartPageClick: false,
+                        onPageClick: function (event, page) {
+                            loadData(false, page);
+                        }
+                    });
+                }
+
+                for (var i = 0; i < result.data.rows.length; i++) {
+                    var item = result.data.rows[i];
+
+                    html += '<tr data-terminal-id="' + item.terminalId + '" data-status-id="' + item.statusId + '">' +
+                        '<td class="text-nowrap">' + ((item.statusId === @TerminalStatus.New.ToInt32() && @JsonNet.Encode(User.IsAcceptorsExpertUser())) ? '<input type="checkbox" class="send-to-psp" /></td>' : '') +
+                        '<td style="text-align: right !important;" class="text-nowrap">' + createStatusIcon(item.statusId, item.statusTitle, item.submitterUserFullName) + '</td>' +
+                        '<td>' + item.terminalId + '</td>' +
+                        '<td>' + (item.deviceTypeTitle ? item.deviceTypeTitle : '') + '</td>' +
+                        '<td>' + (item.terminalNo || '') + '</td>' +
+                        '<td>' + item.terminalTitle + '</td>' +
+                        '<td>' + item.fullName + '</td>' +
+                        '<td>' + item.nationalCode + '</td>' +
+                        '<td class="monospaced-number">' + item.accountNo + '</td>' +
+                        '<td><span data-toggle="tooltip" title="استان ' + item.stateTitle + '">' + item.cityTitle + '</span></td>' +
+                        '<td>' + createPspIcon(item.pspId, item.pspTitle) + '</td>' +
+                        
+                        
+                                            
+                        '<td>' + getActiveStatus(item.isActive) + '</td>' +
+                       '<td>' + createTransactionStatusIcon2(item.lowTransaction) + '</td>' +      
+                                             
+                        
+                           '<td><span data-toggle="tooltip" title="تعداد: ' + convertToPersianNumbersThreeDigitsSeparated(item.transactionCount) + '">' +  convertToPersianNumbersThreeDigitsSeparated(item.transactionValue) + '</span></td>' +
+                                                         '<td>' +   convertToPersianNumbersThreeDigitsSeparated(item.transactionCount) + '</td>' +
+                         '<td>' +( item.isGood == null ? "-" : ( item.isGood ? "سودده" : "زیان ده")) + '</td>' +
+                          '<td  style="direction:ltr;color: ' +   (item.isGoodValue > 0 ?'green"': 'red"') + '>' + convertToPersianNumbersThreeDigitsSeparated (item.isGoodValue )+ '</td>' +
+                                                 
+                          '<td>' + item.installDelayDays + '</td>' +
+                                             
+                        '<td class="text-nowrap actions">';
+
+                    html += showNotesButton(item.terminalId);
+                    html += showEditButton(item.statusId, item.terminalId, item.marketerId);
+                    html += showRequestsButton(item.statusId, item.terminalNo, item.terminalId);
+                                       html += showDamageRequestButton(item.statusId,  item.terminalNo, item.terminalId);
+
+                    html += showConfirmButton(item.statusId, item.fullName, item.nationalCode, item.accountNo, item.shebaNo, item.terminalId);
+                    html += showTransactionsButton(item.terminalNo);
+                    html += showDetailsButton(item.statusId, item.terminalId);
+                    html += showDeleteButton(item.statusId, item.terminalId);
+                    html += showStatusRequestButton(item.terminalId, item.topiarId ,item.pspId,item.statusId);
+
+                    //html += showToggleVipButton(item.terminalId);
+                    html += '</td></tr>';
+                }
+
+                $('#tblData tbody').empty().append(html);
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
+
+        function showDetailsButton(statusId, terminalId) {
+            return '<button data-toggle="tooltip" title="مشاهده اطلاعات کامل" data-terminal-id="' + terminalId + '" class="btn btn-default btn-xs btn-details"><i class="fa fa-eye"></i></button> &nbsp;';
+        }
+
+        function showTransactionsButton(terminalNo) {
+            return (terminalNo && terminalNo.match(/^ *$/) === null) ? '<button data-toggle="tooltip" title="تراکنش ها" data-terminal-no="' + terminalNo + '" class="btn btn-default btn-xs btn-transactions"><i class="fa fa-exchange"></i></button> &nbsp;' : '';
+        }
+
+        function showDeleteButton(statusId, terminalId) {
+            if ((@JsonNet.Encode(User.IsAdmin()) && (statusId == '@TerminalStatus.New.ToByte()' || statusId == '@TerminalStatus.NeedToReform.ToByte()' || statusId == '@TerminalStatus.NotReturnedFromSwitch.ToByte()')) || (@JsonNet.Encode(User.IsAcceptorsExpertUser()) && statusId === @TerminalStatus.New.ToByte())) {
+                return '<button data-loading-text="..." data-toggle="tooltip" title="حذف" data-terminal-id="' + terminalId + '" class="btn btn-danger btn-xs btn-delete"><i class="fa fa-trash"></i></button> &nbsp;';
+            } else {
+                return '';
+            }
+        }
+
+        function showNotesButton(terminalId) {
+            return '<button data-terminal-id="' + terminalId + '" data-toggle="tooltip" data-loading-text="..." title="یادداشت ها" class="btn btn-default btn-xs btn-notes"><i class="fa fa-commenting"></i></button> &nbsp;';
+        }
+
+        //function showToggleVipButton(terminalId) {
+        //    return '<button data-terminal-id="' + terminalId + '" data-toggle="tooltip" data-loading-text="..." title="اضافه / حذف از موارد ویژه" class="btn btn-warning btn-xs btn-toggle-vip"><i class="fa fa-star"></i></button>';
+        //}
+
+function showStatusRequestButton( terminalId,topiarId, pspId,statusId)
+{
+        console.log('showstatus',terminalId,topiarId, topiarId !== null)
+
+    
+    if (pspId == 3)
+        {
+            if ( topiarId !== null)
+                {
+     return '<button data-topiar-id="' + topiarId +   '" data-terminal-id="' + terminalId + '" data-toggle="tooltip"' +
+      ' data-loading-text="..." title="استعلام وضعیت" style="background-color:dodgerblue" class="btn btn-success btn-xs btn-getTerminalStatus"><i class="fa fa-info-circle"></i></button> &nbsp;';
+
+                    
+                    }
+            else if (statusId !==  4 )
+                {
+        
+                    return '<button    data-terminal-id="' + terminalId + '" data-toggle="tooltip"' +
+                          ' data-loading-text="..." title="استعلام وضعیت" ' +
+
+                           'style="background-color:dodgerblue" class="btn btn-success btn-xs btn-getRequestStatus"><i class="fa fa-info-circle"></i></button> &nbsp;';
+
+                    
+                    }
+            else return  ''
+            
+            }
+    else
+        {
+            return  ''
+            }
+    
+    
+    }
+
+        function showConfirmButton(statusId, fullName, nationalCode, accountNo, shebaNo, terminalId) {
+            if (@JsonNet.Encode(User.IsAcceptorsExpertUser()) && (statusId === @TerminalStatus.NeedToReform.ToByte() || statusId === @TerminalStatus.UnsuccessfulReturnedFromSwitch.ToByte())) {
+                return '<button data-full-name="' + fullName + '" data-national-code="' + convertToPersianNumbers(nationalCode) + '" data-account-number="' + convertToPersianNumbers(accountNo) + '" data-sheba-number="' + convertToPersianNumbers(shebaNo) + '" data-terminal-id="' + terminalId + '" data-toggle="tooltip" data-loading-text="..." title="تایید" class="btn btn-success btn-xs btn-confirm"><i class="fa fa-check"></i></button> &nbsp;';
+            } else {
+                return '';
+            }
+        }
+function showDamageRequestButton(statusId, terminalNo,terminalId) {
+             if (@JsonNet.Encode(User.IsAcceptorsExpertUser() || User.IsAdmin())
+                         && (  statusId !== @TerminalStatus.Deleted.ToByte())) {
+       return '<button data-toggle="tooltip" title="اعلام خسارت    " data-terminal-id="' + terminalId + '" class="btn btn-default btn-xs btn-damage-request">' +
+        '<i class="fa fa-diamond"></i></button> &nbsp;';
+}
+             else
+                 return  '';
+              }
+        function showRequestsButton(statusId, terminalNo,terminalId) {
+            if (@JsonNet.Encode(User.IsAcceptorsExpertUser() || User.IsBranchUser() || User.IsItUser())
+             && (terminalNo && terminalNo.match(/^ *$/) === null && statusId === @TerminalStatus.Installed.ToByte())) {
+                return '<div class="btn-group"><button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ثبت درخواست <span class="caret"></span></button><ul class="dropdown-menu">' +
+                    '<li><a class="btn-change-account-request" data-terminal-number="' + terminalNo + '">تغییر حساب</a></li>' +
+                    '<li><a class="btn-revoke-request" data-terminal-number="' + terminalNo + '">جمع آوری</a></li>' +
+                                                    
+                    '</ul></div> &nbsp;';
+            } 
+          
+            else {
+                return '';
+            }
+        }
+
+        function showEditButton(statusId, terminalId, marketerId) {
+            if (@JsonNet.Encode(User.IsAcceptorsExpertUser() || User.IsBranchUser() || User.IsItUser())) {
+                if (statusId === @TerminalStatus.New.ToByte() || statusId === @TerminalStatus.NeedToReform.ToByte() || statusId == @TerminalStatus.UnsuccessfulReturnedFromSwitch.ToByte()) {
+
+                    if (@User.IsBranchUser().ToString().ToLower()) {
+                        if (marketerId === @Marketer.BankOrBranch.ToByte() && statusId != @TerminalStatus.UnsuccessfulReturnedFromSwitch.ToByte()) {
+                            return '<button data-terminal-id="' + terminalId + '" data-toggle="tooltip" title="ویرایش" class="btn btn-default btn-xs btn-edit"><i class="fa fa-pencil"></i></button> &nbsp;';
+                        } else {
+                            return '';
+                        }
+                    } else {
+                        return '<button data-terminal-id="' + terminalId + '" data-toggle="tooltip" title="ویرایش" class="btn btn-default btn-xs btn-edit"><i class="fa fa-pencil"></i></button> &nbsp;';
+                    }
+                } else {
+                    return '';
+                }
+            } else {
+                return '';
+            }
+        }
+
+        $('.date-picker').on('click', function () {
+            PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDate()', true);
+        });
+        
+           $('#AllActive').on('click', function () {
+                   alert('asdfasdfasdfasdf')
+                });
+                
+        
+        
+
+        function createStatusIcon(statusId, statusTitle, submitterUserFullName) {
+            var statusColor = '#D7CCC8';
+            switch (statusId) {
+                case @TerminalStatus.New.ToByte():
+                    statusColor = '#FFC107';
+                    break;
+                case @TerminalStatus.NotReturnedFromSwitch.ToByte():
+                    statusColor = '#607D8B';
+                    break;
+                case @TerminalStatus.NeedToReform.ToByte():
+                    statusColor = '#009688';
+                    break;
+                case @TerminalStatus.ReadyForAllocation.ToByte():
+                    statusColor = '#CDDC39';
+                    break;
+                case @TerminalStatus.Allocated.ToByte():
+                    statusColor = '#8BC34A';
+                    break;
+                case @TerminalStatus.Test.ToByte():
+                    statusColor = '#03A9F4';
+                    break;
+                case @TerminalStatus.Installed.ToByte():
+                    statusColor = '#4CAF50';
+                    break;
+                case @TerminalStatus.Revoked.ToByte():
+                    statusColor = '#f44336';
+                    break;
+                case @TerminalStatus.UnsuccessfulReturnedFromSwitch.ToByte():
+                    statusColor = '#00BFA5';
+                    break;
+            }
+
+            return '<span style="background-color: ' + statusColor + '; font-weight: 500;" data-toggle="tooltip" title="' + submitterUserFullName + '" class="label label-default">' + statusTitle + '</span>';
+        }
+
+        function createPspIcon(pspId, pspTitle) {
+            var pspColor, pspShortTitle;
+
+            switch (pspId) {
+                case @PspCompany.Fanava.ToByte():
+                    pspShortTitle = 'FA';
+                    pspColor = '#5C6BC0';
+                    break;
+                case @PspCompany.IranKish.ToByte():
+                    pspShortTitle = 'IK';
+                    pspColor = '#E91E63';
+                    break;
+                case @PspCompany.Parsian.ToByte():
+                    pspShortTitle = 'PA';
+                    pspColor = '#FFB300';
+                    break;
+                      case @PspCompany.PardakhNovin.ToByte():
+                                                                    pspShortTitle = 'PN';
+                                                                    pspColor = '#0f4158';
+                                                                    break;
+                default:
+                    pspShortTitle = '??';
+                    pspTitle = 'تخصیص داده نشده';
+                    pspColor = '#9E9E9E';
+                    break;
+            }
+
+            return '<span style="background-color: ' + pspColor + '; font-weight: 500;" data-toggle="tooltip" title="' + pspTitle + '" class="label label-default small-label">' + pspShortTitle + '</span>';
+        }
+        
+          function getActiveStatus(isActive) {
+                    var color, shortTitle;
+        
+                    console.log('xzcvzxcvzxcvzxvc',isActive);
+                    
+                    if (isActive   )
+                        {
+                             shortTitle = '  فعال';
+                                            color = '#28874a';
+                      }
+                    else if( isActive  == false )
+                           {
+                                 shortTitle = 'غیر فعال';
+                        color = '#9E9E9E';
+                           }
+                   else 
+         {
+                                         shortTitle = '-';
+                                color = '#9E9E9E';
+                                   }
+                    return isActive ? '<small style="font-weight: bold; color: ' + color + ';">' + shortTitle + '</small>' :
+                     '<small style="font-weight: bold; color: ' + color + ';">' + shortTitle + '</small>' ;
+                }
+
+  function createTransactionStatusIcon2(transactionStatusId) {
+            var color, shortTitle;
+
+            console.log("'inja'" + transactionStatusId)
+            if ( transactionStatusId == false )
+                {
+                     shortTitle = 'پر تراکنش';
+                                    color = '#28874a';
+              }
+                 else if(transactionStatusId)
+                       
+                                     {
+                                          shortTitle = 'کم تراکنش';
+                                                         color = '#9E9E9E';
+                                   }
+                 else
+                     {
+                           shortTitle = '-';
+                           color = '#9E9E9E';
+                         }
+           
+
+            return transactionStatusId ? '<small style="font-weight: bold; color: ' + color + ';">' + shortTitle + '</small>' : 
+             '<small style="font-weight: bold; color: ' + color + ';">' + shortTitle + '</small>' ;
+        }
+
+        function createTransactionStatusIcon(transactionStatusId) {
+            var color, shortTitle;
+
+            switch (transactionStatusId) {
+            case @TransactionStatus.HighTransaction.ToByte():
+                shortTitle = 'پُر تراکنش';
+                color = '#009688';
+                break;
+            case @TransactionStatus.LowTransaction.ToByte():
+                shortTitle = 'کم تراکنش';
+                color = '#9E9E9E';
+                break;
+            case @TransactionStatus.WithoutTransaction.ToByte():
+                shortTitle = 'فاقد تراکنش';
+                color = '#E91E63';
+                break;
+            default:
+                shortTitle = 'نامشخص';
+                color = '#CFD8DC';
+                break;
+            }
+
+            return transactionStatusId ? '<small style="font-weight: bold; color: ' + color + ';">' + shortTitle + '</small>' : '';
+        }
+
+        function refreshCurrentPage(){
+            var currentPageNo = $('#terminalPagination li.page.active').data('page');
+            loadData(false, currentPageNo);
+        }
+
+        function showEditDialog(terminalId) {
+            $.showModal({
+                modalSize: 'xlg',
+                url: '@Url.Action("Edit", "Terminal")',
+                data: { terminalId: terminalId },
+                onClose: function (modalResult) {
+                    if (modalResult === 'ok') {
+                        refreshCurrentPage();
+                    }
+                }
+            });
+        }
+
+        function showBlockDocumentEditDialog(terminalId) {
+            $.showModal({
+                modalSize: 'lg',
+                url: '@Url.Action("Edit", "BlockDocument")',
+                data: { terminalId: terminalId }
+            });
+        }
+
+        function changeTransactionStatusList()
+        {
+     
+                            if (document.getElementById("allTransactionStatusList").checked === true)
+                                {
+                                        alert(document.getElementById("allTransactionStatusList").checked === true)
+                                      $("#highTransactionStatusList").removeClass('active');
+                                         $("#lowTransactionStatusList").removeClass('active');
+                                   document.getElementById("highTransactionStatusList").checked = false;
+                                   $("#highTransactionStatusList").prop("checked", false);
+                                   document.getElementById("lowTransactionStatusList").checked = false;
+                                        $("#lowTransactionStatusList").prop("checked", false);
+                                }
+                            
+                         
+            }
+        $(document).ready(function () {
+            
+            
+         
+                
+                
+            @if (!string.IsNullOrEmpty(Model.CommaSeparatedStatuses))
+            {
+                var commaSeparatedValues = JsonNet.Encode(Model.CommaSeparatedStatuses.GetCommaSeparatedValues().ToArray());
+                <text>
+                    $('#StatusIdList').val(@commaSeparatedValues).trigger("chosen:updated");
+                </text>
+            }
+
+            loadData(true, 1);
+
+            $('#SelectAllTerminals').on('change', function () {
+                if (this.checked) {
+                    $('.send-to-psp').prop('checked', true).trigger('change');
+                } else {
+                    $('.send-to-psp').prop('checked', false).trigger('change');
+                }
+            });
+
+            $('#tblData').on('change', 'tbody .send-to-psp', function () {
+                var $row = $(this).closest('tr');
+
+                if (this.checked) {
+                    $row.addClass('info');
+                } else {
+                    $row.removeClass('info');
+                }
+
+                if ($('#tblData tbody tr.info').length) {
+                    $('#btnGroupConfirm').fadeIn();
+                    $('#btnGroupConfirm #count').empty().append(convertToPersianNumbers($('#tblData tbody tr.info').length));
+                } else {
+                    $('#btnGroupConfirm').fadeOut();
+                }
+            });
+
+            $('#btnGroupConfirm').on('click', function () {
+                $.showModal({
+                    url: '@Url.Action("GroupConfirm", "Terminal")',
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            $('#btnGroupConfirm').fadeOut();
+                            loadData(true, 1);
+                        }
+                    }
+                });
+            });
+
+            $('#tblData th.sortable').on('click', function () {
+                var sortDirection = $(this).data('sort-direction');
+
+                $('#tblData th').removeClass('active');
+                $('#tblData th').find('i').remove();
+
+                if (!sortDirection) {
+                    sortDirection = 'ASC';
+                    $(this).addClass('active');
+                    $(this).append('<i class="fa fa-chevron-up"></i>');
+                } else if (sortDirection === 'ASC') {
+                    sortDirection = 'DESC';
+                    $(this).addClass('active');
+                    $(this).append('<i class="fa fa-chevron-down"></i>');
+                } else if (sortDirection === 'DESC') {
+                    sortDirection = '';
+                    $(this).removeClass('active');
+                }
+
+                $(this).data('sort-direction', sortDirection);
+                loadData(false, 1);
+            });
+
+            $('.only-number', '#frmSearch').filter_input({ regex: '[0-9]' });
+            $('#BranchId').chosen({ width: "100%" });
+            $('#StatusIdList').chosen({ width: "100%", rtl: true });
+
+
+            $('#btnShowAdvancedSearchFields').on('click', function () {
+                $('#pnlAdvancedSearchFields').slideToggle(500);
+
+                if ($(this).text() === "نمایش جستجوی پیشرفته") {
+                    $(this).text("عدم نمایش جستجوی پیشرفته");
+                } else {
+                    $(this).text("نمایش جستجوی پیشرفته");
+                    $('#pnlAdvancedSearchFields').find('input:text').val('');
+                    $('#pnlAdvancedSearchFields').find('select').val('');
+                    $('#LegalPersonalityAll', '#frmSearch').click();
+                    $('#GenderAll', '#frmSearch').click();
+                }
+            });
+
+            $('#btnClearSearchFilters').on('click', function () {
+                $('input:text', '#frmSearch').val('');
+                $('select', '#frmSearch').val('');
+                $('#PspId', '#frmSearch').val('@PspCompany.All.ToInt32()');
+                $('#LegalPersonalityAll', '#frmSearch').click();
+                $('#GenderAll', '#frmSearch').click();
+                $('#AllTransactionStatuses', '#frmSearch').click();
+                $('#IsWirelessAll', '#frmSearch').click();
+                $('#TransactionStatusSection', '#frmSearch').find('label').removeClass('active');
+                $('#TransactionStatusSection', '#frmSearch').find('input[type="checkbox"]').removeAttr('checked');
+                
+                
+                 $('#JustActive', '#frmSearch').find('label').removeClass('active');
+                 $('#JustActive', '#frmSearch').find('input[type="checkbox"]').removeAttr('checked');
+                                
+                                
+                 $('#TerminalTransactionStatusSection', '#frmSearch').find('label').removeClass('active');
+                                $('#TerminalTransactionStatusSection', '#frmSearch').find('input[type="checkbox"]').removeAttr('checked');
+                                
+                                
+                $('#RequestsSection', '#frmSearch').find('label').removeClass('active');
+                $('#RequestsSection', '#frmSearch').find('input[type="checkbox"]').removeAttr('checked');
+                $('#BranchId', '#frmSearch').val('').trigger("chosen:updated");
+                $('#StatusIdList', '#frmSearch').val('').trigger("chosen:updated");
+                $('#All', '#frmSearch').click();
+            });
+
+            $('#StateId').on('change', function () {
+                var $that = $(this);
+                $('#CityId').empty().append('<option value="">انتخاب نمایید</option>').attr('disabled', 'disabled');
+
+                $.get('@Url.Action("GetCities", "City")', { stateId: $that.val() }).done(function (result) {
+                    $('#CityId').removeAttr('disabled');
+                    $.each(result.data, function (index, item) {
+                        $('#CityId').append('<option value="' + item.value + '">' + item.text + '</option>');
+                    });
+                });
+            });
+
+            $('#ParentGuildId').on('change', function () {
+                var $that = $(this);
+                $('#GuildId').empty().append('<option value="">انتخاب نمایید</option>').attr('disabled', 'disabled');
+
+                $.get('@Url.Action("GetChildGuilds", "Guild")', { parentId: $that.val() }).done(function (result) {
+                    $('#GuildId').removeAttr('disabled');
+                    $.each(result.data, function (index, item) {
+                        $('#GuildId').append('<option value="' + item.value + '">' + item.text + '</option>');
+                    });
+                });
+            });
+
+            $('#tblData').on('click.btn-details', '.btn-details', function () {
+                var terminalId = $(this).data('terminal-id');
+
+                console.log('bababa',  $('#FromTransactionDate', '#frmSearch').val());
+                $.showModal({
+                    modalSize: 'lg',
+                    url: '@Url.Action("Details", "Terminal")',
+                    data: { terminalId: terminalId, from : 
+                    $('#FromWageTransactionDate', '#frmSearch').val()
+                    
+                    ,to:   $('#ToWageTransactionDate', '#frmSearch').val() },
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            loadData(true, 1);
+                        } else if (modalResult == 'showEdit') {
+                            showEditDialog(terminalId);
+                        } else if (modalResult == 'showBlockDocumentEdit') {
+                            showBlockDocumentEditDialog(terminalId);
+                        }
+                    }
+                });
+            });
+
+            $('#tblData').on('click.btn-notes', '.btn-notes', function () {
+                var terminalId = $(this).data('terminal-id');
+
+                $.showModal({
+                    modalSize: 'lg',
+                    url: '@Url.Action("Index", "TerminalNote")',
+                    data: { terminalId: terminalId }
+                });
+            });
+
+            $('#tblData').on('click.btn-transactions', '.btn-transactions', function () {
+                $.showModal({
+                    modalSize: 'xlg',
+                    url: '@Url.Action("Index", "Transaction")',
+                    data: { terminalNo: $(this).data('terminal-no') }
+                });
+            });
+
+            $('#tblData').on('click.btn-change-account-request', '.btn-change-account-request', function () {
+                $.showModal({
+                    modalSize: 'md',
+                    url: '@Url.Action("Create", "ChangeAccountRequest")',
+                    data: { terminalNo: $(this).data('terminal-number') }
+                });
+            });
+
+            $('#tblData').on('click.btn-revoke-request', '.btn-revoke-request', function () {
+                $.showModal({
+                    modalSize: 'lg',
+                    url: '@Url.Action("Create", "RevokeRequest")',
+                    data: { terminalNo: $(this).data('terminal-number') }
+                });
+            });
+          $('#tblData').on('click.btn-damage-request', '.btn-damage-request', function () {
+             
+                $.showModal({
+                    modalSize: 'lg',
+                    url: '@Url.Action("Create", "PropertyDamageRequest")',
+                    data: { terminalId: $(this).data('terminal-id') }
+                });
+            });
+            $('#tblData').on('click.btn-edit', '.btn-edit', function () {
+                showEditDialog($(this).data('terminal-id'));
+            });
+
+            
+            $('#tblData').on('click.btn-confirm', '.btn-confirm', function () {
+                            var $button = $(this);
+            
+                            $.showConfirm({
+                                body: '<strong>نام و نام خانوادگی: </strong> <span>' + $button.data('full-name') + '</span><br /><br /><strong>کد ملی: </strong> <span>' + $button.data('national-code') + '</span><br /><br /><strong>شماره حساب: </strong> <span dir="ltr">' + $button.data('account-number') + '</span><br /><br /><strong>شبا: </strong> <span>' + $button.data('sheba-number') + '</span>',
+                                onConfirm: function () {
+                                    $button.button('loading');
+            
+                                    $.post('@Url.Action("Confirm", "Terminal")', { terminalId: $button.data('terminal-id') }).done(function (result) {
+                                        $.processMessage(result);
+                                        $button.button('reset');
+            
+                                        if (result.success) {
+                                            refreshCurrentPage();
+                                        }
+                                    });
+                                }
+                            });
+                        });
+
+            
+            $('#tblData').on('click.btn-getTerminalStatus', '.btn-getTerminalStatus', function () {
+               
+                 let terminalId = $(this).data('terminal-id');
+                                 let topiarId = $(this).data('topiar-id');
+
+                                $.showModal({
+                                    modalSize: 'lg',
+                                    url: '@Url.Action("GetRequestStatus", "Terminal")',
+                                    data: {topiarId : topiarId, TerminalId: terminalId },
+                                    onClose: function (modalResult) {
+                                        
+                                        console.log('asdfasdfasdf',modalResult);
+                                        
+                                        if (modalResult === 'ok') {
+                                            loadData(true, 1);
+                                        } else if (modalResult == 'showEdit') {
+                                            showEditDialog(terminalId);
+                                        } else if (modalResult == 'showBlockDocumentEdit') {
+                                            showBlockDocumentEditDialog(terminalId);
+                                        }
+                                    }
+                                });
+            });
+            
+            
+            $('#tblData').on('click.btn-getRequestStatus', '.btn-getRequestStatus', function () {
+           
+                console.log('asdfasdfasdfeeee');
+            let terminalId = $(this).data('terminal-id');
+                                           let topiarId = $(this).data('topiar-id');
+                console.log('asdfasdfasdfeeee',topiarId,terminalId);
+
+  
+                                $.showModal({
+                                    modalSize: 'lg',
+                                    url: '@Url.Action("GetRequestStatus", "Terminal")',
+                                    data: {topiarId : 0, TerminalId: terminalId },
+                                    onClose: function (modalResult) { 
+                                                                            console.log('asdfasdfasdf2',modalResult);
+
+                                        if (modalResult === 'ok') {
+                                            loadData(true, 1);
+                                        } else if (modalResult == 'showEdit') {
+                                            showEditDialog(terminalId);
+                                        } else if (modalResult == 'showBlockDocumentEdit') {
+                                            showBlockDocumentEditDialog(terminalId);
+                                        }
+                                    }
+                                });
+                                
+            });
+
+            $('#tblData').on('click.btn-delete', '.btn-delete', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("Delete", "Terminal")', { terminalId: $button.data('terminal-id') }).done(function (result) {
+                            $button.button('reset');
+                            $.processMessage(result);
+
+                            if (result.success) {
+                                $button.closest('tr').remove();
+
+                                if ($('#tblData tbody').is(":empty")) {
+                                    $('#tblData tbody').empty().append('<tr><td colspan="15"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                                    $('#Pagination').twbsPagination('destroy');
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+            @*$('#tblData').on('click.btn-toggle-vip', '.btn-toggle-vip', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("ToggleVip", "Terminal")', { terminalId: $button.data('terminal-id') }).done(function (result) {
+                            $button.button('reset');
+                            $.processMessage(result);
+
+                            if (result.success) {
+                                refreshCurrentPage();
+                            }
+                        });
+                    }
+                });
+            });*@
+
+            $('#DownloadFileLink').click(function() {
+                $('#downloadFileModal').modal('hide');
+            });
+
+            $('#btnExport').on('click', function () {
+                var $exportButton = $(this);
+                $exportButton.button('loading');
+
+                $.post('@Url.Action("ExportTerminalData", "Export")', buildSearchParams()).done(function (result) {
+                    $.processMessage(result);
+                    $exportButton.button('reset');
+
+                    if (result.success) {
+                        var $downloadLink = $('#downloadFileModal .modal-body a');
+                        $downloadLink.prop('href', '@Url.Action("DownloadTerminalOutputFile", "Export")?fileKey=' + result.data);
+                        $('#downloadFileModal').modal();
+                    }
+                });
+            });
+
+            $('#btnSearch').on('click', function () {
+                loadData(true, 1);
+            });
+
+            $('.btn-filter-status').on('click', function () {
+                var statusIdList = $(this).data('status-id').split(',').map(Number);
+                $('#StatusIdList').val(statusIdList).trigger("chosen:updated");
+                loadData(true, 1);
+
+                $('html, body').animate({
+                    scrollTop: $("#tblData").offset().top
+                }, 600);
+            });
+        });
+    </script>
+}

@@ -1,0 +1,153 @@
+﻿@model CardRequestViewModel
+
+@{
+    ViewBag.PageTitle = "     بارگذاری فایل نهایی ";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+<style>
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.upload-btn {
+  border: 1px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+ 
+  font-weight: bold;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+ 
+</style>
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/messageIndexScripts",
+        "~/Scripts/jquery.twbsPagination.js",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/PersianDatePicker.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.confirm.js",
+        "~/Scripts/chosen.jquery.js")
+    <script>
+function  Validate()
+{
+ 
+ }
+</script>
+}
+<form action="@Url.Action("UploadFile", "PropertyDamageRequest")" onsubmit="Validate()" method="post" class="form-horizontal" id="frmCreateMessage">
+
+    
+  @Html.Hidden("Id")
+  
+    <div class="form-group">
+          <label class="control-label col-md-2  " for="Status"> وضعیت  </label>
+          <div class="col-md-4">
+  
+              @Html.DropDownList("Status", (IEnumerable<SelectListItem>) ViewBag.closeStatus, "انتخاب نمایید", new {@class = "form-control"})
+  
+          </div>
+         
+         
+  
+      </div>
+
+     
+     
+     <div class="form-group">
+        <label class="control-label col-md-2" for="PostedFiles"></label>
+        <div class="col-md-10">
+             <div class="upload-btn-wrapper ">
+                      <button id="uploadLbl" class="col-md-12 upload-btn">  بارگذاری فایل نهایی  </button>
+                 <input type="file" name="PostedFiles" id="PostedFiles" 
+                      accept=".jpg,.jpeg,.pdf,.docx,.png"
+                        />
+                    </div>
+ 
+        </div>
+        
+       
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button id="btnConfirm" type="submit" class="btn btn-success btn-lg" data-loading-text="درحال ارسال...">ارسال</button>
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">انصراف</button>
+        </div>
+    </div>
+</form>
+<style>
+    .custom-file-upload {
+      border: 1px solid #ccc;
+      display: inline-block;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+</style>
+<script type="text/javascript">
+ 
+ 
+ 
+ 
+ 
+  
+    $(document).ready(function () {
+        
+         $("input[type=file]").click(function(){
+                 $(this).val("");
+                                 
+
+             });
+         
+             $("input[type=file]").change(function(){
+                 //alert($(this).val());
+console.log('xcvxvcxcvxvcx',$(this)[0].files[0].name)
+                 $("#uploadLbl").html( $(this)[0].files[0].name)
+                 
+             });
+        $('#frmCreateMessage').submit(function(e) {
+                               }).validate({
+            rules: {
+                
+                PostedFiles : {required : true},
+               
+            },
+            submitHandler: function (form,e) {
+                
+                var $button = $('#btnConfirm', '#frmCreateMessage');
+                $button.button('loading');
+
+                $(form).ajaxSubmit({
+                    success: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+
+                        if (result.success) {
+                            $.closeModal('ok');
+                        }
+                    }, error: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+                    }
+                });
+            }
+        });
+    });
+</script>

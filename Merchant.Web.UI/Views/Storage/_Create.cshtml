@@ -1,0 +1,327 @@
+﻿@model CardRequestViewModel
+
+@{
+    ViewBag.PageTitle = " ثبت منبع جدید ";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+<style>
+ .switch {
+   position: relative;
+   display: inline-block;
+   width: 90px;
+   height: 34px;
+ }
+ 
+ .switch input {display:none;}
+ 
+ .slider {
+   position: absolute;
+   cursor: pointer;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: #ca2222;
+   -webkit-transition: .4s;
+   transition: .4s;
+ }
+ 
+ .slider:before {
+   position: absolute;
+   content: "";
+   height: 26px;
+   width: 26px;
+   left: 4px;
+   bottom: 4px;
+   background-color: white;
+   -webkit-transition: .4s;
+   transition: .4s;
+ }
+ 
+ input:checked + .slider {
+   background-color: #2ab934;
+ }
+ 
+ input:focus + .slider {
+   box-shadow: 0 0 1px #2196F3;
+ }
+ 
+ input:checked + .slider:before {
+   -webkit-transform: translateX(55px);
+   -ms-transform: translateX(55px);
+   transform: translateX(55px);
+ }
+ 
+ /*------ ADDED CSS ---------*/
+ .on
+ {
+   display: none;
+ }
+ 
+ .on, .off
+ { 
+ color: white;
+   position: absolute;
+   transform: translate(-50%,-50%);
+   top: 50%;
+   left: 50%;
+   font-size: 10px; 
+ }
+   #offspan  {
+        outline: none;
+    }
+  #offspan:focus {
+      outline: none;
+  }
+  #onspan{
+    outline: none;
+  }
+  
+ #onspan:focus {
+     outline: none;
+ }
+ input:checked+ .slider .on
+ {display: block;}
+ 
+ input:checked+ .slider .off
+ {display: none;}
+ 
+ /*--------- END --------*/
+ 
+ /* Rounded sliders */
+ .slider.round {
+   border-radius: 34px;
+ }
+ 
+ .slider.round:before {
+   border-radius: 50%;}
+</style>
+<script type="text/javascript">
+ 
+   
+  function  test(){
+      
+  
+  let q =  $("#HasPacketChB" ).is(":checked") ;
+  console.log('aaerer',q);
+  
+     if (q)
+       {
+          $("#IsCard").val(false);
+      
+            $("#designDiv").attr("hidden","hidden")
+                        $("#designLbl").attr("hidden","hidden")
+                        $("#uploadDiv").attr("hidden","hidden")
+
+
+            
+       }
+   else
+    { 
+        $("#IsCard").val(true);
+                    $("#designLbl").removeAttr("hidden")
+        $("#uploadDiv").removeAttr("hidden")
+
+        $("#designDiv").removeAttr("hidden")
+           }
+   
+  
+      }
+function  Validate()
+{
+    // var phoneNumber = document.getElementById('Phone').value;
+    //  var phoneRGEX = /^[0-9]{4}[0-9]{3}[0-9]{4}/;
+    //  var phoneResult = phoneRGEX.test(phoneNumber);
+    //
+    //  console.log('ammmooooo',phoneResult);
+    //  if (!phoneResult)
+    //      alert('فرمت تلفن مناسب نمی باشد');
+    //  return phoneResult;
+    }
+</script>
+<form action="@Url.Action("Create", "Storage")" onsubmit="Validate()" method="post" class="form-horizontal" id="frmCreateMessage">
+
+    
+    <div class="form-group">
+
+         <label class="control-label col-md-2 required" for="title"> عنوان </label>
+               <div class="col-md-4">
+                   <input type="text" id="title" name="title" class="form-control" maxlength="300" autocomplete="off"/>
+               </div>
+       
+        <label class="control-label col-md-2 required" for="value"> مقدار پیش فرض </label>
+        <div class="col-md-4">
+            <input type="text" id="value" name="value" class="form-control" maxlength="300" autocomplete="off"/>
+        </div>
+    </div>
+
+
+  
+    <div class="form-group">
+           
+         <label class="control-label col-md-2 required" for="IsCard">   کارت جدید  </label>
+                       <div class="col-md-4">
+                            @Html.Hidden("IsCard", new { value=true})
+                                    <label class=" switch">
+                                        <input type="checkbox"    id="HasPacketChB">
+                             
+                                        <div onclick="test()" class="slider round">
+                                  
+                                            <span id="onspan"  class="on">بله</span>
+                                            <span id="offspan" class="off">خیر</span>
+                                  
+                                        </div>
+                                    </label>
+                       </div>
+               
+                <label class="control-label col-md-2  " hidden="hidden" id="designLbl" for="design">  عنوان طرح     </label>
+        <div class="col-md-4" id="designDiv" hidden="hidden">
+            <input type="text" id="design" name="design" class="form-control" maxlength="300" autocomplete="off"/>
+        </div>
+        
+     
+         
+     
+    </div>
+       
+    
+    <div class="form-group" hidden="hidden" id="uploadDiv">
+         <label class="control-label col-md-2 required" for="code">  کد طرح </label>
+        <div class="col-md-4">
+            <input type="text" id="code" name="code" class="form-control" maxlength="300" autocomplete="off"/>
+        </div>
+        
+        <label class="control-label col-md-2" for="PostedFiles">فایل</label>
+        <div class="col-md-4">
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+                <span class="btn btn-default btn-file" tabindex="6">
+
+                    <label for="PostedFiles" class="custom-file-upload">
+                        <i class="fa fa-cloud-upload"></i> انتخاب کنید
+                    </label>
+
+                    <input type="file" id="PostedFiles" style="display: none" name="PostedFiles" multiple
+                           accept=".jpg">
+                </span>
+                <span class="fileinput-filename"></span>
+                <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-12">
+            <button id="btnConfirm" type="submit" class="btn btn-success btn-lg" data-loading-text="درحال ارسال...">ارسال</button>
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">انصراف</button>
+        </div>
+    </div>
+</form>
+<style>
+    .custom-file-upload {
+      border: 1px solid #ccc;
+      display: inline-block;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+</style>
+<script type="text/javascript">
+
+
+ function Comma(Num) { //function to add commas to textboxes
+         Num += '';
+         Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
+         Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
+         x = Num.split('.');
+         x1 = x[0];
+         x2 = x.length > 1 ? '.' + x[1] : '';
+         var rgx = /(\d+)(\d{3})/;
+         while (rgx.test(x1))
+             x1 = x1.replace(rgx, '$1' + ',' + '$2');
+         return x1 + x2;
+     }
+
+ 
+ $('#PostedFiles').change(function() {
+   
+   var i = $(this).prev('label').clone();
+   var file ="";// $('#PostedFiles')[0].files[0].name;
+   let q = $('#PostedFiles')[0].files;
+   
+       if (q.length ==1 )
+       {
+            file  =$('#PostedFiles')[0].files[0].name ;
+           }
+      
+       else
+ {
+       for (var j = 0; j < q.length; j++) {
+           
+           if (j != q.length -1)
+              file += q[j].name + ",";
+           else
+                           file += q[j].name ;
+
+        }
+     }
+   console.log('aaaaaaaaaaaaan' , q, file );
+   
+   $(this).prev('label').text(file);
+ });
+ 
+ 
+ function myfunc(e)
+ {
+     $('.radCHeck').prop('checked', false);
+     
+  $("#rad-" + e).prop("checked",! $("#rad-" + e).is(":checked"));
+  $("#TemplateId").val(e);
+  
+      console.log('bbbbbbbbb3bbbbbbbb',$("#TemplateId").val(), $("#rad-" + e));
+     }
+    $(document).ready(function () {
+        $('#frmCreateMessage').submit(function(e) {
+           
+           
+                              }).validate({
+            rules: {
+                Subject: { required: true, maxlength: 3000 },
+                Count :{ required : true,digits: true },
+                Price:{ required : true  },
+                PostedFiles : {required : true},
+                TemplateId : { required : true},
+                CardServiceTypeId : { required : true},
+                Body: { required: true }
+            },
+            submitHandler: function (form,e) {
+                 if ($("#TemplateId").val() === "")
+                                                {
+                                                   
+                                                      toastr.options.timeOut = 0;
+                                                      toastr.options.extendedTimeOut = 0;
+                                                      toastr.error( 'لطفا یک طرح را انتخاب نمایید', 'خطا');
+                                                         e.preventDefault();
+                                                      return 0 ;
+                                                }
+                
+                
+                var $button = $('#btnConfirm', '#frmCreateMessage');
+                $button.button('loading');
+
+                $(form).ajaxSubmit({
+                    success: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+
+                        if (result.success) {
+                            $.closeModal('ok');
+                        }
+                    }, error: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+                    }
+                });
+            }
+        });
+    });
+</script>

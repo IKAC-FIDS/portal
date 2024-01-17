@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services" />
+  <xs:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" />
+  <xs:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/PecCare.Domain.Cartable" />
+  <xs:element name="RegisterPosRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="req" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegisterPosRequestResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services" minOccurs="0" name="RegisterPosRequestResult" nillable="true" type="q1:WsPosResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckPosRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="requestCode" type="xs:int" />
+        <xs:element minOccurs="0" name="organisationId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckPosRequestResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services" minOccurs="0" name="CheckPosRequestResult" nillable="true" type="q2:WsPosResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckPosStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="posId" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckPosStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CheckPosStatusResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPosTermNo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="posId" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPosTermNoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services" minOccurs="0" name="GetPosTermNoResult" nillable="true" type="q3:PosInfoResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelPosRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="posId" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelPosRequestResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CancelPosRequestResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeIbanRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" minOccurs="0" name="request" nillable="true" type="q4:ChangeIbanRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeIbanRequestResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" minOccurs="0" name="ChangeIbanRequestResult" nillable="true" type="q5:ChangeIbanResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckChangeIbanStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" minOccurs="0" name="request" nillable="true" type="q6:ChangeIbanStatusRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckChangeIbanStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" minOccurs="0" name="CheckChangeIbanStatusResult" nillable="true" type="q7:ChangeIbanStatusResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckPosShaparakStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="posId" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckPosShaparakStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" minOccurs="0" name="CheckPosShaparakStatusResult" nillable="true" type="q8:CheckPosShaparakStatusResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPeriodMaintenanceHistory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fromDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="toDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="terminalNo" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPeriodMaintenanceHistoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" minOccurs="0" name="GetPeriodMaintenanceHistoryResult" nillable="true" type="q9:PmResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMarketingTerminals">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="organizationId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMarketingTerminalsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" minOccurs="0" name="GetMarketingTerminalsResult" nillable="true" type="q10:MarketingResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditMerchantPerson">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="posId" type="xs:int" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" minOccurs="0" name="pmcRequest" nillable="true" type="q11:PmcRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditMerchantPersonResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" minOccurs="0" name="EditMerchantPersonResult" nillable="true" type="q12:EditPosDataResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditMerchantLegal">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/PecCare.Domain.Cartable" minOccurs="0" name="lmcModel" nillable="true" type="q13:LmcModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditMerchantLegalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" minOccurs="0" name="EditMerchantLegalResult" nillable="true" type="q14:EditPosDataResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Getdata">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="s" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetdataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetdataResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegisterIPGPosRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="IPGPosRequest" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegisterIPGPosRequestResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services" minOccurs="0" name="RegisterIPGPosRequestResult" nillable="true" type="q15:WsPosResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegisterNewPosRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Request" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegisterNewPosRequestResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services" minOccurs="0" name="RegisterNewPosRequestResult" nillable="true" type="q16:WsPosResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="addDoc">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" minOccurs="0" name="Request" nillable="true" type="q17:DocInfoRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="addDocResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" minOccurs="0" name="addDocResult" nillable="true" type="q18:DocInfoResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Insert_PishkhanJsonTbl">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="trackingNumberPsp" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="strJsons" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requestType" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Insert_PishkhanJsonTblResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Insert_PishkhanJsonTblResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Update_PishkhanJsonTbl">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="trackingNumberPsp" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="trackingNumber" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Update_PishkhanJsonTblResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Update_PishkhanJsonTblResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Select_PishkhanJsonTbl">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="trackingNumber" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Select_PishkhanJsonTblResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Select_PishkhanJsonTblResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="trackingNumberPsp" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="jsonValue" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requestType" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetSerial">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" minOccurs="0" name="request" nillable="true" type="q19:SetSerialRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetSerialResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" minOccurs="0" name="SetSerialResult" nillable="true" type="q20:SetSerialResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveSerial">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" minOccurs="0" name="request" nillable="true" type="q21:RemoveSerialRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveSerialResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" minOccurs="0" name="RemoveSerialResult" nillable="true" type="q22:RemoveSerialResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PosConfirmDate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" minOccurs="0" name="request" nillable="true" type="q23:PosConfirmDateRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PosConfirmDateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" minOccurs="0" name="PosConfirmDateResult" nillable="true" type="q24:PosConfirmDateResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

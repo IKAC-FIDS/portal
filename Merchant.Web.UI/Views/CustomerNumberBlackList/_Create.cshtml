@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.PageTitle = "ثبت شماره مشتری جدید";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+<form action="@Url.Action("Create", "CustomerNumberBlackList")" method="post" class="form-horizontal" id="CustomerNumberBlackListCreateForm">
+    <div class="form-group">
+        <label class="control-label col-md-3 required" for="CustomerNumber">شماره مشتری</label>
+        <div class="col-md-9">
+            <input type="text" id="CustomerNumber" name="CustomerNumber" class="form-control only-number" maxlength="8" autocomplete="off" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-3 required" for="CustomerNumber">توضیحات</label>
+        <div class="col-md-9">
+            <textarea type="text" id="Description" name="Description" class="form-control " maxlength="1000" autocomplete="off"></textarea>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-12">
+            <input type="submit" value="ثبت" id="btnConfirm" data-loading-text="در حال ثبت..." class="btn btn-success btn-lg" />
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">انصراف</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.only-number').filter_input({ regex: '[0-9]' });
+
+        $('#CustomerNumberBlackListCreateForm').validate({
+            rules: {
+                CustomerNumber: { required: true, maxlength: 8, minlength: 8 }
+            },
+            submitHandler: function (form) {
+                var $button = $('#btnConfirm', '#CustomerNumberBlackListCreateForm');
+                $button.button('loading');
+
+                $(form).ajaxSubmit({
+                    success: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+
+                        if (result.success) {
+                            $.closeModal('ok');
+                        }
+                    }, error: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+                    }
+                });
+
+                return false;
+            }
+        });
+    });
+</script>

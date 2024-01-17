@@ -1,0 +1,210 @@
+﻿@{
+    ViewBag.Title = "گزارش وضعیت عملکرد پایانه ها";
+}
+
+<div class="page-header">
+    <h1>گزارش وضعیت عملکرد پایانه ها</h1>
+</div>
+
+<div class="form-horizontal">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Year">سال</label>
+                <div class="col-md-8">
+                    <select id="Year" name="Year" class="form-control">
+                        @for (int i = DateTime.Now.GetPersianYear(); i >= 1395; i--)
+                        {
+                            <option value="@i" @(i == DateTime.Now.ToPersianYear() ? "selected" : "")>@i</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Month">ماه</label>
+                <div class="col-md-8">
+                    <select id="Month" name="Month" class="form-control">
+                        <option selected value="">انتخاب نمایید</option>
+                        <option value="1">فروردین</option>
+                        <option value="2">اردیبهشت</option>
+                        <option value="3">خرداد</option>
+                        <option value="4">تیر</option>
+                        <option value="5">مرداد</option>
+                        <option value="6">شهریور</option>
+                        <option value="7">مهر</option>
+                        <option value="8">آبان</option>
+                        <option value="9">آذر</option>
+                        <option value="10">دی</option>
+                        <option value="11">بهمن</option>
+                        <option value="12">اسفند</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default active">
+                    <input type="radio" name="GroupBy" value="city" checked /> براساس شهر
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="GroupBy" value="state" /> براساس استان
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="GroupBy" value="branchManagment" /> براساس مناطق
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="GroupBy" value="orgunit" /> براساس شعبه
+                </label>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <a id="DownloadButton" href="" data-href="@Url.Action("DownloadBranchRankingData", "Report")" class="btn btn-success hidden">دریافت خروجی</a>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="alert alert-info">
+    <b>پُر‌تراکنش: </b> <span>پایانه‎هایی که مبلغ تراکنش آنها در ماه مورد بررسی مساوی و یا بیشتر از 20 میلیون ریال باشد و یا تعداد تراکنش آنها در ماه مورد بررسی بیشتر از 60 تراکنش در ماه باشد پایانه پُرتراکنش می‎باشند.</span>
+
+    <br />
+
+    <b>کم‌تراکنش: </b> <span>پایانه‎هایی که مبلغ تراکنش آنها در ماه مورد بررسی مساوی و یا بیشتر از 10000ريال و کمتر از 20 میلیون ریال باشد و همچنین تعداد تراکنش آنها در ماه مورد بررسی کمتر از 60 تراکنش در ماه باشد (بجز پایانه‎های فاقد تراکنش).</span>
+
+    <br />
+
+    <b>فاقد تراکنش: </b> <span>‎مبلغ تراکنش خرید آنها در ماه مورد بررسی صفر تا حداکثر9999 ريال باشد.</span>
+</div>
+
+<hr />
+
+<div class="table-responsive">
+    <table class="table table-bordered text-center" id="tblPriceRank">
+        <thead>
+            <tr class="active">
+                <th>کد</th>
+                <th>نام</th>
+                <th>تعداد دستگاه های کارتخوان</th>
+                <th>تعداد دستگاه منصوبه ثابت</th>
+                <th>تعداد دستگاه منصوبه سیار</th>
+                <th>پُر‌تراکنش</th>
+                <th>کم‌تراکنش</th>
+                <th>فاقد تراکنش</th>
+                <th>جمع مبلغ تراکنش (ریال)</th>
+                <th>جمع تعداد تراکنش</th>
+                <th>تعداد تراکنش بر دستگاه کارتخوان</th>
+                <th>مبلغ تراکنش بر دستگاه کارتخوان (ریال)</th>
+                @if (!User.IsBranchUser())
+                {
+                    <th>رتبه براساس بالاترین متوسط مبلغ تراکنش بر دستگاه کارتخوان</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td colspan="15"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>
+        </tbody>
+    </table>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+
+        function loadRankingData() {
+            var year = $('#Year').val();
+            var month = $('#Month').val();
+            var groupBy = $('input[name=GroupBy]:checked').val();
+
+            $('#tblPriceRank tbody').empty();
+
+            if (year && month) {
+
+                var html = '<tr><td colspan="15"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>';
+                $('#tblPriceRank tbody').append(html);
+
+                $.getJSON('@Url.Action("GetBranchRankingData", "Report")', { year: year, month: month, groupby: groupBy })
+                    .done(function (result) {
+                        $.processMessage(result);
+                        $('#tblPriceRank tbody').empty();
+
+                        if (!result.success) {
+                            $('#tblPriceRank tbody').empty().append('<tr><td colspan="15"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                            return false;
+                        }
+
+                        if (result.data.length === 0) {
+                            $('#tblPriceRank tbody').empty().append('<tr><td colspan="15"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                            return false;
+                        }
+
+                        html = '';
+
+                        for (var i = 0; i < result.data.length; i++) {
+                            html += '<tr>' +
+                                '<td>' + result.data[i].id + '</td>' +
+                                '<td>' + result.data[i].title + '</td>' +
+                                '<td>' + result.data[i].totalTerminalCount + '</td>' +
+                                '<td>' + result.data[i].withWireTerminalCount + '</td>' +
+                                '<td>' + result.data[i].wirelessTerminalCount + '</td>' +
+                                '<td>' + result.data[i].highTransactionCount + '</td>' +
+                                '<td>' + result.data[i].lowTransactionCount + '</td>' +
+                                '<td>' + result.data[i].withoutTransactionCount + '</td>' +
+                                '<td>' + convertToPersianNumbersThreeDigitsSeparated(result.data[i].totalTransactionSum) + '</td>' +
+                                '<td>' + convertToPersianNumbersThreeDigitsSeparated(result.data[i].totalTransactionCount) + '</td>' +
+                                '<td>' + result.data[i].totalTransactionCountPerPos + '</td>' +
+                                '<td>' + convertToPersianNumbersThreeDigitsSeparated(result.data[i].totalTransactionPricePerPos) + '</td>' +
+                                (!@JsonNet.Encode(User.IsBranchUser()) ? '<td>' + (i + 1) + '</td>' : '')+
+                                '</tr>';
+                        }
+                        $('#tblPriceRank tbody').append(html);
+                    });
+            }
+        }
+
+        $(document).ready(function () {
+            $('#Year').change(function () {
+                var year = $(this).val();
+                var month = $('#Month').val();
+                var groupBy = $('input[name=GroupBy]:checked').val();
+
+                if (!year || !month || !groupBy)
+                    return false;
+
+                $('#Month').val('');
+                $('#DownloadButton').prop('href', '');
+                $('#DownloadButton').addClass('hidden');
+            });
+
+            $('#Month').change(function () {
+                var year = $('#Year').val();
+                var month = $(this).val();
+                var groupBy = $('input[name=GroupBy]:checked').val();
+
+                if (!year || !month || !groupBy)
+                    return false;
+
+                $('#DownloadButton').removeClass('hidden');
+                $('#DownloadButton').prop('href', $('#DownloadButton').data('href') + '?groupby=' + groupBy + '&year=' + year + '&month=' + month);
+                loadRankingData();
+            });
+
+            $('input[type=radio][name=GroupBy]').on('change', function () {
+                var year = $('#Year').val();
+                var month = $('#Month').val();
+                var groupBy = $('input[name=GroupBy]:checked').val();
+
+                if (!year || !month || !groupBy) {
+                    return false;
+                }
+
+                $('#DownloadButton').prop('href', $('#DownloadButton').data('href') + '?groupby=' + groupBy + '&year=' + year + '&month=' + month);
+                loadRankingData();
+            });
+        });
+    </script>
+}

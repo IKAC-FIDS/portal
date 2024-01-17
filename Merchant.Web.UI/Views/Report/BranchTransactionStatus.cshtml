@@ -1,0 +1,469 @@
+﻿@model BTSViewModel
+
+@{
+    ViewBag.Title = "گزارش وضعیت تراکنش ها";
+}
+
+@section styles {
+    @BundleConfig.AddStyles("~/Content/branchTransactionStatusStyles",
+        "~/Content/PersianDatePicker.css",
+        "~/Content/chosen.css")
+}
+
+<div class="page-header">
+    <h1>گزارش وضعیت تراکنش ها</h1>
+</div>
+
+<div class="form-horizontal">
+    @if (!User.IsBranchUser())
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="BranchId">شعبه</label>
+                    <div class="col-md-8">
+                        @Html.DropDownList("BranchId", (IEnumerable<SelectListItem>)ViewBag.BranchList, "انتخاب نمایید", new { @class = "chosen-select chosen-rtl" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="FromMonth">از تاریخ</label>
+                <div class="col-md-4">
+                    <select id="FromMonth" name="FromMonth" class="form-control">
+                        <option value="1">فروردین</option>
+                        <option value="2">اردیبهشت</option>
+                        <option value="3">خرداد</option>
+                        <option value="4">تیر</option>
+                        <option value="5">مرداد</option>
+                        <option value="6">شهریور</option>
+                        <option value="7">مهر</option>
+                        <option value="8">آبان</option>
+                        <option value="9">آذر</option>
+                        <option value="10">دی</option>
+                        <option value="11">بهمن</option>
+                        <option value="12">اسفند</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select id="FromYear" name="FromYear" class="form-control">
+                        @for (int i = DateTime.Now.GetPersianYear(); i >= 1395; i--)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="ToMonth">تا تاریخ</label>
+                <div class="col-md-4">
+                    <select id="ToMonth" name="ToMonth" class="form-control">
+                        <option value="1">فروردین</option>
+                        <option value="2">اردیبهشت</option>
+                        <option value="3">خرداد</option>
+                        <option value="4">تیر</option>
+                        <option value="5">مرداد</option>
+                        <option value="6">شهریور</option>
+                        <option value="7">مهر</option>
+                        <option value="8">آبان</option>
+                        <option value="9">آذر</option>
+                        <option value="10">دی</option>
+                        <option value="11">بهمن</option>
+                        <option value="12">اسفند</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select id="ToYear" name="ToYear" class="form-control">
+                        @for (int i = DateTime.Now.GetPersianYear(); i >= 1395; i--)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="button" id="SearchButton" class="btn btn-success" data-loading-text="در حال تهیه گزارش...">جستجو</button>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="panel-body">
+    <div id="chartContainer"></div>
+    <hr />
+    <div id="container2"></div>
+    <hr />
+    <div id="container3"></div>
+    <hr />
+    <div id="container4"></div>
+    <hr />
+    <div id="container5"></div>
+    <hr />
+    <div id="container6"></div>
+</div>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/reportBankTransactionStatusScripts",
+            "~/Scripts/highcharts/highcharts.js",
+            "~/Scripts/highcharts/highcharts-more.js",
+            "~/Scripts/highcharts/exporting.js",
+            "~/Scripts/highcharts/offline-exporting.js",
+            "~/Scripts/PersianDatePicker.js",
+            "~/Scripts/chosen.jquery.js")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#BranchId').chosen({ width: "100%" });
+
+            @if (Request.QueryString["FromYear"] != null)
+            {
+                <text>$('#FromYear').val('@Request.QueryString["FromYear"]');</text>
+            }
+
+            @if (Request.QueryString["FromMonth"] != null)
+            {
+                <text>$('#FromMonth').val('@Request.QueryString["FromMonth"]');</text>
+            }
+
+            @if (Request.QueryString["ToYear"] != null)
+            {
+                <text>$('#ToYear').val('@Request.QueryString["ToYear"]');</text>
+            }
+
+            @if (Request.QueryString["ToMonth"] != null)
+            {
+                <text>$('#ToMonth').val('@Request.QueryString["ToMonth"]');</text>
+            }
+
+            $('.date-picker').on('click', function () {
+                PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDate()', true);
+            });
+
+            $('#SearchButton').click(function () {
+
+                $(this).button('loading');
+
+                var url = '@Url.Action("BranchTransactionStatus", "Report")' +
+                    '?fromYear=' + $('#FromYear').val() +
+                    '&fromMonth=' + $('#FromMonth').val() +
+                    '&toYear=' + $('#ToYear').val() +
+                    '&toMonth=' + $('#ToMonth').val();
+
+                    @if (!User.IsBranchUser())
+                    {
+                        <text>
+                            url += '&branchId=' + $('#BranchId').val();
+                        </text>
+                    }
+
+                window.location.href = url;
+            });
+
+            Highcharts.setOptions({
+                lang: {
+                    thousandsSep: ''
+                },
+                colors: ['#8BC34A', '#E91E63', '#00BCD4', '#009688', '#9C27B0', '#FFC107', '#4CAF50', '#795548', '#03A9F4']
+            });
+
+            @if (Model.BTS != null && Model.BTS.Any())
+            {
+                <text>
+                Highcharts.chart('chartContainer', {
+                    exporting: {
+                        chartOptions: {
+                            plotOptions: {
+                                series: {
+                                    dataLabels: {
+                                        enabled: true
+                                    }
+                                }
+                            }
+                        },
+                        fallbackToExportServer: false
+                    },
+                    chart: {
+                        type: 'line',
+                        marginTop: 120
+                    },
+                    title: {
+                        text: 'وضعیت مبلغ تراکنش'
+                    },
+                    xAxis: {
+                        categories: @Html.Raw(JsonNet.Encode(Model.BTS.Select(x=> x.YearMonth.ToString().GetReadableMonthYear()))),
+                        labels: {
+                            formatter: function () {
+                                return convertToPersianNumbers(this.value);
+                            }
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'مبلغ - ریال'
+                        },
+                        labels: {
+                            formatter: function () {
+                                return convertToPersianNumbersThreeDigitsSeparated(this.value / 1000000);
+                            }
+                        }
+                    },
+                    tooltip: {
+                        useHTML: true,
+                        crosshairs: true,
+                        formatter: function () {
+                            return '<b>' + convertToPersianNumbers(this.x) + '</b> <br />' + '<b>' + this.series.name + '</b>: ' + convertToPersianNumbersThreeDigitsSeparated(this.y) + ' ریال';
+                        }
+                    },
+                    series: [
+                        {
+                            name: 'میانگین',
+                            data: @Html.Raw(JsonNet.Encode(Model.BTS.Select(x=> x.AveragePrice))),
+                            dataLabels: {
+                                enabled: true,
+                                rotation: 90,
+                                crop: false,
+                                y: -20,
+                                x: -15,
+                                inside: false,
+                                formatter: function () {
+                                    return convertToPersianNumbersThreeDigitsSeparated(this.y);
+                                }
+                            }
+                        },
+                        {
+                            name: 'حداکثر',
+                            data: @Html.Raw(JsonNet.Encode(Model.BTS.Select(x=> x.MaxPrice))),
+                            dataLabels: {
+                                enabled: true,
+                                rotation: 90,
+                                crop: false,
+                                y: -20,
+                                x: -30,
+                                inside: false,
+                                formatter: function () {
+                                    return convertToPersianNumbersThreeDigitsSeparated(this.y);
+                                }
+                            }
+                        }
+                    ]
+                });
+                </text>
+            }
+
+            @if (Model.BTS3 != null && Model.BTS3.Any())
+            {
+                <text>
+                    Highcharts.chart('container3', {
+                        chart: {
+                            type: 'column'
+                        },
+
+                        title: {
+                            text: 'مجموع مبلغ تراکنش های خرید'
+                        },
+                        xAxis: {
+                            categories: @Html.Raw(JsonNet.Encode(Model.BranchNames)),
+                            labels: {
+                                formatter: function () {
+                                    return convertToPersianNumbers(this.value);
+                                }
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'مبلغ - ریال'
+                            },
+                            labels: {
+                                formatter: function () {
+                                    return convertToPersianNumbersThreeDigitsSeparated(this.value / 1000000);
+                                }
+                            }
+                        },
+                        tooltip: {
+                            shared: true,
+                            useHTML: true,
+                            formatter: function () {
+                                var result = '<span style="font-size:10px">' + this.x + '</span><table>';
+                                for (var i = 0; i < this.points.length; i++) {
+                                    var point = this.points[i];
+                                    result += '<tr><td style="color:' + point.color + ';padding:0">' + point.series.name + ': </td><td style="padding:0"><b>' + convertToPersianNumbersThreeDigitsSeparated(point.y) + '</b></td></tr>';
+                                }
+                                result += '</table>';
+                                return result;
+                            }
+                        },
+                        plotOptions: {
+                            column: {
+                                pointPadding: 0.2,
+                                borderWidth: 0
+                            }
+                        },
+                        series: @Html.Raw(JsonNet.Encode(Model.BTS3.Select(x => new { Name = x.Name.ToString().GetReadableMonthYear(), Data = x.SumOfPriceData }))),
+                        colors: ['#FFC107', '#9C27B0', '#8BC34A', '#3F51B5', '#9E9E9E', '#E91E63', '#CDDC39', '#607D8B', '#00BCD4']
+                    });
+
+                    Highcharts.chart('container4', {
+                        chart: {
+                            type: 'column'
+                        },
+
+                        title: {
+                            text: 'مجموع تعداد تراکنش های خرید'
+                        },
+                        xAxis: {
+                            categories: @Html.Raw(JsonNet.Encode(Model.BranchNames)),
+                            labels: {
+                                formatter: function () {
+                                    return convertToPersianNumbers(this.value);
+                                }
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'تعداد'
+                            },
+                            labels: {
+                                formatter: function () {
+                                    return convertToPersianNumbersThreeDigitsSeparated(this.value);
+                                }
+                            }
+                        },
+                        tooltip: {
+                            shared: true,
+                            useHTML: true,
+                            formatter: function () {
+                                var result = '<span style="font-size:10px">' + this.x + '</span><table>';
+                                for (var i = 0; i < this.points.length; i++) {
+                                    var point = this.points[i];
+                                    result += '<tr><td style="color:' + point.color + ';padding:0">' + point.series.name + ': </td><td style="padding:0"><b>' + convertToPersianNumbersThreeDigitsSeparated(point.y) + '</b></td></tr>';
+                                }
+                                result += '</table>';
+                                return result;
+                            }
+                        },
+                        plotOptions: {
+                            column: {
+                                pointPadding: 0.2,
+                                borderWidth: 0
+                            }
+                        },
+                        series: @Html.Raw(JsonNet.Encode(Model.BTS3.Select(x => new { Name = x.Name.ToString().GetReadableMonthYear(), Data = x.TotalCountData }))),
+                        colors: ['#3F51B5', '#CDDC39', '#8BC34A', '#FFC107', '#00BCD4', '#E91E63', '#90A4AE', '#607D8B', '#9C27B0']
+                    });
+
+                    Highcharts.chart('container5', {
+                        chart: {
+                            type: 'column'
+                        },
+
+                        title: {
+                            text: 'میانگین مبلغ تراکنش های خرید'
+                        },
+                        xAxis: {
+                            categories: @Html.Raw(JsonNet.Encode(Model.BranchNames)),
+                            labels: {
+                                formatter: function () {
+                                    return convertToPersianNumbers(this.value);
+                                }
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'مبلغ - ریال'
+                            },
+                            labels: {
+                                formatter: function () {
+                                    return convertToPersianNumbersThreeDigitsSeparated(this.value / 1000000);
+                                }
+                            }
+                        },
+                        tooltip: {
+                            shared: true,
+                            useHTML: true,
+                            formatter: function () {
+                                var result = '<span style="font-size:10px">' + this.x + '</span><table>';
+                                for (var i = 0; i < this.points.length; i++) {
+                                    var point = this.points[i];
+                                    result += '<tr><td style="color:' + point.color + ';padding:0">' + point.series.name + ': </td><td style="padding:0"><b>' + convertToPersianNumbersThreeDigitsSeparated(point.y) + '</b></td></tr>';
+                                }
+                                result += '</table>';
+                                return result;
+                            }
+                        },
+                        plotOptions: {
+                            column: {
+                                pointPadding: 0.2,
+                                borderWidth: 0
+                            }
+                        },
+                        series: @Html.Raw(JsonNet.Encode(Model.BTS3.Select(x => new { Name = x.Name.ToString().GetReadableMonthYear(), Data = x.AverageOfPriceData }))),
+                        colors: ['#9E9E9E', '#E91E63', '#CDDC39', '#FFC107', '#3F51B5', '#8BC34A', '#CDDC39', '#607D8B', '#9C27B0']
+                    });
+
+                    Highcharts.chart('container6', {
+                        chart: {
+                            type: 'column'
+                        },
+
+                        title: {
+                            text: 'میانگین تعداد تراکنش های خرید'
+                        },
+                        xAxis: {
+                            categories: @Html.Raw(JsonNet.Encode(Model.BranchNames)),
+                            labels: {
+                                formatter: function () {
+                                    return convertToPersianNumbers(this.value);
+                                }
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'تعداد'
+                            },
+                            labels: {
+                                formatter: function () {
+                                    return convertToPersianNumbersThreeDigitsSeparated(this.value);
+                                }
+                            }
+                        },
+                        tooltip: {
+                            shared: true,
+                            useHTML: true,
+                            formatter: function () {
+                                debugger;
+                                var result = '<span style="font-size:10px">' + this.x + '</span><table>';
+                                for (var i = 0; i < this.points.length; i++) {
+                                    var point = this.points[i];
+                                    result += '<tr><td style="color:' + point.color + ';padding:0">' + point.series.name + ': </td><td style="padding:0"><b>' + convertToPersianNumbersThreeDigitsSeparated(point.y) + '</b></td></tr>';
+                                }
+                                result += '</table>';
+                                return result;
+                            }
+                        },
+                        plotOptions: {
+                            column: {
+                                pointPadding: 0.2,
+                                borderWidth: 0
+                            }
+                        },
+                        series: @Html.Raw(JsonNet.Encode(Model.BTS3.Select(x => new { Name = x.Name.ToString().GetReadableMonthYear(), Data = x.AverageCountData }))),
+                        colors: ['#00BCD4', '#FFC107', '#8BC34A', '#3F51B5', '#9E9E9E', '#E91E63', '#CDDC39', '#607D8B', '#9C27B0']
+                    });
+                </text>
+            }
+    });
+    </script>
+}

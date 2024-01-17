@@ -1,0 +1,443 @@
+﻿@model CardRequestViewModel
+
+@{
+    ViewBag.PageTitle = " درخواست صدور کارت  ";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+<style>
+ .switch {
+   position: relative;
+   display: inline-block;
+   width: 90px;
+   height: 34px;
+ }
+ 
+ .switch input {display:none;}
+ 
+ .slider {
+   position: absolute;
+   cursor: pointer;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: #ca2222;
+   -webkit-transition: .4s;
+   transition: .4s;
+ }
+ 
+ .slider:before {
+   position: absolute;
+   content: "";
+   height: 26px;
+   width: 26px;
+   left: 4px;
+   bottom: 4px;
+   background-color: white;
+   -webkit-transition: .4s;
+   transition: .4s;
+ }
+ 
+ input:checked + .slider {
+   background-color: #2ab934;
+ }
+ 
+ input:focus + .slider {
+   box-shadow: 0 0 1px #2196F3;
+ }
+ 
+ input:checked + .slider:before {
+   -webkit-transform: translateX(55px);
+   -ms-transform: translateX(55px);
+   transform: translateX(55px);
+ }
+ 
+ /*------ ADDED CSS ---------*/
+ .on
+ {
+   display: none;
+ }
+ 
+ .on, .off
+ { 
+ color: white;
+   position: absolute;
+   transform: translate(-50%,-50%);
+   top: 50%;
+   left: 50%;
+   font-size: 10px; 
+ }
+   #offspan  {
+        outline: none;
+    }
+  #offspan:focus {
+      outline: none;
+  }
+  #onspan{
+    outline: none;
+  }
+  
+ #onspan:focus {
+     outline: none;
+ }
+ input:checked+ .slider .on
+ {display: block;}
+ 
+ input:checked+ .slider .off
+ {display: none;}
+ 
+ /*--------- END --------*/
+ 
+ /* Rounded sliders */
+ .slider.round {
+   border-radius: 34px;
+ }
+ 
+ .slider.round:before {
+   border-radius: 50%;}
+</style>
+<script type="text/javascript">
+ 
+   
+  function  test(){
+      $("#Count").removeAttr("max")
+              $("#Count").val('')
+      $("#Count").attr("disabled")
+      
+      
+      
+      var validator = $("#frmCreateMessage").validate();
+       $('[name]', $("#frmCreateMessage")).each(function(){
+          
+         validator.successList.push(this);//mark as error free
+         validator.showErrors();//remove error messages if present
+       });
+       validator.resetForm();//remove error class on name elements and clear history
+       validator.reset();//remove all error and success data
+       
+       
+  $("#Count").attr({
+         "disabled" : "disabled"       
+                
+      });
+   let q =  $("#HasPacketChB" ).is(":checked") ;
+  
+                  $.ajax({
+                      type: "POST",
+                      url: '../CardRequest/SetViewBag',
+                      data: '{ value: ' + !q + '}',
+                      contentType: "application/json; charset=utf-8",
+                      dataType: "text",
+                      success: function (r) {
+                       
+                                                
+                                                  for (let i = 0; i < JSON.parse(r).length; i++) {
+                                                   
+                                                      $('#lbl-' +  JSON.parse(r)[i].Id + '').text(  JSON.parse(r)[i].Available)
+                                                     
+                                                  } 
+
+                       
+                      }
+                  });
+              
+              
+              
+ 
+ 
+  
+     if (q)
+       {
+          $("#HasPacket").val(false);
+      
+        
+       }
+   else
+    { 
+        $("#HasPacket").val(true);
+                    
+           }
+   
+  
+      }
+function  Validate()
+{
+    // var phoneNumber = document.getElementById('Phone').value;
+    //  var phoneRGEX = /^[0-9]{4}[0-9]{3}[0-9]{4}/;
+    //  var phoneResult = phoneRGEX.test(phoneNumber);
+    //
+    //  console.log('ammmooooo',phoneResult);
+    //  if (!phoneResult)
+    //      alert('فرمت تلفن مناسب نمی باشد');
+    //  return phoneResult;
+    }
+</script>
+<form action="@Url.Action("Create", "CardRequest")" onsubmit="Validate()" method="post" class="form-horizontal" id="frmCreateMessage">
+ @Html.Hidden("Available")
+    @Html.Hidden("TemplateId")
+   @Html.Hidden("Idd")
+    <div class="form-group">
+
+        <label class="control-label col-md-2 required" for="CardServiceTypeId">نوع خدمت</label>
+        <div class="col-md-4">
+
+            @Html.DropDownList("CardServiceTypeId", (IEnumerable<SelectListItem>) ViewBag.ServiceTypeList, "انتخاب نمایید", new {@class = "form-control"})
+
+        </div>
+       
+          <label class="control-label col-md-2" for="TemplateId">   پاکت گذاری</label>
+        <div class="col-md-4  form-group" > 
+                   
+            @Html.Hidden("HasPacket", new { value=true})
+            <label class=" switch">
+                <input type="checkbox" checked="checked"  id="HasPacketChB">
+             
+                <div onclick="test()" class="slider round">
+                  
+                    <span id="onspan"  class="on">بله</span>
+                    <span id="offspan" class="off">خیر</span>
+                  
+                </div>
+            </label>
+                  
+        </div>
+        
+    
+    </div>
+
+
+    <div class="form-group" >
+        <label class="control-label col-md-2" for="TemplateId">طرح کارت</label>
+        <div class="col-md-10  form-group" style="height: 186px; overflow-y: scroll ">
+            @foreach (var item in   ViewBag.TemplateList )
+            {
+                <div class="col-sm-5"  style="width:50%;cursor: pointer;border: #39777f54 solid thin;padding: 5px;border-radius: 5px">
+                    <div onclick="myfunc(@item.Id,@item.Available,'@item.Code')" id="ghader" name="ghader" data-xyz="@item.Id">
+                        <div style="text-align: center" > 
+                            <img height="100" width="165" src="@item.ByteArray" alt="">  </div>
+                        <div  style="text-align: center"> 
+                            <input class="radCHeck" type="radio" id="rad-@item.Code"  name="rad-@item.Code" > 
+                        </div>   
+                        <div  style="text-align: center;color: darkred" >   
+                            <label  for="rad-@item.Available"> تعداد مجاز :      <label  id="lbl-@item.Id"  >@item.Available</label> | تعداد کل  :    <label   >@item.Total</label> </label>
+                             </div>  
+                        <div  style="text-align: center">   
+                            <label for="rad-@item.Code"> @item.Design (@item.Code) </label></div>
+                    </div> 
+                </div>
+            }
+        </div>
+    
+    </div>
+    
+    <div class="form-group">
+            <label class="control-label col-md-2 required" for="Count"> تعداد </label>
+                <div class="col-md-10">
+                    <input type="text" id="Count" disabled="disabled" name="Count" class="form-control" maxlength="300" autocomplete="off"/>
+                </div>
+    </div>
+   
+    <hr />
+    <div class="form-group">
+        <label class="control-label col-md-2 required" for="Price"> مبلغ (ریال ) </label>
+        <div class="col-md-4">
+            <input type="text" id="Price" name="Price" onkeyup = "javascript:this.value=Comma(this.value);" class="form-control" maxlength="300" autocomplete="off"/>
+        </div>
+
+        <label class="control-label col-md-2 required" for="BranchId">شعبه</label>
+        <div class="col-md-4">
+
+            @Html.DropDownList("BranchId", (IEnumerable<SelectListItem>) ViewBag.BranchList, "انتخاب نمایید", new {@class = "form-control"})
+
+        </div>
+    </div>
+
+
+    <div class="form-group">
+
+
+        <label class="control-label col-md-2 required" for="Type">نوع کارت</label>
+        <div class="col-md-4">
+
+            @Html.DropDownList("Type", (IEnumerable<SelectListItem>) ViewBag.TypeList, "انتخاب نمایید", new {@class = "form-control"})
+
+        </div>
+        <label class="control-label col-md-2 required" for="PrintType">نوع چاپ</label>
+        <div class="col-md-4">
+
+            @Html.DropDownList("PrintType", (IEnumerable<SelectListItem>) ViewBag.PrintTypeList, "انتخاب نمایید", new {@class = "form-control"})
+
+        </div>
+    </div>
+
+
+    <div class="form-group">
+
+
+        <label class="control-label col-md-2 required" for="PriorityList"> ارجحیت</label>
+        <div class="col-md-4">
+
+            @Html.DropDownList("Priority", (IEnumerable<SelectListItem>) ViewBag.PriorityList, "انتخاب نمایید", new {@class = "form-control"})
+
+        </div>
+        <label class="control-label col-md-2 required" for="DeliveryType"> نحوه تحویل</label>
+        <div class="col-md-4">
+
+            @Html.DropDownList("DeliveryType", (IEnumerable<SelectListItem>) ViewBag.DeliveryType, "انتخاب نمایید", new {@class = "form-control"})
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2 required" for="Body"> توضیحات </label>
+        <div class="col-md-10">
+            <textarea id="Body" name="Body" class="form-control" rows="5"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="PostedFiles">فایل</label>
+        <div class="col-md-10">
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+                <span class="btn btn-default btn-file" tabindex="6">
+                    @* <span class="fileinput-new">انتخاب فایل</span><span class="fileinput-exists">انتخاب فایل</span> *@
+                    <label for="PostedFiles" class="custom-file-upload">
+                        <i class="fa fa-cloud-upload"></i>   انتخاب کنید
+                    </label>
+                    
+                    <input type="file" id="PostedFiles" style="display: none" name="PostedFiles" multiple
+                           accept=".mdb">
+                </span>
+                <span class="fileinput-filename"></span>
+                <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button id="btnConfirm" type="submit" class="btn btn-success btn-lg" data-loading-text="درحال ارسال...">ارسال</button>
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">انصراف</button>
+        </div>
+    </div>
+</form>
+<style>
+    .custom-file-upload {
+      border: 1px solid #ccc;
+      display: inline-block;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+</style>
+<script type="text/javascript">
+ function Comma(Num) { //function to add commas to textboxes
+         Num += '';
+         Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
+         Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
+         x = Num.split('.');
+         x1 = x[0];
+         x2 = x.length > 1 ? '.' + x[1] : '';
+         var rgx = /(\d+)(\d{3})/;
+         while (rgx.test(x1))
+             x1 = x1.replace(rgx, '$1' + ',' + '$2');
+         return x1 + x2;
+     }
+
+ 
+ $('#PostedFiles').change(function() {
+   
+   var i = $(this).prev('label').clone();
+   var file ="";// $('#PostedFiles')[0].files[0].name;
+   let q = $('#PostedFiles')[0].files;
+   
+       if (q.length ==1 )
+       {
+            file  =$('#PostedFiles')[0].files[0].name ;
+           }
+      
+       else
+ {
+       for (var j = 0; j < q.length; j++) {
+           
+           if (j != q.length -1)
+              file += q[j].name + ",";
+           else
+                           file += q[j].name ;
+
+        }
+     }
+  
+   
+   $(this).prev('label').text(file);
+ });
+ 
+ 
+ function myfunc(Id , item , e)
+ {
+   
+         $("#Idd").val(parseInt(Id));
+          
+        $('.radCHeck').prop('checked', false);
+         
+      $("#rad-" + e).prop("checked",! $("#rad-" + e).is(":checked"));
+     $("#TemplateId").val(e);
+    
+      $("#Available").val(item);
+      $("#Count").removeAttr("disabled")
+      
+      $("#Count").attr({
+             "max" : item       
+                    
+          });
+  
+    
+ }
+    $(document).ready(function () {
+        $('#frmCreateMessage').submit(function(e) {
+           
+           
+                              }).validate({
+            rules: {
+                Subject: { required: true, maxlength: 3000 },
+                Count :{ required : true,digits: true },
+                Price:{ required : true  },
+                PostedFiles : {required : true},
+                TemplateId : { required : true},
+                CardServiceTypeId : { required : true},
+                Body: { required: true }
+            },
+            submitHandler: function (form,e) {
+                 if ($("#TemplateId").val() === "")
+                                                {
+                                                   
+                                                      toastr.options.timeOut = 0;
+                                                      toastr.options.extendedTimeOut = 0;
+                                                      toastr.error( 'لطفا یک طرح را انتخاب نمایید', 'خطا');
+                                                         e.preventDefault();
+                                                      return 0 ;
+                                                }
+                
+                
+                var $button = $('#btnConfirm', '#frmCreateMessage');
+                $button.button('loading');
+
+                $(form).ajaxSubmit({
+                    success: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+
+                        if (result.success) {
+                            $.closeModal('ok');
+                        }
+                    }, error: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+                    }
+                });
+            }
+        });
+    });
+</script>

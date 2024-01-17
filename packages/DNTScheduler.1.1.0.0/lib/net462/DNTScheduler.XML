@@ -1,0 +1,221 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DNTScheduler</name>
+    </assembly>
+    <members>
+        <member name="T:DNTScheduler.AddModules">
+            <summary>
+            Registers HTTP modules dynamically.
+            </summary>
+        </member>
+        <member name="M:DNTScheduler.AddModules.PreStart">
+            <summary>
+            Registering the DNTSchedulerModule automatically.
+            </summary>
+        </member>
+        <member name="M:DNTScheduler.AddModules.PostStart">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:DNTScheduler.DNTSchedulerModule">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:DNTScheduler.DNTSchedulerModule.Dispose">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:DNTScheduler.DNTSchedulerModule.Init(System.Web.HttpApplication)">
+             <summary>
+            
+             </summary>
+             <param name="context"></param>
+        </member>
+        <member name="T:DNTScheduler.PingTask">
+            <summary>
+            DNTScheduler needs a ping service to keep it alive.
+            </summary>
+        </member>
+        <member name="P:DNTScheduler.PingTask.Order">
+            <summary>
+            If you have multiple jobs at the same time, this value indicates the order of their execution.
+            </summary>
+        </member>
+        <member name="M:DNTScheduler.PingTask.RunAt(System.DateTime)">
+             <summary>
+            
+             </summary>
+             <param name="utcNow"></param>
+             <returns></returns>
+        </member>
+        <member name="M:DNTScheduler.PingTask.Run">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:DNTScheduler.PingTask.RunAsync">
+             <summary>
+            
+             </summary>
+             <returns></returns>
+        </member>
+        <member name="P:DNTScheduler.PingTask.Name">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:DNTScheduler.ScheduledTaskTemplate">
+            <summary>
+            Scheduled task's contract.
+            </summary>
+        </member>
+        <member name="P:DNTScheduler.ScheduledTaskTemplate.IsLastRunSuccessful">
+            <summary>
+            Status of last run.
+            </summary>
+        </member>
+        <member name="P:DNTScheduler.ScheduledTaskTemplate.IsRunning">
+            <summary>
+            IsRunning will be set by the coordinator.
+            </summary>
+        </member>
+        <member name="P:DNTScheduler.ScheduledTaskTemplate.IsShuttingDown">
+            <summary>
+            Is ASP.Net app domain tearing down?
+            If set to true by the coordinator, the task should cleanup and return.
+            </summary>
+        </member>
+        <member name="P:DNTScheduler.ScheduledTaskTemplate.LastRun">
+            <summary>
+            Task's last run time.
+            </summary>
+        </member>
+        <member name="P:DNTScheduler.ScheduledTaskTemplate.Name">
+            <summary>
+            Name of the task.
+            </summary>
+        </member>
+        <member name="P:DNTScheduler.ScheduledTaskTemplate.Order">
+            <summary>
+            Priority of the task.
+            </summary>
+        </member>
+        <member name="P:DNTScheduler.ScheduledTaskTemplate.Pause">
+            <summary>
+            Pause the task.
+            </summary>
+        </member>
+        <member name="M:DNTScheduler.ScheduledTaskTemplate.Run">
+            <summary>
+            Scheduled task's logic.
+            </summary>
+        </member>
+        <member name="M:DNTScheduler.ScheduledTaskTemplate.RunAsync">
+            <summary>
+            Scheduled async task's logic.
+            </summary>
+        </member>
+        <member name="M:DNTScheduler.ScheduledTaskTemplate.RunAt(System.DateTime)">
+            <summary>
+            If the RunAt method returns true, the Run method will be executed.
+            utcNow is expressed as the Coordinated Universal Time (UTC).
+            It will be called every one second.
+            </summary>
+            <param name="utcNow">Expressed as the Coordinated Universal Time (UTC).</param>
+        </member>
+        <member name="T:DNTScheduler.ScheduledTasksCoordinator">
+            <summary>
+            Scheduled Tasks Manager
+            </summary>
+        </member>
+        <member name="M:DNTScheduler.ScheduledTasksCoordinator.#ctor">
+            <summary>
+            Scheduled Tasks Manager
+            </summary>
+        </member>
+        <member name="M:DNTScheduler.ScheduledTasksCoordinator.Finalize">
+            <summary>
+            Stops the scheduler.
+            </summary>
+        </member>
+        <member name="P:DNTScheduler.ScheduledTasksCoordinator.Current">
+            <summary>
+            The only instance of the ScheduledTasksCoordinator.
+            </summary>
+        </member>
+        <member name="P:DNTScheduler.ScheduledTasksCoordinator.OnUnexpectedException">
+            <summary>
+            Fires on unhandled exceptions.
+            </summary>
+        </member>
+        <member name="P:DNTScheduler.ScheduledTasksCoordinator.ScheduledTasks">
+            <summary>
+            Gets the list of the scheduled tasks.
+            </summary>
+        </member>
+        <member name="M:DNTScheduler.ScheduledTasksCoordinator.AddScheduledTask(DNTScheduler.ScheduledTaskTemplate)">
+            <summary>
+            Adds a new scheduled task.
+            </summary>
+            <param name="scheduledTask">new task</param>
+        </member>
+        <member name="M:DNTScheduler.ScheduledTasksCoordinator.AddScheduledTasks(DNTScheduler.ScheduledTaskTemplate[])">
+            <summary>
+            Adds new scheduled tasks.
+            </summary>
+            <param name="scheduledTasks">Tasks list</param>
+        </member>
+        <member name="M:DNTScheduler.ScheduledTasksCoordinator.Dispose">
+            <summary>
+            Stops the scheduler.
+            </summary>
+        </member>
+        <member name="M:DNTScheduler.ScheduledTasksCoordinator.RemoveTask(System.String)">
+            <summary>
+            Removes a task from the list.
+            </summary>
+            <param name="taskName">name of the task to remove</param>
+        </member>
+        <member name="M:DNTScheduler.ScheduledTasksCoordinator.Start">
+            <summary>
+            Starts TimerCallback.
+            </summary>
+        </member>
+        <member name="M:DNTScheduler.ScheduledTasksCoordinator.Stop">
+            <summary>
+            Stops the scheduler.
+            </summary>
+        </member>
+        <member name="M:DNTScheduler.ScheduledTasksCoordinator.Stop(System.Boolean)">
+            <summary>
+            Call if the app is shutting down. Should only be called by the ASP.Net container.
+            </summary>
+            <param name="immediate">ASP.Net sets this to false first, then to true the second
+            call 30 seconds later.</param>
+        </member>
+        <member name="T:DNTScheduler.ScheduledTasksCoordinator.Nested">
+            <summary>
+            http://www.yoda.arachsys.com/csharp/singleton.html
+            </summary>
+        </member>
+        <member name="T:DNTScheduler.ThisApp">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:DNTScheduler.ThisApp.SiteRootUrl">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:DNTScheduler.ThisApp.WakeUp">
+            <summary>
+            DNTScheduler needs a ping service to keep it alive.
+            </summary>
+        </member>
+    </members>
+</doc>

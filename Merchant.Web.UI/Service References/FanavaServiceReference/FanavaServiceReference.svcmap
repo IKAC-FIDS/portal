@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="9401aff4-3016-48dd-adf5-512e86827554" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="https://yekta.fanavacard.com/WCF/MerchantContract.svc" Protocol="https" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MerchantContract.xsd" MetadataType="Schema" ID="1d66a9bd-dca1-43c3-b90b-d1cc25e2b677" SourceId="1" SourceUrl="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd4" />
+    <MetadataFile FileName="MerchantContract0.xsd" MetadataType="Schema" ID="46644d2d-8282-48ae-8c55-57d2752df8b6" SourceId="1" SourceUrl="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd2" />
+    <MetadataFile FileName="MerchantContract1.xsd" MetadataType="Schema" ID="4aa027b1-8486-4f71-9c6a-21618d6f48ae" SourceId="1" SourceUrl="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd6" />
+    <MetadataFile FileName="MerchantContract2.xsd" MetadataType="Schema" ID="355c69dd-4d4a-4247-aae7-a94d10d73639" SourceId="1" SourceUrl="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd1" />
+    <MetadataFile FileName="MerchantContract.disco" MetadataType="Disco" ID="1094325f-09bd-4e02-abe3-92a3fe772477" SourceId="1" SourceUrl="https://yekta.fanavacard.com/WCF/MerchantContract.svc?disco" />
+    <MetadataFile FileName="MerchantContract3.xsd" MetadataType="Schema" ID="a58c8d0b-030f-42d7-af54-729afc5344e8" SourceId="1" SourceUrl="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd8" />
+    <MetadataFile FileName="MerchantContract4.xsd" MetadataType="Schema" ID="e0fe4b1d-a6fd-4ba1-9a21-2f2e0b7b6609" SourceId="1" SourceUrl="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd0" />
+    <MetadataFile FileName="MerchantContract.wsdl" MetadataType="Wsdl" ID="dc7094c0-d02c-4d3d-8af2-e365ba7c5692" SourceId="1" SourceUrl="https://yekta.fanavacard.com/WCF/MerchantContract.svc?wsdl" />
+    <MetadataFile FileName="MerchantContract5.xsd" MetadataType="Schema" ID="a54dfb41-eabd-4760-a8b4-60c26edba036" SourceId="1" SourceUrl="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd5" />
+    <MetadataFile FileName="MerchantContract6.xsd" MetadataType="Schema" ID="9aa32120-0297-4d53-8d03-ad1a65446d1c" SourceId="1" SourceUrl="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd3" />
+    <MetadataFile FileName="MerchantContract7.xsd" MetadataType="Schema" ID="aa4b16e3-1317-411e-a68f-6e2bf056995b" SourceId="1" SourceUrl="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd7" />
+  </Metadata>
+  <Extensions />
+</ReferenceGroup>

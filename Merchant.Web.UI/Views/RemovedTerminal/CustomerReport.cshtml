@@ -1,0 +1,884 @@
+﻿ 
+@{
+    ViewBag.Title = " اطلاعات ماهیانه مشتریان  ";
+}
+
+@section styles {
+    @BundleConfig.AddStyles("~/Content/terminalManageStyles",
+        "~/Content/PersianDatePicker.css",
+        "~/Content/chosen.css")
+}
+
+
+<div class="page-header">
+    <div class="row">
+        <div class="col-md-1 pull-left">
+            @if (User.IsAcceptorsExpertUser() || User.IsItUser() || User.IsBranchUser())
+            {
+                <a href="@Url.Action("Create", "MerchantProfile")" class="btn btn-success pull-left">پذیرنده جدید</a>
+            }
+        </div>
+        <div class="col-sm-1 pull-left " style="width:180px">
+            <a  href="@Url.Action("customerreport", "Terminal")" class="  pull-left">اطلاعات ماهیانه مشتریان</a>
+        </div>
+          <div class="col-md-1 pull-left">
+                    <a    href="@Url.Action("TerminalWage", "Terminal",
+                                                                            new {    InActive=true})" class="  pull-left"> پایانه های غیر فعال</a>
+                </div>
+                  
+                                
+        <div class="col-md-1 pull-left" style="width:180px">
+            <a  href="@Url.Action("TerminalWage", "Terminal",
+                                                                                         new { commaSeparatedStatuses =
+                                                                                             string.Join(",",31,
+                                                                                                 31) })" class="  pull-left">    پایانه های تاخیر در نصب    </a>
+        </div> 
+        
+        <div class="col-sm-1 pull-left">
+            <a  href="@Url.Action("BiResultByParameters", "Terminal")" class="  pull-left">    محاسبه پارامتری    </a>
+        </div>
+        
+         <div class="col-md-1 pull-left">
+                                            <a  href="@Url.Action("TerminalWage", "Terminal",
+                                          new { LowTransaction=true})" class=" pull-left">    مشتریان زیان ده</a>
+                                        </div>
+                                        
+        <div class="col-md-1 pull-left" style="width:220px">
+            <a    style="color: #d58b01"  href="@Url.Action("LowTransaction", "Terminal",
+                                                                                                 new { TwoMonthInActive=true})"  class=" pull-left">    مشتریان زیان ده در دو ماه متوالی</a>
+        </div>
+        
+         <div class="col-md-1 pull-left" style="width:230px;color: #d55901" >
+             <a
+                 style="color: #d55901"
+              href="@Url.Action("LowTransaction", "Terminal",
+                         new { ThreeMonthInActive=true})" class=" pull-left">     مشتریان زیان ده در سه ماه متوالی</a>
+                                        </div>
+            <div class="col-md-2   ">
+                <h1>  اطلاعات ماهیانه مشتریان    </h1>
+            </div>
+        </div>
+  
+
+  
+</div>
+ 
+<form id="frmSearch" class="form-horizontal">
+
+   <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Year">سال</label>
+                <div class="col-md-8">
+                    <select id="Year" name="Year" class="form-control">
+                        @for (int i = DateTime.Now.GetPersianYear(); i >= 1395; i--)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+       <div class="col-md-3">
+           <div class="form-group">
+               <label class="control-label col-md-4" for="Month">ماه</label>
+               <div class="col-md-8">
+                   <select id="Month" name="Month" class="form-control">
+                       <option selected value="">انتخاب نمایید</option>
+                       <option value="1">فروردین</option>
+                       <option value="2">اردیبهشت</option>
+                       <option value="3">خرداد</option>
+                       <option value="4">تیر</option>
+                       <option value="5">مرداد</option>
+                       <option value="6">شهریور</option>
+                       <option value="7">مهر</option>
+                       <option value="8">آبان</option>
+                       <option value="9">آذر</option>
+                       <option value="10">دی</option>
+                       <option value="11">بهمن</option>
+                       <option value="12">اسفند</option>
+                   </select>
+               </div>
+           </div>
+       </div>
+       
+       <div class="col-md-6">
+           <div class="form-group">
+               <label class="control-label col-md-4" for="CustomerNumber">شماره مشتری</label>
+               <div class="col-md-8">
+                   <input type="text" id="CustomerNumber" name="CustomerNumber" class="form-control" maxlength="8" />
+               </div>
+           </div>
+       </div>
+       
+       <div class="col-md-3">
+               <button id="btnSearch" type="button" class="btn btn-success" data-loading-text="در حال ثبت..."> نمایش           </button>
+       </div>
+   </div>
+
+   
+     
+</form>
+
+<hr />
+
+<div id="TotalSearchResultSection"></div>
+
+<br />
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center" id="tblData">
+        <thead>
+            <tr>
+               
+                <th class="sortable" data-sort-field="customerId" data-sort-direction="">شماره مشتری</th>
+                <th class="sortable" data-sort-field="special" data-sort-direction="">مشتری ویژه</th>
+                  <th class="sortable" data-sort-field="avg" data-sort-direction=""> معدل  </th>
+                <th class="sortable" data-sort-field="Daramad" data-sort-direction=""> درآمد  </th>
+                <th class="sortable" data-sort-field="hazineh" data-sort-direction="">   هزینه  </th>
+              
+                 <th class="sortable" data-sort-field="IsGood" data-sort-direction="">    وضعیت    </th>
+                <th width="1px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="15"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="15">
+                    <ul id="terminalPagination" class="pagination-sm"></ul>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div style="z-index: 10000;" class="modal fade" id="downloadFileModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p><a class="btn btn-success btn-lg btn-block" id="DownloadFileLink" href="#">دریافت فایل</a></p>
+                <button type="button" class="btn btn-default btn-lg btn-block" data-dismiss="modal">انصراف</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="fab-button" id="btnGroupConfirm" data-toggle="tooltip" title="ارسال گروهی">
+    ارسال <span id="count"></span> مورد پذیرنده &nbsp;
+    <i class="fa fa-send fa-lg"></i>
+</button>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/terminalManageScripts",
+        "~/Scripts/jquery.twbsPagination.js",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/PersianDatePicker.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.filter_input.js",
+        "~/Scripts/jquery.confirm.js",
+        "~/Scripts/jasny-bootstrap.js",
+        "~/Scripts/chosen.jquery.js",
+        "~/Scripts/addressCreator.js")
+
+    <script type="text/javascript">
+        function buildSearchParams() {
+            var transactionStatusList = [];
+            $('input[name=TransactionStatusList]:checked', '#frmSearch').each(function () {
+                transactionStatusList.push(this.value);
+            });
+
+            return {
+                year: $('#year', '#frmSearch').val() || [],
+                month: $('#month', '#frmSearch').val(),
+                                CustomerNumber: $('#customerNumber', '#frmSearch').val(),
+
+                
+                
+            };
+        }
+
+        function loadData(retriveTotalPageCount, page) {
+            if ($('input[name=TransactionStatusList]:checked').length && !$('#FromTransactionDate', '#frmSearch').val()) {
+                toastr.warning('در صورت انتخاب وضعیت فعالیت پایانه از تاریخ تراکنش نیز بایستی وارد لطفاً از تاریخ تراکنش را وارد نمایید');
+                return false;
+            }
+
+            var sortColumn = $('#tblData th.active');
+            var orderClause = '';
+
+            if (sortColumn.length) {
+                orderClause = sortColumn.data('sort-field') + ' ' + sortColumn.data('sort-direction');
+            }
+
+            $('#btnGroupConfirm').fadeOut();
+            $('#tblData tbody').empty().append('<tr><td colspan="15"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+            if (retriveTotalPageCount) {
+                var pagingData = $('#terminalPagination').data('twbs-pagination');
+                if (pagingData) $('#terminalPagination').twbsPagination('destroy');
+                $('#btnSearch').removeData('total-pages');
+            }
+
+            $('#SelectAllTerminals').attr('checked', false);
+            $('#SelectAllTerminals').trigger('change');
+
+            var $searchButton = $('#btnSearch');
+            $searchButton.button('loading');
+
+            var params = $.extend({ retriveTotalPageCount: retriveTotalPageCount, page: page, orderByColumn: orderClause }, buildSearchParams());
+
+                      var sortColumn = $('#tblData th.active');
+                                                                           var orderClause = '';
+                                                               
+                                                                           if (sortColumn.length) {
+                                                                               orderClause = sortColumn.data('sort-field') + ' ' + sortColumn.data('sort-direction');
+                                                                           }
+                                                                           
+                     return $.post('@Url.Action("GetCustomerData", "Terminal")', {
+                                          Year:  $("#Year").val(),
+                                            Month:  $("#Month").val(),
+                                           retriveTotalPageCount:  true,
+                                            page:  page,
+                                            CustomerId :  $('#CustomerNumber', '#frmSearch').val(),
+                                            orderClause
+                                            
+                                      }).done(function (result) {
+                $searchButton.button('reset');
+                $('#tblData tbody').empty();
+                $('#TotalSearchResultSection').empty();
+                var html = '';
+
+                if (!result.success) {
+                    $('#tblData tbody').empty().append('<tr><td colspan="15"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                    return false;
+                }
+
+                if (result.data.rows.length === 0) {
+                    $('#tblData tbody').empty().append('<tr><td colspan="15"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                    return false;
+                }
+
+                if (retriveTotalPageCount) {
+                    $('#TotalSearchResultSection').empty().append('<b>تعداد موارد یافت شده: </b>' + convertToPersianNumbers(result.data.totalRowsCount) + ' مورد');
+                } else {
+                    $('#TotalSearchResultSection').empty();
+                }
+
+                if (retriveTotalPageCount && result.data.totalRowsCount > 0) {
+                    $('#btnSearch').data('total-pages', result.data.totalRowsCount);
+
+                    $('#terminalPagination').twbsPagination({
+                        totalPages: Math.ceil(result.data.totalRowsCount / 20),
+                        visiblePages: 7,
+                        last: '<i class="fa fa-fast-backward"></i>',
+                        next: '<i class="fa fa-backward"></i>',
+                        prev: '<i class="fa fa-forward"></i>',
+                        first: '<i class="fa fa-fast-forward"></i>',
+                        initiateStartPageClick: false,
+                        onPageClick: function (event, page) {
+                            loadData(false, page);
+                        }
+                    });
+                }
+
+                for (var i = 0; i < result.data.rows.length; i++) {
+                    var item = result.data.rows[i];
+
+                    html += '<tr data-terminal-id="' + item.terminalId + '" data-status-id="' + item.statusId + '">' +
+                         '<td>' + item.customerId + '</td>' +
+                        '<td>' + (item.special ? 'بله' : 'خیر') + '</td>' +
+                                              '<td>' + (item.avg  ) + '</td>' +
+
+                        '<td>' + ( Math.round( item.daramad  * 100) / 100  ) + '</td>' +
+                        '<td>' + item.hazineh + '</td>' +
+                            '<td>' +( item.isGood == null ? "-" : ( item.isGood ? "سودده" : "زیان ده")) + '</td>' +
+
+                         '</tr>';
+                }
+
+                $('#tblData tbody').empty().append(html);
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
+
+        function showDetailsButton(statusId, terminalId) {
+            return '<button data-toggle="tooltip" title="مشاهده اطلاعات کامل" data-terminal-id="' + terminalId + '" class="btn btn-default btn-xs btn-details"><i class="fa fa-eye"></i></button> &nbsp;';
+        }
+
+        function showTransactionsButton(terminalNo) {
+            return (terminalNo && terminalNo.match(/^ *$/) === null) ? '<button data-toggle="tooltip" title="تراکنش ها" data-terminal-no="' + terminalNo + '" class="btn btn-default btn-xs btn-transactions"><i class="fa fa-exchange"></i></button> &nbsp;' : '';
+        }
+
+        function showDeleteButton(statusId, terminalId) {
+            if ((@JsonNet.Encode(User.IsAdmin()) && (statusId == '@TerminalStatus.New.ToByte()' || statusId == '@TerminalStatus.NeedToReform.ToByte()' || statusId == '@TerminalStatus.NotReturnedFromSwitch.ToByte()')) || (@JsonNet.Encode(User.IsAcceptorsExpertUser()) && statusId === @TerminalStatus.New.ToByte())) {
+                return '<button data-loading-text="..." data-toggle="tooltip" title="حذف" data-terminal-id="' + terminalId + '" class="btn btn-danger btn-xs btn-delete"><i class="fa fa-trash"></i></button> &nbsp;';
+            } else {
+                return '';
+            }
+        }
+
+        function showNotesButton(terminalId) {
+            return '<button data-terminal-id="' + terminalId + '" data-toggle="tooltip" data-loading-text="..." title="یادداشت ها" class="btn btn-default btn-xs btn-notes"><i class="fa fa-commenting"></i></button> &nbsp;';
+        }
+  
+
+function showStatusRequestButton( terminalId,topiarId, pspId,statusId)
+{
+        console.log('showstatus',terminalId,topiarId, topiarId !== null)
+
+    
+    if (pspId == 3)
+        {
+            if ( topiarId !== null)
+                {
+     return '<button data-topiar-id="' + topiarId +   '" data-terminal-id="' + terminalId + '" data-toggle="tooltip"' +
+      ' data-loading-text="..." title="استعلام وضعیت" style="background-color:dodgerblue" class="btn btn-success btn-xs btn-getTerminalStatus"><i class="fa fa-info-circle"></i></button> &nbsp;';
+
+                    
+                    }
+            else if (statusId !==  4 )
+                {
+        
+                    return '<button    data-terminal-id="' + terminalId + '" data-toggle="tooltip"' +
+                          ' data-loading-text="..." title="استعلام وضعیت" ' +
+
+                           'style="background-color:dodgerblue" class="btn btn-success btn-xs btn-getRequestStatus"><i class="fa fa-info-circle"></i></button> &nbsp;';
+
+                    
+                    }
+            else return  ''
+            
+            }
+    else
+        {
+            return  ''
+            }
+    
+    
+    }
+
+        function showConfirmButton(statusId, fullName, nationalCode, accountNo, shebaNo, terminalId) {
+            if (@JsonNet.Encode(User.IsAcceptorsExpertUser()) && (statusId === @TerminalStatus.NeedToReform.ToByte() || statusId === @TerminalStatus.UnsuccessfulReturnedFromSwitch.ToByte())) {
+                return '<button data-full-name="' + fullName + '" data-national-code="' + convertToPersianNumbers(nationalCode) + '" data-account-number="' + convertToPersianNumbers(accountNo) + '" data-sheba-number="' + convertToPersianNumbers(shebaNo) + '" data-terminal-id="' + terminalId + '" data-toggle="tooltip" data-loading-text="..." title="تایید" class="btn btn-success btn-xs btn-confirm"><i class="fa fa-check"></i></button> &nbsp;';
+            } else {
+                return '';
+            }
+        }
+function showDamageRequestButton(statusId, terminalNo,terminalId) {
+             if (@JsonNet.Encode(User.IsAcceptorsExpertUser() || User.IsAdmin())
+                         && (  statusId !== @TerminalStatus.Deleted.ToByte())) {
+       return '<button data-toggle="tooltip" title="اعلام خسارت    " data-terminal-id="' + terminalId + '" class="btn btn-default btn-xs btn-damage-request">' +
+        '<i class="fa fa-diamond"></i></button> &nbsp;';
+}
+             else
+                 return  '';
+              }
+        function showRequestsButton(statusId, terminalNo,terminalId) {
+            if (@JsonNet.Encode(User.IsAcceptorsExpertUser() || User.IsBranchUser() || User.IsItUser())
+             && (terminalNo && terminalNo.match(/^ *$/) === null && statusId === @TerminalStatus.Installed.ToByte())) {
+                return '<div class="btn-group"><button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ثبت درخواست <span class="caret"></span></button><ul class="dropdown-menu">' +
+                    '<li><a class="btn-change-account-request" data-terminal-number="' + terminalNo + '">تغییر حساب</a></li>' +
+                    '<li><a class="btn-revoke-request" data-terminal-number="' + terminalNo + '">جمع آوری</a></li>' +
+                                                    
+                    '</ul></div> &nbsp;';
+            } 
+          
+            else {
+                return '';
+            }
+        }
+
+        function showEditButton(statusId, terminalId, marketerId) {
+            if (@JsonNet.Encode(User.IsAcceptorsExpertUser() || User.IsBranchUser() || User.IsItUser())) {
+                if (statusId === @TerminalStatus.New.ToByte() || statusId === @TerminalStatus.NeedToReform.ToByte() || statusId == @TerminalStatus.UnsuccessfulReturnedFromSwitch.ToByte()) {
+
+                    if (@User.IsBranchUser().ToString().ToLower()) {
+                        if (marketerId === @Marketer.BankOrBranch.ToByte() && statusId != @TerminalStatus.UnsuccessfulReturnedFromSwitch.ToByte()) {
+                            return '<button data-terminal-id="' + terminalId + '" data-toggle="tooltip" title="ویرایش" class="btn btn-default btn-xs btn-edit"><i class="fa fa-pencil"></i></button> &nbsp;';
+                        } else {
+                            return '';
+                        }
+                    } else {
+                        return '<button data-terminal-id="' + terminalId + '" data-toggle="tooltip" title="ویرایش" class="btn btn-default btn-xs btn-edit"><i class="fa fa-pencil"></i></button> &nbsp;';
+                    }
+                } else {
+                    return '';
+                }
+            } else {
+                return '';
+            }
+        }
+
+        $('.date-picker').on('click', function () {
+            PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDate()', true);
+        });
+
+        function createStatusIcon(statusId, statusTitle, submitterUserFullName) {
+            var statusColor = '#D7CCC8';
+            switch (statusId) {
+                case @TerminalStatus.New.ToByte():
+                    statusColor = '#FFC107';
+                    break;
+                case @TerminalStatus.NotReturnedFromSwitch.ToByte():
+                    statusColor = '#607D8B';
+                    break;
+                case @TerminalStatus.NeedToReform.ToByte():
+                    statusColor = '#009688';
+                    break;
+                case @TerminalStatus.ReadyForAllocation.ToByte():
+                    statusColor = '#CDDC39';
+                    break;
+                case @TerminalStatus.Allocated.ToByte():
+                    statusColor = '#8BC34A';
+                    break;
+                case @TerminalStatus.Test.ToByte():
+                    statusColor = '#03A9F4';
+                    break;
+                case @TerminalStatus.Installed.ToByte():
+                    statusColor = '#4CAF50';
+                    break;
+                case @TerminalStatus.Revoked.ToByte():
+                    statusColor = '#f44336';
+                    break;
+                case @TerminalStatus.UnsuccessfulReturnedFromSwitch.ToByte():
+                    statusColor = '#00BFA5';
+                    break;
+            }
+
+            return '<span style="background-color: ' + statusColor + '; font-weight: 500;" data-toggle="tooltip" title="' + submitterUserFullName + '" class="label label-default">' + statusTitle + '</span>';
+        }
+
+        function createPspIcon(pspId, pspTitle) {
+            var pspColor, pspShortTitle;
+
+            switch (pspId) {
+                case @PspCompany.Fanava.ToByte():
+                    pspShortTitle = 'FA';
+                    pspColor = '#5C6BC0';
+                    break;
+                case @PspCompany.IranKish.ToByte():
+                    pspShortTitle = 'IK';
+                    pspColor = '#E91E63';
+                    break;
+                case @PspCompany.Parsian.ToByte():
+                    pspShortTitle = 'PA';
+                    pspColor = '#FFB300';
+                    break;
+                      case @PspCompany.PardakhNovin.ToByte():
+                                                                    pspShortTitle = 'PN';
+                                                                    pspColor = '#0f4158';
+                                                                    break;
+                default:
+                    pspShortTitle = '??';
+                    pspTitle = 'تخصیص داده نشده';
+                    pspColor = '#9E9E9E';
+                    break;
+            }
+
+            return '<span style="background-color: ' + pspColor + '; font-weight: 500;" data-toggle="tooltip" title="' + pspTitle + '" class="label label-default small-label">' + pspShortTitle + '</span>';
+        }
+
+        function createTransactionStatusIcon(transactionStatusId) {
+            var color, shortTitle;
+
+            switch (transactionStatusId) {
+            case @TransactionStatus.HighTransaction.ToByte():
+                shortTitle = 'پُر تراکنش';
+                color = '#009688';
+                break;
+            case @TransactionStatus.LowTransaction.ToByte():
+                shortTitle = 'کم تراکنش';
+                color = '#9E9E9E';
+                break;
+            case @TransactionStatus.WithoutTransaction.ToByte():
+                shortTitle = 'فاقد تراکنش';
+                color = '#E91E63';
+                break;
+            default:
+                shortTitle = 'نامشخص';
+                color = '#CFD8DC';
+                break;
+            }
+
+            return transactionStatusId ? '<small style="font-weight: bold; color: ' + color + ';">' + shortTitle + '</small>' : '';
+        }
+
+        function refreshCurrentPage(){
+            var currentPageNo = $('#terminalPagination li.page.active').data('page');
+            loadData(false, currentPageNo);
+        }
+
+        function showEditDialog(terminalId) {
+            $.showModal({
+                modalSize: 'xlg',
+                url: '@Url.Action("Edit", "Terminal")',
+                data: { terminalId: terminalId },
+                onClose: function (modalResult) {
+                    if (modalResult === 'ok') {
+                        refreshCurrentPage();
+                    }
+                }
+            });
+        }
+
+        function showBlockDocumentEditDialog(terminalId) {
+            $.showModal({
+                modalSize: 'lg',
+                url: '@Url.Action("Edit", "BlockDocument")',
+                data: { terminalId: terminalId }
+            });
+        }
+
+        $(document).ready(function () {
+            
+
+            loadData(true, 1);
+
+            $('#SelectAllTerminals').on('change', function () {
+                if (this.checked) {
+                    $('.send-to-psp').prop('checked', true).trigger('change');
+                } else {
+                    $('.send-to-psp').prop('checked', false).trigger('change');
+                }
+            });
+
+            $('#tblData').on('change', 'tbody .send-to-psp', function () {
+                var $row = $(this).closest('tr');
+
+                if (this.checked) {
+                    $row.addClass('info');
+                } else {
+                    $row.removeClass('info');
+                }
+
+                if ($('#tblData tbody tr.info').length) {
+                    $('#btnGroupConfirm').fadeIn();
+                    $('#btnGroupConfirm #count').empty().append(convertToPersianNumbers($('#tblData tbody tr.info').length));
+                } else {
+                    $('#btnGroupConfirm').fadeOut();
+                }
+            });
+
+            $('#btnGroupConfirm').on('click', function () {
+                $.showModal({
+                    url: '@Url.Action("GroupConfirm", "Terminal")',
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            $('#btnGroupConfirm').fadeOut();
+                            loadData(true, 1);
+                        }
+                    }
+                });
+            });
+
+            $('#tblData th.sortable').on('click', function () {
+                var sortDirection = $(this).data('sort-direction');
+
+                $('#tblData th').removeClass('active');
+                $('#tblData th').find('i').remove();
+
+                if (!sortDirection) {
+                    sortDirection = 'ASC';
+                    $(this).addClass('active');
+                    $(this).append('<i class="fa fa-chevron-up"></i>');
+                } else if (sortDirection === 'ASC') {
+                    sortDirection = 'DESC';
+                    $(this).addClass('active');
+                    $(this).append('<i class="fa fa-chevron-down"></i>');
+                } else if (sortDirection === 'DESC') {
+                    sortDirection = '';
+                    $(this).removeClass('active');
+                }
+
+                $(this).data('sort-direction', sortDirection);
+                loadData(false, 1);
+            });
+
+            $('.only-number', '#frmSearch').filter_input({ regex: '[0-9]' });
+            $('#BranchId').chosen({ width: "100%" });
+            $('#StatusIdList').chosen({ width: "100%", rtl: true });
+
+
+            $('#btnShowAdvancedSearchFields').on('click', function () {
+                $('#pnlAdvancedSearchFields').slideToggle(500);
+
+                if ($(this).text() === "نمایش جستجوی پیشرفته") {
+                    $(this).text("عدم نمایش جستجوی پیشرفته");
+                } else {
+                    $(this).text("نمایش جستجوی پیشرفته");
+                    $('#pnlAdvancedSearchFields').find('input:text').val('');
+                    $('#pnlAdvancedSearchFields').find('select').val('');
+                    $('#LegalPersonalityAll', '#frmSearch').click();
+                    $('#GenderAll', '#frmSearch').click();
+                }
+            });
+
+            $('#btnClearSearchFilters').on('click', function () {
+                $('input:text', '#frmSearch').val('');
+                $('select', '#frmSearch').val('');
+                $('#PspId', '#frmSearch').val('@PspCompany.All.ToInt32()');
+                $('#LegalPersonalityAll', '#frmSearch').click();
+                $('#GenderAll', '#frmSearch').click();
+                $('#AllTransactionStatuses', '#frmSearch').click();
+                $('#IsWirelessAll', '#frmSearch').click();
+                $('#TransactionStatusSection', '#frmSearch').find('label').removeClass('active');
+                $('#TransactionStatusSection', '#frmSearch').find('input[type="checkbox"]').removeAttr('checked');
+                $('#RequestsSection', '#frmSearch').find('label').removeClass('active');
+                $('#RequestsSection', '#frmSearch').find('input[type="checkbox"]').removeAttr('checked');
+                $('#BranchId', '#frmSearch').val('').trigger("chosen:updated");
+                $('#StatusIdList', '#frmSearch').val('').trigger("chosen:updated");
+                $('#All', '#frmSearch').click();
+            });
+
+            $('#StateId').on('change', function () {
+                var $that = $(this);
+                $('#CityId').empty().append('<option value="">انتخاب نمایید</option>').attr('disabled', 'disabled');
+
+                $.get('@Url.Action("GetCities", "City")', { stateId: $that.val() }).done(function (result) {
+                    $('#CityId').removeAttr('disabled');
+                    $.each(result.data, function (index, item) {
+                        $('#CityId').append('<option value="' + item.value + '">' + item.text + '</option>');
+                    });
+                });
+            });
+
+            $('#ParentGuildId').on('change', function () {
+                var $that = $(this);
+                $('#GuildId').empty().append('<option value="">انتخاب نمایید</option>').attr('disabled', 'disabled');
+
+                $.get('@Url.Action("GetChildGuilds", "Guild")', { parentId: $that.val() }).done(function (result) {
+                    $('#GuildId').removeAttr('disabled');
+                    $.each(result.data, function (index, item) {
+                        $('#GuildId').append('<option value="' + item.value + '">' + item.text + '</option>');
+                    });
+                });
+            });
+
+            $('#tblData').on('click.btn-details', '.btn-details', function () {
+                var terminalId = $(this).data('terminal-id');
+
+                 $.showModal({
+                    modalSize: 'lg',
+                    url: '@Url.Action("Details", "Terminal")',
+                    data: { terminalId: terminalId, from : 
+                    $('#FromWageTransactionDate', '#frmSearch').val()
+                    
+                    ,to:   $('#ToWageTransactionDate', '#frmSearch').val() },
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            loadData(true, 1);
+                        } else if (modalResult == 'showEdit') {
+                            showEditDialog(terminalId);
+                        } else if (modalResult == 'showBlockDocumentEdit') {
+                            showBlockDocumentEditDialog(terminalId);
+                        }
+                    }
+                });
+            });
+
+            $('#tblData').on('click.btn-notes', '.btn-notes', function () {
+                var terminalId = $(this).data('terminal-id');
+
+                $.showModal({
+                    modalSize: 'lg',
+                    url: '@Url.Action("Index", "TerminalNote")',
+                    data: { terminalId: terminalId }
+                });
+            });
+
+            $('#tblData').on('click.btn-transactions', '.btn-transactions', function () {
+                $.showModal({
+                    modalSize: 'xlg',
+                    url: '@Url.Action("Index", "Transaction")',
+                    data: { terminalNo: $(this).data('terminal-no') }
+                });
+            });
+
+            $('#tblData').on('click.btn-change-account-request', '.btn-change-account-request', function () {
+                $.showModal({
+                    modalSize: 'md',
+                    url: '@Url.Action("Create", "ChangeAccountRequest")',
+                    data: { terminalNo: $(this).data('terminal-number') }
+                });
+            });
+
+            $('#tblData').on('click.btn-revoke-request', '.btn-revoke-request', function () {
+                $.showModal({
+                    modalSize: 'lg',
+                    url: '@Url.Action("Create", "RevokeRequest")',
+                    data: { terminalNo: $(this).data('terminal-number') }
+                });
+            });
+          $('#tblData').on('click.btn-damage-request', '.btn-damage-request', function () {
+             
+                $.showModal({
+                    modalSize: 'lg',
+                    url: '@Url.Action("Create", "PropertyDamageRequest")',
+                    data: { terminalId: $(this).data('terminal-id') }
+                });
+            });
+            $('#tblData').on('click.btn-edit', '.btn-edit', function () {
+                showEditDialog($(this).data('terminal-id'));
+            });
+
+            
+            $('#tblData').on('click.btn-confirm', '.btn-confirm', function () {
+                            var $button = $(this);
+            
+                            $.showConfirm({
+                                body: '<strong>نام و نام خانوادگی: </strong> <span>' + $button.data('full-name') + '</span><br /><br /><strong>کد ملی: </strong> <span>' + $button.data('national-code') + '</span><br /><br /><strong>شماره حساب: </strong> <span dir="ltr">' + $button.data('account-number') + '</span><br /><br /><strong>شبا: </strong> <span>' + $button.data('sheba-number') + '</span>',
+                                onConfirm: function () {
+                                    $button.button('loading');
+            
+                                    $.post('@Url.Action("Confirm", "Terminal")', { terminalId: $button.data('terminal-id') }).done(function (result) {
+                                        $.processMessage(result);
+                                        $button.button('reset');
+            
+                                        if (result.success) {
+                                            refreshCurrentPage();
+                                        }
+                                    });
+                                }
+                            });
+                        });
+
+            
+            $('#tblData').on('click.btn-getTerminalStatus', '.btn-getTerminalStatus', function () {
+               
+                 let terminalId = $(this).data('terminal-id');
+                                 let topiarId = $(this).data('topiar-id');
+
+                                $.showModal({
+                                    modalSize: 'lg',
+                                    url: '@Url.Action("GetRequestStatus", "Terminal")',
+                                    data: {topiarId : topiarId, TerminalId: terminalId },
+                                    onClose: function (modalResult) {
+                                        
+                                        console.log('asdfasdfasdf',modalResult);
+                                        
+                                        if (modalResult === 'ok') {
+                                            loadData(true, 1);
+                                        } else if (modalResult == 'showEdit') {
+                                            showEditDialog(terminalId);
+                                        } else if (modalResult == 'showBlockDocumentEdit') {
+                                            showBlockDocumentEditDialog(terminalId);
+                                        }
+                                    }
+                                });
+            });
+            
+            
+            $('#tblData').on('click.btn-getRequestStatus', '.btn-getRequestStatus', function () {
+           
+                console.log('asdfasdfasdfeeee');
+            let terminalId = $(this).data('terminal-id');
+                                           let topiarId = $(this).data('topiar-id');
+                console.log('asdfasdfasdfeeee',topiarId,terminalId);
+
+  
+                                $.showModal({
+                                    modalSize: 'lg',
+                                    url: '@Url.Action("GetRequestStatus", "Terminal")',
+                                    data: {topiarId : 0, TerminalId: terminalId },
+                                    onClose: function (modalResult) { 
+                                                                            console.log('asdfasdfasdf2',modalResult);
+
+                                        if (modalResult === 'ok') {
+                                            loadData(true, 1);
+                                        } else if (modalResult == 'showEdit') {
+                                            showEditDialog(terminalId);
+                                        } else if (modalResult == 'showBlockDocumentEdit') {
+                                            showBlockDocumentEditDialog(terminalId);
+                                        }
+                                    }
+                                });
+                                
+            });
+
+            $('#tblData').on('click.btn-delete', '.btn-delete', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("Delete", "Terminal")', { terminalId: $button.data('terminal-id') }).done(function (result) {
+                            $button.button('reset');
+                            $.processMessage(result);
+
+                            if (result.success) {
+                                $button.closest('tr').remove();
+
+                                if ($('#tblData tbody').is(":empty")) {
+                                    $('#tblData tbody').empty().append('<tr><td colspan="15"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                                    $('#Pagination').twbsPagination('destroy');
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+            @*$('#tblData').on('click.btn-toggle-vip', '.btn-toggle-vip', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("ToggleVip", "Terminal")', { terminalId: $button.data('terminal-id') }).done(function (result) {
+                            $button.button('reset');
+                            $.processMessage(result);
+
+                            if (result.success) {
+                                refreshCurrentPage();
+                            }
+                        });
+                    }
+                });
+            });*@
+
+            $('#DownloadFileLink').click(function() {
+                $('#downloadFileModal').modal('hide');
+            });
+
+            $('#btnExport').on('click', function () {
+                var $exportButton = $(this);
+                $exportButton.button('loading');
+
+                $.post('@Url.Action("ExportTerminalData", "Export")', buildSearchParams()).done(function (result) {
+                    $.processMessage(result);
+                    $exportButton.button('reset');
+
+                    if (result.success) {
+                        var $downloadLink = $('#downloadFileModal .modal-body a');
+                        $downloadLink.prop('href', '@Url.Action("DownloadTerminalOutputFile", "Export")?fileKey=' + result.data);
+                        $('#downloadFileModal').modal();
+                    }
+                });
+            });
+
+            $('#btnSearch').on('click', function () {
+                loadData(true, 1);
+            });
+
+            $('.btn-filter-status').on('click', function () {
+                var statusIdList = $(this).data('status-id').split(',').map(Number);
+                $('#StatusIdList').val(statusIdList).trigger("chosen:updated");
+                loadData(true, 1);
+
+                $('html, body').animate({
+                    scrollTop: $("#tblData").offset().top
+                }, 600);
+            });
+        });
+    </script>
+}

@@ -1,0 +1,517 @@
+﻿@{
+    var messages = TempData["__Messages"] as IList<MessageInfo>;
+}
+
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - تجارت الکترونیک سرمایه</title>
+
+    <link rel="icon" href="~/favicon.ico" sizes="32x32" type="image/x-icon">
+
+    @BundleConfig.AddStyles("~/Content/layoutStyles",
+        "~/Content/fonts.css",
+        "~/Content/bootstrap-rtl.css",
+        "~/Content/font-awesome.css",
+        "~/Content/toastr.css",
+        "~/Content/site.css",
+        "~/Content/header.css",
+        "~/Content/footer.css",
+        "~/Content/animate.css")
+
+    @RenderSection("styles", false)
+
+    @RenderSection("MetaTags", false)
+</head>
+
+<body>
+<!--[if lte IE 9]>
+    <p id="outofdate">
+        مرورگر شما قدیمی می باشد. پیشنهاد ما استفاده از جدیدترین ورژن مرورگر گوگل کروم می باشد. این مرورگر را از <a href="https://www.google.com/chrome/browser/desktop/">اینجا می توانید دانلود کنید</a>.
+    </p>
+<![endif]-->
+
+<noscript>
+    <p id="noscript">
+        جاوااسکریپت مرورگر شما غیر فعال می باشد و به همین علت نمی توانید از حداکثر امکانات سایت استفاده نمایید. در صورت نیاز به راهنمایی می توانید با پشتیبانی تماس بگیرید.
+    </p>
+</noscript>
+
+<header>
+    <div class="container-fluid">
+        <div class="intro pull-right">
+            <a href="@Url.Action("Index", "Dashboard")">
+                <img src="~/Content/images/logo.png" alt="تجارت الکترونیک سرمایه">
+                <h1>تجارت الکترونیک سرمایه</h1>
+            </a>
+        </div>
+
+        <!-- <div class="menu pull-left" style=" margin: auto;
+                                                         height:  90px;
+                                                         width: 90px;
+                                                          line-height: 70px;
+                                                           text-align: center; 
+                                                          background: #599648;
+                                                          padding: 10px;">
+            <a style="color:white" href="http://newportal.tes.ir/#/branchLogin" target="_blank">نظر سنجی 
+            </a>                    
+        </div> -->
+
+    </div>
+
+
+</header>
+<nav class="navbar navbar-default no-print" style="background-color:#3161b9">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll pull-left">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-section">
+                <span class="sr-only">بازکردن / بستن منو</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="menu-section">
+            <ul class="nav navbar-nav navbar-right menu">
+                @if (User.Identity.IsAuthenticated && !User.IsJustCardRequester())
+                {
+                    <li>
+                        <a href="@Url.Action("Index", "Dashboard")">داشبورد</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Manage", "Terminal")">مدیریت پذیرندگان</a>
+                    </li>
+                    if (User.IsAcceptorsExpertUser() || User.IsBranchManagementUser() || User.IsBranchUser() || User.IsItUser())
+                    {
+                        <li>
+                            <a href="@Url.Action("Create", "Merchantprofile")">درخواست نصب پایانه فروش</a>
+                        </li>
+                    }
+                    if (User.IsAcceptorsExpertUser() || User.IsAdmin() || User.IsItUser())
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                مدیریت
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-left">
+                                @if (User.IsAdmin() || User.IsAcceptorsExpertUser())
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Manage", "User")">مدیریت کاربران</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Manage", "TicketSubjects")">مدیریت موضوعات پشتیبانی    </a>
+                                    </li>
+                                               
+                                }
+                                @if (User.IsAdmin() || User.IsAcceptorsExpertUser() || User.IsItUser())
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Manage", "Storage")">مدیریت صدور کارت</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="@Url.Action("Manage", "OrganizationUnit")">مدیریت شعب</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Manage", "CustomerNumberBlackList")">لیست سیاه مشتریان</a>
+                                    </li>
+                                }
+                                  @if(User.IsAcceptorsExpertUser())
+                                                                  {
+                                                                   <li>
+                                                                                                      
+                                                                                                      
+                                                                                                      <a href="@Url.Action("ImportBiFiles", "Terminal")">  بارگذاری فایل سود و زیان </a>
+                                                                                                  </li>  
+                                                                  }
+                                @if (User.IsAdmin())
+                                {
+                                
+                                                     
+                                    <li>
+                                        <a href="@Url.Action("Manage", "RevokeReason")">مدیریت دلایل جمع آوری</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Manage", "DeviceType")">مدیریت انواع دستگاه</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Manage", "DocumentType")">مدیریت انواع مدارک</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Import", "Transaction")">ورود اطلاعات تراکنش ها</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Import", "MerchantProfile")">ورود اطلاعات پایانه ها</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="@Url.Action("BatchImport", "MerchantProfile")"> بروز رسانی اطلاعات پایانه ها      </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="@Url.Action("UpdateBatchDate", "Terminal")">بروزرسانی تاریخ تایید شاپرک</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Import", "BlockDocument")">بروزرسانی اطلاعات سند مسدودی پایانه ها</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Manage", "News")">مدیریت اخبار</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index", "PspAgent")">مدیریت نمایندگی ها</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Import", "TempReportData")">ورود اطلاعات صورت وضعیت</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Manage", "Invoice")">مدیریت تنظیمات صورت وضعیت</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("CustomerCategory", "Rule")"> مدیریت دسته بندی مشتریان </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("ImportWage", "Terminal")">  ورود اطلاعات کارمزد       </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                  if (!User.IsAuditor())
+                    {
+                        <li>
+                            <a href="@Url.Action("Index", "News")">اخبار</a>
+                        </li>
+                    }
+                    if (User.Identity.IsAuthenticated  && !User.IsAuditor())
+                     
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                گزارشات
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-left">
+                                <li>
+                                    <a href="@Url.Action("BranchRanking", "Report")">گزارش وضعیت عملکرد پایانه ها</a>
+                                </li>
+
+                                <li>
+                                    <a href="@Url.Action("TerminalTypes", "Report")">گزارش وضعیت درخواست ها</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("InstallationDelay", "Report")">گزارش تاخیر در نصب</a>
+                                </li>
+                               
+                                <li>
+                                    <a href="@Url.Action("BranchTransactionStatus", "Report")">گزارش وضعیت تراکنش ها</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index", "TerminalPm")">گزارش PM</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index", "TerminalEm")">گزارش EM</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index", "BlockDocument")">گزارش اسناد مسدودی دستگاه های سیار</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index", "BlockBranchPermission")">گزارش دسترسی شعب </a>
+                                </li>
+                                
+                                <li>
+                                    <a href="@Url.Action("TerminalWage", "Report")">گزارش    کارمزد </a>
+                                </li>
+                                
+                                  <li>
+                                                                     <a href="@Url.Action("customerreport", "Terminal")">      اطلاعات ماهیانه مشتریان       </a>
+                                  </li> 
+                                  <li>
+                                                              <a href="@Url.Action("BiResultByParameters", "Terminal")">      محاسبه پارامتری       </a>
+                                                                                                    </li>    
+                                                                                                
+                                <li>
+                                
+                                
+                                @if (User.IsAdmin() || User.IsAcceptorsExpertUser() || User.IsItUser() || User.IsBranchManagementUser())
+                                {
+                                    <li>
+                                        <a href="@Url.Action("BankInvoice", "Report")">گزارش صورت وضعیت</a>
+                                    </li>
+                                }
+
+                                @if (User.IsAdmin() | User.IsBranchManagementUser())
+                                {
+                                    <li>
+                                        <a href="http://newportal.tes.ir/#/branchRead"> نتیجه نظر سنجی    </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+
+                    if (User.IsAcceptorsExpertUser() || User.IsBranchUser() || User.IsAdmin() || User.IsItUser()
+                    || User.IsBranchManagementUser()
+                    )
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                درخواست ها
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-left">
+                               
+                               @if(  User.IsItUser() || 
+                                   User.IsAcceptorsExpertUser() || User.IsBranchUser() || User.IsAdmin()  || User.IsBranchManagementUser()
+                                   ) {
+                                 <li>
+                                               <a href="@Url.Action("Manage", "ChangeAccountRequest")">درخواست های تغییر حساب</a>
+                                           </li>
+                                          <li>
+                                           <a href="@Url.Action("Manage", "RevokeRequest")">درخواست های جمع آوری</a>
+                                     </li>
+                                       <li>
+                                           <a href="@Url.Action("RequestChangeInfo", "Terminal")">درخواست تغییر اطلاعات هویتی      </a>
+                                       </li>
+                                }
+                                 @if(
+                                   User.IsAcceptorsExpertUser() || User.IsBranchUser() || User.IsAdmin()  || User.IsBranchManagementUser()
+                                       
+                                   )
+                               {
+                                   
+                                   <li>
+                                       <a href="@Url.Action("Manage", "PropertyDamageRequest")">درخواست های  خسارت  </a>
+                                   </li>
+                               }
+                               
+                                                                
+                            </ul>
+                        </li>
+                    }
+     if (  User.IsAdmin()  || User.IsBranchUser() || User.IsAcceptorsExpertUser()
+                    || User.IsBranchManagementUser()
+                    )
+                    {
+                      
+                        <li>
+                            <a href="@Url.Action("OutOfNetworkTerminals", "Terminal")"> مدیریت پذیرندگان خارج شبکه</a>
+                        </li>
+                    }
+
+                    if (User.IsAdmin())
+
+                    {
+                       
+                    }
+                }
+        </ul>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <ul class="nav navbar-nav navbar-left menu">
+
+
+
+                @if (!User.IsJustCardRequester())
+                {
+                    <li>
+                        <a href="@Url.Action("Index", "Message")">
+                            پشتیبانی <span style="background-color: #599648;color: white" class="badge badge-danger">@ViewBag.OpenMessage</span>
+                            <span style="background-color:  #9800ff;color: white" class="badge badge-warning">@ViewBag.InProgressMessage</span>
+
+                        </a>
+                    </li>
+                }
+                @if (User.IsCardRequestManager() || User.IsCardProcessor() || User.IsCardRequester() || User.IsJustCardRequester())
+
+                {
+                    <li>
+                        <a href="@Url.Action("Index", "CardRequest")">
+                            درخواست کارت
+                            <span style="background-color: #599648;color: white" class="badge badge-warning">@ViewBag.OpenCardRequstMessage</span>
+                            <span style="background-color: #ff9c1f;color: white" class="badge badge-danger">@ViewBag.ReadyForDeliverCardRequst</span>
+
+                        </a>
+                    </li>
+                }
+
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        @User.Identity.GetFullName()
+                        @if (!string.IsNullOrEmpty(User.Identity.GetBranchTitle()) && User.Identity.GetBranchId().HasValue)
+                        {
+                            <small style="font-size: 10px;">(@User.Identity.GetBranchId() - @User.Identity.GetBranchTitle())</small>
+                        }
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-left">
+                        <li>
+                            <a href="@Url.Action("ChangePassword", "Account")">تغییر رمز عبور</a>
+                        </li>
+                             @if (User.IsBranchUser())
+                                            {
+                                                <li>
+                                                    <a href="@Url.Action("Index", "BranchConnector")">رابط شعبه</a>
+                                                </li> 
+                             }
+                             
+                        <li class="divider"></li>
+                        <li>
+                            <a href="@Url.Action("LogOff", "Account")">خروج</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        }
+        else
+        {
+            <ul class="nav navbar-nav navbar-left menu">
+                <li>
+                    <a href="@Url.Action("Login", "Account")">ورود</a>
+                </li>
+            </ul>
+        }
+</div>
+</div>
+</nav>
+
+<div class="container-fluid body-content">
+    @if (messages != null && messages.Any())
+    {
+        foreach (var message in messages)
+        {
+            var alertClassName = string.Empty;
+            var iconClassName = string.Empty;
+            switch (message.MessageType)
+            {
+                case MessageType.Success:
+                    alertClassName = "alert-success";
+                    iconClassName = "fa-check";
+                    break;
+                case MessageType.Info:
+                    alertClassName = "alert-info";
+                    iconClassName = "fa-lightbulb-o";
+                    break;
+                case MessageType.Warning:
+                    alertClassName = "alert-warning";
+                    iconClassName = "fa-warning";
+                    break;
+                case MessageType.Danger:
+                    alertClassName = "alert-danger";
+                    iconClassName = "fa-times";
+                    break;
+            }
+
+            <div style="margin-top: 15px;" class="alert @alertClassName alert-labeled">
+                <div class="alert-labeled-row">
+                    <span class="alert-label alert-labelled-cell">
+                        <i class="fa @iconClassName"></i>
+                    </span>
+                    <p class="alert-labelled-cell alert-body">@Html.Raw(message.Message.Trim())</p>
+                </div>
+            </div>
+        }
+    }
+
+    @RenderBody()
+</div>
+
+<footer class="no-print">
+    <div class="inner-footer">
+        <div class="container-fluid">
+            <div class="row footer-content">
+                <div class="col-md-4 footer-about-section">
+                    <h3>راه های ارتباط با ما</h3>
+                    <p>
+                        <a class="btn btn-default" href="@Url.Action("Index", "PhoneNumbers")">تلفن های تماس شرکت تجارت الکترونیک سرمایه</a>
+                    </p>
+
+                    <p>
+                        <strong>آدرس پست الکترونیکی: </strong> <a href="mailto:pos@tes.ir">pos@tes.ir</a>
+                    </p>
+
+                    <p>
+                        <strong>فکس: </strong> <span>02184235262</span>
+                    </p>
+                </div>
+
+                <div class="col-md-5 footer-about-section">
+                    <h3>مرکز تماس امداد مشتریان</h3>
+                    <p>
+                        <strong>ایران کیش: </strong> <span>85949</span>
+                    </p>
+                    <p>
+                        <strong>فن آوا کارت: </strong> <span>43695000</span>
+                    </p>
+                    <p>
+                        <strong>پارسیان: </strong> <span>2318</span>
+                    </p>
+                    <p>
+                        @if (User.IsAdmin())
+                        {
+                            <a class="btn btn-default" href="@Url.Action("Status", "Service")">وضعیت وب سرویس ها</a>
+                        }
+
+                        @if (User.IsBranchManagementUser() || User.IsAdmin())
+                        {
+                            <a class="btn btn-default" href="@Url.Action("Manage", "BranchConnector")">   رابط شعب</a>
+                        }
+                        <a class="btn btn-default" href="@Url.Action("Index", "PspAgent")">لیست نمایندگی ها</a>
+                        <a class="btn btn-default" href="@Url.Action("Index", "Guild")">لیست اصناف</a>
+                    </p>
+                </div>
+
+                <div class="col-md-3 footer-about-section">
+                    <p>
+                        <a class="btn btn-default" style="color: red" href="~/Download/Help.pdf" target="_blank"><i class="fa fa-file-pdf-o"></i> &nbsp; دانلود راهنما</a>
+                    </p>
+
+                    <p>
+                        <a class="btn btn-default" href="~/Download/Request.pdf" target="_blank"><i class="fa fa-file-pdf-o"></i> &nbsp; دانلود فرم تغییر حساب</a>
+                    </p>
+
+                    <p>
+                        <a class="btn btn-default" href="~/Download/Pos Request.pdf" target="_blank"><i class="fa fa-file-pdf-o"></i> &nbsp; دانلود فرم درخواست کارتخوان</a>
+                    </p>
+
+                    <p>
+                        <a class="btn btn-default" href="~/Download/dasturolamal (96.71191) مورخ 96.7.20.pdf" target="_blank"><i class="fa fa-file-pdf-o"></i> &nbsp; دستورالعمل دستگاه کارتخوان</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <div class="container-fluid text-center">
+                <p>
+                    <small> &copy; @DateTime.Today.ToPersianYear()؛ تمامی حقوق مادی و معنوی این وبسایت متعلق به شرکت تجارت الکترونیک سرمایه می باشد</small>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+@BundleConfig.AddScripts("~/bundles/layoutScripts",
+    "~/Scripts/jquery-{version}.js",
+    "~/Scripts/bootstrap-rtl.js",
+    "~/Scripts/toastr.js",
+    "~/Scripts/jquery.messaging.js",
+    "~/Scripts/global.js",
+    "~/Scripts/jquery.cookie.js",
+    "~/Scripts/jquery.browser.js")
+
+@RenderSection("scripts", false)
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+﻿@model TerminalNoteIndexViewModel
+
+@{
+    ViewBag.PageTitle = "یادداشت ها";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+@if (Model.Notes.Any())
+{
+    foreach (var item in Model.Notes)
+    {
+        <p>
+            <small class="text-muted pull-left">@item.SubmitTime.ToPersianDate()</small>
+            <small style="display: block;">
+                @item.SubmitterUserFullName
+                @if (item.OrganizationUnitId.HasValue)
+                {
+                    <span class="text-primary">@item.OrganizationUnitId - @item.OrganizationUnitTitle</span>
+                }
+            </small>
+            @item.Body
+        </p>
+
+        <hr />
+    }
+}
+else
+{
+    <div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div>
+}
+
+<form action="@Url.Action("Create", "TerminalNote")" method="post" class="form-horizontal" id="TerminalNoteCreateForm">
+    <textarea class="form-control" id="Body" name="Body" placeholder="متن مورد نظر خود را وارد نمایید"></textarea>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button id="ConfirmButton" type="submit" class="btn btn-success btn-lg" data-loading-text="درحال ثبت...">ثبت</button>
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">انصراف</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#TerminalNoteCreateForm').validate({
+            rules: {
+                Body: { required: true }
+            },
+            submitHandler: function (form) {
+                var $button = $('#ConfirmButton', '#TerminalNoteCreateForm');
+                $button.button('loading');
+
+                $(form).ajaxSubmit({
+                    data: { terminalId: @Model.TerminalId },
+                    success: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+
+                        if (result.success) {
+                            $.closeModal('ok');
+                        }
+                    }, error: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+                    }
+                });
+            }
+        });
+    });
+</script>

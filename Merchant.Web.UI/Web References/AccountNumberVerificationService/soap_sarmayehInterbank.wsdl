@@ -1,0 +1,989 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.yaghut.modern.tosan.com/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="soap_sarmayehInterbank" targetNamespace="http://service.yaghut.modern.tosan.com/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="https://10.255.253.10/yaghut/soap/soap_sarmayehInterbank?xsd=1" namespace="http://service.yaghut.modern.tosan.com/" />
+    </xsd:schema>
+  </types>
+  <message name="normalTransfer">
+    <part name="parameters" element="tns:normalTransfer" />
+  </message>
+  <message name="normalTransferResponse">
+    <part name="parameters" element="tns:normalTransferResponse" />
+  </message>
+  <message name="InsufficientFundsWSException">
+    <part name="fault" element="tns:InsufficientFundsWSException" />
+  </message>
+  <message name="InvalidCurrencyWSException">
+    <part name="fault" element="tns:InvalidCurrencyWSException" />
+  </message>
+  <message name="PermissionWSException">
+    <part name="fault" element="tns:PermissionWSException" />
+  </message>
+  <message name="InvalidReasonCodeWSException">
+    <part name="fault" element="tns:InvalidReasonCodeWSException" />
+  </message>
+  <message name="TransactionReasonCodeIsRequiredWSException">
+    <part name="fault" element="tns:TransactionReasonCodeIsRequiredWSException" />
+  </message>
+  <message name="ExceedMonthlyTransferAmountWSException">
+    <part name="fault" element="tns:ExceedMonthlyTransferAmountWSException" />
+  </message>
+  <message name="ExceedDailyTransferAmountWSException">
+    <part name="fault" element="tns:ExceedDailyTransferAmountWSException" />
+  </message>
+  <message name="batchTransfer">
+    <part name="parameters" element="tns:batchTransfer" />
+  </message>
+  <message name="batchTransferResponse">
+    <part name="parameters" element="tns:batchTransferResponse" />
+  </message>
+  <message name="login">
+    <part name="parameters" element="tns:login" />
+  </message>
+  <message name="loginResponse">
+    <part name="parameters" element="tns:loginResponse" />
+  </message>
+  <message name="loginStatic">
+    <part name="parameters" element="tns:loginStatic" />
+  </message>
+  <message name="loginStaticResponse">
+    <part name="parameters" element="tns:loginStaticResponse" />
+  </message>
+  <message name="logout">
+    <part name="parameters" element="tns:logout" />
+  </message>
+  <message name="logoutResponse">
+    <part name="parameters" element="tns:logoutResponse" />
+  </message>
+  <message name="getStatement">
+    <part name="parameters" element="tns:getStatement" />
+  </message>
+  <message name="getStatementResponse">
+    <part name="parameters" element="tns:getStatementResponse" />
+  </message>
+  <message name="getDeposits">
+    <part name="parameters" element="tns:getDeposits" />
+  </message>
+  <message name="getDepositsResponse">
+    <part name="parameters" element="tns:getDepositsResponse" />
+  </message>
+  <message name="getDepositOwnerName">
+    <part name="parameters" element="tns:getDepositOwnerName" />
+  </message>
+  <message name="getDepositOwnerNameResponse">
+    <part name="parameters" element="tns:getDepositOwnerNameResponse" />
+  </message>
+  <message name="getCardTransactions">
+    <part name="parameters" element="tns:getCardTransactions" />
+  </message>
+  <message name="getCardTransactionsResponse">
+    <part name="parameters" element="tns:getCardTransactionsResponse" />
+  </message>
+  <message name="getLoans">
+    <part name="parameters" element="tns:getLoans" />
+  </message>
+  <message name="getLoansResponse">
+    <part name="parameters" element="tns:getLoansResponse" />
+  </message>
+  <message name="getLoanList">
+    <part name="parameters" element="tns:getLoanList" />
+  </message>
+  <message name="getLoanListResponse">
+    <part name="parameters" element="tns:getLoanListResponse" />
+  </message>
+  <message name="getLoanDetail">
+    <part name="parameters" element="tns:getLoanDetail" />
+  </message>
+  <message name="getLoanDetailResponse">
+    <part name="parameters" element="tns:getLoanDetailResponse" />
+  </message>
+  <message name="InvalidLoanNumberWSException">
+    <part name="fault" element="tns:InvalidLoanNumberWSException" />
+  </message>
+  <message name="payLoan">
+    <part name="parameters" element="tns:payLoan" />
+  </message>
+  <message name="payLoanResponse">
+    <part name="parameters" element="tns:payLoanResponse" />
+  </message>
+  <message name="NotPayableLoanWSException">
+    <part name="fault" element="tns:NotPayableLoanWSException" />
+  </message>
+  <message name="getBillInfo">
+    <part name="parameters" element="tns:getBillInfo" />
+  </message>
+  <message name="getBillInfoResponse">
+    <part name="parameters" element="tns:getBillInfoResponse" />
+  </message>
+  <message name="BillTypeSupportWSException">
+    <part name="fault" element="tns:BillTypeSupportWSException" />
+  </message>
+  <message name="payBill">
+    <part name="parameters" element="tns:payBill" />
+  </message>
+  <message name="payBillResponse">
+    <part name="parameters" element="tns:payBillResponse" />
+  </message>
+  <message name="AmountConstrainViolationWSException">
+    <part name="fault" element="tns:AmountConstrainViolationWSException" />
+  </message>
+  <message name="DuplicateTransactionWSException">
+    <part name="fault" element="tns:DuplicateTransactionWSException" />
+  </message>
+  <message name="AuthenticationWSException">
+    <part name="fault" element="tns:AuthenticationWSException" />
+  </message>
+  <message name="NoSufficientFundWSException">
+    <part name="fault" element="tns:NoSufficientFundWSException" />
+  </message>
+  <message name="ExceedWithdrawalWSException">
+    <part name="fault" element="tns:ExceedWithdrawalWSException" />
+  </message>
+  <message name="InvalidDepositOrCardWSException">
+    <part name="fault" element="tns:InvalidDepositOrCardWSException" />
+  </message>
+  <message name="BusinessWSException">
+    <part name="fault" element="tns:BusinessWSException" />
+  </message>
+  <message name="getGuarantyList">
+    <part name="parameters" element="tns:getGuarantyList" />
+  </message>
+  <message name="getGuarantyListResponse">
+    <part name="parameters" element="tns:getGuarantyListResponse" />
+  </message>
+  <message name="InvalidCustomerWSException">
+    <part name="fault" element="tns:InvalidCustomerWSException" />
+  </message>
+  <message name="getCustomerDetailInfo">
+    <part name="parameters" element="tns:getCustomerDetailInfo" />
+  </message>
+  <message name="getCustomerDetailInfoResponse">
+    <part name="parameters" element="tns:getCustomerDetailInfoResponse" />
+  </message>
+  <message name="getBillPaymentDetail">
+    <part name="parameters" element="tns:getBillPaymentDetail" />
+  </message>
+  <message name="getBillPaymentDetailResponse">
+    <part name="parameters" element="tns:getBillPaymentDetailResponse" />
+  </message>
+  <message name="CardNotFoundWSException">
+    <part name="fault" element="tns:CardNotFoundWSException" />
+  </message>
+  <message name="getDepositBalance">
+    <part name="parameters" element="tns:getDepositBalance" />
+  </message>
+  <message name="getDepositBalanceResponse">
+    <part name="parameters" element="tns:getDepositBalanceResponse" />
+  </message>
+  <message name="convertDepositNumberToIban">
+    <part name="parameters" element="tns:convertDepositNumberToIban" />
+  </message>
+  <message name="convertDepositNumberToIbanResponse">
+    <part name="parameters" element="tns:convertDepositNumberToIbanResponse" />
+  </message>
+  <message name="getRequestStatus">
+    <part name="parameters" element="tns:getRequestStatus" />
+  </message>
+  <message name="getRequestStatusResponse">
+    <part name="parameters" element="tns:getRequestStatusResponse" />
+  </message>
+  <message name="getCardDeposits">
+    <part name="parameters" element="tns:getCardDeposits" />
+  </message>
+  <message name="getCardDepositsResponse">
+    <part name="parameters" element="tns:getCardDepositsResponse" />
+  </message>
+  <message name="chargeCard">
+    <part name="parameters" element="tns:chargeCard" />
+  </message>
+  <message name="chargeCardResponse">
+    <part name="parameters" element="tns:chargeCardResponse" />
+  </message>
+  <message name="getDepositCustomer">
+    <part name="parameters" element="tns:getDepositCustomer" />
+  </message>
+  <message name="getDepositCustomerResponse">
+    <part name="parameters" element="tns:getDepositCustomerResponse" />
+  </message>
+  <message name="cashCheque">
+    <part name="parameters" element="tns:cashCheque" />
+  </message>
+  <message name="cashChequeResponse">
+    <part name="parameters" element="tns:cashChequeResponse" />
+  </message>
+  <message name="InvalidChequeNumberWSException">
+    <part name="fault" element="tns:InvalidChequeNumberWSException" />
+  </message>
+  <message name="InvalidChequeStatusWSException">
+    <part name="fault" element="tns:InvalidChequeStatusWSException" />
+  </message>
+  <message name="CommissionIllegalDepositStateWSException">
+    <part name="fault" element="tns:CommissionIllegalDepositStateWSException" />
+  </message>
+  <message name="CommissionInsufficientFundWSException">
+    <part name="fault" element="tns:CommissionInsufficientFundWSException" />
+  </message>
+  <message name="CommissionInvalidAccountWSException">
+    <part name="fault" element="tns:CommissionInvalidAccountWSException" />
+  </message>
+  <message name="CommissionInvalidCurrencyWSException">
+    <part name="fault" element="tns:CommissionInvalidCurrencyWSException" />
+  </message>
+  <message name="CommissionInvalidDepositWSException">
+    <part name="fault" element="tns:CommissionInvalidDepositWSException" />
+  </message>
+  <message name="authorizeDeposit">
+    <part name="parameters" element="tns:authorizeDeposit" />
+  </message>
+  <message name="authorizeDepositResponse">
+    <part name="parameters" element="tns:authorizeDepositResponse" />
+  </message>
+  <message name="InvalidExchangeIdWSException">
+    <part name="fault" element="tns:InvalidExchangeIdWSException" />
+  </message>
+  <message name="IllegalBankWSException">
+    <part name="fault" element="tns:IllegalBankWSException" />
+  </message>
+  <message name="InvalidBrokerStateWSException">
+    <part name="fault" element="tns:InvalidBrokerStateWSException" />
+  </message>
+  <message name="IllegalDepositStateWSException">
+    <part name="fault" element="tns:IllegalDepositStateWSException" />
+  </message>
+  <message name="InvalidBrokerIdWSException">
+    <part name="fault" element="tns:InvalidBrokerIdWSException" />
+  </message>
+  <message name="InvalidExchangeStateWSException">
+    <part name="fault" element="tns:InvalidExchangeStateWSException" />
+  </message>
+  <message name="ExchangeBrokerRelationWSException">
+    <part name="fault" element="tns:ExchangeBrokerRelationWSException" />
+  </message>
+  <message name="ExchangeContractExpirationWSException">
+    <part name="fault" element="tns:ExchangeContractExpirationWSException" />
+  </message>
+  <message name="InvalidIBANWSException">
+    <part name="fault" element="tns:InvalidIBANWSException" />
+  </message>
+  <message name="NotAuthorizableDepositTypeWSException">
+    <part name="fault" element="tns:NotAuthorizableDepositTypeWSException" />
+  </message>
+  <message name="customerExchangeContract">
+    <part name="parameters" element="tns:customerExchangeContract" />
+  </message>
+  <message name="customerExchangeContractResponse">
+    <part name="parameters" element="tns:customerExchangeContractResponse" />
+  </message>
+  <message name="InvalidContractEndDateWSException">
+    <part name="fault" element="tns:InvalidContractEndDateWSException" />
+  </message>
+  <message name="InvalidContractDurationRangeWSException">
+    <part name="fault" element="tns:InvalidContractDurationRangeWSException" />
+  </message>
+  <message name="assignExchangeBroker">
+    <part name="parameters" element="tns:assignExchangeBroker" />
+  </message>
+  <message name="assignExchangeBrokerResponse">
+    <part name="parameters" element="tns:assignExchangeBrokerResponse" />
+  </message>
+  <message name="requestHarimOtp">
+    <part name="parameters" element="tns:requestHarimOtp" />
+  </message>
+  <message name="requestHarimOtpResponse">
+    <part name="parameters" element="tns:requestHarimOtpResponse" />
+  </message>
+  <message name="InvalidCardStatusWSException">
+    <part name="fault" element="tns:InvalidCardStatusWSException" />
+  </message>
+  <message name="depositBillPayment">
+    <part name="parameters" element="tns:depositBillPayment" />
+  </message>
+  <message name="depositBillPaymentResponse">
+    <part name="parameters" element="tns:depositBillPaymentResponse" />
+  </message>
+  <portType name="SoapServices">
+    <operation name="normalTransfer">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/normalTransferRequest" message="tns:normalTransfer" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/normalTransferResponse" message="tns:normalTransferResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/normalTransfer/Fault/InsufficientFundsWSException" name="InsufficientFundsWSException" message="tns:InsufficientFundsWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/normalTransfer/Fault/InvalidCurrencyWSException" name="InvalidCurrencyWSException" message="tns:InvalidCurrencyWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/normalTransfer/Fault/PermissionWSException" name="PermissionWSException" message="tns:PermissionWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/normalTransfer/Fault/InvalidReasonCodeWSException" name="InvalidReasonCodeWSException" message="tns:InvalidReasonCodeWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/normalTransfer/Fault/TransactionReasonCodeIsRequiredWSException" name="TransactionReasonCodeIsRequiredWSException" message="tns:TransactionReasonCodeIsRequiredWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/normalTransfer/Fault/ExceedMonthlyTransferAmountWSException" name="ExceedMonthlyTransferAmountWSException" message="tns:ExceedMonthlyTransferAmountWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/normalTransfer/Fault/ExceedDailyTransferAmountWSException" name="ExceedDailyTransferAmountWSException" message="tns:ExceedDailyTransferAmountWSException" />
+    </operation>
+    <operation name="batchTransfer">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/batchTransferRequest" message="tns:batchTransfer" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/batchTransferResponse" message="tns:batchTransferResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/batchTransfer/Fault/PermissionWSException" name="PermissionWSException" message="tns:PermissionWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/batchTransfer/Fault/InvalidCurrencyWSException" name="InvalidCurrencyWSException" message="tns:InvalidCurrencyWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/batchTransfer/Fault/InsufficientFundsWSException" name="InsufficientFundsWSException" message="tns:InsufficientFundsWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/batchTransfer/Fault/InvalidReasonCodeWSException" name="InvalidReasonCodeWSException" message="tns:InvalidReasonCodeWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/batchTransfer/Fault/TransactionReasonCodeIsRequiredWSException" name="TransactionReasonCodeIsRequiredWSException" message="tns:TransactionReasonCodeIsRequiredWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/batchTransfer/Fault/ExceedMonthlyTransferAmountWSException" name="ExceedMonthlyTransferAmountWSException" message="tns:ExceedMonthlyTransferAmountWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/batchTransfer/Fault/ExceedDailyTransferAmountWSException" name="ExceedDailyTransferAmountWSException" message="tns:ExceedDailyTransferAmountWSException" />
+    </operation>
+    <operation name="login">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/loginRequest" message="tns:login" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/loginResponse" message="tns:loginResponse" />
+    </operation>
+    <operation name="loginStatic">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/loginStaticRequest" message="tns:loginStatic" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/loginStaticResponse" message="tns:loginStaticResponse" />
+    </operation>
+    <operation name="logout">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/logoutRequest" message="tns:logout" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/logoutResponse" message="tns:logoutResponse" />
+    </operation>
+    <operation name="getStatement">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getStatementRequest" message="tns:getStatement" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getStatementResponse" message="tns:getStatementResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getStatement/Fault/PermissionWSException" name="PermissionWSException" message="tns:PermissionWSException" />
+    </operation>
+    <operation name="getDeposits">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getDepositsRequest" message="tns:getDeposits" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getDepositsResponse" message="tns:getDepositsResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getDeposits/Fault/PermissionWSException" name="PermissionWSException" message="tns:PermissionWSException" />
+    </operation>
+    <operation name="getDepositOwnerName">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getDepositOwnerNameRequest" message="tns:getDepositOwnerName" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getDepositOwnerNameResponse" message="tns:getDepositOwnerNameResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getDepositOwnerName/Fault/PermissionWSException" name="PermissionWSException" message="tns:PermissionWSException" />
+    </operation>
+    <operation name="getCardTransactions">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getCardTransactionsRequest" message="tns:getCardTransactions" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getCardTransactionsResponse" message="tns:getCardTransactionsResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getCardTransactions/Fault/PermissionWSException" name="PermissionWSException" message="tns:PermissionWSException" />
+    </operation>
+    <operation name="getLoans">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getLoansRequest" message="tns:getLoans" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getLoansResponse" message="tns:getLoansResponse" />
+    </operation>
+    <operation name="getLoanList">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getLoanListRequest" message="tns:getLoanList" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getLoanListResponse" message="tns:getLoanListResponse" />
+    </operation>
+    <operation name="getLoanDetail">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getLoanDetailRequest" message="tns:getLoanDetail" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getLoanDetailResponse" message="tns:getLoanDetailResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getLoanDetail/Fault/InvalidLoanNumberWSException" name="InvalidLoanNumberWSException" message="tns:InvalidLoanNumberWSException" />
+    </operation>
+    <operation name="payLoan">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/payLoanRequest" message="tns:payLoan" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/payLoanResponse" message="tns:payLoanResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/payLoan/Fault/InvalidLoanNumberWSException" name="InvalidLoanNumberWSException" message="tns:InvalidLoanNumberWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/payLoan/Fault/PermissionWSException" name="PermissionWSException" message="tns:PermissionWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/payLoan/Fault/InsufficientFundsWSException" name="InsufficientFundsWSException" message="tns:InsufficientFundsWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/payLoan/Fault/InvalidCurrencyWSException" name="InvalidCurrencyWSException" message="tns:InvalidCurrencyWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/payLoan/Fault/NotPayableLoanWSException" name="NotPayableLoanWSException" message="tns:NotPayableLoanWSException" />
+    </operation>
+    <operation name="getBillInfo">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getBillInfoRequest" message="tns:getBillInfo" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getBillInfoResponse" message="tns:getBillInfoResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getBillInfo/Fault/BillTypeSupportWSException" name="BillTypeSupportWSException" message="tns:BillTypeSupportWSException" />
+    </operation>
+    <operation name="payBill">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/payBillRequest" message="tns:payBill" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/payBillResponse" message="tns:payBillResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/payBill/Fault/BillTypeSupportWSException" name="BillTypeSupportWSException" message="tns:BillTypeSupportWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/payBill/Fault/AmountConstrainViolationWSException" name="AmountConstrainViolationWSException" message="tns:AmountConstrainViolationWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/payBill/Fault/DuplicateTransactionWSException" name="DuplicateTransactionWSException" message="tns:DuplicateTransactionWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/payBill/Fault/AuthenticationWSException" name="AuthenticationWSException" message="tns:AuthenticationWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/payBill/Fault/NoSufficientFundWSException" name="NoSufficientFundWSException" message="tns:NoSufficientFundWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/payBill/Fault/ExceedWithdrawalWSException" name="ExceedWithdrawalWSException" message="tns:ExceedWithdrawalWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/payBill/Fault/InvalidDepositOrCardWSException" name="InvalidDepositOrCardWSException" message="tns:InvalidDepositOrCardWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/payBill/Fault/BusinessWSException" name="BusinessWSException" message="tns:BusinessWSException" />
+    </operation>
+    <operation name="getGuarantyList">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getGuarantyListRequest" message="tns:getGuarantyList" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getGuarantyListResponse" message="tns:getGuarantyListResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getGuarantyList/Fault/InvalidLoanNumberWSException" name="InvalidLoanNumberWSException" message="tns:InvalidLoanNumberWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getGuarantyList/Fault/InvalidCustomerWSException" name="InvalidCustomerWSException" message="tns:InvalidCustomerWSException" />
+    </operation>
+    <operation name="getCustomerDetailInfo">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getCustomerDetailInfoRequest" message="tns:getCustomerDetailInfo" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getCustomerDetailInfoResponse" message="tns:getCustomerDetailInfoResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getCustomerDetailInfo/Fault/InvalidCustomerWSException" name="InvalidCustomerWSException" message="tns:InvalidCustomerWSException" />
+    </operation>
+    <operation name="getBillPaymentDetail">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getBillPaymentDetailRequest" message="tns:getBillPaymentDetail" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getBillPaymentDetailResponse" message="tns:getBillPaymentDetailResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getBillPaymentDetail/Fault/CardNotFoundWSException" name="CardNotFoundWSException" message="tns:CardNotFoundWSException" />
+    </operation>
+    <operation name="getDepositBalance">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getDepositBalanceRequest" message="tns:getDepositBalance" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getDepositBalanceResponse" message="tns:getDepositBalanceResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getDepositBalance/Fault/PermissionWSException" name="PermissionWSException" message="tns:PermissionWSException" />
+    </operation>
+    <operation name="convertDepositNumberToIban">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/convertDepositNumberToIbanRequest" message="tns:convertDepositNumberToIban" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/convertDepositNumberToIbanResponse" message="tns:convertDepositNumberToIbanResponse" />
+    </operation>
+    <operation name="getRequestStatus">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getRequestStatusRequest" message="tns:getRequestStatus" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getRequestStatusResponse" message="tns:getRequestStatusResponse" />
+    </operation>
+    <operation name="getCardDeposits">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getCardDepositsRequest" message="tns:getCardDeposits" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getCardDepositsResponse" message="tns:getCardDepositsResponse" />
+    </operation>
+    <operation name="chargeCard">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/chargeCardRequest" message="tns:chargeCard" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/chargeCardResponse" message="tns:chargeCardResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/chargeCard/Fault/PermissionWSException" name="PermissionWSException" message="tns:PermissionWSException" />
+    </operation>
+    <operation name="getDepositCustomer">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getDepositCustomerRequest" message="tns:getDepositCustomer" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/getDepositCustomerResponse" message="tns:getDepositCustomerResponse" />
+    </operation>
+    <operation name="cashCheque">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/cashChequeRequest" message="tns:cashCheque" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/cashChequeResponse" message="tns:cashChequeResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/cashCheque/Fault/InvalidChequeNumberWSException" name="InvalidChequeNumberWSException" message="tns:InvalidChequeNumberWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/cashCheque/Fault/InvalidChequeStatusWSException" name="InvalidChequeStatusWSException" message="tns:InvalidChequeStatusWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/cashCheque/Fault/InsufficientFundsWSException" name="InsufficientFundsWSException" message="tns:InsufficientFundsWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/cashCheque/Fault/InvalidCurrencyWSException" name="InvalidCurrencyWSException" message="tns:InvalidCurrencyWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/cashCheque/Fault/CommissionIllegalDepositStateWSException" name="CommissionIllegalDepositStateWSException" message="tns:CommissionIllegalDepositStateWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/cashCheque/Fault/CommissionInsufficientFundWSException" name="CommissionInsufficientFundWSException" message="tns:CommissionInsufficientFundWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/cashCheque/Fault/CommissionInvalidAccountWSException" name="CommissionInvalidAccountWSException" message="tns:CommissionInvalidAccountWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/cashCheque/Fault/CommissionInvalidCurrencyWSException" name="CommissionInvalidCurrencyWSException" message="tns:CommissionInvalidCurrencyWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/cashCheque/Fault/CommissionInvalidDepositWSException" name="CommissionInvalidDepositWSException" message="tns:CommissionInvalidDepositWSException" />
+    </operation>
+    <operation name="authorizeDeposit">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/authorizeDepositRequest" message="tns:authorizeDeposit" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/authorizeDepositResponse" message="tns:authorizeDepositResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/authorizeDeposit/Fault/InvalidExchangeIdWSException" name="InvalidExchangeIdWSException" message="tns:InvalidExchangeIdWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/authorizeDeposit/Fault/IllegalBankWSException" name="IllegalBankWSException" message="tns:IllegalBankWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/authorizeDeposit/Fault/InvalidBrokerStateWSException" name="InvalidBrokerStateWSException" message="tns:InvalidBrokerStateWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/authorizeDeposit/Fault/IllegalDepositStateWSException" name="IllegalDepositStateWSException" message="tns:IllegalDepositStateWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/authorizeDeposit/Fault/InvalidBrokerIdWSException" name="InvalidBrokerIdWSException" message="tns:InvalidBrokerIdWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/authorizeDeposit/Fault/InvalidExchangeStateWSException" name="InvalidExchangeStateWSException" message="tns:InvalidExchangeStateWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/authorizeDeposit/Fault/ExchangeBrokerRelationWSException" name="ExchangeBrokerRelationWSException" message="tns:ExchangeBrokerRelationWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/authorizeDeposit/Fault/ExchangeContractExpirationWSException" name="ExchangeContractExpirationWSException" message="tns:ExchangeContractExpirationWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/authorizeDeposit/Fault/InvalidIBANWSException" name="InvalidIBANWSException" message="tns:InvalidIBANWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/authorizeDeposit/Fault/NotAuthorizableDepositTypeWSException" name="NotAuthorizableDepositTypeWSException" message="tns:NotAuthorizableDepositTypeWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/authorizeDeposit/Fault/PermissionWSException" name="PermissionWSException" message="tns:PermissionWSException" />
+    </operation>
+    <operation name="customerExchangeContract">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/customerExchangeContractRequest" message="tns:customerExchangeContract" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/customerExchangeContractResponse" message="tns:customerExchangeContractResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/customerExchangeContract/Fault/InvalidContractEndDateWSException" name="InvalidContractEndDateWSException" message="tns:InvalidContractEndDateWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/customerExchangeContract/Fault/InvalidContractDurationRangeWSException" name="InvalidContractDurationRangeWSException" message="tns:InvalidContractDurationRangeWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/customerExchangeContract/Fault/InvalidCustomerWSException" name="InvalidCustomerWSException" message="tns:InvalidCustomerWSException" />
+    </operation>
+    <operation name="assignExchangeBroker">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/assignExchangeBrokerRequest" message="tns:assignExchangeBroker" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/assignExchangeBrokerResponse" message="tns:assignExchangeBrokerResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/assignExchangeBroker/Fault/InvalidCustomerWSException" name="InvalidCustomerWSException" message="tns:InvalidCustomerWSException" />
+    </operation>
+    <operation name="requestHarimOtp">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/requestHarimOtpRequest" message="tns:requestHarimOtp" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/requestHarimOtpResponse" message="tns:requestHarimOtpResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/requestHarimOtp/Fault/InvalidCardStatusWSException" name="InvalidCardStatusWSException" message="tns:InvalidCardStatusWSException" />
+    </operation>
+    <operation name="depositBillPayment">
+      <input wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/depositBillPaymentRequest" message="tns:depositBillPayment" />
+      <output wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/depositBillPaymentResponse" message="tns:depositBillPaymentResponse" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/depositBillPayment/Fault/PermissionWSException" name="PermissionWSException" message="tns:PermissionWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/depositBillPayment/Fault/DuplicateTransactionWSException" name="DuplicateTransactionWSException" message="tns:DuplicateTransactionWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/depositBillPayment/Fault/ExceedWithdrawalWSException" name="ExceedWithdrawalWSException" message="tns:ExceedWithdrawalWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/depositBillPayment/Fault/BillTypeSupportWSException" name="BillTypeSupportWSException" message="tns:BillTypeSupportWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/depositBillPayment/Fault/InvalidCurrencyWSException" name="InvalidCurrencyWSException" message="tns:InvalidCurrencyWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/depositBillPayment/Fault/AmountConstrainViolationWSException" name="AmountConstrainViolationWSException" message="tns:AmountConstrainViolationWSException" />
+      <fault wsam:Action="http://service.yaghut.modern.tosan.com/SoapServices/depositBillPayment/Fault/InsufficientFundsWSException" name="InsufficientFundsWSException" message="tns:InsufficientFundsWSException" />
+    </operation>
+  </portType>
+  <binding name="soapPortBinding" type="tns:SoapServices">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="normalTransfer">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="InsufficientFundsWSException">
+        <soap:fault use="literal" name="InsufficientFundsWSException" namespace="" />
+      </fault>
+      <fault name="InvalidCurrencyWSException">
+        <soap:fault use="literal" name="InvalidCurrencyWSException" namespace="" />
+      </fault>
+      <fault name="PermissionWSException">
+        <soap:fault use="literal" name="PermissionWSException" namespace="" />
+      </fault>
+      <fault name="InvalidReasonCodeWSException">
+        <soap:fault use="literal" name="InvalidReasonCodeWSException" namespace="" />
+      </fault>
+      <fault name="TransactionReasonCodeIsRequiredWSException">
+        <soap:fault use="literal" name="TransactionReasonCodeIsRequiredWSException" namespace="" />
+      </fault>
+      <fault name="ExceedMonthlyTransferAmountWSException">
+        <soap:fault use="literal" name="ExceedMonthlyTransferAmountWSException" namespace="" />
+      </fault>
+      <fault name="ExceedDailyTransferAmountWSException">
+        <soap:fault use="literal" name="ExceedDailyTransferAmountWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="batchTransfer">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="PermissionWSException">
+        <soap:fault use="literal" name="PermissionWSException" namespace="" />
+      </fault>
+      <fault name="InvalidCurrencyWSException">
+        <soap:fault use="literal" name="InvalidCurrencyWSException" namespace="" />
+      </fault>
+      <fault name="InsufficientFundsWSException">
+        <soap:fault use="literal" name="InsufficientFundsWSException" namespace="" />
+      </fault>
+      <fault name="InvalidReasonCodeWSException">
+        <soap:fault use="literal" name="InvalidReasonCodeWSException" namespace="" />
+      </fault>
+      <fault name="TransactionReasonCodeIsRequiredWSException">
+        <soap:fault use="literal" name="TransactionReasonCodeIsRequiredWSException" namespace="" />
+      </fault>
+      <fault name="ExceedMonthlyTransferAmountWSException">
+        <soap:fault use="literal" name="ExceedMonthlyTransferAmountWSException" namespace="" />
+      </fault>
+      <fault name="ExceedDailyTransferAmountWSException">
+        <soap:fault use="literal" name="ExceedDailyTransferAmountWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="login">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="loginStatic">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="logout">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getStatement">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="PermissionWSException">
+        <soap:fault use="literal" name="PermissionWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getDeposits">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="PermissionWSException">
+        <soap:fault use="literal" name="PermissionWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getDepositOwnerName">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="PermissionWSException">
+        <soap:fault use="literal" name="PermissionWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getCardTransactions">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="PermissionWSException">
+        <soap:fault use="literal" name="PermissionWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getLoans">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getLoanList">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getLoanDetail">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="InvalidLoanNumberWSException">
+        <soap:fault use="literal" name="InvalidLoanNumberWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="payLoan">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="InvalidLoanNumberWSException">
+        <soap:fault use="literal" name="InvalidLoanNumberWSException" namespace="" />
+      </fault>
+      <fault name="PermissionWSException">
+        <soap:fault use="literal" name="PermissionWSException" namespace="" />
+      </fault>
+      <fault name="InsufficientFundsWSException">
+        <soap:fault use="literal" name="InsufficientFundsWSException" namespace="" />
+      </fault>
+      <fault name="InvalidCurrencyWSException">
+        <soap:fault use="literal" name="InvalidCurrencyWSException" namespace="" />
+      </fault>
+      <fault name="NotPayableLoanWSException">
+        <soap:fault use="literal" name="NotPayableLoanWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getBillInfo">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="BillTypeSupportWSException">
+        <soap:fault use="literal" name="BillTypeSupportWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="payBill">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="BillTypeSupportWSException">
+        <soap:fault use="literal" name="BillTypeSupportWSException" namespace="" />
+      </fault>
+      <fault name="AmountConstrainViolationWSException">
+        <soap:fault use="literal" name="AmountConstrainViolationWSException" namespace="" />
+      </fault>
+      <fault name="DuplicateTransactionWSException">
+        <soap:fault use="literal" name="DuplicateTransactionWSException" namespace="" />
+      </fault>
+      <fault name="AuthenticationWSException">
+        <soap:fault use="literal" name="AuthenticationWSException" namespace="" />
+      </fault>
+      <fault name="NoSufficientFundWSException">
+        <soap:fault use="literal" name="NoSufficientFundWSException" namespace="" />
+      </fault>
+      <fault name="ExceedWithdrawalWSException">
+        <soap:fault use="literal" name="ExceedWithdrawalWSException" namespace="" />
+      </fault>
+      <fault name="InvalidDepositOrCardWSException">
+        <soap:fault use="literal" name="InvalidDepositOrCardWSException" namespace="" />
+      </fault>
+      <fault name="BusinessWSException">
+        <soap:fault use="literal" name="BusinessWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getGuarantyList">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="InvalidLoanNumberWSException">
+        <soap:fault use="literal" name="InvalidLoanNumberWSException" namespace="" />
+      </fault>
+      <fault name="InvalidCustomerWSException">
+        <soap:fault use="literal" name="InvalidCustomerWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getCustomerDetailInfo">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="InvalidCustomerWSException">
+        <soap:fault use="literal" name="InvalidCustomerWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getBillPaymentDetail">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="CardNotFoundWSException">
+        <soap:fault use="literal" name="CardNotFoundWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getDepositBalance">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="PermissionWSException">
+        <soap:fault use="literal" name="PermissionWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="convertDepositNumberToIban">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getRequestStatus">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getCardDeposits">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="chargeCard">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="PermissionWSException">
+        <soap:fault use="literal" name="PermissionWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="getDepositCustomer">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="cashCheque">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="InvalidChequeNumberWSException">
+        <soap:fault use="literal" name="InvalidChequeNumberWSException" namespace="" />
+      </fault>
+      <fault name="InvalidChequeStatusWSException">
+        <soap:fault use="literal" name="InvalidChequeStatusWSException" namespace="" />
+      </fault>
+      <fault name="InsufficientFundsWSException">
+        <soap:fault use="literal" name="InsufficientFundsWSException" namespace="" />
+      </fault>
+      <fault name="InvalidCurrencyWSException">
+        <soap:fault use="literal" name="InvalidCurrencyWSException" namespace="" />
+      </fault>
+      <fault name="CommissionIllegalDepositStateWSException">
+        <soap:fault use="literal" name="CommissionIllegalDepositStateWSException" namespace="" />
+      </fault>
+      <fault name="CommissionInsufficientFundWSException">
+        <soap:fault use="literal" name="CommissionInsufficientFundWSException" namespace="" />
+      </fault>
+      <fault name="CommissionInvalidAccountWSException">
+        <soap:fault use="literal" name="CommissionInvalidAccountWSException" namespace="" />
+      </fault>
+      <fault name="CommissionInvalidCurrencyWSException">
+        <soap:fault use="literal" name="CommissionInvalidCurrencyWSException" namespace="" />
+      </fault>
+      <fault name="CommissionInvalidDepositWSException">
+        <soap:fault use="literal" name="CommissionInvalidDepositWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="authorizeDeposit">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="InvalidExchangeIdWSException">
+        <soap:fault use="literal" name="InvalidExchangeIdWSException" namespace="" />
+      </fault>
+      <fault name="IllegalBankWSException">
+        <soap:fault use="literal" name="IllegalBankWSException" namespace="" />
+      </fault>
+      <fault name="InvalidBrokerStateWSException">
+        <soap:fault use="literal" name="InvalidBrokerStateWSException" namespace="" />
+      </fault>
+      <fault name="IllegalDepositStateWSException">
+        <soap:fault use="literal" name="IllegalDepositStateWSException" namespace="" />
+      </fault>
+      <fault name="InvalidBrokerIdWSException">
+        <soap:fault use="literal" name="InvalidBrokerIdWSException" namespace="" />
+      </fault>
+      <fault name="InvalidExchangeStateWSException">
+        <soap:fault use="literal" name="InvalidExchangeStateWSException" namespace="" />
+      </fault>
+      <fault name="ExchangeBrokerRelationWSException">
+        <soap:fault use="literal" name="ExchangeBrokerRelationWSException" namespace="" />
+      </fault>
+      <fault name="ExchangeContractExpirationWSException">
+        <soap:fault use="literal" name="ExchangeContractExpirationWSException" namespace="" />
+      </fault>
+      <fault name="InvalidIBANWSException">
+        <soap:fault use="literal" name="InvalidIBANWSException" namespace="" />
+      </fault>
+      <fault name="NotAuthorizableDepositTypeWSException">
+        <soap:fault use="literal" name="NotAuthorizableDepositTypeWSException" namespace="" />
+      </fault>
+      <fault name="PermissionWSException">
+        <soap:fault use="literal" name="PermissionWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="customerExchangeContract">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="InvalidContractEndDateWSException">
+        <soap:fault use="literal" name="InvalidContractEndDateWSException" namespace="" />
+      </fault>
+      <fault name="InvalidContractDurationRangeWSException">
+        <soap:fault use="literal" name="InvalidContractDurationRangeWSException" namespace="" />
+      </fault>
+      <fault name="InvalidCustomerWSException">
+        <soap:fault use="literal" name="InvalidCustomerWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="assignExchangeBroker">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="InvalidCustomerWSException">
+        <soap:fault use="literal" name="InvalidCustomerWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="requestHarimOtp">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="InvalidCardStatusWSException">
+        <soap:fault use="literal" name="InvalidCardStatusWSException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="depositBillPayment">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="PermissionWSException">
+        <soap:fault use="literal" name="PermissionWSException" namespace="" />
+      </fault>
+      <fault name="DuplicateTransactionWSException">
+        <soap:fault use="literal" name="DuplicateTransactionWSException" namespace="" />
+      </fault>
+      <fault name="ExceedWithdrawalWSException">
+        <soap:fault use="literal" name="ExceedWithdrawalWSException" namespace="" />
+      </fault>
+      <fault name="BillTypeSupportWSException">
+        <soap:fault use="literal" name="BillTypeSupportWSException" namespace="" />
+      </fault>
+      <fault name="InvalidCurrencyWSException">
+        <soap:fault use="literal" name="InvalidCurrencyWSException" namespace="" />
+      </fault>
+      <fault name="AmountConstrainViolationWSException">
+        <soap:fault use="literal" name="AmountConstrainViolationWSException" namespace="" />
+      </fault>
+      <fault name="InsufficientFundsWSException">
+        <soap:fault use="literal" name="InsufficientFundsWSException" namespace="" />
+      </fault>
+    </operation>
+  </binding>
+  <service name="soap_sarmayehInterbank">
+    <port name="soapPort" binding="tns:soapPortBinding">
+      <soap:address location="https://10.255.253.10/yaghut/soap/soap_sarmayehInterbank" />
+    </port>
+  </service>
+</definitions>

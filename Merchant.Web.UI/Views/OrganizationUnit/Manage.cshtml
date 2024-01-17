@@ -1,0 +1,172 @@
+﻿@{
+    ViewBag.Title = "لیست شعب";
+}
+
+<div class="page-header">
+    <h1>لیست شعب</h1>
+</div>
+
+<div class="form-horizontal">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="OrganizationUnitId">کد شعبه</label>
+                <div class="col-md-8">
+                    <input type="text" id="OrganizationUnitId" name="OrganizationUnitId" class="form-control only-number" maxlength="10" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="OrganizationUnitTitle">نام شعبه</label>
+                <div class="col-md-8">
+                    <input type="text" id="OrganizationUnitTitle" name="OrganizationUnitTitle" class="form-control" maxlength="100" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="button" id="btnSearch" class="btn btn-primary" data-loading-text="در حال جستجو...">جستجو</button>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center" id="DataTable">
+        <thead>
+        <tr class="header">
+            <th width="1px"><input type="checkbox" id="SelectAllOrganizationUnits" /></th>
+            <th>کد پایانه</th>
+            <th>نام</th>
+            @*<th>استان</th>
+            <th>شهر</th>*@
+            <th>تعداد کاربر</th>
+            <th>امکان ثبت درخواست پایانه</th>
+            <th>امکان ثبت درخواست پایانه سیار</th>
+            <th width="1px"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td colspan="12"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<button class="fab-button" id="btnGroupChangePermissions" data-toggle="tooltip" title="ویرایش گروهی دسترسی شعب">
+    ویرایش دسترسی <span id="count"></span> شعبه &nbsp;
+    <i class="fa fa-lock fa-lg"></i>
+</button>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/organizationUnitManageScripts",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.confirm.js")
+
+<script type="text/javascript">
+
+        function loadData() {
+            $('#DataTable tbody').empty().append('<tr><td colspan="12"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+            var $searchButton = $('#btnSearch');
+            $searchButton.button('loading');
+
+            return $.get('@Url.Action("GetData", "OrganizationUnit")', { organizationUnitTitle: $('#OrganizationUnitTitle').val(), organizationUnitId: $('#OrganizationUnitId').val() }).done(function (result) {
+                $('#DataTable tbody').empty();
+                var html = '';
+                $searchButton.button('reset');
+
+                if (!result.success) {
+                    $('#DataTable tbody').empty().append('<tr><td colspan="12"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                    return false;
+                }
+
+                if (result.data.length === 0) {
+                    $('#DataTable tbody').empty().append('<tr><td colspan="12"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                    return false;
+                }
+
+                for (var i = 0; i < result.data.length; i++) {
+                    var item = result.data[i];
+
+                    html += '<tr data-organization-unit-id="' + item.id + '">' +
+                        '<td class="text-nowrap"><input type="checkbox" class="group-change-permissions" /></td>' +
+                        '<th>' + item.id + '</th>' +
+                        '<td>' + item.title + '</td>' +
+                        //'<td>' + (item.stateTitle || '') + '</td>' +
+                        //'<td>' + (item.cityTitle || '') + '</td>' +
+                        '<td>' + item.userCount + '</td>' +
+                        '<td class="' + (item.disableNewTerminalRequest ? 'danger text-danger' : 'text-success') + '"><b>' + (item.disableNewTerminalRequest ? 'خیر' : 'بله') + '</b></td>' +
+                        '<td class="' + (item.disableWirelessTerminalRequest ? 'danger text-danger' : 'text-success') + '"><b>' + (item.disableWirelessTerminalRequest ? 'خیر' : 'بله') + '</b></td>' +
+                        '<td class="text-nowrap"><button class="btn btn-xs btn-warning btn-edit" data-id=' + item.id + '><i class="fa fa-pencil"></i></button></td>' +
+                        '</tr>';
+                }
+
+                $('#DataTable tbody').empty().append(html);
+            });
+        }
+
+        $(document).ready(function () {
+            loadData();
+
+            $('#SelectAllOrganizationUnits').on('change', function () {
+                if (this.checked) {
+                    $('.group-change-permissions').prop('checked', true).trigger('change');
+                } else {
+                    $('.group-change-permissions').prop('checked', false).trigger('change');
+                }
+            });
+
+            $('#DataTable').on('change', 'tbody .group-change-permissions', function () {
+                var $row = $(this).closest('tr');
+
+                if (this.checked) {
+                    $row.addClass('info');
+                } else {
+                    $row.removeClass('info');
+                }
+
+                if ($('#DataTable tbody tr.info').length) {
+                    $('#btnGroupChangePermissions').fadeIn();
+                    $('#btnGroupChangePermissions #count').empty().append(convertToPersianNumbers($('#DataTable tbody tr.info').length));
+                } else {
+                    $('#btnGroupChangePermissions').fadeOut();
+                }
+            });
+
+            $('#btnGroupChangePermissions').on('click', function () {
+                $.showModal({
+                    url: '@Url.Action("GroupChangePermissions", "OrganizationUnit")',
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            $('#btnGroupChangePermissions').fadeOut();
+                            loadData();
+                        }
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-edit', '.btn-edit', function () {
+                $.showModal({
+                    url: '@Url.Action("Edit", "OrganizationUnit")',
+                    data: { id: $(this).data('id') },
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            loadData();
+                        }
+                    }
+                });
+            });
+
+            $('#btnSearch').on('click', function () {
+                loadData();
+            });
+        });
+</script>
+}

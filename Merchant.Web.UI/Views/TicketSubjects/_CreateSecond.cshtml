@@ -1,0 +1,55 @@
+﻿@model SecondSubjectListViewModel
+@{
+    ViewBag.PageTitle = "ثبت    موضوع   جدید";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+<form action="@Url.Action("CreateSecond", "TicketSubjects")" method="post" class="form-horizontal" id="NewsCreateForm">
+     
+
+    <div class="form-group">
+        <label class="control-label col-md-2 required" for="Title">متن  </label>
+        <div class="col-md-10">
+            <textarea id="Title" name="Title" class="form-control" rows="5"></textarea>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button id="ConfirmButton" type="submit" class="btn btn-success btn-lg" data-loading-text="درحال ثبت...">ثبت</button>
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">انصراف</button>
+            @Html.HiddenFor(m=>m.ParentId)
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#NewsCreateForm').validate({
+            rules: {
+                Title: { required: true },
+                
+            },
+            submitHandler: function (form) {
+                var $button = $('#ConfirmButton', '#NewsCreateForm');
+                $button.button('loading');
+
+                $(form).ajaxSubmit({
+                    success: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+
+                        if (result.success) {
+                            $.closeModal('ok');
+                        }
+                    }, error: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+                    }
+                });
+            }
+        });
+    });
+</script>

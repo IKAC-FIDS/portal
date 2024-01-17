@@ -1,0 +1,46 @@
+﻿@model List<UserRoleManageViewModel>
+
+@{
+    ViewBag.PageTitle = "مدیریت نقش کاربران";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+<div id="frmManageUser">
+    <table class="table table-condensed" id="UserRoleTable">
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <button type="button" data-loading-text="در حال ثبت..." data-role-id="@item.RoleId" class="btn btn-@(item.IsSelected ? "success" : "default") btn-block btn-toggle-user-role">@item.RoleName</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.btn-toggle-user-role', '#UserRoleTable').on('click', function () {
+                var $button = $(this);
+                $button.button('loading');
+
+               
+                $.post('@Url.Action("Toggle", "UserRole")', { userId: @ViewBag.CUserId, roleId: $button.data('role-id') }).done(function(result){
+                    $button.button('reset');
+                    $.processMessage(result);
+
+                    if(result.success){
+                        if(result.data === true){
+                            $button.removeClass('btn-default').addClass('btn-success');
+                        } else{
+                            $button.removeClass('btn-success').addClass('btn-default');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "ورود اطلاعات EM";
+}
+
+<div class="page-header">
+    <a class="btn btn-info pull-left" target="_blank" href="~/Download/EM.xlsx">نمونه فایل جهت ورود اطلاعات</a>
+    <h1>ورود اطلاعات EM</h1>
+</div>
+
+<form enctype="multipart/form-data" action="@Url.Action("Import", "TerminalEm")" method="post" id="TerminalEMImportForm">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">انتخاب فایل (.xlsx)</span><span class="fileinput-exists">تغییر</span><input accept=".xlsx" type="file" name="File" id="File"></span>
+                    <div class="form-control" data-trigger="fileinput">
+                        <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span>
+                    </div>
+                    <span class="input-group-btn">
+                        <button id="ConfirmButton" type="submit" class="btn btn-success" data-loading-text="در حال ثبت...">ثبت اطلاعات</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<ul>
+    <li><p class="help-block">سطر اول فایل اکسل برای عنوان ستون ها به کار رفته باشد.</p></li>
+    <li><p class="help-block">ستون اول فایل اکسل: شماره پایانه</p></li>
+    <li><p class="help-block">ستون دوم فایل اکسل: تاریخ EM درخواستی <small>(سال به صورت چهار رقمی درج شده باشد یعنی 1396/1/1 به جای 96/1/1)</small></p></li>
+    <li><p class="help-block">ستون سوم فایل اکسل: تاریخ EM <small>(سال به صورت چهار رقمی درج شده باشد یعنی 1396/1/1 به جای 96/1/1)</small></p></li>
+</ul>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/terminalEmImportScripts", "~/Scripts/jasny-bootstrap.js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#TerminalEMImportForm').on('submit', function (e) {
+                if (!$("#File").val()) {
+                    toastr.error('فایل مورد نظر را انتخاب نمایید.');
+                    return false;
+                }
+
+                $('#ConfirmButton').button('loading');
+
+                setInterval(function () {
+                    toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                }, 12000);
+            });
+        });
+    </script>
+}

@@ -1,0 +1,413 @@
+﻿@{
+    ViewBag.Title = "مدیریت کاربران";
+}
+
+@section styles {
+    @BundleConfig.AddStyles("~/Content/userManageStyles",
+        "~/Content/chosen.css",
+        "~/Content/PersianDatePicker.css")
+}
+
+<div class="page-header">
+    <a id="CreateButton" class="btn btn-success pull-left">کاربر جدید</a>
+    <h1>مدیریت کاربران</h1>
+</div>
+
+<form id="SearchForm" class="form-horizontal">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="FullName">نام و نام خانوادگی</label>
+                <div class="col-md-8">
+                    <input type="text" id="FullName" name="FullName" class="form-control" maxlength="10" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="UserName">نام کاربری</label>
+                <div class="col-md-8">
+                    <input type="text" id="UserName" name="UserName" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="BranchId">واحد سازمانی</label>
+                <div class="col-md-8">
+                    @Html.DropDownList("BranchId", (IEnumerable<SelectListItem>)ViewBag.BranchList, "انتخاب نمایید", new { @class = "chosen-select chosen-rtl" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="RoleIdList">نقش ها</label>
+                <div class="col-md-8">
+                    @Html.DropDownList("RoleIdList", (IEnumerable<SelectListItem>)ViewBag.RoleList, null, new { @class = "form-control", multiple = "multiple", data_placeholder = "نقش ها" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">وضعیت</label>
+        <div class="col-md-4">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default active">
+                    <input type="radio" name="Locked" id="Locked" value="" checked /> همه
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="Locked" value="false" /> فعال
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="Locked" value="true" /> غیرفعال
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="button" id="SearchButton" class="btn btn-primary" data-loading-text="در حال جستجو...">جستجو</button>
+            <button type="button" id="ClearSearchFiltersButton" class="btn btn-default">حذف تمامی فیلترها</button>
+        </div>
+    </div>
+</form>
+
+<hr />
+
+<div class="alert alert-info">
+    <i class="fa fa-lightbulb-o fa-lg"></i> در جدول زیر، کاربرانی که غیر فعال باشند با رنگ قرمز نمایش داده خواهند شد.
+</div>
+
+<br />
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center" id="DataTable">
+        <thead>
+            <tr>
+                <th>نام و نام خانوادگی</th>
+                <th>نام کاربری</th>
+                  <th>تلفن همراه </th>
+                <th>واحد سازمانی</th>
+                <th width="1px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="4"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">
+                    <ul id="Pagination" class="pagination-sm"></ul>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/userManageScripts",
+        "~/Scripts/jquery.twbsPagination.js",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/PersianDatePicker.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.filter_input.js",
+        "~/Scripts/jquery.confirm.js",
+        "~/Scripts/chosen.jquery.js")
+
+    <script type="text/javascript">
+        function loadData(retriveTotalPageCount, page) {
+            $('#DataTable tbody').empty().append('<tr><td colspan="5"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+            if (retriveTotalPageCount) {
+                var pagingData = $('#Pagination').data('twbs-pagination');
+                if (pagingData) $('#Pagination').twbsPagination('destroy');
+                $('#SearchButton').removeData('total-pages');
+            }
+
+            var $button = $('#SearchButton');
+            $button.button('loading');
+
+            var data = {
+                fullName: $('#FullName', '#SearchForm').val(),
+                email: $('#Email', '#SearchForm').val(),
+                phoneNumber: $('#PhoneNumber', '#SearchForm').val(),
+                userName: $('#UserName', '#SearchForm').val(),
+                branchId: $('#BranchId', '#SearchForm').val(),
+                roleIdList: $('#RoleIdList', '#SearchForm').val() || [],
+                locked: $('input[name=Locked]:checked', '#SearchForm').val(),
+                retriveTotalPageCount: retriveTotalPageCount,
+                page: page
+            };
+
+            return $.post('@Url.Action("GetData", "User")', data).done(function (result) {
+                $button.button('reset');
+                $('#DataTable tbody').empty();
+                var html = '';
+
+                if (!result.success) {
+                    $('#DataTable tbody').empty().append('<tr><td colspan="4"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                    return false;
+                }
+
+                if (result.data.rows.length === 0) {
+                    $('#DataTable tbody').empty().append('<tr><td colspan="4"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                    return false;
+                }
+
+                if (retriveTotalPageCount && result.data.totalRowsCount > 0) {
+                    $('#SearchButton').data('total-pages', result.data.totalRowsCount);
+
+                    $('#Pagination').twbsPagination({
+                        totalPages: Math.ceil(result.data.totalRowsCount / 20),
+                        visiblePages: 7,
+                        last: '<i class="fa fa-fast-backward"></i>',
+                        next: '<i class="fa fa-backward"></i>',
+                        prev: '<i class="fa fa-forward"></i>',
+                        first: '<i class="fa fa-fast-forward"></i>',
+                        initiateStartPageClick: false,
+                        onPageClick: function (event, page) {
+                            loadData(false, page);
+                        }
+                    });
+                }
+
+                for (var i = 0; i < result.data.rows.length; i++) {
+                    var item = result.data.rows[i];
+
+                    html += '<tr class="' + (item.isLocked ? "danger" : "") + '">' +
+                        '<td>' + item.fullName + '</td>' +
+                        '<td>' + item.userName + '</td>' +
+                           '<td>' + (item.phoneNumber == null ? "" : item.phoneNumber ) + '</td>' +
+                        '<td>' + (item.branchTitle ? item.branchTitle : '') + '</td>' +
+                        '<td class="text-nowrap">' +
+                        showRolesButton(item.id) +
+                        showChangeOrganizationUnitButton(item.id) +
+                        '<button data-toggle="tooltip" title="تغییر رمز عبور" class="btn btn-default btn-xs btn-change-password" data-user-id="' + item.id + '"><i class="fa fa-key"></i></button> &nbsp;' +
+                        (@JsonNet.Encode(User.IsAdmin()) && !item.isLocked ? '<button data-toggle="tooltip" title="غیر فعال سازی" class="btn btn-default btn-xs btn-lock" data-user-id="' + item.id + '"><i class="fa fa-lock"></i></button> &nbsp;' : '') +
+                        (@JsonNet.Encode(User.IsAdmin() || User.IsAcceptorsExpertUser()) && item.isLocked ? '<button data-toggle="tooltip" title="فعال سازی" class="btn btn-default btn-xs btn-unlock" data-user-id="' + item.id + '"><i class="fa fa-unlock"></i></button> &nbsp;' : '') +
+                        showDeleteButton(item.id) +
+                        showViewLogsButton(item.id) +
+                        
+                           showChangePhoneNumberButton(item.id) +
+                           
+                           
+                        '</td>' +
+                        '</tr>';
+                }
+
+                $('#DataTable tbody').empty().append(html);
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        }
+
+        function showRolesButton(userId) {
+            if ((@JsonNet.Encode(User.IsAdmin()))) {
+                return '<button data-toggle="tooltip" title="مدیریت نقش ها" class="btn btn-default btn-xs btn-manage-user-role" data-user-id="' + userId + '"><i class="fa fa-users"></i></button> &nbsp;';
+            } else {
+                return '';
+            }
+        }
+
+        function showChangeOrganizationUnitButton(userId) {
+            if ((@JsonNet.Encode(User.IsAdmin()))) {
+                return '<button data-toggle="tooltip" title="تغییر شعبه کاربر" class="btn btn-default btn-xs btn-change-organization-unit" data-user-id="' + userId + '"><i class="fa fa-building-o"></i></button> &nbsp;';
+            } else {
+                return '';
+            }
+        }
+
+        function showDeleteButton(userId) {
+            if ((@JsonNet.Encode(User.IsAdmin()))) {
+                return '<button data-toggle="tooltip" title="حذف" class="btn btn-danger btn-xs btn-delete" data-user-id="' + userId + '"><i class="fa fa-trash"></i></button> &nbsp;';
+            } else {
+                return '';
+            }
+        }
+function showChangePhoneNumberButton(userId) {
+              if ((@JsonNet.Encode(User.IsAdmin()))) {
+                                        return '<button data-toggle="tooltip" title="تغییر    تلفن همراه" ' +
+                                         'class="btn btn-default btn-xs btn-change-phoneNumber" data-user-id="' + userId + '"><i class="fa fa-phone"></i></button> &nbsp;';
+                                    } else {
+                                        return '';
+                                    }
+            }
+        function showViewLogsButton(userId) {
+            if ((@JsonNet.Encode(User.IsAdmin()))) {
+                return ' &nbsp;<button data-toggle="tooltip" title="مشاهده لاگ ها" class="btn btn-warning btn-xs btn-user-activity-logs" data-user-id="' + userId + '"><i class="fa fa-history"></i></button> &nbsp;';
+            } else {
+                return '';
+            }
+        }
+
+        function refreshCurrentPage() {
+            var currentPageNo = $('#Pagination li.page.active').data('page');
+            loadData(false, currentPageNo);
+        }
+
+        $(document).ready(function () {
+            loadData(true, 1);
+
+            $('#RoleIdList', '#SearchForm').chosen({ width: "100%", rtl: true });
+            $('#BranchId', '#SearchForm').chosen({ width: "100%", rtl: true });
+            $('#FullName').filter_input({ regex: "^[ا-یآ-ئ\'\'-\'\\s]{1,40}$" });
+            $('#Email').filter_input({ regex: "[a-zA-Z0-9]" });
+            $('.only-number').filter_input({ regex: '[0-9]' });
+
+            $('#SearchButton').on('click', function () {
+                loadData(true, 1);
+            });
+
+              $('#DataTable').on('click.btn-change-phoneNumber', '.btn-change-phoneNumber', function () {
+                            $.showModal({
+                                modalSize: 'md',
+                                url: '@Url.Action("ChangePhoneNumber", "User")',
+                                data: { userId: $(this).data('user-id') },
+                                onClose: function (modalResult) {
+                                    if (modalResult === 'ok') {
+                                        refreshCurrentPage();
+                                    }
+                                }
+                            });
+                        });
+              
+              
+            $('#DataTable').on('click.btn-change-organization-unit', '.btn-change-organization-unit', function () {
+                $.showModal({
+                    modalSize: 'md',
+                    url: '@Url.Action("ChangeOrganizationUnit", "User")',
+                    data: { userId: $(this).data('user-id') },
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            refreshCurrentPage();
+                        }
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-manage-user-role', '.btn-manage-user-role', function () {
+                $.showModal({
+                    modalSize: 'sm',
+                    url: '@Url.Action("Manage", "UserRole")',
+                    data: { userId: $(this).data('user-id') }
+                });
+            });
+
+            $('#DataTable').on('click.btn-user-activity-logs', '.btn-user-activity-logs', function () {
+                $.showModal({
+                    modalSize: 'xlg',
+                    url: '@Url.Action("Index", "UserActivityLog")',
+                    data: { userId: $(this).data('user-id') }
+                });
+            });
+
+            $('#CreateButton').on('click', function () {
+                $.showModal({
+                    modalSize: 'md',
+                    url: '@Url.Action("Create", "User")',
+                    onClose: function (modalResult) {
+                        if (modalResult === 'ok') {
+                            refreshCurrentPage();
+                        }
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-change-password', '.btn-change-password', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    body: 'آیا مطمئن هستید که می خواهید رمز عبور این کاربر را عوض نمایید؟ <br /> <br /> <small class="text-muted">با کلیک روی دکمه تایید رمز عبور جدید تولید و به شما نشان داده خواهد شد</small>',
+                    onConfirm: function () {
+                        $.showModal({
+                            modalSize: 'md',
+                            url: '@Url.Action("NewPassword", "User")',
+                            data: { userId: $button.data('user-id') }
+                        });
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-lock', '.btn-lock', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    body: 'آیا مطمئن هستید که می خواهید این کاربر را غیر فعال نمایید؟',
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("Lock", "User")', { userId: $button.data('user-id') }).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                refreshCurrentPage();
+                            }
+                        });
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-unlock', '.btn-unlock', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    body: 'آیا مطمئن هستید که می خواهید این کاربر را از حالت غیر فعال خارج نمایید؟',
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("Unlock", "User")', { userId: $button.data('user-id') }).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                refreshCurrentPage();
+                            }
+                        });
+                    }
+                });
+            });
+
+            $('#DataTable').on('click.btn-delete', '.btn-delete', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    body: 'آیا مطمئن هستید که می خواهید این کاربر را حذف نمایید؟',
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("Delete", "User")', { userId: $button.data('user-id') }).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                $button.closest('tr').remove();
+
+                                if ($('#DataTable tbody').is(":empty")) {
+                                    $('#DataTable tbody').empty().append('<tr><td colspan="5"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+            $('#ClearSearchFiltersButton').on('click', function () {
+                $('input:text', '#SearchForm').val('');
+                $('#RoleIdList', '#SearchForm').val('').trigger("chosen:updated");
+                $('#BranchId', '#SearchForm').val('').trigger("chosen:updated");
+            });
+        });
+    </script>
+}

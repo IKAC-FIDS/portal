@@ -1,0 +1,66 @@
+E:\repo\Portal.IService\bin\Debug\Portal.IService.dll
+E:\repo\Portal.IService\bin\Debug\Portal.IService.pdb
+E:\repo\Portal.IService\bin\Debug\TES.Data.dll
+E:\repo\Portal.IService\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\repo\Portal.IService\bin\Debug\EntityFramework.dll
+E:\repo\Portal.IService\bin\Debug\TES.Common.dll
+E:\repo\Portal.IService\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+E:\repo\Portal.IService\bin\Debug\Dapper.dll
+E:\repo\Portal.IService\bin\Debug\Persia.dll
+E:\repo\Portal.IService\bin\Debug\TES.Data.pdb
+E:\repo\Portal.IService\bin\Debug\TES.Data.dll.config
+E:\repo\Portal.IService\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\repo\Portal.IService\bin\Debug\EntityFramework.xml
+E:\repo\Portal.IService\bin\Debug\TES.Common.pdb
+E:\repo\Portal.IService\bin\Debug\TES.Common.dll.config
+E:\repo\Portal.IService\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+E:\repo\Portal.IService\bin\Debug\Dapper.xml
+E:\repo\Portal.IService\obj\Debug\Portal.IService.csproj.AssemblyReference.cache
+E:\repo\Portal.IService\obj\Debug\Portal.IService.csproj.CoreCompileInputs.cache
+E:\repo\Portal.IService\obj\Debug\Portal.IService.csproj.CopyComplete
+E:\repo\Portal.IService\obj\Debug\Portal.IService.dll
+E:\repo\Portal.IService\obj\Debug\Portal.IService.pdb
+D:\01 Projects\OldPortal\Portal.IService\bin\Debug\Portal.IService.dll
+D:\01 Projects\OldPortal\Portal.IService\bin\Debug\Portal.IService.pdb
+D:\01 Projects\OldPortal\Portal.IService\bin\Debug\TES.Common.dll
+D:\01 Projects\OldPortal\Portal.IService\bin\Debug\TES.Data.dll
+D:\01 Projects\OldPortal\Portal.IService\bin\Debug\Persia.dll
+D:\01 Projects\OldPortal\Portal.IService\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\01 Projects\OldPortal\Portal.IService\bin\Debug\EntityFramework.dll
+D:\01 Projects\OldPortal\Portal.IService\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+D:\01 Projects\OldPortal\Portal.IService\bin\Debug\Dapper.dll
+D:\01 Projects\OldPortal\Portal.IService\bin\Debug\TES.Common.pdb
+D:\01 Projects\OldPortal\Portal.IService\bin\Debug\TES.Common.dll.config
+D:\01 Projects\OldPortal\Portal.IService\bin\Debug\TES.Data.pdb
+D:\01 Projects\OldPortal\Portal.IService\bin\Debug\TES.Data.dll.config
+D:\01 Projects\OldPortal\Portal.IService\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\01 Projects\OldPortal\Portal.IService\bin\Debug\EntityFramework.xml
+D:\01 Projects\OldPortal\Portal.IService\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+D:\01 Projects\OldPortal\Portal.IService\bin\Debug\Dapper.xml
+D:\01 Projects\OldPortal\Portal.IService\obj\Debug\Portal.IService.csproj.AssemblyReference.cache
+D:\01 Projects\OldPortal\Portal.IService\obj\Debug\Portal.IService.csproj.CoreCompileInputs.cache
+D:\01 Projects\OldPortal\Portal.IService\obj\Debug\Portal.IService.csproj.CopyComplete
+D:\01 Projects\OldPortal\Portal.IService\obj\Debug\Portal.IService.dll
+D:\01 Projects\OldPortal\Portal.IService\obj\Debug\Portal.IService.pdb
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\bin\Debug\Portal.IService.dll
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\bin\Debug\Portal.IService.pdb
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\bin\Debug\TES.Common.dll
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\bin\Debug\TES.Data.dll
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\bin\Debug\Persia.dll
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\bin\Debug\EntityFramework.dll
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\bin\Debug\Dapper.dll
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\bin\Debug\TES.Common.pdb
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\bin\Debug\TES.Common.dll.config
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\bin\Debug\TES.Data.pdb
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\bin\Debug\TES.Data.dll.config
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\bin\Debug\EntityFramework.xml
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\bin\Debug\Dapper.xml
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\obj\Debug\Portal.IService.csproj.AssemblyReference.cache
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\obj\Debug\Portal.IService.csproj.CoreCompileInputs.cache
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\obj\Debug\Portal.IService.csproj.CopyComplete
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\obj\Debug\Portal.IService.dll
+E:\Tejarat Electronic Sarmaye\Portal\OldPortal\Portal.IService\obj\Debug\Portal.IService.pdb

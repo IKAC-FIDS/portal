@@ -1,0 +1,443 @@
+﻿@model MessageDetailsViewModel
+@using Microsoft.AspNet.Identity
+@using Newtonsoft.Json
+@using TES.Merchant.Web.UI.Functions
+
+@{
+    ViewBag.PageTitle = "جزئیات  ";
+}
+
+<div class="page-header">
+    <div class="pull-left">
+        <a class="btn btn-warning" href="@Url.Action("Manage", "PropertyDamageRequest")">بازگشت</a>
+        @if (
+        
+        (Model.StatusId == TES.Common.Enumerations.DamageRequestStatus.Open.ToByte() )
+        && (User.IsBranchUser() || User.IsBranchManagementUser() || User.IsAdmin()))
+        { 
+            <button style="background-color: #969696;border: #969696"  class="btn btn-danger" data-message-id="@Model.Id" id="ChangeStatusToPayFromBranchButton"> تغییر وضعیت به "بسته"</button>
+            <button class="btn btn-success" style="background-color:  #9800ff;border:  #9800ff" data-message-id="@Model.Id" id="ChangeStatusToUnderReviewButton">تغییر وضعیت به "در حال بررسی"</button>
+            <button class="btn btn-success" style="background-color:  #182d69;border:  #123d6a" data-message-id="@Model.Id" id="ChangeStatusToPendingButton"> تغییر وضعیت به "بررسی شده" </button>
+              
+        }
+         
+        else if ( 
+             (Model.StatusId == TES.Common.Enumerations.DamageRequestStatus.UnderReview.ToByte()
+
+            )
+            && (User.IsBranchUser() || User.IsAdmin() || User.IsBranchManagementUser())
+            
+            )
+        {
+                        <button class="btn btn-success" style="background-color:  #182d69;border:  #123d6a" data-message-id="@Model.Id" id="ChangeStatusToPendingButton"> تغییر وضعیت به " بررسی شده  " </button>
+
+            <button style="background-color: #969696;border: #969696"  class="btn btn-danger" data-message-id="@Model.Id" id="ChangeStatusToPayFromBranchButton"> تغییر وضعیت به "بسته"</button>
+
+        }
+    else if ( 
+             
+       (   Model.StatusId == TES.Common.Enumerations.DamageRequestStatus.Delay.ToByte() 
+            )
+            && (User.IsBranchUser() || User.IsBranchManagementUser() || User.IsAdmin())
+            
+            )
+        {
+            <button style="background-color: #969696;border: #969696"  class="btn btn-danger" data-message-id="@Model.Id" id="ChangeStatusToPayFromBranchButton"> تغییر وضعیت به "بسته"</button>
+
+        }
+
+        @if ( (Model.StatusId == TES.Common.Enumerations.DamageRequestStatus.PayFromBranch.ToByte() 
+         || 
+        
+         Model.StatusId == TES.Common.Enumerations.DamageRequestStatus.NoNeedForPayment.ToByte() 
+             
+             || 
+         (Model.StatusId == TES.Common.Enumerations.DamageRequestStatus.PayFromCustomer.ToByte()  )
+         ) &&
+              ( User.IsAdmin() || User.IsBranchManagementUser() || User.IsAcceptorsExpertUser() ))  {
+                  
+            <button class="btn btn-success" data-message-id="@Model.Id" id="ChangeStatusToOpenButton">تغییر وضعیت به "در انتظار بررسی"</button>
+                            <button class="btn btn-success" style="background-color: #626262;border: #626262" data-message-id="@Model.Id" id="ChangeStatusToEndProccessButton">تغییر وضعیت به "اتمام فرآیند"</button>
+                                                                                        
+        }
+    </div>
+    <p>
+          <h1>
+                جزئیات درخواست
+                <small class="text-muted">
+                    @if (string.IsNullOrEmpty(Model.ReviewerUserFullName))
+                    {
+                        <text>(@Model.UserFullName)</text>
+                    }
+                    else
+                    {
+                        <text>
+                            (@Model.UserFullName - @Model.ReviewerUserFullName)
+                        </text>
+                    }
+                </small>
+            </h1>
+    </p>
+    <p>
+          <h4>
+               وضعیت : 
+                
+                    
+                        <text> @Model.Status </text>
+                    
+               
+            </h4>
+    </p>
+    <p>
+        <h4>
+            کد پیگیری درخواست : 
+          
+            <text> @Model.GUID </text>
+      
+        </h4>
+    </p>
+    @if (!string.IsNullOrEmpty(@Model.ExtraDataTopicValue))
+    {
+        <p>
+            <h4>
+                @Model.ExtraDataTopic   : 
+                    
+                        
+                <text> @Model.ExtraDataTopicValue </text>
+                        
+                   
+            </h4>
+        </p>
+    
+    }
+    <p>
+        <h4>
+             شماره سریال   : 
+                       
+                           
+            <text> @Model.SerialNumber </text>
+                           
+                      
+        </h4>
+    </p>
+    
+    <p>
+        <h4>
+             مبلغ   : 
+                    
+                        
+            <text> @Model.DamageValue </text>
+                        
+                   
+        </h4>
+    </p>
+    
+    <p>
+              <h4>
+                   موضوع : 
+                    
+                        
+                            <text> @Model.Subject </text>
+                        
+                   
+                </h4>
+        </p>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="right-bubble">
+                  
+                <div>
+                    <h4>متن پیام:  </h4>
+                    <p>@Model.Body</p>
+                </div>
+                <small style="margin-left: 10px;">@Model.CreationDate.ToPersianDateTime()</small> <small class="text-muted">@Model.CreationDate.ToRelativeDate()</small>
+                <div style="margin-top: 6px;">
+                    @foreach (var item in Model.Documents)
+                    {
+                        <a class="btn btn-default btn-sm" href="@Url.Action("GetDocument", "PropertyDamageRequest", new {id = item.Key})" target="_blank"><i class="fa fa-paperclip"></i> @item.Value</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    @foreach (var item in Model.Replies.OrderBy(x => x.Id))
+    {
+        <div class="row">
+            <div class="col-sm-12">
+                <div>
+                    <b><i>@item.UserFullName:</i></b>
+                    
+                    <span style="line-height: 2;"  >@item.Body</span>  
+                </div>
+                <small style="margin-left: 10px;">@item.CreationDate.ToPersianDateTime()</small>
+                <div style="margin-top: 6px;">
+                    @foreach (var document in item.Documents)
+                    {
+                        <a class="btn btn-default btn-sm" href="@Url.Action("GetDocument", "DamageRequestReplyDocument", new { id = document.Key })" target="_blank"><i class="fa fa-paperclip"></i> @document.Value</a>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <hr />
+    }
+
+    @Html.Hidden("ModelId",Model.Id)
+    @if (Model.StatusId == DamageRequestStatus.PayFromBranch.ToByte()
+        ||
+        Model.StatusId == DamageRequestStatus.PayFromCustomer.ToByte()
+            || Model.StatusId == DamageRequestStatus.NoNeedForPayment.ToByte()
+        
+        )
+    {
+        <div class="alert alert-warning">
+            <i class="fa fa-lock fa-lg" style="margin-left: 4px;"></i> این درخواست از تاریخ <b><i>@Model.LastChangeStatusDate.Value.ToLongPersianDateTime()</i></b> در حالت بسته شده قرار دارد و امکان ثبت پاسخ جدیدی در آن وجود ندارد
+        </div>
+    }
+   
+    else
+    {
+        <form action="@Url.Action("Create", "DamageRequestReplay")" method="post" class="form-horizontal" id="frmSendMessage" enctype="multipart/form-data">
+            <textarea class="form-control" id="Body" name="Body" placeholder="متن پاسخ"></textarea>
+
+            <br />
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+                <span class="btn btn-default btn-file" tabindex="6"><span class="fileinput-new"> انتخاب فایل</span><span class="fileinput-exists">انتخاب فایل</span><input type="file" id="PostedFiles" name="PostedFiles" multiple accept=".jpg,.jpeg,.pdf,.docx,.png"></span>
+                <span class="fileinput-filename"></span>
+                <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+            </div>
+            <br />
+            <button id="btnConfirm" class="btn btn-success" type="submit" data-loading-text="در حال ارسال...">ارسال</button>
+        </form>
+    }
+</div>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/messageDetailsScripts",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.confirm.js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+            
+            
+             $('#ChangeStatusToPendingButton').on('click', function () {
+                            var $button = $(this);
+             
+                            let vava  = $('#UserId').val();
+                            if (vava === '')
+                                {
+                                            $.showConfirm({
+                                                         body: 'انتخاب یک کارشناس پذیرنده الزامی می باشد',
+                                                       
+                                                        onConfirm: function () {
+                                                          
+                                                        }
+                                                    });
+                                    return 0;
+                                    }
+                            
+                            
+                            $.showConfirm({
+                                 body: 'آیا نسبت به تغییر وضعیت درخواست به حالت "   بررسی شده " مطمئن هستید؟',
+                               
+                                onConfirm: function () {
+                                    $button.button('loading');
+            
+                                    $.post('@Url.Action("ChangeStatus", "PropertyDamageRequest")',
+                                     {
+                                        messageId: $button.data('message-id'),
+                                     statusId: '@TES.Common.Enumerations.DamageRequestStatus.Delay.ToByte()',
+                                     UserId : $('#UserId').val()
+                                   
+                                     }
+                                     
+                                     ).done(function (result) {
+                                        $.processMessage(result);
+                                        $button.button('reset');
+            
+                                        if (result.success) {
+                                        window.location.href = ('@Url.Action("Manage", "PropertyDamageRequest")' );
+
+                                        }
+                                    });
+                                }
+                            });
+                        });
+
+            $('#ChangeStatusToUnderReviewButton').on('click', function () {
+                var $button = $(this);
+ 
+                let vava  = $('#UserId').val();
+                if (vava === '')
+                    {
+                                $.showConfirm({
+                                             body: 'انتخاب یک کارشناس پذیرنده الزامی می باشد',
+                                           
+                                            onConfirm: function () {
+                                              
+                                            }
+                                        });
+                        return 0;
+                        }
+                
+                
+                $.showConfirm({
+                     body: 'آیا نسبت به تغییر وضعیت درخواست به حالت "در حال بررسی" مطمئن هستید؟',
+                   
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("ChangeStatus", "PropertyDamageRequest")',
+                         {
+                            messageId: $button.data('message-id'),
+                         statusId: '@TES.Common.Enumerations.DamageRequestStatus.UnderReview.ToByte()',
+                         UserId : $('#UserId').val()
+                       
+                         }
+                         
+                         ).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                });
+            });
+
+
+     $('#ChangeStatusToPayFromCustomerButton').on('click', function () {
+                var $button = $(this);
+
+                var terminalId  = $("#ModelId").val();
+                        
+                                        console.log(terminalId);
+                                         
+                                     
+                                        var url = "\\PropertyDamageRequest\\UploadFinalFile?Id=" + terminalId +"&statusId=" + 6;
+                                        
+                                        $.showModal({
+                                                          modalSize: 'lg',
+                                                          url: url,
+                                                          onClose: function (modalResult) {
+                                                              if (modalResult === 'ok') {
+                                                               //   window.location.reload();
+                                                                 window.location.href = ('@Url.Action("Manage", "PropertyDamageRequest")' );
+                                                              }
+                                                          }
+                                                      });
+                                        
+                
+               
+            });
+
+
+            $('#ChangeStatusToPayFromBranchButton').on('click', function () {
+                var $button = $(this);
+
+                var terminalId  = $("#ModelId").val();
+                        
+                                        console.log(terminalId);
+                                         
+                                     
+                                        var url = "\\PropertyDamageRequest\\UploadFinalFile?Id=" + terminalId  +"&statusId=" + 3;
+                                        
+                                        $.showModal({
+                                                          modalSize: 'lg',
+                                                          url: url,
+                                                          onClose: function (modalResult) {
+                                                              if (modalResult === 'ok') {
+                                                               //   window.location.reload();
+                                                                 window.location.href = ('@Url.Action("Manage", "PropertyDamageRequest")' );
+                                                              }
+                                                          }
+                                                      });
+                                        
+                
+               
+            });
+
+
+    $('#ChangeStatusToEndProccessButton').on('click', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    body: 'آیا نسبت به تغییر وضعیت درخواست به حالت "اتمام فرآیند" مطمئن هستید؟',
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("ChangeStatus", "PropertyDamageRequest")', { messageId: $button.data('message-id'), statusId: '@TES.Common.Enumerations.DamageRequestStatus.EndProcess.ToByte()' }).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                });
+            });
+
+
+
+            $('#ChangeStatusToOpenButton').on('click', function () {
+                var $button = $(this);
+
+                $.showConfirm({
+                    body: 'آیا نسبت به تغییر وضعیت درخواست به حالت "در انتظار بررسی" مطمئن هستید؟',
+                    onConfirm: function () {
+                        $button.button('loading');
+
+                        $.post('@Url.Action("ChangeStatus", "PropertyDamageRequest")', { messageId: $button.data('message-id'), statusId: '@TES.Common.Enumerations.DamageRequestStatus.Open.ToByte()' }).done(function (result) {
+                            $.processMessage(result);
+                            $button.button('reset');
+
+                            if (result.success) {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                });
+            });
+
+            $('#frmSendMessage').validate({
+                rules: {
+                    Body: { required: true }
+                },
+                submitHandler: function (form) {
+                    var $button = $('#btnConfirm', '#frmSendMessage');
+                    $button.button('loading');
+
+                    $(form).ajaxSubmit({
+                        data: { messageId: @Model.Id },
+                        success: function (result) {
+                            $button.button('reset');
+                            $.processMessage(result);
+
+                            if (result.success) {
+                                window.location.reload();
+                            }
+                        }, error: function (result) {
+                            $button.button('reset');
+                            $.processMessage(result);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

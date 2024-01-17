@@ -1,0 +1,137 @@
+﻿@{
+    ViewBag.PageTitle = "لاگ ها";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+<div class="form-horizontal">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="FromDate">از تاریخ</label>
+                <div class="col-md-6">
+                    <div class="left-inner-addon">
+                        <i class="fa fa-calendar-o"></i>
+                        <input type="text" id="FromDate" name="FromDate" class="form-control date-picker" maxlength="10" autocomplete="off" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="ToDate">تا تاریخ</label>
+                <div class="col-md-6">
+                    <div class="left-inner-addon">
+                        <i class="fa fa-calendar-o"></i>
+                        <input type="text" id="ToDate" name="ToDate" class="form-control date-picker" maxlength="10" autocomplete="off" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <button type="button" id="SearchLogsButton" class="btn btn-primary" data-loading-text="در حال جستجو...">جستجو</button>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center" id="UserActivityLogTable">
+        <thead>
+            <tr>
+                <th width="1px">#</th>
+                <th>زمان</th>
+                <th>IP کاربر</th>
+                <th>گروه</th>
+                <th>نام</th>
+                <th>آدرس</th>
+                <th>داده</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="7"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7">
+                    <ul id="UserActivityLogPagination" class="pagination-sm"></ul>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<script type="text/javascript">
+    function loadUserActivityLogs(retriveTotalPageCount, page) {
+        $('#UserActivityLogTable tbody').empty().append('<tr><td colspan="7"><div class="status-section"><i class="fa fa-spin fa-cog"></i> <p>در حال بارگذاری اطلاعات...</p></div></td></tr>');
+
+            if (retriveTotalPageCount) {
+                var pagingData = $('#UserActivityLogPagination').data('twbs-pagination');
+                if (pagingData) $('#UserActivityLogPagination').twbsPagination('destroy');
+            }
+
+            return $.post('@Url.Action("GetData", "UserActivityLog")', { userId: '@ViewBag.UserId', fromDate: $('#FromDate').val(), toDate: $('#ToDate').val(), retriveTotalPageCount: retriveTotalPageCount, page: page })
+                .done(function (result) {
+                    $('#UserActivityLogTable tbody').empty();
+                    var html = '';
+
+                    if (!result.success) {
+                        $('#UserActivityLogTable tbody').empty().append('<tr><td colspan="7"><div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div></td></tr>');
+                        return false;
+                    }
+
+                    if (result.data.rows.length === 0) {
+                        $('#UserActivityLogTable tbody').empty().append('<tr><td colspan="7"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td></tr>');
+                        return false;
+                    }
+
+                    if (retriveTotalPageCount && result.data.totalRowsCount > 0) {
+                        $('#UserActivityLogPagination').twbsPagination({
+                            totalPages: Math.ceil(result.data.totalRowsCount / 10),
+                            visiblePages: 7,
+                            last: '<i class="fa fa-fast-backward"></i>',
+                            next: '<i class="fa fa-backward"></i>',
+                            prev: '<i class="fa fa-forward"></i>',
+                            first: '<i class="fa fa-fast-forward"></i>',
+                            initiateStartPageClick: false,
+                            onPageClick: function (event, page) {
+                                loadUserActivityLogs(false, page);
+                            }
+                        });
+                    }
+
+                    for (var i = 0; i < result.data.rows.length; i++) {
+                        var item = result.data.rows[i];
+
+                        html +=
+                            '<tr>' +
+                            '<td class="text-nowrap"><b>' + (((page - 1) * 10) + i + 1) + '</b></td>' +
+                            '<td>' + item.activityTime + '</td>' +
+                            '<td>' + item.userIP + '</td>' +
+                            '<td>' + item.category + '</td>' +
+                            '<td>' + item.name + '</td>' +
+                            '<td>' + item.address + '</td>' +
+                            '<td>' + (item.data || '') + '</td>' +
+                            '</tr>';
+                    }
+
+                    $('#UserActivityLogTable tbody').empty().append(html);
+                });
+    }
+
+    $(document).ready(function () {
+        $('.date-picker').on('click', function () {
+            PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDate()', true);
+        });
+
+        $('#SearchLogsButton').on('click', function () {
+            loadUserActivityLogs(true, 1);
+        });
+
+        loadUserActivityLogs(true, 1);
+    });
+</script>

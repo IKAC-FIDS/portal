@@ -1,0 +1,628 @@
+﻿@model MerchantDataEntryViewModel
+
+@{
+    ViewBag.PageTitle = "ویرایش پذیرنده";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+<form class="form-horizontal" method="post" action="@Url.Action("Edit", "Terminal")" id="frmEdit" enctype="multipart/form-data">
+    <input type="hidden" id="TerminalId" name="TerminalId" value="@Model.TerminalId" />
+    <input type="hidden" id="MerchantProfileId" name="MerchantProfileId" value="@Model.MerchantProfileId" />
+
+    <div id="IncompleteDataSection" class="alert alert-warning hidden"></div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="clearfix">
+                <button class="btn btn-success pull-left" type="button" id="btnUpdateFromFaranegin" data-loading-text="درحال بروزرسانی...">بروزرسانی اطلاعات از فرانگین</button>
+                <strong>
+                    اطلاعات فردی پذیرنده
+                </strong>
+            </div>
+        </div>
+        <div id="BasicInfo" class="panel-collapse collapse in" role="tabpanel">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><strong class="pull-left">نام:</strong></td>
+                        <td id="FirstNameLabel">@Model.FirstName</td>
+                        <td><strong class="pull-left">نام خانوادگی: </strong></td>
+                        <td id="LastNameLabel">@Model.LastName</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">نام انگلیسی:</strong></td>
+                        <td id="EnglishFirstNameLabel">@Model.EnglishFirstName</td>
+                        <td><strong class="pull-left">نام خانوادگی انگلیسی: </strong></td>
+                        <td id="EnglishLastNameLabel">@Model.EnglishLastName</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">شماره شناسنامه: </strong></td>
+                        <td id="IdentityNumberLabel">@Model.IdentityNumber</td>
+                        <td><strong class="pull-left">نام پدر: </strong></td>
+                        <td id="FatherNameLabel">@Model.FatherName</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">نام پدر انگلیسی: </strong></td>
+                        <td id="EnglishFatherNameLabel">@Model.EnglishFatherName</td>
+                        <td><strong class="pull-left">کد ملی: </strong></td>
+                        <td id="NationalCodeLabel">@Model.NationalCode</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">تاریخ تولد: </strong></td>
+                        <td colspan="3" id="BirthdateLabel">@Model.Birthdate.ToPersianDate()</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">شخصیت:</strong></td>
+                        <td id="LegalPersonalityLabel">@(Model.IsLegalPersonality ? "حقوقی" : "حقیقی")</td>
+                        <td><strong class="pull-left">جنسیت:</strong></td>
+                        <td id="GenderLabel">@(Model.IsMale ? "مرد" : "زن")</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">کد پستی منزل: </strong></td>
+                        <td id="HomePostCodeLabel">@Model.PostCode</td>
+                        <td><strong class="pull-left">تلفن منزل: </strong></td>
+                        <td id="HomeTelLabel" dir="ltr" style="text-align: right;">@Model.HomeTel</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">تلفن همراه: </strong></td>
+                        <td colspan="3" id="MobileLabel">@Model.Mobile</td>
+                    </tr>
+                    <tr>
+                        <td><strong class="pull-left">آدرس منزل: </strong></td>
+                        <td colspan="3" id="HomeAddressLabel">@Model.HomeAddress</td>
+                    </tr>
+                    <tr class="legal-only @(Model.IsLegalPersonality ? "" : "hidden")">
+                        <td><strong class="pull-left">شماره ثبت شرکت:</strong></td>
+                        <td id="CompanyRegistrationNumberLabel">@Model.CompanyRegistrationNumber</td>
+                        <td><strong class="pull-left">تاریخ ثبت شرکت:</strong></td>
+                        <td id="CompanyRegistrationDateLabel">@Model.CompanyRegistrationDate.ToPersianDate()</td>
+                    </tr>
+                    <tr class="legal-only @(Model.IsLegalPersonality ? "" : "hidden")">
+                        <td><strong class="pull-left">شناسه ملی شرکت:</strong></td>
+                        <td colspan="3" id="LegalNationalCodeLabel">@Model.LegalNationalCode</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr />
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-4 required" for="NationalityId">ملیت</label>
+                        <div class="col-md-8">
+                            @Html.DropDownList("NationalityId", (IEnumerable<SelectListItem>)ViewBag.NationalityList, "انتخاب نمایید", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-4 required" for="BirthCertificateIssueDate">تاریخ صدور شناسنامه</label>
+                        <div class="col-md-8">
+                            <div class="left-inner-addon">
+                                <i class="fa fa-calendar-o"></i>
+                                <input type="text" id="BirthCertificateIssueDate" name="BirthCertificateIssueDate" class="form-control date-picker" value="@Model.BirthCertificateIssueDate.ToPersianDate()" maxlength="10" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.IsLegalPersonality)
+            {
+                <div class="form-group">
+                    <label class="control-label col-md-2 required" for="SignatoryPosition">سِمت صاحب امضاء</label>
+                    <div class="col-md-4">
+                        <input type="text" id="SignatoryPosition" name="SignatoryPosition" class="form-control" maxlength="150" value="@Model.SignatoryPosition" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong>اطلاعات فروشگاه</strong>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-4 required" for="Title">نام فروشگاه/شرکت</label>
+                        <div class="col-md-8">
+                            <input type="text" id="CompanyTitle" name="Title" class="form-control"  value="@Model.Title" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-4 required" for="EnglishTitle">نام فروشگاه/شرکت (انگلیسی)</label>
+                        <div class="col-md-8">
+                            <input type="text" id="EnglishTitle" name="EnglishTitle" class="form-control" maxlength="500" value="@Model.EnglishTitle" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-4 required" for="ActivityTypeId">نوع فعالیت</label>
+                        <div class="col-md-8">
+                            @Html.DropDownList("ActivityTypeId", (IEnumerable<SelectListItem>)ViewBag.ActivityTypeList, "انتخاب نمایید", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-4 required" for="GuildId">صنف</label>
+                        <div class="col-md-8">
+                            <select class="form-control chosen-select chosen-rtl" id="GuildId" name="GuildId">
+                                <option value="">انتخاب نمایید</option>
+                                @foreach (var parent in (IEnumerable<GuildViewModel>)ViewBag.GuildList)
+                                {
+                                    <optgroup label="@parent.Title">
+                                        @foreach (var child in parent.ChildGuilds)
+                                        {
+                                            <option @(child.Id == Model.GuildId ? "selected" : string.Empty) value="@child.Id">@child.Title</option>
+                                        }
+                                    </optgroup>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-4 required" for="CityId">شهر</label>
+                        <div class="col-md-8">
+                            <select class="form-control chosen-select chosen-rtl" id="CityId" name="CityId">
+                                <option value="">انتخاب نمایید</option>
+                                @foreach (var state in (IEnumerable<StateViewModel>)ViewBag.StateList)
+                                {
+                                    <optgroup label="@state.Title">
+                                        @foreach (var city in state.Cities)
+                                        {
+                                            <option @(city.Id == Model.CityId ? "selected" : string.Empty) data-state-id="@state.Id" value="@city.Id">@city.Title</option>
+                                        }
+                                    </optgroup>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-4 required" for="RegionalMunicipalityId">منطقه شهرداری</label>
+                        <div class="col-md-8">
+                            <select id="RegionalMunicipalityId" name="RegionalMunicipalityId" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2 required" for="Address">آدرس محل پذیرنده</label>
+                <div class="col-md-10">
+                    <div id="Address"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-4 required" for="PostCode">کد پستی محل پذیرنده</label>
+                        <div class="col-md-8">
+                            <input type="text" id="PostCode" name="PostCode" class="form-control only-number" maxlength="10" value="@Model.PostCode" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-4 required" for="Tel">تلفن محل پذیرنده</label>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" id="Tel" name="Tel" class="form-control only-number" maxlength="8" value="@Model.Tel" />
+                                <span class="input-group-addon">-</span>
+                                <input type="text" id="TelCode" name="TelCode" class="form-control only-number" maxlength="3" style="max-width: 60px;" data-toggle="tooltip" title="پیش شماره" value="@Model.TelCode" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+                  <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4 required" for="TaxPayerCode">کد مالیاتی</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="TaxPayerCode" name="TaxPayerCode" class="form-control only-number" maxlength="10" value="@Model.TaxPayerCode" />
+                                    </div>
+                                </div>
+                            </div>
+            
+                           
+                        </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong>اطلاعات تکمیلی</strong>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                @if (!User.IsBranchUser())
+                {
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4 required" for="MarketerId">نحوه بازاریابی</label>
+                            <div class="col-md-8">
+                                @Html.DropDownList("MarketerId", (IEnumerable<SelectListItem>)ViewBag.MarketerList, "انتخاب نمایید", new { @class = "form-control", tabindex = 6 })
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-4 required" for="DeviceTypeId">مدل دستگاه</label>
+                        <div class="col-md-8">
+                            <select id="DeviceTypeId" name="DeviceTypeId" class="form-control" tabindex="7">
+                                <option>انتخاب نمایید</option>
+                                @foreach (var deviceType in (IEnumerable<DeviceTypeViewModel>)ViewBag.DeviceTypeList)
+                                {
+                                    <option @(deviceType.Id == Model.DeviceTypeId ? "selected" : "") data-block-price="@deviceType.BlockPrice" value="@deviceType.Id">@deviceType.Title</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default hidden" id="pnlBlockInfo">
+        <div class="panel-heading">
+            <strong>اطلاعات مسدودی</strong>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-4 required" for="BlockDocumentDate">تاریخ سند مسدودی</label>
+                        <div class="col-md-8">
+                            <div class="left-inner-addon">
+                                <i class="fa fa-calendar-o"></i>
+                                <input type="text" id="BlockDocumentDate" name="BlockDocumentDate" class="form-control date-picker" maxlength="10" value="@Model.BlockDocumentDate.ToPersianDate()" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-4 required" for="BlockDocumentNumber">شماره سند مسدودی</label>
+                        <div class="col-md-8">
+                            <input type="text" id="BlockDocumentNumber" placeholder="عدد وارد شود" name="BlockDocumentNumber" class="form-control only-number" maxlength="50" value="@Model.BlockDocumentNumber" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-4 required" for="BlockAccountNumberSection">شماره حساب مسدودی</label>
+                        <div class="col-md-8" id="BlockAccountNumberSection">
+                            <input type="text" class="form-control account-number text-center only-number" data-order="8" style="width: 60px; max-width: 60px; min-width: 60px; display: inline;" id="BlockAccountRow" name="BlockAccountRow" maxlength="3" data-toggle="tooltip" title="ردیف (3 رقم)" tabindex="5" value="@Model.BlockAccountRow" />
+                            <input type="text" class="form-control account-number text-center only-number disabled" readonly data-order="7" style="width: 100px; max-width: 100px; min-width: 100px; display: inline;" disabled id="BlockAccountCustomerNumber" name="BlockAccountCustomerNumber" maxlength="8" data-toggle="tooltip" title="شماره مشتری (8 رقم)" tabindex="4" value="@Model.AccountCustomerNumber" />
+                            <input type="text" class="form-control account-number text-center only-number" data-order="6" style="width: 55px; max-width: 55px; min-width: 55px; display: inline;" id="BlockAccountType" name="BlockAccountType" maxlength="3" data-toggle="tooltip" title="نوع حساب (3 رقم)" tabindex="3" value="@Model.BlockAccountType" />
+                            <input type="text" class="form-control account-number text-center only-number disabled" readonly data-order="5" style="width: 60px; max-width: 60px; min-width: 60px; display: inline;" disabled id="BlockAccountBranchCode" name="BlockAccountBranchCode" maxlength="4" data-toggle="tooltip" title="کد شعبه (4 رقم)" tabindex="2" value="@Model.AccountBranchCode" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-4">مبلغ مسدودی</label>
+                        <div class="col-md-8">
+                            <p id="BlockPrice" class="form-control-static">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default @(Model.PreviouslyUploadedDocuments.Any() ? "" : "hidden")">
+        <div class="panel-heading">
+            <strong>مدارک از قبل بارگذاری شده</strong>
+        </div>
+
+        <div class="panel-body">
+            @foreach (var previouslyUploadedDocument in Model.PreviouslyUploadedDocuments)
+            {
+                <a class="btn btn-info" style="margin-bottom: 5px;" target="_blank" href="@(previouslyUploadedDocument.ForEntityTypeId == EntityType.MerchantProfile.ToInt64() ? Url.Action("GetDocument", "MerchantProfileDocument", new {id = previouslyUploadedDocument.DocumentId}) : Url.Action("GetDocument", "TerminalDocument", new {id = previouslyUploadedDocument.DocumentId}))"><i class="fa fa-download"></i> @previouslyUploadedDocument.DocumentTypeTitle</a>
+            }
+        </div>
+    </div>
+
+    @{ var documentTypes = (List<DocumentTypeViewModel>)ViewBag.DocumentTypeList; }
+
+    <div class="panel panel-default @(documentTypes.Any() ? "" : "hidden")">
+        <div class="panel-heading">
+            <strong>مدارک</strong>
+            <small class="help-block">فرمت فابل قبول برای تمامی مدارک pdf می باشد</small>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                @for (int i = 0; i < documentTypes.Count; i++)
+                {
+                    <div data-is-for-legal-personality="@JsonNet.Encode(documentTypes[i].IsForLegalPersonality)" id="DocumentType@(documentTypes[i].Id)" class="col-md-4">
+                        <div class="fileinput fileinput-new" id="DocType@(documentTypes[i].Id)" data-provides="fileinput">
+                            <span class="btn btn-default btn-file">
+                                <span class="fileinput-new">@documentTypes[i].Title</span>
+                                <span class="fileinput-exists">@documentTypes[i].Title</span>
+                                <input type="file" name="@string.Format("PostedFiles[{0}].PostedFile", i)" accept=".pdf" />
+                            </span>
+                            <span class="fileinput-filename"></span>
+                            <input type="hidden" value="@documentTypes[i].Id" name="@string.Format("PostedFiles[{0}].DocumentTypeId", i)" />
+                            <input type="hidden" value="@(JsonNet.Encode(documentTypes[i].IsRequired))" name="@string.Format("PostedFiles[{0}].IsRequired", i)" />
+                            <input type="hidden" value="@(JsonNet.Encode(documentTypes[i].Id))" name="@string.Format("PostedFiles[{0}].Id", i)" />
+                            <input type="hidden" value="@(JsonNet.Encode(documentTypes[i].ForEntityTypeId))" name="@string.Format("PostedFiles[{0}].ForEntityTypeId", i)" />
+                            <input type="hidden" value="@(JsonNet.Encode(documentTypes[i].IsForLegalPersonality))" name="@string.Format("PostedFiles[{0}].IsForLegalPersonality", i)" />
+                            <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="submit" data-loading-text="در حال ثبت ..." id="btnConfirm" class="btn btn-success btn-lg">ثبت</button>
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">انصراف</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+
+    function getRegionalMunicipalities(stateId, regionalMunicipalityId) {
+        $('#RegionalMunicipalityId', '#frmEdit').empty().append("<option value=''>" + 'انتخاب نمایید' + "</option>");
+        if (stateId) {
+            $.get("@Url.Action("GetRegionalMunicipalities", "RegionalMunicipality")", { stateId: stateId }).done(function (result) {
+                if (result.data && result.data.length !== 0) {
+                    $('#RegionalMunicipalityId', '#frmEdit').closest('.form-group').removeClass('hidden');
+                    $.each(result.data, function (i, item) {
+                        $('#RegionalMunicipalityId', '#frmEdit').append("<option value=\"" + item.value + "\"" + (item.value === regionalMunicipalityId ? "selected='selected'" : "") + ">" + item.text + "</option>");
+                    });
+                } else {
+                    $('#RegionalMunicipalityId', '#frmEdit').closest('.form-group').addClass('hidden');
+                }
+            });
+        }
+    };
+
+    function showAppropriateDocumentsForUpload() {
+        var blockPrice = $("#DeviceTypeId option:selected", '#frmEdit').data('block-price');
+
+        if (blockPrice > 0) {
+            $('#BlockPrice', '#frmEdit').empty().append(convertToPersianNumbersThreeDigitsSeparated(blockPrice));
+            $('#pnlBlockInfo', '#frmEdit').removeClass('hidden');
+            $('#DocumentType' + @DocumentType.SanadMasdoodi.ToInt32(), '#frmEdit').removeClass('hidden');
+        } else {
+            $('#pnlBlockInfo', '#frmEdit').addClass('hidden');
+            $('#BlockDocumentDate', '#frmEdit').val('');
+            $('#BlockDocumentNumber', '#frmEdit').val('');
+            $('#BlockPrice', '#frmEdit').empty();
+            $('#DocumentType' + @DocumentType.SanadMasdoodi.ToInt32(), '#frmEdit').addClass('hidden');
+            $('#DocType' + @DocumentType.SanadMasdoodi.ToInt32(), '#frmEdit').fileinput('clear');
+        }
+    }
+
+    $(document).ready(function () {
+        showAppropriateDocumentsForUpload();
+        getRegionalMunicipalities('@Model.StateId', '@Model.RegionalMunicipalityId');
+
+        var prefixArray = @Html.Raw(Json.Encode(((IEnumerable<AddressComponentViewModel>)ViewBag.AddressComponentList).Select(x => new {
+                                      x.PrefixTypeCode,
+                                      x.PriorityNumber,
+                                      x.Title,
+                                      x.Id
+                                  })));
+
+        $('#Address', '#frmEdit').createAddress(prefixArray, 'ShaparakAddressFormat', '@Model.ShaparakAddressFormat');
+
+        $('.date-picker', '#frmEdit').on('click', function () {
+            PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDate()', true);
+        });
+
+        $('#GuildId', '#frmEdit').chosen({ width: "100%" });
+        $('#BranchId', '#frmEdit').chosen({ width: "100%" });
+        $('#CityId', '#frmEdit').chosen({ group_search: false, width: "100%" });
+
+        $('#HomeAddress', '#frmEdit').filter_input({ regex: "^[-/،0-9\'ا-یآ-ئ\'\'-\'\\s]{1,40}$" });
+        $('#CompanyTitle, #Address', '#frmEdit').filter_input({ regex: "^[0-9\'ا-یآ-ئ\'\'-\'\\s]{1,40}$" });
+        $('#EnglishTitle', '#frmEdit').filter_input({ regex: "[a-zA-Z0-9]" });
+        $('.only-number', '#frmEdit').filter_input({ regex: '[0-9]' });
+
+        $('input.account-number').keyup(function () {
+            if ($(this).val().length == $(this).attr('maxlength')) {
+                var order = $(this).data('order');
+                $('input.account-number[data-order="' + (order + 1) + '"]', '#frmEdit').focus();
+            }
+        });
+
+        $('#CityId', '#frmEdit').on('change', function () {
+            var $that = $(this);
+            getRegionalMunicipalities($that.find(':selected').data('state-id'), null);
+        });
+
+        $('#DeviceTypeId', '#frmEdit').on('change', function () {
+            showAppropriateDocumentsForUpload();
+        });
+
+        $('select.chosen-select', '#frmEdit').each(function() {
+            $(this).on('change', function() {
+                $(this).valid();
+            });
+        });
+
+        $('#frmEdit').validate({
+            ignore: ':hidden:not(select)',
+            rules: {
+                NationalityId: { required: true },
+                BirthCertificateIssueDate: { required: true, maxlength: 10, minlength: 10 },
+                SignatoryPosition: { required: true, maxlength: 150 },
+                Title: { required: true },
+                EnglishTitle: { required: true, maxlength: 500 },
+                ParentGuildId: { required: true },
+                GuildId: { required: true },
+                ActivityTypeId: { required: true },
+                StateId: { required: true },
+                CityId: { required: true },
+                RegionalMunicipalityId: {
+                    required: {
+                        depends: function () {
+                            return $('#RegionalMunicipalityId option', '#frmEdit').length > 1;
+                        }
+                    }
+                },
+                PostCode: { required: true, maxlength: 10, digits: true, minlength: 10 },
+                TelCode: { required: true, maxlength: 3, minlength: 3 },
+                Tel: { required: true    },
+                BlockDocumentDate: {
+                    required: {
+                        depends: function () {
+                            return !$('#pnlBlockInfo', '#frmEdit').hasClass('hidden');
+                        }
+                    }
+                },
+                BlockDocumentNumber: {
+                    required: {
+                        depends: function () {
+                            return !$('#pnlBlockInfo', '#frmEdit').hasClass('hidden');
+                        }
+                    }
+                },
+                BlockAccountRow: {
+                    digits: true,
+                    maxlength: 3,
+                    required: {
+                        depends: function () {
+                            return !$('#pnlBlockInfo', '#frmEdit').hasClass('hidden');
+                        }
+                    }
+                },
+                BlockAccountType: {
+                    digits: true,
+                    maxlength: 3,
+                    required: {
+                        depends: function () {
+                            return !$('#pnlBlockInfo', '#frmEdit').hasClass('hidden');
+                        }
+                    }
+                },
+                MarketerId: { required: true },
+                DeviceTypeId: { required: true }
+            }, messages: {
+                BlockAccountRow: '',
+                BlockAccountType: '',
+                TelCode: '',
+                Tel: ''
+            }, submitHandler: function (form) {
+                var $button = $('#btnConfirm', '#frmEdit');
+                $button.button('loading');
+
+                $(form).ajaxSubmit({
+                    data: { blockPrice: $("#DeviceTypeId option:selected", '#frmEdit').data('block-price') },
+                    success: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+
+                        if (result.success) {
+                            $.closeModal('ok');
+                        }
+                    }, error: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+                    }
+                });
+            }, errorPlacement: function (error, element) {
+                if (element.is('select.chosen-select')) {
+                    element.next('div.chosen-container').append(error);
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+        $('#btnUpdateFromFaranegin').on('click', function () {
+            var $button = $(this);
+            $button.button('loading');
+
+            $.post("@Url.Action("UpdateMerchantProfileFromWebService", "MerchantProfile")", { terminalId: @Model.TerminalId, merchantProfileId: @Model.MerchantProfileId }).done(function (result) {
+                $button.button('reset');
+
+                if (result.success) {
+                    var inquiredData = result.data;
+
+                    $('#FirstNameLabel').empty().append(inquiredData.firstName);
+                    $('#LastNameLabel').empty().append(inquiredData.lastName);
+                    $('#IdentityNumberLabel').empty().append(inquiredData.identityNumber);
+                    $('#FatherNameLabel').empty().append(inquiredData.fatherName);
+                    $('#EnglishFatherNameLabel').empty().append(inquiredData.englishFatherName);
+                    $('#BirthdateLabel').empty().append(inquiredData.birthdate);
+                    $('#NationalCodeLabel').empty().append(inquiredData.nationalCode);
+                    $('#MobileLabel').empty().append(inquiredData.mobile);
+                    $('#HomeAddressLabel').empty().append(inquiredData.homeAddress);
+                    $('#HomePostCodeLabel').empty().append(inquiredData.homePostCode);
+                    $('#HomeTelLabel').empty().append(inquiredData.homeTel);
+                    $('#EnglishFirstNameLabel').empty().append(inquiredData.englishFirstName);
+                    $('#EnglishLastNameLabel').empty().append(inquiredData.englishLastName);
+                    $('#GenderLabel').empty().append(inquiredData.isMale ? 'مرد' : 'زن');
+                    $('#LegalPersonalityLabel').empty().append(inquiredData.isLegalPersonality ? 'حقوقی' : 'حقیقی');
+                    $('#CompanyRegistrationDateLabel').empty().append(inquiredData.companyRegistrationDate);
+                    $('#LegalNationalCodeLabel').empty().append(inquiredData.legalNationalCode);
+                    $('#CompanyRegistrationNumberLabel').empty().append(inquiredData.companyRegistrationNumber);
+
+                    if (inquiredData.isLegalPersonality) {
+                        $('.legal-only', '#frmEdit').removeClass('hidden');
+                    } else {
+                        $('.legal-only', '#frmEdit').addClass('hidden');
+                    }
+                } else {
+                    if (result.data && result.data.incompleteCustomerInfo) {
+                        $('#IncompleteDataSection').removeClass('hidden').empty().append(result.messages[0].messages[0]);
+                    } else {
+                        $.processMessage(result);
+                    }
+                }
+            });
+        });
+
+        $(document).tooltip({
+            selector: '#frmEdit [title]',
+            placement: 'bottom',
+            trigger: 'focus',
+            animation: false
+        });
+    });
+</script>

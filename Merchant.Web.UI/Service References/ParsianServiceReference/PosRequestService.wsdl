@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="PosRequestService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="customInquiryBindingEndPoint_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+            <sp:IncludeTimestamp />
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <sp:EndorsingSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:SecureConversationToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+              <wsp:Policy>
+                <sp:BootstrapPolicy>
+                  <wsp:Policy>
+                    <sp:SignedParts>
+                      <sp:Body />
+                      <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+                      <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+                      <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+                      <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+                      <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+                      <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+                      <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+                    </sp:SignedParts>
+                    <sp:EncryptedParts>
+                      <sp:Body />
+                    </sp:EncryptedParts>
+                    <sp:TransportBinding>
+                      <wsp:Policy>
+                        <sp:TransportToken>
+                          <wsp:Policy>
+                            <sp:HttpsToken RequireClientCertificate="false" />
+                          </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:AlgorithmSuite>
+                          <wsp:Policy>
+                            <sp:Basic256 />
+                          </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                        <sp:Layout>
+                          <wsp:Policy>
+                            <sp:Strict />
+                          </wsp:Policy>
+                        </sp:Layout>
+                        <sp:IncludeTimestamp />
+                      </wsp:Policy>
+                    </sp:TransportBinding>
+                    <sp:SignedSupportingTokens>
+                      <wsp:Policy>
+                        <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                          <wsp:Policy>
+                            <sp:WssUsernameToken10 />
+                          </wsp:Policy>
+                        </sp:UsernameToken>
+                      </wsp:Policy>
+                    </sp:SignedSupportingTokens>
+                    <sp:Wss11>
+                      <wsp:Policy />
+                    </sp:Wss11>
+                    <sp:Trust10>
+                      <wsp:Policy>
+                        <sp:MustSupportIssuedTokens />
+                        <sp:RequireClientEntropy />
+                        <sp:RequireServerEntropy />
+                      </wsp:Policy>
+                    </sp:Trust10>
+                  </wsp:Policy>
+                </sp:BootstrapPolicy>
+              </wsp:Policy>
+            </sp:SecureConversationToken>
+          </wsp:Policy>
+        </sp:EndorsingSupportingTokens>
+        <sp:Wss11 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy />
+        </sp:Wss11>
+        <sp:Trust10 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:MustSupportIssuedTokens />
+            <sp:RequireClientEntropy />
+            <sp:RequireServerEntropy />
+          </wsp:Policy>
+        </sp:Trust10>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services" />
+      <xsd:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/PecCare.Domain.Services.PosRequest" />
+      <xsd:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/PecCare.Domain.Cartable" />
+      <xsd:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/PecCare.Domain.Cartable.Request" />
+      <xsd:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Model" />
+      <xsd:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/PecSite.Core.Caching" />
+      <xsd:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/PecCare.Domain.Lookup" />
+      <xsd:import schemaLocation="https://portal.pec.ir/services/PosRequestService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/PecSite.Web.UI.MVC.Helpers" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IPosRequestService_RegisterPosRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterPosRequest" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_RegisterPosRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterPosRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_CheckPosRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckPosRequest" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_CheckPosRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckPosRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_CheckPosStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckPosStatus" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_CheckPosStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckPosStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_GetPosTermNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPosTermNo" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_GetPosTermNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPosTermNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_CancelPosRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelPosRequest" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_CancelPosRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelPosRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_ChangeIbanRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeIbanRequest" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_ChangeIbanRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeIbanRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_CheckChangeIbanStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckChangeIbanStatus" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_CheckChangeIbanStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckChangeIbanStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_CheckPosShaparakStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckPosShaparakStatus" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_CheckPosShaparakStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckPosShaparakStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_GetPeriodMaintenanceHistory_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPeriodMaintenanceHistory" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_GetPeriodMaintenanceHistory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPeriodMaintenanceHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_GetMarketingTerminals_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMarketingTerminals" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_GetMarketingTerminals_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMarketingTerminalsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_EditMerchantPerson_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditMerchantPerson" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_EditMerchantPerson_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditMerchantPersonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_EditMerchantLegal_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditMerchantLegal" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_EditMerchantLegal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditMerchantLegalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_Getdata_InputMessage">
+    <wsdl:part name="parameters" element="tns:Getdata" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_Getdata_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetdataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_RegisterIPGPosRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterIPGPosRequest" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_RegisterIPGPosRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterIPGPosRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_RegisterNewPosRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterNewPosRequest" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_RegisterNewPosRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterNewPosRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_addDoc_InputMessage">
+    <wsdl:part name="parameters" element="tns:addDoc" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_addDoc_OutputMessage">
+    <wsdl:part name="parameters" element="tns:addDocResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_Insert_PishkhanJsonTbl_InputMessage">
+    <wsdl:part name="parameters" element="tns:Insert_PishkhanJsonTbl" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_Insert_PishkhanJsonTbl_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Insert_PishkhanJsonTblResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_Update_PishkhanJsonTbl_InputMessage">
+    <wsdl:part name="parameters" element="tns:Update_PishkhanJsonTbl" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_Update_PishkhanJsonTbl_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Update_PishkhanJsonTblResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_Select_PishkhanJsonTbl_InputMessage">
+    <wsdl:part name="parameters" element="tns:Select_PishkhanJsonTbl" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_Select_PishkhanJsonTbl_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Select_PishkhanJsonTblResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_SetSerial_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetSerial" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_SetSerial_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetSerialResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_RemoveSerial_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveSerial" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_RemoveSerial_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveSerialResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_PosConfirmDate_InputMessage">
+    <wsdl:part name="parameters" element="tns:PosConfirmDate" />
+  </wsdl:message>
+  <wsdl:message name="IPosRequestService_PosConfirmDate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PosConfirmDateResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IPosRequestService">
+    <wsdl:operation name="RegisterPosRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/RegisterPosRequest" message="tns:IPosRequestService_RegisterPosRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/RegisterPosRequestResponse" message="tns:IPosRequestService_RegisterPosRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckPosRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/CheckPosRequest" message="tns:IPosRequestService_CheckPosRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/CheckPosRequestResponse" message="tns:IPosRequestService_CheckPosRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckPosStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/CheckPosStatus" message="tns:IPosRequestService_CheckPosStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/CheckPosStatusResponse" message="tns:IPosRequestService_CheckPosStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPosTermNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/GetPosTermNo" message="tns:IPosRequestService_GetPosTermNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/GetPosTermNoResponse" message="tns:IPosRequestService_GetPosTermNo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelPosRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/CancelPosRequest" message="tns:IPosRequestService_CancelPosRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/CancelPosRequestResponse" message="tns:IPosRequestService_CancelPosRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeIbanRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/ChangeIbanRequest" message="tns:IPosRequestService_ChangeIbanRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/ChangeIbanRequestResponse" message="tns:IPosRequestService_ChangeIbanRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckChangeIbanStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/CheckChangeIbanStatus" message="tns:IPosRequestService_CheckChangeIbanStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/CheckChangeIbanStatusResponse" message="tns:IPosRequestService_CheckChangeIbanStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckPosShaparakStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/CheckPosShaparakStatus" message="tns:IPosRequestService_CheckPosShaparakStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/CheckPosShaparakStatusResponse" message="tns:IPosRequestService_CheckPosShaparakStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPeriodMaintenanceHistory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/GetPeriodMaintenanceHistory" message="tns:IPosRequestService_GetPeriodMaintenanceHistory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/GetPeriodMaintenanceHistoryResponse" message="tns:IPosRequestService_GetPeriodMaintenanceHistory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMarketingTerminals">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/GetMarketingTerminals" message="tns:IPosRequestService_GetMarketingTerminals_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/GetMarketingTerminalsResponse" message="tns:IPosRequestService_GetMarketingTerminals_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditMerchantPerson">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/EditMerchantPerson" message="tns:IPosRequestService_EditMerchantPerson_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/EditMerchantPersonResponse" message="tns:IPosRequestService_EditMerchantPerson_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditMerchantLegal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/EditMerchantLegal" message="tns:IPosRequestService_EditMerchantLegal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/EditMerchantLegalResponse" message="tns:IPosRequestService_EditMerchantLegal_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Getdata">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/Getdata" message="tns:IPosRequestService_Getdata_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/GetdataResponse" message="tns:IPosRequestService_Getdata_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterIPGPosRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/RegisterIPGPosRequest" message="tns:IPosRequestService_RegisterIPGPosRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/RegisterIPGPosRequestResponse" message="tns:IPosRequestService_RegisterIPGPosRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterNewPosRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/RegisterNewPosRequest" message="tns:IPosRequestService_RegisterNewPosRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/RegisterNewPosRequestResponse" message="tns:IPosRequestService_RegisterNewPosRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="addDoc">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/addDoc" message="tns:IPosRequestService_addDoc_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/addDocResponse" message="tns:IPosRequestService_addDoc_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Insert_PishkhanJsonTbl">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/Insert_PishkhanJsonTbl" message="tns:IPosRequestService_Insert_PishkhanJsonTbl_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/Insert_PishkhanJsonTblResponse" message="tns:IPosRequestService_Insert_PishkhanJsonTbl_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Update_PishkhanJsonTbl">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/Update_PishkhanJsonTbl" message="tns:IPosRequestService_Update_PishkhanJsonTbl_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/Update_PishkhanJsonTblResponse" message="tns:IPosRequestService_Update_PishkhanJsonTbl_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Select_PishkhanJsonTbl">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/Select_PishkhanJsonTbl" message="tns:IPosRequestService_Select_PishkhanJsonTbl_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/Select_PishkhanJsonTblResponse" message="tns:IPosRequestService_Select_PishkhanJsonTbl_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetSerial">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/SetSerial" message="tns:IPosRequestService_SetSerial_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/SetSerialResponse" message="tns:IPosRequestService_SetSerial_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveSerial">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/RemoveSerial" message="tns:IPosRequestService_RemoveSerial_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/RemoveSerialResponse" message="tns:IPosRequestService_RemoveSerial_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PosConfirmDate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPosRequestService/PosConfirmDate" message="tns:IPosRequestService_PosConfirmDate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPosRequestService/PosConfirmDateResponse" message="tns:IPosRequestService_PosConfirmDate_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="customInquiryBindingEndPoint" type="tns:IPosRequestService">
+    <wsp:PolicyReference URI="#customInquiryBindingEndPoint_policy" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RegisterPosRequest">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/RegisterPosRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPosRequest">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/CheckPosRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPosStatus">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/CheckPosStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPosTermNo">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/GetPosTermNo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelPosRequest">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/CancelPosRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeIbanRequest">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/ChangeIbanRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckChangeIbanStatus">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/CheckChangeIbanStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPosShaparakStatus">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/CheckPosShaparakStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPeriodMaintenanceHistory">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/GetPeriodMaintenanceHistory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMarketingTerminals">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/GetMarketingTerminals" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditMerchantPerson">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/EditMerchantPerson" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditMerchantLegal">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/EditMerchantLegal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getdata">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/Getdata" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterIPGPosRequest">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/RegisterIPGPosRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterNewPosRequest">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/RegisterNewPosRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addDoc">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/addDoc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Insert_PishkhanJsonTbl">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/Insert_PishkhanJsonTbl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Update_PishkhanJsonTbl">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/Update_PishkhanJsonTbl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Select_PishkhanJsonTbl">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/Select_PishkhanJsonTbl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetSerial">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/SetSerial" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveSerial">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/RemoveSerial" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PosConfirmDate">
+      <soap12:operation soapAction="http://tempuri.org/IPosRequestService/PosConfirmDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PosRequestService">
+    <wsdl:port name="customInquiryBindingEndPoint" binding="tns:customInquiryBindingEndPoint">
+      <soap12:address location="https://portal.pec.ir/services/PosRequestService.svc" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>https://portal.pec.ir/services/PosRequestService.svc</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

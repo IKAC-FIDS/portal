@@ -1,0 +1,80 @@
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\Portal.Service.dll.config
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\Portal.Service.dll
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\Portal.Service.pdb
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\EntityFramework.dll
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\EntityFramework.Extended.dll
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\EntityFramework.SqlServer.dll
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\Portal.IService.dll
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\TES.Common.dll
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\TES.Data.dll
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\TES.Security.dll
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\Persia.dll
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\Dapper.dll
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\Microsoft.AspNet.Identity.Owin.dll
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\Microsoft.Owin.dll
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\Microsoft.Owin.Security.dll
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\Owin.dll
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\TES.Common.pdb
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\TES.Common.dll.config
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\TES.Data.pdb
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\TES.Data.dll.config
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\Portal.IService.pdb
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\TES.Security.pdb
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\TES.Security.dll.config
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\EntityFramework.xml
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\EntityFramework.Extended.xml
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\EntityFramework.Extended.dll.config
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\EntityFramework.SqlServer.xml
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\Microsoft.AspNet.Identity.Core.xml
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\Dapper.xml
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\Microsoft.AspNet.Identity.Owin.xml
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\Microsoft.Owin.xml
+D:\01 Projects\OldPortal\Portal.Service\bin\Release\Microsoft.Owin.Security.xml
+D:\01 Projects\OldPortal\Portal.Service\obj\Release\Portal.Service.csproj.AssemblyReference.cache
+D:\01 Projects\OldPortal\Portal.Service\obj\Release\Portal.Service.csproj.CoreCompileInputs.cache
+D:\01 Projects\OldPortal\Portal.Service\obj\Release\Portal.Service.csproj.CopyComplete
+D:\01 Projects\OldPortal\Portal.Service\obj\Release\Portal.Service.dll
+D:\01 Projects\OldPortal\Portal.Service\obj\Release\Portal.Service.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\Portal.Service.dll.config
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\Portal.Service.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\Portal.Service.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\EntityFramework.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\EntityFramework.Extended.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\EntityFramework.SqlServer.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\Portal.IService.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\TES.Common.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\TES.Data.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\TES.Security.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\Persia.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\Microsoft.AspNet.Identity.Core.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\Dapper.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\Microsoft.AspNet.Identity.Owin.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\Microsoft.Owin.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\Microsoft.Owin.Security.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\Owin.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\TES.Common.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\TES.Common.dll.config
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\TES.Data.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\TES.Data.dll.config
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\Portal.IService.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\TES.Security.pdb
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\TES.Security.dll.config
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\EntityFramework.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\EntityFramework.Extended.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\EntityFramework.Extended.dll.config
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\EntityFramework.SqlServer.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\Microsoft.AspNet.Identity.Core.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\Dapper.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\Microsoft.AspNet.Identity.Owin.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\Microsoft.Owin.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\bin\Release\Microsoft.Owin.Security.xml
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\obj\Release\Portal.Service.csproj.AssemblyReference.cache
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\obj\Release\Portal.Service.csproj.CoreCompileInputs.cache
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\obj\Release\Portal.Service.csproj.CopyComplete
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\obj\Release\Portal.Service.dll
+E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\obj\Release\Portal.Service.pdb

@@ -1,0 +1,1363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="MerchantContract" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="BasicHttpsBinding_IMerchantContract_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/TMMS.Common.Messages" />
+      <xsd:import schemaLocation="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO" />
+      <xsd:import schemaLocation="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/TMMS.Common.Enums.Helper" />
+      <xsd:import schemaLocation="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/TMMS.Common.Enums" />
+      <xsd:import schemaLocation="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/System.Data.Spatial" />
+      <xsd:import schemaLocation="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="https://yekta.fanavacard.com/WCF/MerchantContract.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/TMMS.Common.DTO.Reports" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IMerchantContract_AddMerchantContractWithShaparakCoding_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddMerchantContractWithShaparakCoding" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_AddMerchantContractWithShaparakCoding_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddMerchantContractWithShaparakCodingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_AddListMerchantContractWithShaparakCoding_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddListMerchantContractWithShaparakCoding" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_AddListMerchantContractWithShaparakCoding_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddListMerchantContractWithShaparakCodingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_AddListMerchantContractWithShaparakCodingByTerminalNO_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddListMerchantContractWithShaparakCodingByTerminalNO" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_AddListMerchantContractWithShaparakCodingByTerminalNO_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddListMerchantContractWithShaparakCodingByTerminalNOResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_DefineTerminalsOnlyOnShaparak_InputMessage">
+    <wsdl:part name="parameters" element="tns:DefineTerminalsOnlyOnShaparak" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_DefineTerminalsOnlyOnShaparak_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DefineTerminalsOnlyOnShaparakResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_UpdateMerchantContractListandSendToShaparak_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMerchantContractListandSendToShaparak" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_UpdateMerchantContractListandSendToShaparak_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMerchantContractListandSendToShaparakResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_GetDefineTerminalStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDefineTerminalStatus" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_GetDefineTerminalStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDefineTerminalStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindPersonById_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindPersonById" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindPersonById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindPersonByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindPersonByNationalCodeOrUniversalId_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindPersonByNationalCodeOrUniversalId" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindPersonByNationalCodeOrUniversalId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindPersonByNationalCodeOrUniversalIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindLocations_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindLocations" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindLocations_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindLocationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindAgents_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindAgents" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindAgents_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindAgentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindBankActors_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindBankActors" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindBankActors_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindBankActorsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindActorTypes_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindActorTypes" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindActorTypes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindActorTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindMarketerTypes_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindMarketerTypes" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindMarketerTypes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindMarketerTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindMerchantContractDocumentTypes_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindMerchantContractDocumentTypes" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindMerchantContractDocumentTypes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindMerchantContractDocumentTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindMerchantContractStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindMerchantContractStatus" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindMerchantContractStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindMerchantContractStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindPosModels_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindPosModels" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindPosModels_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindPosModelsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindETrustCertTypes_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindETrustCertTypes" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindETrustCertTypes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindETrustCertTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindCategories_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindCategories" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindCategories_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindCategoriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindActivityPermissions_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindActivityPermissions" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindActivityPermissions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindActivityPermissionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindActivityLicenses_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindActivityLicenses" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindActivityLicenses_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindActivityLicensesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindOwnershipTypes_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindOwnershipTypes" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindOwnershipTypes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindOwnershipTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindBusinessTypes_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindBusinessTypes" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindBusinessTypes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindBusinessTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindJobPositions_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindJobPositions" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindJobPositions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindJobPositionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindEducations_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindEducations" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindEducations_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindEducationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindEntityStructures_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindEntityStructures" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindEntityStructures_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindEntityStructuresResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindGenders_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindGenders" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindGenders_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindGendersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindVitalStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindVitalStatus" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindVitalStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindVitalStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindAccount" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindChangeAccountRequestByRequestNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindChangeAccountRequestByRequestNo" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindChangeAccountRequestByRequestNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindChangeAccountRequestByRequestNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindChangeAccountRequestByContractNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindChangeAccountRequestByContractNo" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindChangeAccountRequestByContractNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindChangeAccountRequestByContractNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_GetDisableRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDisableRequest" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_GetDisableRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDisableRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_GetAllDisableRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllDisableRequest" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_GetAllDisableRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllDisableRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_ChangeMerchantContractWithShaparakCoding_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeMerchantContractWithShaparakCoding" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_ChangeMerchantContractWithShaparakCoding_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeMerchantContractWithShaparakCodingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_ChangeListMerchantContractWithShaparakCoding_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeListMerchantContractWithShaparakCoding" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_ChangeListMerchantContractWithShaparakCoding_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeListMerchantContractWithShaparakCodingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_ChangeAccountList_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeAccountList" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_ChangeAccountList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeAccountListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_AmendRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:AmendRequest" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_AmendRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AmendRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_AmendRequestList_InputMessage">
+    <wsdl:part name="parameters" element="tns:AmendRequestList" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_AmendRequestList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AmendRequestListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindAmentRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindAmentRequest" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindAmentRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindAmentRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindDisableRequestedByTerminalNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindDisableRequestedByTerminalNo" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindDisableRequestedByTerminalNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindDisableRequestedByTerminalNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindAmendRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindAmendRequest" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindAmendRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindAmendRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_AddDisableRequestOne_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddDisableRequestOne" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_AddDisableRequestOne_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddDisableRequestOneResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_AddListDisableRequestOne_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddListDisableRequestOne" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_AddListDisableRequestOne_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddListDisableRequestOneResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindMerchantContractByContractNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindMerchantContractByContractNo" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindMerchantContractByContractNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindMerchantContractByContractNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_AddMerchantsAttachmentsByContractNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddMerchantsAttachmentsByContractNo" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_AddMerchantsAttachmentsByContractNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddMerchantsAttachmentsByContractNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindBankContractByBankID_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindBankContractByBankID" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindBankContractByBankID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindBankContractByBankIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindProvinceByAgentId_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindProvinceByAgentId" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindProvinceByAgentId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindProvinceByAgentIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindReasonDisable_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindReasonDisable" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindReasonDisable_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindReasonDisableResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindAgentByCityShaparakCodeAndBankId_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindAgentByCityShaparakCodeAndBankId" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindAgentByCityShaparakCodeAndBankId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindAgentByCityShaparakCodeAndBankIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindBankManagement_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindBankManagement" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindBankManagement_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindBankManagementResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindBankBranch_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindBankBranch" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindBankBranch_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindBankBranchResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindInstalledTermialByNationalCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindInstalledTermialByNationalCode" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindInstalledTermialByNationalCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindInstalledTermialByNationalCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindInstalledTermialByDateRange_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindInstalledTermialByDateRange" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindInstalledTermialByDateRange_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindInstalledTermialByDateRangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindAccountByNationalCodeOrTerminalNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindAccountByNationalCodeOrTerminalNo" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindAccountByNationalCodeOrTerminalNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindAccountByNationalCodeOrTerminalNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindAccountByDateRange_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindAccountByDateRange" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindAccountByDateRange_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindAccountByDateRangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_ApproveMerchantWithShaparakCoding_InputMessage">
+    <wsdl:part name="parameters" element="tns:ApproveMerchantWithShaparakCoding" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_ApproveMerchantWithShaparakCoding_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ApproveMerchantWithShaparakCodingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_TerminalSerialDedication_InputMessage">
+    <wsdl:part name="parameters" element="tns:TerminalSerialDedication" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_TerminalSerialDedication_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TerminalSerialDedicationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_PosReplacement_InputMessage">
+    <wsdl:part name="parameters" element="tns:PosReplacement" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_PosReplacement_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PosReplacementResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_GetPosStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPosStatus" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_GetPosStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPosStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_GetMerchantStatusWithRequestNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMerchantStatusWithRequestNo" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_GetMerchantStatusWithRequestNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMerchantStatusWithRequestNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_UpdateRequestNoWithContractNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateRequestNoWithContractNo" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_UpdateRequestNoWithContractNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateRequestNoWithContractNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_TestTerminalNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:TestTerminalNo" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_TestTerminalNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TestTerminalNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_GetFileAttachmentListByContractNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFileAttachmentListByContractNo" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_GetFileAttachmentListByContractNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFileAttachmentListByContractNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_PspRejectList_InputMessage">
+    <wsdl:part name="parameters" element="tns:PspRejectList" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_PspRejectList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PspRejectListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_RemoveListMerchantContract_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveListMerchantContract" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_RemoveListMerchantContract_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveListMerchantContractResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindAllSwitch_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindAllSwitch" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindAllSwitch_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindAllSwitchResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindShaparakInValidListByContractNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindShaparakInValidListByContractNo" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindShaparakInValidListByContractNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindShaparakInValidListByContractNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindContractType_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindContractType" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindContractType_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindContractTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_AddMerchantLocationWithTerminalNo_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddMerchantLocationWithTerminalNo" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_AddMerchantLocationWithTerminalNo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddMerchantLocationWithTerminalNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindCity_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindCity" />
+  </wsdl:message>
+  <wsdl:message name="IMerchantContract_FindCity_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindCityResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IMerchantContract">
+    <wsdl:operation name="AddMerchantContractWithShaparakCoding">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/AddMerchantContractWithShaparakCoding" message="tns:IMerchantContract_AddMerchantContractWithShaparakCoding_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/AddMerchantContractWithShaparakCodingResponse" message="tns:IMerchantContract_AddMerchantContractWithShaparakCoding_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddListMerchantContractWithShaparakCoding">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/AddListMerchantContractWithShaparakCoding" message="tns:IMerchantContract_AddListMerchantContractWithShaparakCoding_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/AddListMerchantContractWithShaparakCodingResponse" message="tns:IMerchantContract_AddListMerchantContractWithShaparakCoding_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddListMerchantContractWithShaparakCodingByTerminalNO">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/AddListMerchantContractWithShaparakCodingByTerminalNO" message="tns:IMerchantContract_AddListMerchantContractWithShaparakCodingByTerminalNO_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/AddListMerchantContractWithShaparakCodingByTerminalNOResponse" message="tns:IMerchantContract_AddListMerchantContractWithShaparakCodingByTerminalNO_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DefineTerminalsOnlyOnShaparak">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/DefineTerminalsOnlyOnShaparak" message="tns:IMerchantContract_DefineTerminalsOnlyOnShaparak_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/DefineTerminalsOnlyOnShaparakResponse" message="tns:IMerchantContract_DefineTerminalsOnlyOnShaparak_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMerchantContractListandSendToShaparak">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/UpdateMerchantContractListandSendToShaparak" message="tns:IMerchantContract_UpdateMerchantContractListandSendToShaparak_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/UpdateMerchantContractListandSendToShaparakResponse" message="tns:IMerchantContract_UpdateMerchantContractListandSendToShaparak_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDefineTerminalStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/GetDefineTerminalStatus" message="tns:IMerchantContract_GetDefineTerminalStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/GetDefineTerminalStatusResponse" message="tns:IMerchantContract_GetDefineTerminalStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindPersonById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindPersonById" message="tns:IMerchantContract_FindPersonById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindPersonByIdResponse" message="tns:IMerchantContract_FindPersonById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindPersonByNationalCodeOrUniversalId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindPersonByNationalCodeOrUniversalId" message="tns:IMerchantContract_FindPersonByNationalCodeOrUniversalId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindPersonByNationalCodeOrUniversalIdResponse" message="tns:IMerchantContract_FindPersonByNationalCodeOrUniversalId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindLocations">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindLocations" message="tns:IMerchantContract_FindLocations_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindLocationsResponse" message="tns:IMerchantContract_FindLocations_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindAgents">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindAgents" message="tns:IMerchantContract_FindAgents_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindAgentsResponse" message="tns:IMerchantContract_FindAgents_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindBankActors">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindBankActors" message="tns:IMerchantContract_FindBankActors_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindBankActorsResponse" message="tns:IMerchantContract_FindBankActors_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindActorTypes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindActorTypes" message="tns:IMerchantContract_FindActorTypes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindActorTypesResponse" message="tns:IMerchantContract_FindActorTypes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindMarketerTypes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindMarketerTypes" message="tns:IMerchantContract_FindMarketerTypes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindMarketerTypesResponse" message="tns:IMerchantContract_FindMarketerTypes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindMerchantContractDocumentTypes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindMerchantContractDocumentTypes" message="tns:IMerchantContract_FindMerchantContractDocumentTypes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindMerchantContractDocumentTypesResponse" message="tns:IMerchantContract_FindMerchantContractDocumentTypes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindMerchantContractStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindMerchantContractStatus" message="tns:IMerchantContract_FindMerchantContractStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindMerchantContractStatusResponse" message="tns:IMerchantContract_FindMerchantContractStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindPosModels">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindPosModels" message="tns:IMerchantContract_FindPosModels_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindPosModelsResponse" message="tns:IMerchantContract_FindPosModels_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindETrustCertTypes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindETrustCertTypes" message="tns:IMerchantContract_FindETrustCertTypes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindETrustCertTypesResponse" message="tns:IMerchantContract_FindETrustCertTypes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindCategories">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindCategories" message="tns:IMerchantContract_FindCategories_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindCategoriesResponse" message="tns:IMerchantContract_FindCategories_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindActivityPermissions">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindActivityPermissions" message="tns:IMerchantContract_FindActivityPermissions_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindActivityPermissionsResponse" message="tns:IMerchantContract_FindActivityPermissions_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindActivityLicenses">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindActivityLicenses" message="tns:IMerchantContract_FindActivityLicenses_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindActivityLicensesResponse" message="tns:IMerchantContract_FindActivityLicenses_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindOwnershipTypes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindOwnershipTypes" message="tns:IMerchantContract_FindOwnershipTypes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindOwnershipTypesResponse" message="tns:IMerchantContract_FindOwnershipTypes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindBusinessTypes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindBusinessTypes" message="tns:IMerchantContract_FindBusinessTypes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindBusinessTypesResponse" message="tns:IMerchantContract_FindBusinessTypes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindJobPositions">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindJobPositions" message="tns:IMerchantContract_FindJobPositions_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindJobPositionsResponse" message="tns:IMerchantContract_FindJobPositions_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindEducations">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindEducations" message="tns:IMerchantContract_FindEducations_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindEducationsResponse" message="tns:IMerchantContract_FindEducations_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindEntityStructures">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindEntityStructures" message="tns:IMerchantContract_FindEntityStructures_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindEntityStructuresResponse" message="tns:IMerchantContract_FindEntityStructures_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindGenders">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindGenders" message="tns:IMerchantContract_FindGenders_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindGendersResponse" message="tns:IMerchantContract_FindGenders_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindVitalStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindVitalStatus" message="tns:IMerchantContract_FindVitalStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindVitalStatusResponse" message="tns:IMerchantContract_FindVitalStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindAccount" message="tns:IMerchantContract_FindAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindAccountResponse" message="tns:IMerchantContract_FindAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindChangeAccountRequestByRequestNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindChangeAccountRequestByRequestNo" message="tns:IMerchantContract_FindChangeAccountRequestByRequestNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindChangeAccountRequestByRequestNoResponse" message="tns:IMerchantContract_FindChangeAccountRequestByRequestNo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindChangeAccountRequestByContractNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindChangeAccountRequestByContractNo" message="tns:IMerchantContract_FindChangeAccountRequestByContractNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindChangeAccountRequestByContractNoResponse" message="tns:IMerchantContract_FindChangeAccountRequestByContractNo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDisableRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/GetDisableRequest" message="tns:IMerchantContract_GetDisableRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/GetDisableRequestResponse" message="tns:IMerchantContract_GetDisableRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDisableRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/GetAllDisableRequest" message="tns:IMerchantContract_GetAllDisableRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/GetAllDisableRequestResponse" message="tns:IMerchantContract_GetAllDisableRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeMerchantContractWithShaparakCoding">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/ChangeMerchantContractWithShaparakCoding" message="tns:IMerchantContract_ChangeMerchantContractWithShaparakCoding_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/ChangeMerchantContractWithShaparakCodingResponse" message="tns:IMerchantContract_ChangeMerchantContractWithShaparakCoding_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeListMerchantContractWithShaparakCoding">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/ChangeListMerchantContractWithShaparakCoding" message="tns:IMerchantContract_ChangeListMerchantContractWithShaparakCoding_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/ChangeListMerchantContractWithShaparakCodingResponse" message="tns:IMerchantContract_ChangeListMerchantContractWithShaparakCoding_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeAccountList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/ChangeAccountList" message="tns:IMerchantContract_ChangeAccountList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/ChangeAccountListResponse" message="tns:IMerchantContract_ChangeAccountList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AmendRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/AmendRequest" message="tns:IMerchantContract_AmendRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/AmendRequestResponse" message="tns:IMerchantContract_AmendRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AmendRequestList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/AmendRequestList" message="tns:IMerchantContract_AmendRequestList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/AmendRequestListResponse" message="tns:IMerchantContract_AmendRequestList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindAmentRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindAmentRequest" message="tns:IMerchantContract_FindAmentRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindAmentRequestResponse" message="tns:IMerchantContract_FindAmentRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindDisableRequestedByTerminalNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindDisableRequestedByTerminalNo" message="tns:IMerchantContract_FindDisableRequestedByTerminalNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindDisableRequestedByTerminalNoResponse" message="tns:IMerchantContract_FindDisableRequestedByTerminalNo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindAmendRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindAmendRequest" message="tns:IMerchantContract_FindAmendRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindAmendRequestResponse" message="tns:IMerchantContract_FindAmendRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddDisableRequestOne">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/AddDisableRequestOne" message="tns:IMerchantContract_AddDisableRequestOne_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/AddDisableRequestOneResponse" message="tns:IMerchantContract_AddDisableRequestOne_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddListDisableRequestOne">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/AddListDisableRequestOne" message="tns:IMerchantContract_AddListDisableRequestOne_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/AddListDisableRequestOneResponse" message="tns:IMerchantContract_AddListDisableRequestOne_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindMerchantContractByContractNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindMerchantContractByContractNo" message="tns:IMerchantContract_FindMerchantContractByContractNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindMerchantContractByContractNoResponse" message="tns:IMerchantContract_FindMerchantContractByContractNo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddMerchantsAttachmentsByContractNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/AddMerchantsAttachmentsByContractNo" message="tns:IMerchantContract_AddMerchantsAttachmentsByContractNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/AddMerchantsAttachmentsByContractNoResponse" message="tns:IMerchantContract_AddMerchantsAttachmentsByContractNo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindBankContractByBankID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindBankContractByBankID" message="tns:IMerchantContract_FindBankContractByBankID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindBankContractByBankIDResponse" message="tns:IMerchantContract_FindBankContractByBankID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindProvinceByAgentId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindProvinceByAgentId" message="tns:IMerchantContract_FindProvinceByAgentId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindProvinceByAgentIdResponse" message="tns:IMerchantContract_FindProvinceByAgentId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindReasonDisable">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindReasonDisable" message="tns:IMerchantContract_FindReasonDisable_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindReasonDisableResponse" message="tns:IMerchantContract_FindReasonDisable_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindAgentByCityShaparakCodeAndBankId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindAgentByCityShaparakCodeAndBankId" message="tns:IMerchantContract_FindAgentByCityShaparakCodeAndBankId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindAgentByCityShaparakCodeAndBankIdResponse" message="tns:IMerchantContract_FindAgentByCityShaparakCodeAndBankId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindBankManagement">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindBankManagement" message="tns:IMerchantContract_FindBankManagement_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindBankManagementResponse" message="tns:IMerchantContract_FindBankManagement_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindBankBranch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindBankBranch" message="tns:IMerchantContract_FindBankBranch_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindBankBranchResponse" message="tns:IMerchantContract_FindBankBranch_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindInstalledTermialByNationalCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindInstalledTermialByNationalCode" message="tns:IMerchantContract_FindInstalledTermialByNationalCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindInstalledTermialByNationalCodeResponse" message="tns:IMerchantContract_FindInstalledTermialByNationalCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindInstalledTermialByDateRange">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindInstalledTermialByDateRange" message="tns:IMerchantContract_FindInstalledTermialByDateRange_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindInstalledTermialByDateRangeResponse" message="tns:IMerchantContract_FindInstalledTermialByDateRange_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindAccountByNationalCodeOrTerminalNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindAccountByNationalCodeOrTerminalNo" message="tns:IMerchantContract_FindAccountByNationalCodeOrTerminalNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindAccountByNationalCodeOrTerminalNoResponse" message="tns:IMerchantContract_FindAccountByNationalCodeOrTerminalNo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindAccountByDateRange">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindAccountByDateRange" message="tns:IMerchantContract_FindAccountByDateRange_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindAccountByDateRangeResponse" message="tns:IMerchantContract_FindAccountByDateRange_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ApproveMerchantWithShaparakCoding">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/ApproveMerchantWithShaparakCoding" message="tns:IMerchantContract_ApproveMerchantWithShaparakCoding_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/ApproveMerchantWithShaparakCodingResponse" message="tns:IMerchantContract_ApproveMerchantWithShaparakCoding_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TerminalSerialDedication">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/TerminalSerialDedication" message="tns:IMerchantContract_TerminalSerialDedication_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/TerminalSerialDedicationResponse" message="tns:IMerchantContract_TerminalSerialDedication_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PosReplacement">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/PosReplacement" message="tns:IMerchantContract_PosReplacement_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/PosReplacementResponse" message="tns:IMerchantContract_PosReplacement_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPosStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/GetPosStatus" message="tns:IMerchantContract_GetPosStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/GetPosStatusResponse" message="tns:IMerchantContract_GetPosStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMerchantStatusWithRequestNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/GetMerchantStatusWithRequestNo" message="tns:IMerchantContract_GetMerchantStatusWithRequestNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/GetMerchantStatusWithRequestNoResponse" message="tns:IMerchantContract_GetMerchantStatusWithRequestNo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRequestNoWithContractNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/UpdateRequestNoWithContractNo" message="tns:IMerchantContract_UpdateRequestNoWithContractNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/UpdateRequestNoWithContractNoResponse" message="tns:IMerchantContract_UpdateRequestNoWithContractNo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TestTerminalNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/TestTerminalNo" message="tns:IMerchantContract_TestTerminalNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/TestTerminalNoResponse" message="tns:IMerchantContract_TestTerminalNo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFileAttachmentListByContractNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/GetFileAttachmentListByContractNo" message="tns:IMerchantContract_GetFileAttachmentListByContractNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/GetFileAttachmentListByContractNoResponse" message="tns:IMerchantContract_GetFileAttachmentListByContractNo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PspRejectList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/PspRejectList" message="tns:IMerchantContract_PspRejectList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/PspRejectListResponse" message="tns:IMerchantContract_PspRejectList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveListMerchantContract">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/RemoveListMerchantContract" message="tns:IMerchantContract_RemoveListMerchantContract_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/RemoveListMerchantContractResponse" message="tns:IMerchantContract_RemoveListMerchantContract_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindAllSwitch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindAllSwitch" message="tns:IMerchantContract_FindAllSwitch_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindAllSwitchResponse" message="tns:IMerchantContract_FindAllSwitch_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindShaparakInValidListByContractNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindShaparakInValidListByContractNo" message="tns:IMerchantContract_FindShaparakInValidListByContractNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindShaparakInValidListByContractNoResponse" message="tns:IMerchantContract_FindShaparakInValidListByContractNo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindContractType">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindContractType" message="tns:IMerchantContract_FindContractType_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindContractTypeResponse" message="tns:IMerchantContract_FindContractType_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddMerchantLocationWithTerminalNo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/AddMerchantLocationWithTerminalNo" message="tns:IMerchantContract_AddMerchantLocationWithTerminalNo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/AddMerchantLocationWithTerminalNoResponse" message="tns:IMerchantContract_AddMerchantLocationWithTerminalNo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindCity">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMerchantContract/FindCity" message="tns:IMerchantContract_FindCity_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMerchantContract/FindCityResponse" message="tns:IMerchantContract_FindCity_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpsBinding_IMerchantContract" type="tns:IMerchantContract">
+    <wsp:PolicyReference URI="#BasicHttpsBinding_IMerchantContract_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddMerchantContractWithShaparakCoding">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/AddMerchantContractWithShaparakCoding" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddListMerchantContractWithShaparakCoding">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/AddListMerchantContractWithShaparakCoding" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddListMerchantContractWithShaparakCodingByTerminalNO">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/AddListMerchantContractWithShaparakCodingByTerminalNO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DefineTerminalsOnlyOnShaparak">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/DefineTerminalsOnlyOnShaparak" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMerchantContractListandSendToShaparak">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/UpdateMerchantContractListandSendToShaparak" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDefineTerminalStatus">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/GetDefineTerminalStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindPersonById">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindPersonById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindPersonByNationalCodeOrUniversalId">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindPersonByNationalCodeOrUniversalId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindLocations">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindLocations" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindAgents">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindAgents" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindBankActors">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindBankActors" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindActorTypes">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindActorTypes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindMarketerTypes">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindMarketerTypes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindMerchantContractDocumentTypes">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindMerchantContractDocumentTypes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindMerchantContractStatus">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindMerchantContractStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindPosModels">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindPosModels" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindETrustCertTypes">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindETrustCertTypes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindCategories">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindCategories" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindActivityPermissions">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindActivityPermissions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindActivityLicenses">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindActivityLicenses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindOwnershipTypes">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindOwnershipTypes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindBusinessTypes">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindBusinessTypes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindJobPositions">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindJobPositions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindEducations">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindEducations" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindEntityStructures">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindEntityStructures" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindGenders">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindGenders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindVitalStatus">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindVitalStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindAccount">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindChangeAccountRequestByRequestNo">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindChangeAccountRequestByRequestNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindChangeAccountRequestByContractNo">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindChangeAccountRequestByContractNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDisableRequest">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/GetDisableRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDisableRequest">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/GetAllDisableRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeMerchantContractWithShaparakCoding">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/ChangeMerchantContractWithShaparakCoding" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeListMerchantContractWithShaparakCoding">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/ChangeListMerchantContractWithShaparakCoding" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeAccountList">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/ChangeAccountList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AmendRequest">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/AmendRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AmendRequestList">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/AmendRequestList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindAmentRequest">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindAmentRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindDisableRequestedByTerminalNo">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindDisableRequestedByTerminalNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindAmendRequest">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindAmendRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddDisableRequestOne">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/AddDisableRequestOne" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddListDisableRequestOne">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/AddListDisableRequestOne" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindMerchantContractByContractNo">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindMerchantContractByContractNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddMerchantsAttachmentsByContractNo">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/AddMerchantsAttachmentsByContractNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindBankContractByBankID">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindBankContractByBankID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindProvinceByAgentId">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindProvinceByAgentId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindReasonDisable">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindReasonDisable" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindAgentByCityShaparakCodeAndBankId">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindAgentByCityShaparakCodeAndBankId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindBankManagement">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindBankManagement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindBankBranch">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindBankBranch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindInstalledTermialByNationalCode">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindInstalledTermialByNationalCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindInstalledTermialByDateRange">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindInstalledTermialByDateRange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindAccountByNationalCodeOrTerminalNo">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindAccountByNationalCodeOrTerminalNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindAccountByDateRange">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindAccountByDateRange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveMerchantWithShaparakCoding">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/ApproveMerchantWithShaparakCoding" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TerminalSerialDedication">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/TerminalSerialDedication" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PosReplacement">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/PosReplacement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPosStatus">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/GetPosStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMerchantStatusWithRequestNo">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/GetMerchantStatusWithRequestNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRequestNoWithContractNo">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/UpdateRequestNoWithContractNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestTerminalNo">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/TestTerminalNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFileAttachmentListByContractNo">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/GetFileAttachmentListByContractNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PspRejectList">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/PspRejectList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveListMerchantContract">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/RemoveListMerchantContract" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindAllSwitch">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindAllSwitch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindShaparakInValidListByContractNo">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindShaparakInValidListByContractNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindContractType">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindContractType" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddMerchantLocationWithTerminalNo">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/AddMerchantLocationWithTerminalNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindCity">
+      <soap:operation soapAction="http://tempuri.org/IMerchantContract/FindCity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MerchantContract">
+    <wsdl:port name="BasicHttpsBinding_IMerchantContract" binding="tns:BasicHttpsBinding_IMerchantContract">
+      <soap:address location="https://yekta.fanavacard.com/WCF/MerchantContract.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://mms.irankish.com/Services/DefineMerchant?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" />
+  <xs:import schemaLocation="https://mms.irankish.com/Services/DefineMerchant?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Model" />
+  <xs:element name="AddAcceptor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="acceptor" nillable="true" type="q1:AcceptorEntity" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddAcceptorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="AddAcceptorResult" nillable="true" type="q2:Add_x0020_Acceptor_x0020_response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddAcceptorAndAccount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="acc" nillable="true" type="q3:AcceptorAccountEntity" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddAcceptorAndAccountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="AddAcceptorAndAccountResult" nillable="true" type="q4:Add_x0020_Acceptor_x0020_response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddAcceptorAndDocs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="acceptor" nillable="true" type="q5:AcceptorEntity" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="Documents" nillable="true" type="q6:ArrayOfAcceptorRequestDocumentEntity" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddAcceptorAndDocsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="AddAcceptorAndDocsResult" nillable="true" type="q7:Add_x0020_Acceptor_x0020_response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddRequestDocument">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="document" nillable="true" type="q8:MarketerDocEntity" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddRequestDocumentResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="AddRequestDocumentResult" nillable="true" type="q9:Add_x0020_Document_x0020_response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddAcceptorReqDocument">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="document" nillable="true" type="q10:MarketerDocumentEntity" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddAcceptorReqDocumentResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="AddAcceptorReqDocumentResult" nillable="true" type="q11:Add_x0020_Document_x0020_response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditAcceptor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="acceptor" nillable="true" type="q12:EditedAcceptorEntity" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditAcceptorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="EditAcceptorResult" nillable="true" type="q13:Edit_x0020_Acceptor_x0020_response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddDocument">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="document" nillable="true" type="q14:DocumentEntity" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddDocumentResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="AddDocumentResult" nillable="true" type="q15:Add_x0020_Document_x0020_response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProvinceInfo">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProvinceInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="GetProvinceInfoResult" nillable="true" type="q16:ArrayOfGetProvinceInfoResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProvince">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="cityCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProvinceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetProvinceResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCityInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="index" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCityInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="GetCityInfoResult" nillable="true" type="q17:ArrayOfGetCityInfoResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBussinessInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="index" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBussinessInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="GetBussinessInfoResult" nillable="true" type="q18:ArrayOfGetBussinessResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetActivityInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="index" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetActivityInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="GetActivityInfoResult" nillable="true" type="q19:ArrayOfGetActivitiesResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTerminalTypes">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTerminalTypesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="GetTerminalTypesResult" nillable="true" type="q20:ArrayOfGetTerminalTypesResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Inquery">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="trackid" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="bankId" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InqueryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="InqueryResult" nillable="true" type="q21:InqueryResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AccountInquery">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="trackId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="bankId" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AccountInqueryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="AccountInqueryResult" nillable="true" type="q22:InqueryAccountResp" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AcceptorInquery">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="terminalcode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AcceptorInqueryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="AcceptorInqueryResult" nillable="true" type="q23:AcceptorInqueryResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AcceptorInqueryByAcceptorCode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="acceptorCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="trackingCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="clientTrackingCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AcceptorInqueryByAcceptorCodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="AcceptorInqueryByAcceptorCodeResult" nillable="true" type="q24:AcceptorInqueryByAccCodeResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetTms">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="tmsentity" nillable="true" type="q25:HyperTmsEntity" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetTmsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="SetTmsResult" nillable="true" type="q26:SetTmsResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RefuseRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="terminalNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ReasonId" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RefuseRequestResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="RefuseRequestResult" nillable="true" type="q27:RefuseTerminal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeAccountNO">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CurrAccountNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newAccountNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newIbanNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="accountType" type="xs:int" />
+        <xs:element minOccurs="0" name="acceptorNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="uploadDocumentContent" nillable="true" type="xs:base64Binary" />
+        <xs:element minOccurs="0" name="uploadDocRegisterContent" nillable="true" type="xs:base64Binary" />
+        <xs:element minOccurs="0" name="uploadDocMeliCodeContent" nillable="true" type="xs:base64Binary" />
+        <xs:element minOccurs="0" name="changeAccountReqcomment" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="changeAccountReqOwnerFamily" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="changeAccountReqOwnerName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="branchCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeAccountNOResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ChangeAccountNOResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeAccountByIban">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CurrIban" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newAccountNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newIbanNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="accountType" type="xs:int" />
+        <xs:element minOccurs="0" name="acceptorNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="uploadDocumentContent" nillable="true" type="xs:base64Binary" />
+        <xs:element minOccurs="0" name="uploadDocRegisterContent" nillable="true" type="xs:base64Binary" />
+        <xs:element minOccurs="0" name="uploadDocMeliCodeContent" nillable="true" type="xs:base64Binary" />
+        <xs:element minOccurs="0" name="changeAccountReqcomment" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="changeAccountReqOwnerFamily" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="changeAccountReqOwnerName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="branchCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeAccountByIbanResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ChangeAccountByIbanResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeAccount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CurrAccountNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newAccountNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="newIbanNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="accountType" type="xs:int" />
+        <xs:element minOccurs="0" name="acceptorNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="uploadDocumentContent" nillable="true" type="xs:base64Binary" />
+        <xs:element minOccurs="0" name="uploadDocRegisterContent" nillable="true" type="xs:base64Binary" />
+        <xs:element minOccurs="0" name="uploadDocMeliCodeContent" nillable="true" type="xs:base64Binary" />
+        <xs:element minOccurs="0" name="changeAccountReqcomment" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="changeAccountReqOwnerFamily" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="changeAccountReqOwnerName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="branchCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="taxFollowupCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeAccountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Model" minOccurs="0" name="ChangeAccountResult" nillable="true" type="q28:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditAcceptorRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="acceptor" nillable="true" type="q29:EditedAcceptorRequestEntity" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EditAcceptorRequestResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="EditAcceptorRequestResult" nillable="true" type="q30:Edit_x0020_Acceptor_x0020_response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InqueryComp">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="trackid" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="bankId" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InqueryCompResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="InqueryCompResult" nillable="true" type="q31:InqueryResponseComp" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBankAndBranches">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBankAndBranchesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/SelfHostedDefineMerchantService.Service" minOccurs="0" name="GetBankAndBranchesResult" nillable="true" type="q32:ArrayOfGetBanksWithBranches" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

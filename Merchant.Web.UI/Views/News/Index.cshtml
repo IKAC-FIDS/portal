@@ -1,0 +1,33 @@
+﻿@model IEnumerable<NewsViewModel>
+
+@{
+    ViewBag.PageTitle = "اخبار و اطلاعیه ها";
+}
+
+<div class="page-header">
+    <h1>اخبار و اطلاعیه ها</h1>
+</div>
+
+@if (Model.Any())
+{
+    foreach (var item in Model)
+    {
+        <div>
+            <h4><a href="@Url.Action("Details", "News", new { id = item.Id })">@item.Title</a></h4>
+            <span class="text-muted"><i class="fa fa-calendar-o"></i> <small>@item.PublishDate.ToRelativeDate()</small></span>
+            <hr />
+            <p>  @Html.Raw(@item.Body.Truncate(250).Replace("\r\n", "<br />")) </p>
+            @foreach (var c in item.AttachFiles)
+            {
+                <a data-toggle="tooltip" title=" دریافت @c.Title      " href="/News/GetChangeAccountRequestDocument?changeAccountRequestId=@c.Id" target="_blank" class="btn btn-default btn-xs"><i class="far fa   fa-download">@c.Title </i></a>
+            }
+        </div>
+
+        <br />
+        <br />
+    }
+}
+else
+{
+    <div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div>
+}

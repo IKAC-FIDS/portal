@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "نمودار تراکش های نمایندگی";
+}
+
+<div class="page-header">
+    <h1>نمودار تراکنش های نمایندگی</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-12" style="margin-bottom: 20px;">
+        <div id="TerminalTransactionsChartContainer"></div>
+    </div>
+</div>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/reportTransactionChartScripts",
+        "~/Scripts/highcharts/highcharts.js",
+        "~/Scripts/highcharts/highcharts-more.js",
+        "~/Scripts/highcharts/exporting.js",
+        "~/Scripts/highcharts/offline-exporting.js")
+
+    <script type="text/javascript">
+        Highcharts.setOptions({
+            lang: {
+                thousandsSep: ''
+            },
+            colors: ['#8BC34A', '#E91E63', '#00BCD4', '#009688', '#9C27B0', '#FFC107', '#4CAF50', '#795548', '#03A9F4']
+        });
+
+        $('#TerminalTransactionsChartContainer').highcharts({
+            exporting: {
+                chartOptions: {
+                    plotOptions: {
+                        series: {
+                            dataLabels: {
+                                enabled: true
+                            }
+                        }
+                    }
+                },
+                fallbackToExportServer: false
+            },
+            chart: { type: 'pie' },
+            title: { text: 'به تفکیک وضعیت' },
+            tooltip: {
+                useHTML: true,
+                crosshairs: true,
+                formatter: function () {
+                    return convertToPersianNumbersThreeDigitsSeparated(this.y) + '<br /> {point.percentage:.1f}';
+                }
+            },
+            series: [{ data: @Html.Raw(((object)ViewBag.TerminalTransactionsChartData).SerializeToJson()), name: 'پذیرنده' }],
+            colors: ['#673AB7', '#F48FB1', '#8BC34A']
+        });
+    </script>
+}

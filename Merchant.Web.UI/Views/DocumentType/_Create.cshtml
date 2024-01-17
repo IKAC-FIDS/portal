@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.PageTitle = "ایجاد نوع فایل";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+}
+
+    <form action="@Url.Action("Create", "DocumentType")" method="post" class="form-horizontal" id="DocumentTypeCreateForm">
+        <div class="form-group">
+            <label class="control-label col-md-3 required" for="Title">عنوان</label>
+            <div class="col-md-9">
+                <input type="text" id="Title" name="Title" class="form-control" maxlength="100" autocomplete="off" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3 required">نوع</label>
+            <div class="col-md-9">
+                <div class="btn-group btn-group-sm" data-toggle="buttons">
+                    <label class="btn btn-default active">
+                        <input type="radio" name="IsRequired" value="true" checked> اجباری
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="IsRequired" value="false"> غیر اجباری
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3 required">پذیرنده / پایانه</label>
+            <div class="col-md-9">
+                <div class="btn-group btn-group-sm" data-toggle="buttons">
+                    <label class="btn btn-default active">
+                        <input type="radio" name="ForEntityTypeId" value="@EntityType.Terminal.ToInt16()" checked> پایانه
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="ForEntityTypeId" value="@EntityType.MerchantProfile.ToInt16()"> پذیرنده
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3 required">حقیقی / حقوقی</label>
+            <div class="col-md-9">
+                <div class="btn-group btn-group-sm" data-toggle="buttons">
+                    <label class="btn btn-default">
+                        <input type="radio" name="IsForLegalPersonality" value="false"> حقیقی
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="IsForLegalPersonality" value="true"> حقوقی
+                    </label>
+                    <label class="btn btn-default active">
+                        <input type="radio" name="IsForLegalPersonality" value="" checked> همه
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="row">
+            <div class="col-sm-12">
+                <input type="submit" value="ثبت" id="ConfirmButton" data-loading-text="در حال ثبت..." class="btn btn-success btn-lg" />
+                <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">انصراف</button>
+            </div>
+        </div>
+    </form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#DocumentTypeCreateForm').validate({
+            rules: {
+                Title: { required: true, maxlength: 500 }
+            },
+            submitHandler: function (form) {
+                var $button = $('#ConfirmButton', '#DocumentTypeCreateForm');
+                $button.button('loading');
+
+                $(form).ajaxSubmit({
+                    success: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+
+                        if (result.success) {
+                            $.closeModal('ok');
+                        }
+                    }, error: function (result) {
+                        $button.button('reset');
+                        $.processMessage(result);
+                    }
+                });
+
+                return false;
+            }
+        });
+    });
+</script>

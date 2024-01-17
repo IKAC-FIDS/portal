@@ -1,0 +1,53 @@
+﻿@model LoginViewModel
+
+@{
+    ViewBag.Title = "ورود";
+}
+
+<div class="col-md-4 col-md-offset-4">
+    <div class="page-header">
+        <h1 class="header-title">ورود</h1>
+    </div>
+
+    <form id="AccountLoginForm" method="post" action="@Url.Action("Login", "Account", new { ViewBag.ReturnUrl })">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label class="control-label" for="Email">نام کاربری</label>
+            <input type="text" id="Email" name="Email" class="form-control" maxlength="254" />
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="Password">رمز عبور</label>
+            <input type="password" id="Password" name="Password" class="form-control" maxlength="50" />
+        </div>
+
+        <hr />
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg btn-block">ورود</button>
+        </div>
+        
+        <div class="form-group">
+            <a href="@Url.Action("Index", "PhoneNumbers")" class="btn btn-link">رمز عبور خود را فراموش کرده اید؟</a>
+        </div>
+    </form>
+</div>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/accountLoginScripts",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.validation-extensions.js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#AccountLoginForm').validate({
+                rules: {
+                    Email: { required: true, maxlength: 254 },
+                    Password: { required: true, minlength: 6, maxlength: 50 }
+                }
+            });
+        });
+    </script>
+}
