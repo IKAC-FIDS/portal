@@ -1618,9 +1618,10 @@ namespace TES.Merchant.Web.UI.Service
                         ParameterType.RequestBody);
                     IRestResponse response2 = client2.Execute(request2);
                     var au = JsonConvert.DeserializeObject<AuthenTicationResponse>(response2.Content);
-
-                    if (!au.status || string.IsNullOrEmpty(au.data.jwtToken))
-                        throw new Exception();
+                    if(au==null || !au.status || string.IsNullOrEmpty(au.data.jwtToken)) throw new Exception();
+                    //if (!au.status || string.IsNullOrEmpty(au.data.jwtToken))
+                    //    throw new Exception();
+                    ///
 
 
                     var client =

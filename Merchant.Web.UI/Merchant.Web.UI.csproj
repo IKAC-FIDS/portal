@@ -459,6 +459,7 @@
     <Compile Include="Controllers\ChangeAccountRequestController.cs" />
     <Compile Include="Controllers\DamageRequestReplyController.cs" />
     <Compile Include="Controllers\DamageRequestReplyDocumentController.cs" />
+    <Compile Include="Controllers\ManagmentProblemController.cs" />
     <Compile Include="Controllers\MessageReplyDocumentController.cs" />
     <Compile Include="Controllers\MessageDocumentController.cs" />
     <Compile Include="Controllers\MessageReplyController.cs" />
@@ -640,6 +641,9 @@
     <Compile Include="ViewModels\PardakhtNovin\GetBranchListRequest.cs" />
     <Compile Include="ViewModels\PardakhtNovin\GetBranchListResponse.cs" />
     <Compile Include="ViewModels\PardakhtNovin\GetBranchListResponseData.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\GetCityRequest.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\GetCityResponse.cs" />
+    <Compile Include="ViewModels\PardakhtNovin\GetCityResponseData.cs" />
     <Compile Include="ViewModels\PardakhtNovin\GetCustomerByCodeRequest.cs" />
     <Compile Include="ViewModels\PardakhtNovin\GetCustomerByCodeRequestParameters.cs" />
     <Compile Include="ViewModels\PardakhtNovin\GetCustomerByCodeResponse.cs" />
@@ -1389,6 +1393,7 @@
     <Folder Include="App_Data\TransactionExportFiles\" />
     <Folder Include="Content\Report\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Views\ManagmentProblem\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

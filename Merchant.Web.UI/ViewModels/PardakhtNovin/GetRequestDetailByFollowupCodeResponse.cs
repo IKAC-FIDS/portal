@@ -12,6 +12,7 @@ namespace TES.Merchant.Web.UI.ViewModels.PardakhtNovin
     public class UpdateRequestByFollowUpCodeResponse : BaseResponse
     {
         public  int SavedID { get; set; }
+
     }
     public class   AddPosReplacementResponse : BaseResponse
     {
@@ -167,8 +168,7 @@ namespace TES.Merchant.Web.UI.ViewModels.PardakhtNovin
 
     public class UpdateDocumentResponse : BaseResponse
     {
-        public  int SaveID { get; set; }
-
+        public  int SaveID { get; set; }      
     }
     public class GetRequestListResponseData
     {

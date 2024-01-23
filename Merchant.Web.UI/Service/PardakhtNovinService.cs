@@ -276,6 +276,36 @@ namespace TES.Merchant.Web.UI.Service
             return methodResponse;
         }
 
+        public GetCityResponse GetCityList(GetCityRequest input)
+        {
+            GetCityResponse methodResponse;
+            using (var httpClient = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(input), Encoding.UTF8,
+                    "application/json");
+                httpClient.DefaultRequestHeaders.Authorization = AuthorizationHeader();
+                using (var response = httpClient.PostAsync(BaseAddress + "/GetCityList", content))
+                {
+                    response.Result.EnsureSuccessStatusCode();
+                    var apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+
+                    methodResponse = JsonConvert.DeserializeObject<GetCityResponse>(apiResponse);
+                }
+            }            
+           var pardakhtNovinRequest = new PardakhtNovinRequest
+            {
+                Input = JsonConvert.SerializeObject(input),
+                Method = "GetCityList",
+                Module = "-",
+                TrackId = DateTime.Now.Ticks
+            };
+            var datacontext = new AppDataContext();
+            datacontext.PardakhtNovinRequests.Add(pardakhtNovinRequest);
+            datacontext.SaveChanges();
+            return methodResponse;
+        }
+
+
         //2-15
         public AddNewRequestResponse AddNewRequest(AddNewRequestRequestWithDocs input,long terminalId)
         {
@@ -325,6 +355,7 @@ namespace TES.Merchant.Web.UI.Service
                     methodResponse = JsonConvert.DeserializeObject<AddNewRequestResponse>(apiResponse);
                 }
             }
+           
 
             var pardakhtNovinRequest = new PardakhtNovinRequest
             {
@@ -589,6 +620,7 @@ namespace TES.Merchant.Web.UI.Service
             
             return result; 
         }
+     //   UpdateRequestByFollowUpCode  توضیح داده شود
         //2-18
         public UpdateRequestByFollowUpCodeResponse UpdateRequestByFollowUpCode(UpdateRequestByFollowUpCodeRequest input,long? terminalId)
         {
@@ -1023,7 +1055,7 @@ namespace TES.Merchant.Web.UI.Service
                     docs.Data = new List<Document>();
             
                     //1 add files =>
-                   
+                 
                     foreach (var VARIABLE in terminal.MerchantProfile.MerchantProfileDocuments)
                     {
                          if (VARIABLE.DocumentTypeId == 13 ||
