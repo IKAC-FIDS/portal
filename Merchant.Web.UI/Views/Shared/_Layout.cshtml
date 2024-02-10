@@ -188,6 +188,44 @@
                                 <a href="@Url.Action("Index", "News")">اخبار</a>
                             </li>
                         }
+                        if (User.IsAdmin())
+                        {
+
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    مدیریت خطاها
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-left">
+
+                                    <li>
+                                        <a href="@Url.Action("DeleteTerminal","ManagmentProblem")">رفع خطاهای حذف شده </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("DeleteTerminal", "")">مدیریت موضوعات پشتیبانی    </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    گزارش های مدیریت 
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-left">
+
+                                    <li>
+                                        <a href="@Url.Action("ReportShebaAccount","Report")">گزارش شماره حساب  و شبا </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("GeneralReport", "Report")">گزارش جامع </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        }
+
                         if (User.Identity.IsAuthenticated && !User.IsAuditor())
 
                         {
@@ -296,8 +334,8 @@
                                 </li>
                             }
                             if (User.IsAdmin() || User.IsBranchUser() || User.IsAcceptorsExpertUser()
-                                           || User.IsBranchManagementUser()
-                                           )
+                            || User.IsBranchManagementUser()
+                            )
                             {
 
                                 <li>

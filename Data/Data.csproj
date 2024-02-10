@@ -131,6 +131,7 @@
     <Compile Include="Domain\RulePspWeight.cs" />
     <Compile Include="Domain\RuleType.cs" />
     <Compile Include="Domain\Seriall.cs" />
+    <Compile Include="Domain\SolveTheProblem.cs" />
     <Compile Include="Domain\Storage.cs" />
     <Compile Include="Domain\StorageLog.cs" />
     <Compile Include="Domain\TaskError.cs" />

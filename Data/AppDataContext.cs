@@ -148,6 +148,7 @@ namespace TES.Data
         public virtual DbSet<TempReport6Data> TempReport6Datas { get; set; }
         public virtual DbSet<TempReport7Data> TempReport7Datas { get; set; }
         public virtual DbSet<TempReport8Data> TempReport8Datas { get; set; }
+        public virtual DbSet<SolveTheProblem> SolveTheProblems { get; set; }
 
         #region  AssingRules
 

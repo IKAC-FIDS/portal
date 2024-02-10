@@ -59,7 +59,8 @@ namespace TES.Data.Domain
 
         [Required] [StringLength(50)] public string Tel { get; set; }
 
-        [Required] [StringLength(2000)] public string Address { get; set; }
+       // [Required] [StringLength(2000)] public string Address { get; set; }
+         [StringLength(2000)] public string Address { get; set; }
 
         //[Required]
         [StringLength(10)] public string PostCode { get; set; }
