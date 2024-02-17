@@ -263,30 +263,45 @@ namespace TES.Merchant.Web.UI.Controllers
 
                     var s = 0;
                     var terminals = _dataContext.Terminals.ToList();
-
-                    Parallel.ForEach(terminals, terminal =>
+                    foreach (var terminal in terminals)
                     {
                         terminal.IsGood = null;
                         terminal.IsGoodMonth = null;
                         terminal.IsGoodYear = null;
                         terminal.IsGoodValue = null;
                         terminal.LowTransaction = null;
-                    });
+                    }
 
-                    Parallel.ForEach(result.TerminalData, VARIABLE =>
+                    //Parallel.ForEach(terminals, terminals =>
+                    //{
+                    //    terminal.IsGood = null;
+                    //    terminal.IsGoodMonth = null;
+                    //    terminal.IsGoodYear = null;
+                    //    terminal.IsGoodValue = null;
+                    //    terminal.LowTransaction = null;
+                    //});
+                    foreach (var VARIABLE in result.TerminalData)
                     {
                         try
                         {
                             s += 1;
                             var terminal = terminals.FirstOrDefault(b => b.TerminalNo == VARIABLE.TerminalNo);
-                            terminal.IsGood = VARIABLE.IsGood;
-                            terminal.IsGoodValue = VARIABLE.IsGoodValue;
-                            terminal.IsGoodMonth = month;
-                            terminal.IsGoodYear = year;
-                            terminal.IsActive = VARIABLE.IsActive;
-                            terminal.TransactionCount = VARIABLE.TransactionCount;
-                            terminal.TransactionValue = VARIABLE.TransactionValue;
-                            terminal.LowTransaction = VARIABLE.LowTransaction;
+                            if (terminal != null)
+                            {
+                                terminal.IsGood = VARIABLE.IsGood;
+                                terminal.IsGoodValue = VARIABLE.IsGoodValue;
+                                terminal.IsGoodMonth = month;
+                                terminal.IsGoodYear = year;
+                                terminal.IsActive = VARIABLE.IsActive;
+                                terminal.TransactionCount = VARIABLE.TransactionCount;
+                                terminal.TransactionValue = VARIABLE.TransactionValue;
+                                terminal.LowTransaction = VARIABLE.LowTransaction;
+
+                            }
+                            else
+                            {
+                                VARIABLE.IsBad = true;
+                            }
                             Console.WriteLine($"==========> {s} - ");
                         }
                         catch (Exception e)
@@ -294,11 +309,43 @@ namespace TES.Merchant.Web.UI.Controllers
                             Console.WriteLine(e);
                             VARIABLE.IsBad = true;
                         }
-                    });
+                    }
+
+                    //Parallel.ForEach(result.TerminalData, VARIABLE =>
+                    //{
+                    //    try
+                    //    {
+                    //        s += 1;
+                    //        var terminal = terminals.FirstOrDefault(b => b.TerminalNo == VARIABLE.TerminalNo);
+                    //        if (terminal != null)
+                    //        {
+                    //            terminal.IsGood = VARIABLE.IsGood;
+                    //            terminal.IsGoodValue = VARIABLE.IsGoodValue;
+                    //            terminal.IsGoodMonth = month;
+                    //            terminal.IsGoodYear = year;
+                    //            terminal.IsActive = VARIABLE.IsActive;
+                    //            terminal.TransactionCount = VARIABLE.TransactionCount;
+                    //            terminal.TransactionValue = VARIABLE.TransactionValue;
+                    //            terminal.LowTransaction = VARIABLE.LowTransaction;    
+                               
+                    //        }
+                    //        else
+                    //        {
+                    //            VARIABLE.IsBad = true;
+                    //        }
+                    //        Console.WriteLine($"==========> {s} - ");
+                    //    }
+                    //    catch (Exception e)
+                    //    {
+                    //        Console.WriteLine(e);
+                    //        VARIABLE.IsBad = true;
+                    //    }
+                    //});
                     System.IO.File.AppendAllText(m_exePath, "\nbefore add range");
 
                     _dataContext.CalculateResults.AddRange(result.TerminalData.Select(b => new CalculateResult()
                     {
+                        
                         IsBad = b.IsBad,
                         IsGood = b.IsGood,
                         TerminalNo = b.TerminalNo,
@@ -322,9 +369,12 @@ namespace TES.Merchant.Web.UI.Controllers
                         PspId = b.PspId,
                         LowTransaction = b.LowTransaction,
                     }).ToList());
+                    _dataContext.SaveChanges();
+
                     _dataContext.CustomerStatusResults.AddRange(result.CustomerData.Select(b =>
                         new CustomerStatusResult()
                         {
+                            
                             IsGood = b.IsGood,
                             CustomerId = b.CustomerId,
                             IsGoodMonth = month,
@@ -1292,7 +1342,8 @@ namespace TES.Merchant.Web.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> UploadInstalledFile(int year, int month)
         {
-            var client = new RestClient($"http://192.168.10.102:8008/ZeroShapark/Upload?month={month}&year={year}");
+            var client = new RestClient($"http://localhost:5072/ZeroShapark/Upload?month={month}&year={year}");
+      //      var client = new RestClient($"http://192.168.10.102:8008/ZeroShapark/Upload?month={month}&year={year}");
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             var response = client.Execute(request);
@@ -1304,7 +1355,9 @@ namespace TES.Merchant.Web.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> UploadAvgFile(int year, int month)
         {
-            var client = new RestClient($"http://192.168.10.102:8008/ave/Upload?month={month}&year={year}");
+            var client = new RestClient($"http://localhost:5072/ave" +
+                $"/Upload?month={month}&year={year}");
+           // var client = new RestClient($"http://192.168.10.102:8008/ave/Upload?month={month}&year={year}");
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             var response = client.Execute(request);
@@ -1317,7 +1370,8 @@ namespace TES.Merchant.Web.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> UploadMinFile(int year, int month)
         {
-            var client = new RestClient($"http://192.168.10.102:8008/min/Upload?month={month}&year={year}");
+            var client = new RestClient($"http://localhost:5072/min/Upload?month={month}&year={year}");
+          //  var client = new RestClient($"http://192.168.10.102:8008/min/Upload?month={month}&year={year}");
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             var response = client.Execute(request);
@@ -1329,8 +1383,21 @@ namespace TES.Merchant.Web.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> UploadWageFile(int year, int month)
         {
-          //  var client = new RestClient($"http://localhost:5072/wage/TestUpload?month={month}&year={year}");
-            var client = new RestClient($"http://192.168.10.102:8008/wage/TestUpload?month={month}&year={year}");
+            var client = new RestClient($"http://localhost:5072/wage/TestUpload?month={month}&year={year}");
+           // var client = new RestClient($"http://192.168.10.102:8008/wage/TestUpload?month={month}&year={year}");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            var response = await client.ExecuteAsync(request);
+            Console.WriteLine(response.Content);
+
+            return new JsonResult();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UploadPSPFiles(int year, int month)
+        {
+            var client = new RestClient($"http://localhost:5072/PSPs/TesUploadPSPs?month={month}&year={year}");
+            // var client = new RestClient($"http://192.168.10.102:8008/PSPFiles/TesUploadPSPs?month={month}&year={year}");
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             var response = await client.ExecuteAsync(request);
@@ -5061,7 +5128,7 @@ namespace TES.Merchant.Web.UI.Controllers
 
 
                         ttt = _dataContext.TerminalDocuments
-                            .Where(b => b.Id == terminal.Id &&
+                            .Where(b => b.TerminalId == terminal.Id &&
                                         (b.DocumentType.SendToPsp.HasValue && b.DocumentType.SendToPsp.Value))
                             .ToList()
                             .Select(b => new UploadAttachmentRequestData

@@ -70,7 +70,7 @@ namespace TES.Merchant.Web.UI.Controllers
 
         [HttpGet]
         [CustomAuthorize(DefaultRoles.AcceptorsExpertUser, DefaultRoles.Administrator, DefaultRoles.ITUser,
-            DefaultRoles.BranchUser,DefaultRoles.BranchManagment)]
+            DefaultRoles.BranchUser,DefaultRoles.BranchManagment,DefaultRoles.Auditor)]
         public async Task<ActionResult> Manage(CancellationToken cancellationToken)
         {
             ViewBag.StatusList = (await _dataContext.RequestStatus
@@ -88,7 +88,7 @@ namespace TES.Merchant.Web.UI.Controllers
             var message = _dataContext.Messages.ToList();
             ViewBag.OpenMessage = message.Count(d => d.StatusId == (int) Common.Enumerations.MessageStatus.Open
                                                      && (d.UserId == CurrentUserId || d.ReviewerUserId == CurrentUserId
-                                                         || User.IsMessageManagerUser()));
+                                                         || User.IsMessageManagerUser() || User.IsAuditor()));
             return View();
         }
 
@@ -155,7 +155,7 @@ namespace TES.Merchant.Web.UI.Controllers
         [HttpPost]
         [AjaxOnly]
         [CustomAuthorize(DefaultRoles.AcceptorsExpertUser, DefaultRoles.Administrator, DefaultRoles.BranchManagment,
-            DefaultRoles.BranchUser)]
+            DefaultRoles.BranchUser, DefaultRoles.Auditor)]
         public async Task<ActionResult> GetData(TicketIndexViewModel viewModel, string orderByColumn,
             string orderByDirection, CancellationToken cancellationToken)
         {

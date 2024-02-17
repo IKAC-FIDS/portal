@@ -86,3 +86,25 @@ E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\obj\Debug\Portal.ISe
 E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\obj\Debug\Portal.IService.csproj.CopyComplete
 E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\obj\Debug\Portal.IService.dll
 E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.IService\obj\Debug\Portal.IService.pdb
+E:\Portal\Portal\Portal.IService\obj\Debug\Portal.IService.csproj.AssemblyReference.cache
+E:\Portal\Portal\Portal.IService\obj\Debug\Portal.IService.csproj.CoreCompileInputs.cache
+E:\Portal\Portal\Portal.IService\bin\Debug\Portal.IService.dll
+E:\Portal\Portal\Portal.IService\bin\Debug\Portal.IService.pdb
+E:\Portal\Portal\Portal.IService\bin\Debug\TES.Common.dll
+E:\Portal\Portal\Portal.IService\bin\Debug\TES.Data.dll
+E:\Portal\Portal\Portal.IService\bin\Debug\Persia.dll
+E:\Portal\Portal\Portal.IService\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\Portal\Portal\Portal.IService\bin\Debug\EntityFramework.dll
+E:\Portal\Portal\Portal.IService\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+E:\Portal\Portal\Portal.IService\bin\Debug\Dapper.dll
+E:\Portal\Portal\Portal.IService\bin\Debug\TES.Common.pdb
+E:\Portal\Portal\Portal.IService\bin\Debug\TES.Common.dll.config
+E:\Portal\Portal\Portal.IService\bin\Debug\TES.Data.pdb
+E:\Portal\Portal\Portal.IService\bin\Debug\TES.Data.dll.config
+E:\Portal\Portal\Portal.IService\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\Portal\Portal\Portal.IService\bin\Debug\EntityFramework.xml
+E:\Portal\Portal\Portal.IService\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+E:\Portal\Portal\Portal.IService\bin\Debug\Dapper.xml
+E:\Portal\Portal\Portal.IService\obj\Debug\Portal.IService.csproj.CopyComplete
+E:\Portal\Portal\Portal.IService\obj\Debug\Portal.IService.dll
+E:\Portal\Portal\Portal.IService\obj\Debug\Portal.IService.pdb

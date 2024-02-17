@@ -72,9 +72,9 @@
     <br />
     
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="form-group">
-               
+
                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                     @* <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">انتخاب فایل (.xlsx)</span><span class="fileinput-exists">تغییر</span> *@
                     @*     <input accept=".xlsx" type="file" name="WageFile" id="WageFile"></span> *@
@@ -82,70 +82,89 @@
                     @*     <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span> *@
                     @* </div> *@
                     @* <span class="input-group-btn"> *@
-                        <button id="UploadWageButton" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل کارمزد شاپرکی   </button>
+                    <button id="UploadWageButton" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل کارمزد شاپرکی   </button>
                     @* </span> *@
                 </div>
-                
-              
-               
+
+
+
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                       
-                  @* <div class="fileinput fileinput-new input-group" data-provides="fileinput"> *@
-                  @*                   <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">انتخاب فایل (.xlsx)</span><span class="fileinput-exists">تغییر</span> *@
-                  @*                       <input accept=".xlsx" type="file" name="MinFile" id="MinFile"></span> *@
-                  @*                   <div class="form-control" data-trigger="fileinput"> *@
-                  @*                       <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span> *@
-                  @*                   </div> *@
-                  @*                   <span class="input-group-btn"> *@
-                                        <button id="UploadMinButton" type="button" class="btn btn-success" data-loading-text="در حال ثبت..."> بارگذاری فایل  حداقل کارکرد     </button>
-                                    @* </span> *@
-                       </div> 
-            </div>
         <div class="col-md-2">
             <div class="form-group">
-     
-                        @* <div class="fileinput fileinput-new input-group" data-provides="fileinput"> *@
-                        @*                             <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">انتخاب فایل (.xlsx)</span><span class="fileinput-exists">تغییر</span> *@
-                        @*               <input accept=".xlsx" type="file" name="AvgFile" id="AvgFile"></span> *@
-                        @*                             <div class="form-control" data-trigger="fileinput"> *@
-                        @*      <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span> *@
-                        @*                             </div> *@
-                        @*      <span class="input-group-btn"> *@
-                                 <button id="UploadAvgButton" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">   بارگذاری فایل   میانگین کارکرد   
-                                     </button>
-                                                    @* </span> *@
-                        </div> 
- 
+
+                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    @* <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">انتخاب فایل (.xlsx)</span><span class="fileinput-exists">تغییر</span> *@
+                    @*     <input accept=".xlsx" type="file" name="WageFile" id="WageFile"></span> *@
+                    @* <div class="form-control" data-trigger="fileinput"> *@
+                    @*     <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span> *@
+                    @* </div> *@
+                    @* <span class="input-group-btn"> *@
+                    <button id="UploadPSPFiles" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل های PSP   </button>
+                    @* </span> *@
+                </div>
+
+
+
             </div>
+        </div>
         <div class="col-md-2">
-                    <div class="form-group">
-                       
-                       
-                        @* *@
-                        @* <div class="fileinput fileinput-new input-group" data-provides="fileinput"> *@
-                        @*     <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">انتخاب فایل (.xlsx)</span> *@
-                        @*         <span class="fileinput-exists">تغییر</span> *@
-                        @*               <input accept=".xlsx" type="file" name="InstalledFile" id="InstalledFile"></span> *@
-                        @*     <div class="form-control" data-trigger="fileinput"> *@
-                        @*      <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span> *@
-                        @*                             </div> *@
-                        @*      <span class="input-group-btn"> *@
-              <button id="UploadInstalledButton" type="button" class="btn btn-success" data-loading-text="در حال ثبت..."> بارگذاری فایل  پایانه های منصوبه    </button>
-                             @* </span> *@
-                        </div> 
-                    </div>
-                    <div class="col-md-2">
-                                        <div class="form-group">
-                                           
-                                           
-                                           
-                                  <button id="CalculateResultButton" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">  محاسبه  </button>
-                                                 @* </span> *@
-                                            </div> 
-                                        </div>
+            <div class="form-group">
+
+                @* <div class="fileinput fileinput-new input-group" data-provides="fileinput"> *@
+                @*                   <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">انتخاب فایل (.xlsx)</span><span class="fileinput-exists">تغییر</span> *@
+                @*                       <input accept=".xlsx" type="file" name="MinFile" id="MinFile"></span> *@
+                @*                   <div class="form-control" data-trigger="fileinput"> *@
+                @*                       <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span> *@
+                @*                   </div> *@
+                @*                   <span class="input-group-btn"> *@
+                <button id="UploadMinButton" type="button" class="btn btn-success" data-loading-text="در حال ثبت..."> بارگذاری فایل  حداقل کارکرد     </button>
+                @* </span> *@
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+
+                @* <div class="fileinput fileinput-new input-group" data-provides="fileinput"> *@
+                @*                             <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">انتخاب فایل (.xlsx)</span><span class="fileinput-exists">تغییر</span> *@
+                @*               <input accept=".xlsx" type="file" name="AvgFile" id="AvgFile"></span> *@
+                @*                             <div class="form-control" data-trigger="fileinput"> *@
+                @*      <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span> *@
+                @*                             </div> *@
+                @*      <span class="input-group-btn"> *@
+                <button id="UploadAvgButton" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">
+                    بارگذاری فایل   میانگین کارکرد
+                </button>
+                @* </span> *@
+            </div>
+
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+
+
+                @* *@
+                @* <div class="fileinput fileinput-new input-group" data-provides="fileinput"> *@
+                @*     <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">انتخاب فایل (.xlsx)</span> *@
+                @*         <span class="fileinput-exists">تغییر</span> *@
+                @*               <input accept=".xlsx" type="file" name="InstalledFile" id="InstalledFile"></span> *@
+                @*     <div class="form-control" data-trigger="fileinput"> *@
+                @*      <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span> *@
+                @*                             </div> *@
+                @*      <span class="input-group-btn"> *@
+                <button id="UploadInstalledButton" type="button" class="btn btn-success" data-loading-text="در حال ثبت..."> بارگذاری فایل  پایانه های منصوبه    </button>
+                @* </span> *@
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+
+
+
+                <button id="CalculateResultButton" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">  محاسبه  </button>
+                @* </span> *@
+            </div>
+        </div>
     </div>
 
      <div class="col-md-12">
@@ -346,7 +365,7 @@
                                        }, 12000)  ;
                
                                         $.ajax({  
-                                                       url: '/Terminal/UploadWageFile?year=' + Year + "&month=" + Month,  
+                                            url: '/Terminal/UploadWageFile?year=' + Year + "&month=" + Month,  
                                                        type: "POST", 
                                                         async: true, 
                                                        contentType: false, // Not to set any content header  
@@ -372,7 +391,50 @@
                                });
                            });
                 //===================== Upload Wage Button
-               
+            // start Upload PSP Button
+            $('#UploadPSPFiles').on('click', function (e) {
+
+
+                let $button = $('#UploadPSPFiles');
+
+
+                var Year = $("#Year").val();
+                var Month = $("#Month").val();
+
+
+                $.showConfirm({
+                    onConfirm: function () {
+                        let interval = setInterval(function () {
+                            toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                        }, 12000);
+
+                        $.ajax({
+                            url: '/Terminal/UploadPSPFiles?year=' + Year + "&month=" + Month,
+                            type: "POST",
+                            async: true,
+                            contentType: false, // Not to set any content header  
+                            processData: false, // Not to process data  
+
+                            success: function (result) {
+                                clearInterval(interval);
+                                $button.button('reset');
+                            },
+                            error: function (err) {
+                                $button.button('reset');
+
+                                clearInterval(interval);
+                            }
+                        });
+
+
+
+                        $button.button('loading');
+
+                        return false;
+                    }
+                });
+            });
+            //end  Upload PSP Button
                
                  //=======================  Upload Min Button  =============================
                   $('#UploadMinButton').on('click', function (e) {

@@ -803,8 +803,7 @@ namespace TES.Merchant.Web.UI.Service
                    // var client = new RestClient($"{RestIranKishUrl}/api/v1/accounts")
                     //var client = new RestClient($"{RestIranKishUrl}/api/v1/Account/ChangeAccountByIban")
                    // var client = new RestClient($"{RestIranKishUrl}/api/Account/ChangeAccountByIban/")
-                  //  var client = new RestClient($"{RestIranKishUrl}/api/v1/Accounts")
-                    var client = new RestClient("http://127.0.0.1:5290/api/v1/accounts")
+                    var client = new RestClient($"{RestIranKishUrl}/api/v1/Account/ChangeAccountByIban")
                     {
                         Timeout = -1
                     };
@@ -831,6 +830,18 @@ namespace TES.Merchant.Web.UI.Service
                     };
                     dataContext.IrankishRequest.Add(irankishRequest);
                     dataContext.SaveChanges();
+
+                   
+                    if (result!=null || result.Status && (result.Description == "درخواست با موفقیت ثبت شد." ||
+                                          result.Description == "درخواست تغییر حساب قبلا ثبت شده است."))
+                    {
+                        return new SendChangeAccountRequestResponseModel
+                        {
+                            IsSuccess = true,
+                            StatusId = Enums.RequestStatus.SentToPsp.ToByte(),
+                            Result = result.Description
+                        };
+                    }
 
                     if(result!=null)
                     {

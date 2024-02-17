@@ -158,3 +158,43 @@ E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\obj\Debug\Portal.Serv
 E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\obj\Debug\Portal.Service.csproj.CopyComplete
 E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\obj\Debug\Portal.Service.dll
 E:\Tejarat Electronic Sarmaye\Portal\Portal\Portal.Service\obj\Debug\Portal.Service.pdb
+E:\Portal\Portal\Portal.Service\obj\Debug\Portal.Service.csproj.AssemblyReference.cache
+E:\Portal\Portal\Portal.Service\obj\Debug\Portal.Service.csproj.CoreCompileInputs.cache
+E:\Portal\Portal\Portal.Service\bin\Debug\Portal.Service.dll.config
+E:\Portal\Portal\Portal.Service\bin\Debug\Portal.Service.dll
+E:\Portal\Portal\Portal.Service\bin\Debug\Portal.Service.pdb
+E:\Portal\Portal\Portal.Service\bin\Debug\EntityFramework.dll
+E:\Portal\Portal\Portal.Service\bin\Debug\EntityFramework.Extended.dll
+E:\Portal\Portal\Portal.Service\bin\Debug\EntityFramework.SqlServer.dll
+E:\Portal\Portal\Portal.Service\bin\Debug\Portal.IService.dll
+E:\Portal\Portal\Portal.Service\bin\Debug\TES.Common.dll
+E:\Portal\Portal\Portal.Service\bin\Debug\TES.Data.dll
+E:\Portal\Portal\Portal.Service\bin\Debug\TES.Security.dll
+E:\Portal\Portal\Portal.Service\bin\Debug\Persia.dll
+E:\Portal\Portal\Portal.Service\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\Portal\Portal\Portal.Service\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+E:\Portal\Portal\Portal.Service\bin\Debug\Dapper.dll
+E:\Portal\Portal\Portal.Service\bin\Debug\Microsoft.AspNet.Identity.Owin.dll
+E:\Portal\Portal\Portal.Service\bin\Debug\Microsoft.Owin.dll
+E:\Portal\Portal\Portal.Service\bin\Debug\Microsoft.Owin.Security.dll
+E:\Portal\Portal\Portal.Service\bin\Debug\Owin.dll
+E:\Portal\Portal\Portal.Service\bin\Debug\TES.Common.pdb
+E:\Portal\Portal\Portal.Service\bin\Debug\TES.Common.dll.config
+E:\Portal\Portal\Portal.Service\bin\Debug\TES.Data.pdb
+E:\Portal\Portal\Portal.Service\bin\Debug\TES.Data.dll.config
+E:\Portal\Portal\Portal.Service\bin\Debug\Portal.IService.pdb
+E:\Portal\Portal\Portal.Service\bin\Debug\TES.Security.pdb
+E:\Portal\Portal\Portal.Service\bin\Debug\TES.Security.dll.config
+E:\Portal\Portal\Portal.Service\bin\Debug\EntityFramework.xml
+E:\Portal\Portal\Portal.Service\bin\Debug\EntityFramework.Extended.xml
+E:\Portal\Portal\Portal.Service\bin\Debug\EntityFramework.Extended.dll.config
+E:\Portal\Portal\Portal.Service\bin\Debug\EntityFramework.SqlServer.xml
+E:\Portal\Portal\Portal.Service\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\Portal\Portal\Portal.Service\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+E:\Portal\Portal\Portal.Service\bin\Debug\Dapper.xml
+E:\Portal\Portal\Portal.Service\bin\Debug\Microsoft.AspNet.Identity.Owin.xml
+E:\Portal\Portal\Portal.Service\bin\Debug\Microsoft.Owin.xml
+E:\Portal\Portal\Portal.Service\bin\Debug\Microsoft.Owin.Security.xml
+E:\Portal\Portal\Portal.Service\obj\Debug\Portal.Service.csproj.CopyComplete
+E:\Portal\Portal\Portal.Service\obj\Debug\Portal.Service.dll
+E:\Portal\Portal\Portal.Service\obj\Debug\Portal.Service.pdb

@@ -291,12 +291,12 @@
                                         }
                                     </ul>
                                 </li>
-                            }
+                        }
 
-                            if (User.IsAcceptorsExpertUser() || User.IsBranchUser() || User.IsAdmin() || User.IsItUser()
-                            || User.IsBranchManagementUser()
-                            )
-                            {
+                        if (User.IsAcceptorsExpertUser() || User.IsBranchUser() || User.IsAdmin() || User.IsItUser()
+                        || User.IsBranchManagementUser() || User.IsAuditor()
+                        )
+                        {
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         درخواست ها
@@ -319,7 +319,7 @@
                                             </li>
                                         }
                                         @if (
-                                          User.IsAcceptorsExpertUser() || User.IsBranchUser() || User.IsAdmin() || User.IsBranchManagementUser()
+                                          User.IsAcceptorsExpertUser() || User.IsBranchUser() || User.IsAdmin() || User.IsBranchManagementUser() ||User.IsAuditor()
 
                                           )
                                         {
