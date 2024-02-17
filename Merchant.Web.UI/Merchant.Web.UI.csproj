@@ -1253,6 +1253,9 @@
     <Content Include="Web References\AccountNumberVerificationService\loansResponseBean.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </Content>
+    <Content Include="Views\ManagmentProblem\DeleteTerminal.cshtml" />
+    <Content Include="Views\Report\ReportShebaAccount.cshtml" />
+    <Content Include="Views\Report\GeneralReport.cshtml" />
     <None Include="Web References\AccountNumberVerificationService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -1393,7 +1396,6 @@
     <Folder Include="App_Data\TransactionExportFiles\" />
     <Folder Include="Content\Report\" />
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Views\ManagmentProblem\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -30,12 +30,14 @@ using InqueryAcceptorResult = TES.Merchant.Web.UI.Service.Models.Irankish.Inquer
 using PdfDocument = PdfSharp.Pdf.PdfDocument;
 using PdfReader = PdfSharp.Pdf.IO.PdfReader;
 using System.Reflection;
+using static System.Net.WebRequestMethods;
 
 namespace TES.Merchant.Web.UI.Service
 {
     public class NewIranKishService : IDisposable
     {
-        private string RestIranKishUrl = "http://192.168.10.102:5290";
+     //   private string RestIranKishUrl = "http://192.168.10.102:5290";
+        private string RestIranKishUrl = "http://127.0.0.1:5290";
 
         public NewIranKishService()
         {
@@ -334,7 +336,7 @@ namespace TES.Merchant.Web.UI.Service
                     }
 
                   //   string directoryPath = Environment.CurrentDirectory + "\\Images\\";
-                     string directoryPath = "D:\\TesLog\\";
+                     string directoryPath = "E:\\TesLog\\";
                     // directoryPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Images\\";
                     if (!Directory.Exists(directoryPath))
                     {
@@ -344,15 +346,15 @@ namespace TES.Merchant.Web.UI.Service
 
                    // string filename = Path.Combine(directoryPath + "outputDoc_11_", terminalId.ToString(), ".pdf");
 
-                      string filename = $@"D:\TesLog\outputDoc_11_{terminalId}.pdf";
-                    // string filename = $@"D:\\TesLog\\outputDoc_11_{terminalId}.pdf";
+                      string filename = $@"E:\TesLog\outputDoc_11_{terminalId}.pdf";
+                    // string filename = $@"E:\\TesLog\\outputDoc_11_{terminalId}.pdf";
                     if (outputDoc_11.Pages.Count != 1)
                     {
                         outputDoc_11.Pages.RemoveAt(0);
                         outputDoc_11.Save(filename);
                     }
 
-                       filename =$@"D:\TesLog\outputDoc_13_{terminalId}.pdf";
+                       filename =$@"E:\TesLog\outputDoc_13_{terminalId}.pdf";
                   
                     if (outputDoc_13.Pages.Count != 1)
                     {
@@ -360,7 +362,7 @@ namespace TES.Merchant.Web.UI.Service
                         outputDoc_13.Save(filename);
                     }
 
-                      filename =$@"D:\TesLog\outputDoc_10_{terminalId}.pdf";
+                      filename =$@"E:\TesLog\outputDoc_10_{terminalId}.pdf";
                   
                     if (outputDoc_10.Pages.Count != 1)
                     {
@@ -368,7 +370,7 @@ namespace TES.Merchant.Web.UI.Service
                         outputDoc_10.Save(filename);
                     }
 
-                    // filename = $@"D:\\zer\\outputDoc_15_{terminalId}.pdf";
+                    // filename = $@"E:\\zer\\outputDoc_15_{terminalId}.pdf";
                     // if (outputDoc_15.Pages.Count != 1)
                     // {
                     //     outputDoc_15.Pages.RemoveAt(0);
@@ -798,14 +800,20 @@ namespace TES.Merchant.Web.UI.Service
 
                 using (var dataContext = new AppDataContext())
                 {
-                    var client = new RestClient($"{RestIranKishUrl}/api/v1/accounts")
+                   // var client = new RestClient($"{RestIranKishUrl}/api/v1/accounts")
+                    //var client = new RestClient($"{RestIranKishUrl}/api/v1/Account/ChangeAccountByIban")
+                   // var client = new RestClient($"{RestIranKishUrl}/api/Account/ChangeAccountByIban/")
+                  //  var client = new RestClient($"{RestIranKishUrl}/api/v1/Accounts")
+                    var client = new RestClient("http://127.0.0.1:5290/api/v1/accounts")
                     {
                         Timeout = -1
                     };
+                 //   var request = new RestRequest(Method.PATCH);
                     var request = new RestRequest(Method.PATCH);
 
                     request.AddParameter("application/json", JsonConvert.SerializeObject(k),
                         ParameterType.RequestBody);
+                    
                     IRestResponse response = client.Execute(request);
 
                     var result =
@@ -824,17 +832,25 @@ namespace TES.Merchant.Web.UI.Service
                     dataContext.IrankishRequest.Add(irankishRequest);
                     dataContext.SaveChanges();
 
-
-                    if (result.Status && (result.Description == "درخواست با موفقیت ثبت شد." ||
-                                          result.Description == "درخواست تغییر حساب قبلا ثبت شده است."))
+                    if(result!=null)
                     {
-                        return new SendChangeAccountRequestResponseModel
+                        if (result != null || result.Status && (result.Description == "درخواست با موفقیت ثبت شد." ||
+                                         result.Description == "درخواست تغییر حساب قبلا ثبت شده است."))
                         {
-                            IsSuccess = true,
-                            StatusId = Enums.RequestStatus.SentToPsp.ToByte(),
-                            Result = result.Description
-                        };
+                            return new SendChangeAccountRequestResponseModel
+                            {
+                                IsSuccess = true,
+                                StatusId = Enums.RequestStatus.SentToPsp.ToByte(),
+                                Result = result.Description
+                            };
+                        }
                     }
+                    else
+                    {
+                        throw new Exception("خطا در اتصال به وب سرویس.");
+                    }
+                   
+                   
 
                     return new SendChangeAccountRequestResponseModel
                     {

@@ -1,0 +1,216 @@
+﻿
+@{
+    ViewBag.Title = "ReportShebaAccount";
+}
+
+<h2>گزارش شبا و حساب</h2>
+
+
+<form enctype="multipart/form-data" action="@Url.Action("ReportShebaAccount", "Report")" method="post" id="MerchantProfileImportForm">
+
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Year">سال</label>
+                <div class="col-md-8">
+                    <select id="Year" name="Year" class="form-control">
+                        @for (int i = DateTime.Now.GetPersianYear(); i >= 1395; i--)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Month">ماه</label>
+                <div class="col-md-8">
+                    <select id="Month" name="Month" class="form-control">
+                        <option selected value="">انتخاب نمایید</option>
+                        <option value="1">فروردین</option>
+                        <option value="2">اردیبهشت</option>
+                        <option value="3">خرداد</option>
+                        <option value="4">تیر</option>
+                        <option value="5">مرداد</option>
+                        <option value="6">شهریور</option>
+                        <option value="7">مهر</option>
+                        <option value="8">آبان</option>
+                        <option value="9">آذر</option>
+                        <option value="10">دی</option>
+                        <option value="11">بهمن</option>
+                        <option value="12">اسفند</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+
+            <button id="ShowData" type="button" class="btn btn-success" data-loading-text="در حال ثبت..."> نمایش اطلاعات </button>
+        </div>
+
+    </div>
+
+    <br />
+
+
+    <div class="col-md-12">
+        <div class="form-group">
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-sm-1">
+                        شماره شبا
+                    </div>
+
+                    <div class="col-sm-1">
+                        شماره حساب
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+
+            <div class="container" id="tblData">
+                <div class="col-md-12" id="tblDataBody">در حال بارگذاری</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive hidden" id="ErrorsSection">
+    </div>
+</form>
+
+@section scripts {
+    @BundleConfig.AddScripts("~/bundles/merchantProfileImportScripts",
+        "~/Scripts/jasny-bootstrap.js", "~/Scripts/jquery.confirm.js", "~/Scripts/jquery.form.js"
+        ,
+        "~/bundles/terminalManageScripts",
+        "~/Scripts/jquery.twbsPagination.js",
+        "~/Scripts/jquery.form.js",
+        "~/Scripts/PersianDatePicker.js",
+        "~/Scripts/jquery.modal.js",
+        "~/Scripts/jquery.validate.js",
+        "~/Scripts/jquery.validation-extensions.js",
+        "~/Scripts/jquery.validation-messages.fa.js",
+        "~/Scripts/jquery.filter_input.js",
+        "~/Scripts/jquery.confirm.js",
+        "~/Scripts/jasny-bootstrap.js",
+        "~/Scripts/chosen.jquery.js",
+        "~/Scripts/addressCreator.js"
+        )
+
+    <script type="text/javascript">
+
+        function loadData(retriveTotalPageCount, page, upId) {
+                    $('#tblData').empty();
+
+                    if (retriveTotalPageCount) {
+                        var pagingData = $('#Pagination').data('twbs-pagination');
+                        if (pagingData) $('#Pagination').twbsPagination('destroy');
+                        $('#SearchButton').removeData('total-pages');
+                    }
+
+                    var $button = $('#SearchButton');
+                    $button.button('loading');
+
+
+
+                    return $.post('@Url.Action("GetUploadTerminalValidationData", "Terminal")', {
+                        Year:  $("#Year").val(),
+
+
+                    }).done(function (result) {
+                        $button.button('reset');
+                        $('#ResultSection').empty();
+                        var html = '';
+
+                        $('#SearchButton').data('total-pages', result.data.totalRowsCount);
+
+                        if (!result.success) {
+                            $('#ResultSection').empty().append('<div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div>');
+                            return false;
+                        }
+
+
+                        if (result.data.rows.length === 0) {
+                            $('#tblDataBody').empty().append('' +
+                                     '' +
+                                '<td colspan="8"><div   class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>');
+                            return false;
+                        }
+
+                        if (result.data.totalRowsCount > 0) {
+                            $('#SearchButton').data('total-pages', result.data.totalRowsCount);
+
+                            $('#Pagination').twbsPagination({
+                                totalPages: Math.ceil(result.data.totalRowsCount / 20),
+                                visiblePages: 7,
+                                last: '<i class="fa fa-fast-backward"></i>',
+                                next: '<i class="fa fa-backward"></i>',
+                                prev: '<i class="fa fa-forward"></i>',
+                                first: '<i class="fa fa-fast-forward"></i>',
+                                initiateStartPageClick: false,
+                                onPageClick: function (event, page) {
+                                    loadData(false, page);
+                                }
+                            });
+                        }
+
+
+
+                        html = '';
+
+                        console.log('xcvxcvxcvzxcvzxvc', result.data.rows);
+                           for (let i = 0; i < result.data.rows.length; i++) {
+
+
+                                                            var item = result.data.rows[i];
+
+
+                                                            html += '<div class="row" data-terminal-id="' + item.terminalId + '" data-status-id="' + item.statusId + '">' +
+                                                           
+                         '   <div class="col-sm-1" style=" background: #eaeaff;  margin: auto;    padding: 10px;height:40px"> ' + ( item.shebaId   ) + '</div>'
+                         '   <div class="col-sm-1" style=" background: #eaeaff;  margin: auto;    padding: 10px;height:40px"> ' + (  item.AccountNumber  ) + '</div>'
+
+                              ;
+                                                                                  html += ' </div>';
+
+                                                        }
+                                              $('#tblData').empty().append(html);
+
+
+                    });
+                }
+
+
+
+
+        $(document).ready(function () {
+
+
+              loadData(true, 1,1);
+
+               $('.date-picker').on('click', function () {
+                        PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDate()', true);
+                    });
+
+
+                  $('#ShowData').on('click', function (e) {
+                                       loadData(true, 1,1);
+
+                      });
+        });
+
+    </script>
+}

@@ -2600,5 +2600,23 @@ namespace TES.Merchant.Web.UI.Controllers
                 return JsonSuccessResult(result);
             }
         }
+
+        [HttpGet]
+        public ActionResult ReportShebaAccount()
+        {
+            return View();
+        } 
+
+        [HttpGet]
+        public ActionResult GeneralReport()
+        {
+            return View();
+        }
+
+        //[HttpPost]
+        //public Task<ActionResult> ReportShebaAccount()
+        //{
+        //    return View();
+        //}
     }
 }
