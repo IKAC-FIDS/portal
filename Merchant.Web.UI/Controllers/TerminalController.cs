@@ -263,17 +263,24 @@ namespace TES.Merchant.Web.UI.Controllers
 
                     var s = 0;
                     var terminals = _dataContext.Terminals.ToList();
-
-                    Parallel.ForEach(terminals, terminal =>
+                    foreach (var terminal in terminals)
                     {
                         terminal.IsGood = null;
                         terminal.IsGoodMonth = null;
                         terminal.IsGoodYear = null;
                         terminal.IsGoodValue = null;
                         terminal.LowTransaction = null;
-                    });
+                    }
 
-                    Parallel.ForEach(result.TerminalData, VARIABLE =>
+                    //Parallel.ForEach(terminals, terminals =>
+                    //{
+                    //    terminal.IsGood = null;
+                    //    terminal.IsGoodMonth = null;
+                    //    terminal.IsGoodYear = null;
+                    //    terminal.IsGoodValue = null;
+                    //    terminal.LowTransaction = null;
+                    //});
+                    foreach (var VARIABLE in result.TerminalData)
                     {
                         try
                         {
@@ -289,6 +296,7 @@ namespace TES.Merchant.Web.UI.Controllers
                                 terminal.TransactionCount = VARIABLE.TransactionCount;
                                 terminal.TransactionValue = VARIABLE.TransactionValue;
                                 terminal.LowTransaction = VARIABLE.LowTransaction;
+
                             }
                             else
                             {
@@ -301,7 +309,38 @@ namespace TES.Merchant.Web.UI.Controllers
                             Console.WriteLine(e);
                             VARIABLE.IsBad = true;
                         }
-                    });
+                    }
+
+                    //Parallel.ForEach(result.TerminalData, VARIABLE =>
+                    //{
+                    //    try
+                    //    {
+                    //        s += 1;
+                    //        var terminal = terminals.FirstOrDefault(b => b.TerminalNo == VARIABLE.TerminalNo);
+                    //        if (terminal != null)
+                    //        {
+                    //            terminal.IsGood = VARIABLE.IsGood;
+                    //            terminal.IsGoodValue = VARIABLE.IsGoodValue;
+                    //            terminal.IsGoodMonth = month;
+                    //            terminal.IsGoodYear = year;
+                    //            terminal.IsActive = VARIABLE.IsActive;
+                    //            terminal.TransactionCount = VARIABLE.TransactionCount;
+                    //            terminal.TransactionValue = VARIABLE.TransactionValue;
+                    //            terminal.LowTransaction = VARIABLE.LowTransaction;    
+                               
+                    //        }
+                    //        else
+                    //        {
+                    //            VARIABLE.IsBad = true;
+                    //        }
+                    //        Console.WriteLine($"==========> {s} - ");
+                    //    }
+                    //    catch (Exception e)
+                    //    {
+                    //        Console.WriteLine(e);
+                    //        VARIABLE.IsBad = true;
+                    //    }
+                    //});
                     System.IO.File.AppendAllText(m_exePath, "\nbefore add range");
 
                     _dataContext.CalculateResults.AddRange(result.TerminalData.Select(b => new CalculateResult()
@@ -5089,7 +5128,7 @@ namespace TES.Merchant.Web.UI.Controllers
 
 
                         ttt = _dataContext.TerminalDocuments
-                            .Where(b => b.Id == terminal.Id &&
+                            .Where(b => b.TerminalId == terminal.Id &&
                                         (b.DocumentType.SendToPsp.HasValue && b.DocumentType.SendToPsp.Value))
                             .ToList()
                             .Select(b => new UploadAttachmentRequestData
