@@ -1256,6 +1256,7 @@
     <Content Include="Views\ManagmentProblem\DeleteTerminal.cshtml" />
     <Content Include="Views\Report\ReportShebaAccount.cshtml" />
     <Content Include="Views\Report\GeneralReport.cshtml" />
+    <Content Include="Views\Report\ComplementaryReport.cshtml" />
     <None Include="Web References\AccountNumberVerificationService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

@@ -25,6 +25,7 @@ using TES.Web.Core.Extensions;
 using Enums = TES.Common.Enumerations;
 using System.Data.SqlClient;
 using System.Linq.Dynamic;
+using RestSharp;
 
 namespace TES.Merchant.Web.UI.Controllers
 {
@@ -2601,11 +2602,7 @@ namespace TES.Merchant.Web.UI.Controllers
             }
         }
 
-        [HttpGet]
-        public ActionResult ReportShebaAccount()
-        {
-            return View();
-        } 
+    
 
         [HttpGet]
         public ActionResult GeneralReport()
@@ -2618,5 +2615,182 @@ namespace TES.Merchant.Web.UI.Controllers
         //{
         //    return View();
         //}
+
+
+        [HttpGet]
+        public ActionResult ReportShebaAccount()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ComplementaryReport()
+        {
+            return View();
+        }
+
+        
+
+        #region Psp Files
+             [HttpPost]
+        public async Task<ActionResult> UploadFanavaFile(int year, int month)
+        {
+            var client = new RestClient($"http://localhost:5072/UploadFanavaFile?month={month}&year={year}");
+            // var client = new RestClient($"http://192.168.10.102:8008/ComplementaryReport/UploadFanavaFile?month={month}&year={year}");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            var response = await client.ExecuteAsync(request);
+            Console.WriteLine(response.Content);
+            JsonResult result = new JsonResult();
+            if (response.Content.Contains("200"))
+            {
+                result.Data = response.Content;
+            }
+
+            Console.WriteLine(response.Content);
+
+            return result;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UploadIrankishFile(int year, int month)
+        {
+            var client = new RestClient($"http://localhost:5072/UploadIrankishFile?month={month}&year={year}");
+            // var client = new RestClient($"http://192.168.10.102:8008/ComplementaryReport/UploadIrankishFile?month={month}&year={year}");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            var response = await client.ExecuteAsync(request);
+            Console.WriteLine(response.Content);
+            JsonResult result = new JsonResult();
+            if (response.Content.Contains("200"))
+            {
+                result.Data = response.Content;
+            }
+
+            Console.WriteLine(response.Content);
+
+            return result;
+        }
+        [HttpPost]
+        public async Task<ActionResult> UploadParsianFile(int year, int month)
+        {
+            var client = new RestClient($"http://localhost:5072/UploadParsianFile?month={month}&year={year}");
+            // var client = new RestClient($"http://192.168.10.102:8008/ComplementaryReport/UploadParsianFile?month={month}&year={year}");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            var response = await client.ExecuteAsync(request);
+            Console.WriteLine(response.Content);
+            JsonResult result = new JsonResult();
+            if (response.Content.Contains("200"))
+            {
+                result.Data = response.Content;
+            }
+
+            Console.WriteLine(response.Content);
+
+            return result;
+        }
+        [HttpPost]
+        public async Task<ActionResult> UploadPardakhtFile(int year, int month)
+        {
+            var client = new RestClient($"http://localhost:5072/UploadPardakhtFile?month={month}&year={year}");
+            // var client = new RestClient($"http://192.168.10.102:8008/ComplementaryReport/UploadPardakhtFile?month={month}&year={year}");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            var response = await client.ExecuteAsync(request);
+            JsonResult result = new JsonResult();
+            if (response.Content.Contains("200"))
+            {
+                result.Data = response.Content;
+            }
+
+            Console.WriteLine(response.Content);
+
+            return result;
+        }
+        #endregion
+
+        #region Psp Transaction Files
+        [HttpPost]
+        public async Task<ActionResult> UploadTransactionFanavaFile(int year, int month)
+        {
+            var client = new RestClient($"http://localhost:5072/UploadTransactionFanavaFile?month={month}&year={year}");
+            // var client = new RestClient($"http://192.168.10.102:8008/UploadTransactionFanavaFile?month={month}&year={year}");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            var response = await client.ExecuteAsync(request);
+            Console.WriteLine(response.Content);
+            JsonResult result = new JsonResult();
+            if (response.Content.Contains("200"))
+            {
+                result.Data = response.Content;
+            }
+
+            Console.WriteLine(response.Content);
+
+            return result;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UploadTransactionIrankishFile(int year, int month)
+        {
+            var client = new RestClient($"http://localhost:5072/UploadTransactionIrankishFile?month={month}&year={year}");
+            // var client = new RestClient($"http://192.168.10.102:8008/UploadTransactionIrankishFile?month={month}&year={year}");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            var response = await client.ExecuteAsync(request);
+            Console.WriteLine(response.Content);
+            JsonResult result = new JsonResult();
+            if (response.Content.Contains("200"))
+            {
+                result.Data = response.Content;
+            }
+
+            Console.WriteLine(response.Content);
+
+            return result;
+        }
+        [HttpPost]
+        public async Task<ActionResult> UploadTransactionParsianFile(int year, int month)
+        {
+            var client = new RestClient($"http://localhost:5072/UploadTransactionParsianFile?month={month}&year={year}");
+            // var client = new RestClient($"http://192.168.10.102:8008/UploadTransactionParsianFile?month={month}&year={year}");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            var response = await client.ExecuteAsync(request);
+            Console.WriteLine(response.Content);
+            JsonResult result = new JsonResult();
+            if (response.Content.Contains("200"))
+            {
+                result.Data = response.Content;
+            }
+
+            Console.WriteLine(response.Content);
+
+            return result;
+        }
+        [HttpPost]
+        public async Task<ActionResult> UploadTransactionPardakhtFile(int year, int month)
+        {
+            var client = new RestClient($"http://localhost:5072/UploadTransactionPardakhtFile?month={month}&year={year}");
+            // var client = new RestClient($"http://192.168.10.102:8008/UploadTransactionPardakhtFile?month={month}&year={year}");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            var response = await client.ExecuteAsync(request);
+            JsonResult result = new JsonResult();
+            if (response.Content.Contains("200"))
+            {
+                result.Data = response.Content;
+            }
+
+            Console.WriteLine(response.Content);
+
+            return result;
+        }
+        #endregion
+
+
+
+
     }
 }

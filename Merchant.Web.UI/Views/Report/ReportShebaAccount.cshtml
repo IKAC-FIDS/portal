@@ -1,55 +1,160 @@
 ﻿
 @{
-    ViewBag.Title = "ReportShebaAccount";
+    ViewBag.Title = "گزارش سود و زیان";
 }
 
 <h2>گزارش شبا و حساب</h2>
 
 
-<form enctype="multipart/form-data" action="@Url.Action("ReportShebaAccount", "Report")" method="post" id="MerchantProfileImportForm">
 
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            <label class="control-label col-md-4" for="Year">سال</label>
+            <div class="col-md-8">
+                <select id="Year" name="Year" class="form-control">
+                    @for (int i = DateTime.Now.GetPersianYear(); i >= 1395; i--)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <label class="control-label col-md-4" for="Month">ماه</label>
+            <div class="col-md-8">
+                <select id="Month" name="Month" class="form-control">
+                    <option selected value="">انتخاب نمایید</option>
+                    <option value="1">فروردین</option>
+                    <option value="2">اردیبهشت</option>
+                    <option value="3">خرداد</option>
+                    <option value="4">تیر</option>
+                    <option value="5">مرداد</option>
+                    <option value="6">شهریور</option>
+                    <option value="7">مهر</option>
+                    <option value="8">آبان</option>
+                    <option value="9">آذر</option>
+                    <option value="10">دی</option>
+                    <option value="11">بهمن</option>
+                    <option value="12">اسفند</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+
+        <button id="ShowData" type="button" class="btn btn-success" data-loading-text="در حال ثبت..."> نمایش اطلاعات </button>
+    </div>
+
+</div>
+<br />
+<form enctype="multipart/form-data" action="@Url.Action("ReportShebaAccount", "Report")" method="post" id="MerchantProfileImportForm">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
             <div class="form-group">
-                <label class="control-label col-md-4" for="Year">سال</label>
-                <div class="col-md-8">
-                    <select id="Year" name="Year" class="form-control">
-                        @for (int i = DateTime.Now.GetPersianYear(); i >= 1395; i--)
-                        {
-                            <option value="@i">@i</option>
-                        }
-                    </select>
+
+                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    <button id="UploadPardakhtFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل پرداخت نوین</button>
+
                 </div>
+
+
+
             </div>
         </div>
 
         <div class="col-md-3">
             <div class="form-group">
-                <label class="control-label col-md-4" for="Month">ماه</label>
-                <div class="col-md-8">
-                    <select id="Month" name="Month" class="form-control">
-                        <option selected value="">انتخاب نمایید</option>
-                        <option value="1">فروردین</option>
-                        <option value="2">اردیبهشت</option>
-                        <option value="3">خرداد</option>
-                        <option value="4">تیر</option>
-                        <option value="5">مرداد</option>
-                        <option value="6">شهریور</option>
-                        <option value="7">مهر</option>
-                        <option value="8">آبان</option>
-                        <option value="9">آذر</option>
-                        <option value="10">دی</option>
-                        <option value="11">بهمن</option>
-                        <option value="12">اسفند</option>
-                    </select>
+
+                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    <button id="UploadIrankishFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل ایران کیش   </button>
                 </div>
+
+
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+
+                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    <button id="UploadParsianFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل پارسیان  </button>
+
+                </div>
+
+
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+
+                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    <button id="UploadFanavaFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل فن آوا</button>
+                </div>
+
+
+
             </div>
         </div>
 
-        <div class="col-md-2">
 
-            <button id="ShowData" type="button" class="btn btn-success" data-loading-text="در حال ثبت..."> نمایش اطلاعات </button>
+    </div>
+
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+
+                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    <button id="UploadTransactionPardakhtFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل تراکنش پرداخت نوین</button>
+
+                </div>
+
+
+
+            </div>
         </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+
+                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    <button id="UploadTransactionIrankishFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل تراکنش ایران کیش   </button>
+                </div>
+
+
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+
+                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    <button id="UploadTransactionParsianFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل تراکنش پارسیان  </button>
+
+                </div>
+
+
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+
+                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    <button id="UploadTransactionFanavaFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل تراکنش فن آوا</button>
+                </div>
+
+
+
+            </div>
+        </div>
+
 
     </div>
 
@@ -179,7 +284,7 @@
 
 
                                                             html += '<div class="row" data-terminal-id="' + item.terminalId + '" data-status-id="' + item.statusId + '">' +
-                                                           
+
                          '   <div class="col-sm-1" style=" background: #eaeaff;  margin: auto;    padding: 10px;height:40px"> ' + ( item.shebaId   ) + '</div>'
                          '   <div class="col-sm-1" style=" background: #eaeaff;  margin: auto;    padding: 10px;height:40px"> ' + (  item.AccountNumber  ) + '</div>'
 
@@ -209,7 +314,397 @@
                   $('#ShowData').on('click', function (e) {
                                        loadData(true, 1,1);
 
-                      });
+                  });
+
+
+
+            $('#UploadPardakhtFilebtn').on('click', function (e) {
+               
+
+                let $button = $('#UploadPardakhtFilebtn');
+
+
+                var Year = $("#Year").val();
+                var Month = $("#Month").val();
+
+            
+                if (Month.length == 0) {
+                    alert("لطفا مقدار ماه را انتخاب نمایید");                  
+                } else {
+                    $.showConfirm({
+                        onConfirm: function () {
+                            let interval = setInterval(function () {
+                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                            }, 12000);
+
+                            $.ajax({
+                                url: '/Report/UploadPardakhtFile?year=' + Year + "&month=" + Month,
+                                type: "POST",
+                                async: true,
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+
+                                success: function (result) {
+                                    clearInterval(interval);
+                                    alert("عملیات با موفقیت انجام شد");
+                                    $button.button('reset');
+                                },
+                                error: function (err) {
+                                   // alert("error=" + err + " " + err.val);
+                                    alert("خطای در بارگزاری اطلاعات");
+                                    $button.button('reset');
+                                    clearInterval(interval);
+                                }
+                            });
+
+                            $button.button('loading');
+
+                            return false;
+                        }
+                    });
+                }
+            });
+
+            $('#UploadIrankishFilebtn').on('click', function (e) {
+
+
+                let $button = $('#UploadIrankishFilebtn');
+
+
+                var Year = $("#Year").val();
+                var Month = $("#Month").val();
+                if (Month.length == 0) {
+                    alert("لطفا مقدار ماه را انتخاب نمایید");
+                } else {
+
+                    $.showConfirm({
+                        onConfirm: function () {
+                            let interval = setInterval(function () {
+                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                            }, 12000);
+
+                            $.ajax({
+                                url: '/Report/UploadIrankishFile?year=' + Year + "&month=" + Month,
+                                type: "POST",
+                                async: true,
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+
+                                success: function (result) {
+                                    clearInterval(interval);
+                                    alert("عملیات با موفقیت انجام شد");
+                                    $button.button('reset');
+                                },
+                                error: function (err) {
+                                    // alert("error=" + err + " " + err.val);
+                                    alert("خطای در بارگزاری اطلاعات");
+                                    $button.button('reset');
+                                    clearInterval(interval);
+                                }
+                            });
+
+
+
+                            $button.button('loading');
+
+                            return false;
+                        }
+                    });
+                }
+                });
+
+
+            $('#UploadParsianFilebtn').on('click', function (e) {
+
+
+                let $button = $('#UploadParsianFilebtn');
+
+
+                var Year = $("#Year").val();
+                var Month = $("#Month").val();
+                if (Month.length == 0) {
+                    alert("لطفا مقدار ماه را انتخاب نمایید");
+                } else {
+
+                    $.showConfirm({
+                        onConfirm: function () {
+                            let interval = setInterval(function () {
+                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                            }, 12000);
+
+                            $.ajax({
+                                url: '/Report/UploadParsianFile?year=' + Year + "&month=" + Month,
+                                type: "POST",
+                                async: true,
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+
+                                success: function (result) {
+                                    clearInterval(interval);
+                                    alert("عملیات با موفقیت انجام شد");
+                                    $button.button('reset');
+                                },
+                                error: function (err) {
+                                    // alert("error=" + err + " " + err.val);
+                                    alert("خطای در بارگزاری اطلاعات");
+                                    $button.button('reset');
+                                    clearInterval(interval);
+                                }
+                            });
+
+
+
+                            $button.button('loading');
+
+                            return false;
+                        }
+                    });
+                }
+            });
+
+            $('#UploadFanavaFilebtn').on('click', function (e) {
+
+
+                let $button = $('#UploadFanavaFilebtn');
+
+
+                var Year = $("#Year").val();
+                var Month = $("#Month").val();
+                if (Month.length == 0) {
+                    alert("لطفا مقدار ماه را انتخاب نمایید");
+                } else {
+
+                    $.showConfirm({
+                        onConfirm: function () {
+                            let interval = setInterval(function () {
+                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                            }, 12000);
+
+                            $.ajax({
+                                url: '/Report/UploadFanavaFile?year=' + Year + "&month=" + Month,
+                                type: "POST",
+                                async: true,
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+
+                                success: function (result) {
+                                    clearInterval(interval);
+                                    alert("عملیات با موفقیت انجام شد");
+                                    $button.button('reset');
+                                },
+                                error: function (err) {
+                                    // alert("error=" + err + " " + err.val);
+                                    alert("خطای در بارگزاری اطلاعات");
+                                    $button.button('reset');
+                                    clearInterval(interval);
+                                }
+                            });
+
+
+
+                            $button.button('loading');
+
+                            return false;
+                        }
+                    });
+                }
+            });
+
+            ///////////transaction Files
+
+            $('#UploadTransactionPardakhtFilebtn').on('click', function (e) {
+
+
+                let $button = $('#UploadTransactionPardakhtFilebtn');
+
+
+                var Year = $("#Year").val();
+                var Month = $("#Month").val();
+
+
+                if (Month.length == 0) {
+                    alert("لطفا مقدار ماه را انتخاب نمایید");
+                } else {
+                    $.showConfirm({
+                        onConfirm: function () {
+                            let interval = setInterval(function () {
+                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                            }, 12000);
+
+                            $.ajax({
+                                url: '/Report/UploadTransactionPardakhtFile?year=' + Year + "&month=" + Month,
+                                type: "POST",
+                                async: true,
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+
+                                success: function (result) {
+                                    clearInterval(interval);
+                                    alert("عملیات با موفقیت انجام شد");
+                                    $button.button('reset');
+                                },
+                                error: function (err) {
+                                    // alert("error=" + err + " " + err.val);
+                                    alert("خطای در بارگزاری اطلاعات");
+                                    $button.button('reset');
+                                    clearInterval(interval);
+                                }
+                            });
+
+                            $button.button('loading');
+
+                            return false;
+                        }
+                    });
+                }
+            });
+
+            $('#UploadTransactionIrankishFilebtn').on('click', function (e) {
+
+
+                let $button = $('#UploadTransactionIrankishFilebtn');
+
+
+                var Year = $("#Year").val();
+                var Month = $("#Month").val();
+                if (Month.length == 0) {
+                    alert("لطفا مقدار ماه را انتخاب نمایید");
+                } else {
+
+                    $.showConfirm({
+                        onConfirm: function () {
+                            let interval = setInterval(function () {
+                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                            }, 12000);
+
+                            $.ajax({
+                                url: '/Report/UploadTransactionIrankishFile?year=' + Year + "&month=" + Month,
+                                type: "POST",
+                                async: true,
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+
+                                success: function (result) {
+                                    clearInterval(interval);
+                                    alert("عملیات با موفقیت انجام شد");
+                                    $button.button('reset');
+                                },
+                                error: function (err) {
+                                    // alert("error=" + err + " " + err.val);
+                                    alert("خطای در بارگزاری اطلاعات");
+                                    $button.button('reset');
+                                    clearInterval(interval);
+                                }
+                            });
+
+
+
+                            $button.button('loading');
+
+                            return false;
+                        }
+                    });
+                }
+            });
+
+
+            $('#UploadTransactionParsianFilebtn').on('click', function (e) {
+
+
+                let $button = $('#UploadTransactionParsianFilebtn');
+
+
+                var Year = $("#Year").val();
+                var Month = $("#Month").val();
+                if (Month.length == 0) {
+                    alert("لطفا مقدار ماه را انتخاب نمایید");
+                } else {
+
+                    $.showConfirm({
+                        onConfirm: function () {
+                            let interval = setInterval(function () {
+                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                            }, 12000);
+
+                            $.ajax({
+                                url: '/Report/UploadTransactionParsianFile?year=' + Year + "&month=" + Month,
+                                type: "POST",
+                                async: true,
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+
+                                success: function (result) {
+                                    clearInterval(interval);
+                                    alert("عملیات با موفقیت انجام شد");
+                                    $button.button('reset');
+                                },
+                                error: function (err) {
+                                    // alert("error=" + err + " " + err.val);
+                                    alert("خطای در بارگزاری اطلاعات");
+                                    $button.button('reset');
+                                    clearInterval(interval);
+                                }
+                            });
+
+
+
+                            $button.button('loading');
+
+                            return false;
+                        }
+                    });
+                }
+            });
+
+            $('#UploadTransactionFanavaFilebtn').on('click', function (e) {
+
+
+                let $button = $('#UploadTransactionFanavaFilebtn');
+
+
+                var Year = $("#Year").val();
+                var Month = $("#Month").val();
+                if (Month.length == 0) {
+                    alert("لطفا مقدار ماه را انتخاب نمایید");
+                } else {
+
+                    $.showConfirm({
+                        onConfirm: function () {
+                            let interval = setInterval(function () {
+                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                            }, 12000);
+
+                            $.ajax({
+                                url: '/Report/UploadTransactionFanavaFile?year=' + Year + "&month=" + Month,
+                                type: "POST",
+                                async: true,
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+
+                                success: function (result) {
+                                    clearInterval(interval);
+                                    alert("عملیات با موفقیت انجام شد");
+                                    $button.button('reset');
+                                },
+                                error: function (err) {
+                                    // alert("error=" + err + " " + err.val);
+                                    alert("خطای در بارگزاری اطلاعات");
+                                    $button.button('reset');
+                                    clearInterval(interval);
+                                }
+                            });
+
+
+
+                            $button.button('loading');
+
+                            return false;
+                        }
+                    });
+                }
+            });
+
+
         });
 
     </script>

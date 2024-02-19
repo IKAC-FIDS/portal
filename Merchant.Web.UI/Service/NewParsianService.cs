@@ -56,7 +56,9 @@ namespace TES.Merchant.Web.UI.Service
 
                 var input = new LoginRequestData
                 {
-                    Secret = "S@Rmay3", TokenDuration = 6000, UserName = "Service_sarmaye"
+                    Secret = "S@Rmay3",
+                    TokenDuration = 6000,
+                    UserName = "Service_sarmaye"
                 };
                 using (var httpClient = new HttpClient())
                 {
@@ -64,7 +66,7 @@ namespace TES.Merchant.Web.UI.Service
                         "application/json");
 
                     ServicePointManager.ServerCertificateValidationCallback =
-                        delegate(
+                        delegate (
                             object s,
                             X509Certificate certificate,
                             X509Chain chain,
@@ -99,7 +101,9 @@ namespace TES.Merchant.Web.UI.Service
 
             var input = new LoginRequestData
             {
-                Secret = "S@Rmay3", TokenDuration = 6000, UserName = "Service_sarmaye"
+                Secret = "S@Rmay3",
+                TokenDuration = 6000,
+                UserName = "Service_sarmaye"
             };
             using (var httpClient = new HttpClient())
             {
@@ -108,8 +112,8 @@ namespace TES.Merchant.Web.UI.Service
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.ServerCertificateValidationCallback = (p1, p2, p3, p4) => true;
 
-                ServicePointManager.SecurityProtocol =  SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls |
-                                                        SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls |
+                                                        SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12; ;
                 ServicePointManager.ServerCertificateValidationCallback =
                     delegate
                     {
@@ -127,21 +131,21 @@ namespace TES.Merchant.Web.UI.Service
         }
 
 
-        public bool NewAddAcceptor(long terminalId, List<UploadAttachmentRequestData> files       )
+        public bool NewAddAcceptor(long terminalId, List<UploadAttachmentRequestData> files)
         {
             using (var dataContext = new AppDataContext())
             {
                 var aa = dataContext.Terminals
                     .FirstOrDefault(x => x.Id == terminalId &&
-                                         (x.StatusId == (byte) Enums.TerminalStatus.New ||
-                                          x.StatusId == (byte) Enums.TerminalStatus.NeedToReform) &&
-                                         x.PspId == (byte) Enums.PspCompany.Parsian);
+                                         (x.StatusId == (byte)Enums.TerminalStatus.New ||
+                                          x.StatusId == (byte)Enums.TerminalStatus.NeedToReform) &&
+                                         x.PspId == (byte)Enums.PspCompany.Parsian);
 
                 var terminalInfo = dataContext.Terminals
                     .Where(x => x.Id == terminalId &&
-                                (x.StatusId == (byte) Enums.TerminalStatus.New ||
-                                 x.StatusId == (byte) Enums.TerminalStatus.NeedToReform) &&
-                                x.PspId == (byte) Enums.PspCompany.Parsian)
+                                (x.StatusId == (byte)Enums.TerminalStatus.New ||
+                                 x.StatusId == (byte)Enums.TerminalStatus.NeedToReform) &&
+                                x.PspId == (byte)Enums.PspCompany.Parsian)
                     .Select(x => new TerminalInfo
                     {
                         Id = x.Id,
@@ -201,7 +205,7 @@ namespace TES.Merchant.Web.UI.Service
                     {
                         var input = new RequestTerminalّForCompanyInput
                         {
-                            RequestData = new RequestTerminalForCompanyRequest {Request = new Request()}
+                            RequestData = new RequestTerminalForCompanyRequest { Request = new Request() }
                         };
 
                         input.RequestData.Request = new Request
@@ -217,7 +221,7 @@ namespace TES.Merchant.Web.UI.Service
                             PersonTypeRefId = PersonType.hoghoghiIrani
                         };
 
-                        
+
 
                         input.RequestData.Company = new Company()
                         {
@@ -251,8 +255,8 @@ namespace TES.Merchant.Web.UI.Service
                         {
                             ShopName = terminalInfo.Title,
                             ShopNameEng = terminalInfo.EnglishTitle,
-                            ShopSubMccRefId = (int) terminalInfo.GuildId,
-                            ShopCityRefId = (int) terminalInfo.CityId,
+                            ShopSubMccRefId = (int)terminalInfo.GuildId,
+                            ShopCityRefId = (int)terminalInfo.CityId,
                             ShopPostalCode = terminalInfo.PostCode,
                             ShopAddress = terminalInfo.Address,
                             ShopPhone = terminalInfo.Tel,
@@ -267,11 +271,12 @@ namespace TES.Merchant.Web.UI.Service
                             TaxPayerCode = terminalInfo.TaxPayerCode,
                         };
                         if (terminalInfo.RegionalMunicipalityId != null)
-                            input.RequestData.Shop.ShopRegionRefId = (ShopRegion) terminalInfo.RegionalMunicipalityId;
+                            input.RequestData.Shop.ShopRegionRefId = (ShopRegion)terminalInfo.RegionalMunicipalityId;
 
                         input.RequestData.Settlements = new Settlements
                         {
-                            Iban = terminalInfo.ShebaNo, IsMainAccount = true
+                            Iban = terminalInfo.ShebaNo,
+                            IsMainAccount = true
                         };
 
 
@@ -281,8 +286,8 @@ namespace TES.Merchant.Web.UI.Service
                             FileName = b.FileName,
                             Base64 = b.Base64
                         }).ToList();
-                    
-                        var requestTerminalّForCompany = RequestTerminalّForCompany(input,Files, (int) terminalId);
+
+                        var requestTerminalّForCompany = RequestTerminalّForCompany(input, Files, (int)terminalId);
 
                         if (requestTerminalّForCompany != null)
                         {
@@ -291,7 +296,7 @@ namespace TES.Merchant.Web.UI.Service
                                 dataContext.Terminals.Where(x => x.Id == terminalId).Update(x => new Terminal
                                 {
                                     TopiarId = requestTerminalّForCompany.RequestResult.TopiarId.Value,
-                                    StatusId = (byte) Enums.TerminalStatus.NotReturnedFromSwitch,
+                                    StatusId = (byte)Enums.TerminalStatus.NotReturnedFromSwitch,
                                     NewParsian = true,
                                     Description = $"{DateTime.Now.ToLongPersianDateTime()}  "
                                 });
@@ -303,7 +308,7 @@ namespace TES.Merchant.Web.UI.Service
                                 {
                                     dataContext.Terminals.Where(x => x.Id == terminalId).Update(x => new Terminal
                                     {
-                                        StatusId = (byte) Enums.TerminalStatus.NeedToReform,
+                                        StatusId = (byte)Enums.TerminalStatus.NeedToReform,
 
                                         Description = string.Join(",",
                                             requestTerminalّForCompany.ErrorList.Select(b =>
@@ -317,7 +322,7 @@ namespace TES.Merchant.Web.UI.Service
                                 {
                                     dataContext.Terminals.Where(x => x.Id == terminalId).Update(x => new Terminal
                                     {
-                                        StatusId = (byte) Enums.TerminalStatus.NotReturnedFromSwitch,
+                                        StatusId = (byte)Enums.TerminalStatus.NotReturnedFromSwitch,
 
                                         Description = string.Join(",",
                                             requestTerminalّForCompany.ErrorList.Select(b =>
@@ -335,11 +340,11 @@ namespace TES.Merchant.Web.UI.Service
                                 terminalInfo.TopiarId != null)
                             {
                                 var s = UpdateStatusForRequestedTerminal(terminalInfo.TopiarId.Value.ToString(),
-                                    (int) terminalId).Result;
+                                    (int)terminalId).Result;
 
                                 dataContext.Terminals.Where(x => x.Id == terminalId).Update(x => new Terminal
                                 {
-                                    StatusId = (byte) Enums.TerminalStatus.NotReturnedFromSwitch,
+                                    StatusId = (byte)Enums.TerminalStatus.NotReturnedFromSwitch,
                                     ErrorComment = s.Error, // requestTerminalّForCompany.Desc,
 
                                     NewParsian = true,
@@ -350,7 +355,7 @@ namespace TES.Merchant.Web.UI.Service
                             {
                                 dataContext.Terminals.Where(x => x.Id == terminalId).Update(x => new Terminal
                                 {
-                                    StatusId = (byte) Enums.TerminalStatus.NeedToReform,
+                                    StatusId = (byte)Enums.TerminalStatus.NeedToReform,
                                     ErrorComment = requestTerminalّForCompany.Desc,
                                     NewParsian = true,
                                 });
@@ -389,20 +394,20 @@ namespace TES.Merchant.Web.UI.Service
                             HomePhone = terminalInfo.HomeTel,
                             HomePostCode = terminalInfo.HomePostCode,
                             HomeAddress = terminalInfo.HomeAddress,
-                            CertNo =  terminalInfo.IdentityNumber == "0" ?  terminalInfo.NationalCode:  terminalInfo.IdentityNumber,
+                            CertNo = terminalInfo.IdentityNumber == "0" ? terminalInfo.NationalCode : terminalInfo.IdentityNumber,
                             BirthCrtfctSerial = terminalInfo.BirthCrtfctSerial,
                             BirthCrtfctSeriesNumber = terminalInfo.BirthCrtfctSeriesNumber,
-                            PersianCharRefId = GetPersianCharRefId(terminalInfo.PersianCharRefId) ,
+                            PersianCharRefId = GetPersianCharRefId(terminalInfo.PersianCharRefId),
                         };
                         input.RequestData.Shop = new Shop
                         {
                             ShopName = terminalInfo.Title,
                             ShopNameEng = terminalInfo.EnglishTitle,
-                            ShopSubMccRefId = (int) terminalInfo.GuildId,
-                            ShopCityRefId = (int) terminalInfo.CityId
+                            ShopSubMccRefId = (int)terminalInfo.GuildId,
+                            ShopCityRefId = (int)terminalInfo.CityId
                         };
                         if (terminalInfo.RegionalMunicipalityId != null)
-                            input.RequestData.Shop.ShopRegionRefId = (ShopRegion) terminalInfo.RegionalMunicipalityId;
+                            input.RequestData.Shop.ShopRegionRefId = (ShopRegion)terminalInfo.RegionalMunicipalityId;
                         input.RequestData.Shop.ShopPostalCode = terminalInfo.PostCode;
                         input.RequestData.Shop.ShopAddress = terminalInfo.Address;
                         input.RequestData.Shop.ShopPhone = terminalInfo.Tel;
@@ -417,15 +422,16 @@ namespace TES.Merchant.Web.UI.Service
                         input.RequestData.Shop.TaxPayerCode = terminalInfo.TaxPayerCode;
                         input.RequestData.Settlements = new Settlements
                         {
-                            Iban = terminalInfo.ShebaNo, IsMainAccount = true
+                            Iban = terminalInfo.ShebaNo,
+                            IsMainAccount = true
                         };
-                         var Files = files.Select(b => new UploadAttachmentRequestData 
+                        var Files = files.Select(b => new UploadAttachmentRequestData
                         {
                             ContentType = b.ContentType,
                             FileName = b.FileName,
                             Base64 = b.Base64
                         }).ToList();
-                        var requestTerminalّForPerson = RequestTerminalّForPerson(input,Files, (int) terminalId);
+                        var requestTerminalّForPerson = RequestTerminalّForPerson(input, Files, (int)terminalId);
 
 
                         if (requestTerminalّForPerson.IsSuccess)
@@ -433,7 +439,7 @@ namespace TES.Merchant.Web.UI.Service
                             dataContext.Terminals.Where(x => x.Id == terminalId).Update(x => new Terminal
                             {
                                 TopiarId = requestTerminalّForPerson.RequestResult.TopiarId.Value,
-                                StatusId = (byte) Enums.TerminalStatus.NotReturnedFromSwitch,
+                                StatusId = (byte)Enums.TerminalStatus.NotReturnedFromSwitch,
 
                                 NewParsian = true,
                                 Description = $"{DateTime.Now.ToLongPersianDateTime()}  "
@@ -446,24 +452,25 @@ namespace TES.Merchant.Web.UI.Service
                                 terminalInfo.TopiarId != null)
                             {
                                 var s = UpdateStatusForRequestedTerminal(terminalInfo.TopiarId.Value.ToString(),
-                                    (int) terminalId).Result;
+                                    (int)terminalId).Result;
 
                                 dataContext.Terminals.Where(x => x.Id == terminalId).Update(x => new Terminal
                                 {
-                                    StatusId = (byte) Enums.TerminalStatus.NotReturnedFromSwitch,
+                                    StatusId = (byte)Enums.TerminalStatus.NotReturnedFromSwitch,
                                     ErrorComment = s.Error, // requestTerminalّForCompany.Desc,
 
 
                                     NewParsian = true,
                                 });
                                 dataContext.SaveChanges();
-                            } else if (requestTerminalّForPerson.ErrorList.Any(b => b.ErrorId == "-1") &&
+                            }
+                            else if (requestTerminalّForPerson.ErrorList.Any(b => b.ErrorId == "-1") &&
                                        terminalInfo.TopiarId == null)
                             {
                                 dataContext.Terminals.Where(x => x.Id == terminalId).Update(x => new Terminal
                                 {
-                                    StatusId = (byte) Enums.TerminalStatus.NeedToReform,
-                                    ErrorComment = string.Join(",",requestTerminalّForPerson.ErrorList.Select(b=>b.ErrorText)), // requestTerminalّForCompany.Desc,
+                                    StatusId = (byte)Enums.TerminalStatus.NeedToReform,
+                                    ErrorComment = string.Join(",", requestTerminalّForPerson.ErrorList.Select(b => b.ErrorText)), // requestTerminalّForCompany.Desc,
                                     NewParsian = true,
                                 });
                                 dataContext.SaveChanges();
@@ -472,10 +479,10 @@ namespace TES.Merchant.Web.UI.Service
                             {
                                 dataContext.Terminals.Where(x => x.Id == terminalId).Update(x => new Terminal
                                 {
-                                    StatusId = (byte) Enums.TerminalStatus.NeedToReform,
+                                    StatusId = (byte)Enums.TerminalStatus.NeedToReform,
                                     ErrorComment = requestTerminalّForPerson.Desc +
-                                                   requestTerminalّForPerson.ErrorList != null ? 
-                                                   string.Join(",",requestTerminalّForPerson.ErrorList.Select(b=>b.ErrorText)) : "",
+                                                   requestTerminalّForPerson.ErrorList != null ?
+                                                   string.Join(",", requestTerminalّForPerson.ErrorList.Select(b => b.ErrorText)) : "",
                                     NewParsian = true,
                                 });
                                 dataContext.SaveChanges();
@@ -491,7 +498,8 @@ namespace TES.Merchant.Web.UI.Service
                 {
                     dataContext.Terminals.Where(x => x.Id == terminalId).Update(x => new Terminal
                     {
-                        StatusId = (byte) Enums.TerminalStatus.NeedToReform, ErrorComment = "خطا در اتصال به وب سرویس"
+                        StatusId = (byte)Enums.TerminalStatus.NeedToReform,
+                        ErrorComment = "خطا در اتصال به وب سرویس"
                     });
                     exception.AddLogData("TerminalId", terminalId).LogNoContext();
 
@@ -530,7 +538,7 @@ namespace TES.Merchant.Web.UI.Service
                     return 1152082;
                 default:
                     return 1152071;
-                
+
             }
         }
 
@@ -547,13 +555,13 @@ namespace TES.Merchant.Web.UI.Service
                 Input = JsonConvert.SerializeObject(input),
                 Method = "UploadAttachmentInput",
                 Module = "Merchant",
-                TerminalId = terminalId   
+                TerminalId = terminalId
             };
             var datacontext = new AppDataContext();
             datacontext.ParsianRequests.Add(parsianRequest);
             datacontext.SaveChanges();
             input.RequestCode = parsianRequest.Id;
-          
+
 
 
             UploadAttachmentResult reservationList;
@@ -588,27 +596,27 @@ namespace TES.Merchant.Web.UI.Service
         /// <param name="input"></param>
         /// <returns>TopiarId</returns>
         public TerminalResult RequestTerminalّForCompany(RequestTerminalّForCompanyInput input
-            ,List<UploadAttachmentRequestData> Files   , int TerminalId)
+            , List<UploadAttachmentRequestData> Files, int TerminalId)
         {
             List<string> FileRes = new List<string>();
-            
-            if ( Files.Any())
+
+            if (Files.Any())
 
             {
-              
+
                 foreach (var uploadAttachment in Files)
                 {
-                    var up = new UploadAttachmentInput {RequestData = uploadAttachment};
-                    var item = UploadAttachment(up,TerminalId);
-                    if ( item.IsSuccess )
+                    var up = new UploadAttachmentInput { RequestData = uploadAttachment };
+                    var item = UploadAttachment(up, TerminalId);
+                    if (item.IsSuccess)
                     {
                         FileRes.Add(item.RequestResult.FileRef);
                     }
-                  
+
                 }
 
             }
-            
+
             var token = Login();
             if (string.IsNullOrEmpty(token.LoginToken))
                 return null;
@@ -629,7 +637,7 @@ namespace TES.Merchant.Web.UI.Service
 
             input.RequestData.Attachments = FileRes.Select(a => new Attachment
             {
-                FileRef =  a
+                FileRef = a
             }).ToList();
 
             TerminalResult reservationList;
@@ -667,31 +675,31 @@ namespace TES.Merchant.Web.UI.Service
            , List<UploadAttachmentRequestData> Files
             , int TerminalId)
         {
-            
-            
+
+
             List<string> FileRes = new List<string>();
-            
-            if ( Files.Any())
+
+            if (Files.Any())
 
             {
-              
-                foreach (var uploadAttachment in  Files)
+
+                foreach (var uploadAttachment in Files)
                 {
                     var up = new UploadAttachmentInput();
                     up.RequestData = uploadAttachment;
-                    var item = UploadAttachment(up,TerminalId);
-                    if ( item.IsSuccess )
+                    var item = UploadAttachment(up, TerminalId);
+                    if (item.IsSuccess)
                     {
                         FileRes.Add(item.RequestResult.FileRef);
                     }
-                 
+
                 }
 
             }
 
 
-            
-            
+
+
             var token = Login();
             if (string.IsNullOrEmpty(token.LoginToken))
                 return null;
@@ -708,14 +716,14 @@ namespace TES.Merchant.Web.UI.Service
             datacontext.ParsianRequests.Add(newpaRequest);
             datacontext.SaveChanges();
             input.RequestCode = TerminalId;
-            
-            
+
+
             input.RequestData.Attachments = FileRes.Select(a => new Attachment
             {
-                FileRef =  a
+                FileRef = a
             }).ToList();
-            
-            
+
+
 
             using (var httpClient = new HttpClient())
             {
@@ -747,7 +755,7 @@ namespace TES.Merchant.Web.UI.Service
                 if (string.IsNullOrEmpty(token.LoginToken))
                     return null;
 
-                input.RequestCode = (int) changerequestId + 100000;
+                input.RequestCode = (int)changerequestId + 100000;
                 var newpaRequest = new ParsianRequest
                 {
                     Input = JsonConvert.SerializeObject(input),
@@ -803,7 +811,7 @@ namespace TES.Merchant.Web.UI.Service
         {
             var datacontext2 = new AppDataContext();
             var data = datacontext2.ParsianRequests.Where(b => b.Method == "RequestChangeAccountInfo"
-                                            && b.Result.Contains("\"TopiarId\":\"0\"") 
+                                            && b.Result.Contains("\"TopiarId\":\"0\"")
                                             && b.Input.Contains("uestCode\":30}")).ToList();
 
 
@@ -822,7 +830,7 @@ namespace TES.Merchant.Web.UI.Service
                     var input = JsonConvert.DeserializeObject<RequestChangeAccountInfoInput>(VARIABLE.Input);
 
 
-                    input.RequestCode = (int) counter;
+                    input.RequestCode = (int)counter;
                     var newpaRequest = new ParsianRequest
                     {
                         Input = JsonConvert.SerializeObject(input),
@@ -1024,32 +1032,32 @@ namespace TES.Merchant.Web.UI.Service
                 }
             }
         }
-    public TerminalResult RequestChangeInfo(RequestChangeInfoInput2 input , int? TerminalId = 0)
+        public TerminalResult RequestChangeInfo(RequestChangeInfoInput2 input, int? TerminalId = 0)
         {
             try
             {
                 var token = Login();
                 if (string.IsNullOrEmpty(token.LoginToken))
                     return null;
-                
+
                 var newpaRequest = new ParsianRequestForInfo()
                 {
                     Input = JsonConvert.SerializeObject(input),
                     Method = "RequestChangeInfo",
                     Module = "Merchant",
-                    TerminalId =  TerminalId ,
+                    TerminalId = TerminalId,
                     StatusId = 0,
                     NationalCode = input.RequestData.NationalCode
-                    
+
                 };
 
                 var datacontext = new AppDataContext();
                 datacontext.ParsianRequestForInfo.Add(newpaRequest);
                 datacontext.SaveChanges();
-                
+
                 using (var httpClient = new HttpClient())
                 {
-                   
+
                     var content = new StringContent(JsonConvert.SerializeObject(input), Encoding.UTF8,
                         "application/json");
                     content.Headers.Add("LoginToken", token.LoginToken);
@@ -1058,25 +1066,25 @@ namespace TES.Merchant.Web.UI.Service
                                .Result)
                     {
                         var apiResponse = response.Content.ReadAsStringAsync().Result;
-                      var   reservationList = JsonConvert.DeserializeObject<TerminalResult>(apiResponse);
-                      
-                      newpaRequest.Result = JsonConvert.SerializeObject(reservationList);
-                      newpaRequest.Input = JsonConvert.SerializeObject(input);
-                      newpaRequest.NationalCode = input.RequestData.NationalCode;
-                      if (reservationList.RequestResult.TopiarId == null)
-                      {
-                          newpaRequest.StatusId = 2;
-                          newpaRequest.Error =  reservationList.ErrorList != null ? string.Join(",",
-                              reservationList.ErrorList.Select(v => v.ErrorId + " - " + v.ErrorText).ToArray()) : "";
-                      }
-                      else
-                      {
-                          newpaRequest.StatusId = 3;
-                          newpaRequest.TopiarId = reservationList.RequestResult.TopiarId;
-                      }
+                        var reservationList = JsonConvert.DeserializeObject<TerminalResult>(apiResponse);
 
-                      var d = datacontext.SaveChanges();
-                      
+                        newpaRequest.Result = JsonConvert.SerializeObject(reservationList);
+                        newpaRequest.Input = JsonConvert.SerializeObject(input);
+                        newpaRequest.NationalCode = input.RequestData.NationalCode;
+                        if (reservationList.RequestResult.TopiarId == null)
+                        {
+                            newpaRequest.StatusId = 2;
+                            newpaRequest.Error = reservationList.ErrorList != null ? string.Join(",",
+                                reservationList.ErrorList.Select(v => v.ErrorId + " - " + v.ErrorText).ToArray()) : "";
+                        }
+                        else
+                        {
+                            newpaRequest.StatusId = 3;
+                            newpaRequest.TopiarId = reservationList.RequestResult.TopiarId;
+                        }
+
+                        var d = datacontext.SaveChanges();
+
                         return reservationList;
                     }
                 }
@@ -1087,32 +1095,32 @@ namespace TES.Merchant.Web.UI.Service
             }
         }
 
-        public TerminalResult RequestChangeShopPost(RequestChangeShopPost input , int? TerminalId = 0)
+        public TerminalResult RequestChangeShopPost(RequestChangeShopPost input, int? TerminalId = 0)
         {
             try
             {
                 var token = Login();
                 if (string.IsNullOrEmpty(token.LoginToken))
                     return null;
-                
+
                 var newpaRequest = new ParsianRequestForInfo()
                 {
                     Input = JsonConvert.SerializeObject(input),
                     Method = "RequestChangeInfo",
                     Module = "Merchant",
-                    TerminalId =  TerminalId ,
+                    TerminalId = TerminalId,
                     StatusId = 0,
-                    
-                    
+
+
                 };
 
                 var datacontext = new AppDataContext();
                 datacontext.ParsianRequestForInfo.Add(newpaRequest);
                 datacontext.SaveChanges();
-                
+
                 using (var httpClient = new HttpClient())
                 {
-                   
+
                     var content = new StringContent(JsonConvert.SerializeObject(input), Encoding.UTF8,
                         "application/json");
                     content.Headers.Add("LoginToken", token.LoginToken);
@@ -1121,25 +1129,25 @@ namespace TES.Merchant.Web.UI.Service
                                .Result)
                     {
                         var apiResponse = response.Content.ReadAsStringAsync().Result;
-                      var   reservationList = JsonConvert.DeserializeObject<TerminalResult>(apiResponse);
-                      
-                      newpaRequest.Result = JsonConvert.SerializeObject(reservationList);
-                      newpaRequest.Input = JsonConvert.SerializeObject(input);
-                      
-                      if (reservationList.RequestResult.TopiarId == null)
-                      {
-                          newpaRequest.StatusId = 2;
-                          newpaRequest.Error =  reservationList.ErrorList != null ? string.Join(",",
-                              reservationList.ErrorList.Select(v => v.ErrorId + " - " + v.ErrorText).ToArray()) : "";
-                      }
-                      else
-                      {
-                          newpaRequest.StatusId = 3;
-                          newpaRequest.TopiarId = reservationList.RequestResult.TopiarId;
-                      }
+                        var reservationList = JsonConvert.DeserializeObject<TerminalResult>(apiResponse);
 
-                      var d = datacontext.SaveChanges();
-                      
+                        newpaRequest.Result = JsonConvert.SerializeObject(reservationList);
+                        newpaRequest.Input = JsonConvert.SerializeObject(input);
+
+                        if (reservationList.RequestResult.TopiarId == null)
+                        {
+                            newpaRequest.StatusId = 2;
+                            newpaRequest.Error = reservationList.ErrorList != null ? string.Join(",",
+                                reservationList.ErrorList.Select(v => v.ErrorId + " - " + v.ErrorText).ToArray()) : "";
+                        }
+                        else
+                        {
+                            newpaRequest.StatusId = 3;
+                            newpaRequest.TopiarId = reservationList.RequestResult.TopiarId;
+                        }
+
+                        var d = datacontext.SaveChanges();
+
                         return reservationList;
                     }
                 }
@@ -1211,9 +1219,9 @@ namespace TES.Merchant.Web.UI.Service
             {
                 var terminalInfo = dataContext.Terminals
                     .Where(x => x.Id == terminalId &&
-                                (x.StatusId == (byte) Enums.TerminalStatus.New ||
-                                 x.StatusId == (byte) Enums.TerminalStatus.NeedToReform) &&
-                                x.PspId == (byte) Enums.PspCompany.Parsian)
+                                (x.StatusId == (byte)Enums.TerminalStatus.New ||
+                                 x.StatusId == (byte)Enums.TerminalStatus.NeedToReform) &&
+                                x.PspId == (byte)Enums.PspCompany.Parsian)
                     .Select(x => new TerminalInfo
                     {
                         Id = x.Id,
@@ -1311,13 +1319,13 @@ namespace TES.Merchant.Web.UI.Service
                             dataContext.Terminals.Where(x => x.Id == terminalId).Update(x => new Terminal
                             {
                                 ContractNo = response.PosTrackIds.Last().ToString(),
-                                StatusId = (byte) Enums.TerminalStatus.NotReturnedFromSwitch,
+                                StatusId = (byte)Enums.TerminalStatus.NotReturnedFromSwitch,
                                 Description = $"{DateTime.Now.ToLongPersianDateTime()} - {actionStateDescription}"
                             });
                         else
                             dataContext.Terminals.Where(x => x.Id == terminalId).Update(x => new Terminal
                             {
-                                StatusId = (byte) Enums.TerminalStatus.NeedToReform,
+                                StatusId = (byte)Enums.TerminalStatus.NeedToReform,
                                 ErrorComment =
                                     $"{DateTime.Now.ToLongPersianDateTime()} - {actionStateDescription}{Environment.NewLine}{response.Description}"
                             });
@@ -1325,7 +1333,7 @@ namespace TES.Merchant.Web.UI.Service
                     else
                     {
                         dataContext.Terminals.Where(x => x.Id == terminalId).Update(x => new Terminal
-                            {StatusId = (byte) Enums.TerminalStatus.NeedToReform, ErrorComment = response.Description});
+                        { StatusId = (byte)Enums.TerminalStatus.NeedToReform, ErrorComment = response.Description });
                     }
 
                     return true;
@@ -1334,7 +1342,8 @@ namespace TES.Merchant.Web.UI.Service
                 {
                     dataContext.Terminals.Where(x => x.Id == terminalId).Update(x => new Terminal
                     {
-                        StatusId = (byte) Enums.TerminalStatus.NeedToReform, ErrorComment = "خطا در اتصال به وب سرویس"
+                        StatusId = (byte)Enums.TerminalStatus.NeedToReform,
+                        ErrorComment = "خطا در اتصال به وب سرویس"
                     });
                     exception.AddLogData("TerminalId", terminalId).LogNoContext();
 
@@ -1348,8 +1357,8 @@ namespace TES.Merchant.Web.UI.Service
             using (var dataContext = new AppDataContext())
             {
                 var terminalInfoList = dataContext.Terminals
-                    .Where(x => terminalIdList.Contains(x.Id) && x.StatusId == (byte) Enums.TerminalStatus.New &&
-                                x.PspId == (byte) Enums.PspCompany.Parsian)
+                    .Where(x => terminalIdList.Contains(x.Id) && x.StatusId == (byte)Enums.TerminalStatus.New &&
+                                x.PspId == (byte)Enums.PspCompany.Parsian)
                     .Select(x => new TerminalInfo
                     {
                         Id = x.Id,
@@ -1449,13 +1458,13 @@ namespace TES.Merchant.Web.UI.Service
                                 dataContext.Terminals.Where(x => x.Id == terminalInfo.Id).Update(x => new Terminal
                                 {
                                     ContractNo = response.PosTrackIds.Last().ToString(),
-                                    StatusId = (byte) Enums.TerminalStatus.NotReturnedFromSwitch,
+                                    StatusId = (byte)Enums.TerminalStatus.NotReturnedFromSwitch,
                                     ErrorComment = $"{DateTime.Now.ToLongPersianDateTime()} - {actionStateDescription}"
                                 });
                             else
                                 dataContext.Terminals.Where(x => x.Id == terminalInfo.Id).Update(x => new Terminal
                                 {
-                                    StatusId = (byte) Enums.TerminalStatus.NeedToReform,
+                                    StatusId = (byte)Enums.TerminalStatus.NeedToReform,
                                     ErrorComment =
                                         $"{DateTime.Now.ToLongPersianDateTime()} - {actionStateDescription}{Environment.NewLine}{response.Description}"
                                 });
@@ -1464,7 +1473,8 @@ namespace TES.Merchant.Web.UI.Service
                         {
                             dataContext.Terminals.Where(x => x.Id == terminalInfo.Id).Update(x => new Terminal
                             {
-                                StatusId = (byte) Enums.TerminalStatus.NeedToReform, ErrorComment = response.Description
+                                StatusId = (byte)Enums.TerminalStatus.NeedToReform,
+                                ErrorComment = response.Description
                             });
                         }
                     }
@@ -1478,7 +1488,7 @@ namespace TES.Merchant.Web.UI.Service
                         {
                             dataContext.Terminals.Where(x => x.Id == terminalInfo.Id).Update(x => new Terminal
                             {
-                                StatusId = (byte) Enums.TerminalStatus.NeedToReform,
+                                StatusId = (byte)Enums.TerminalStatus.NeedToReform,
                                 ErrorComment = "خطا در برقراری ارتباط با وب سرویس"
                             });
                         }
@@ -1486,7 +1496,8 @@ namespace TES.Merchant.Web.UI.Service
                         {
                             dataContext.Terminals.Where(x => x.Id == terminalInfo.Id).Update(x => new Terminal
                             {
-                                StatusId = (byte) Enums.TerminalStatus.NeedToReform, ErrorComment = exception.Message
+                                StatusId = (byte)Enums.TerminalStatus.NeedToReform,
+                                ErrorComment = exception.Message
                             });
                         }
 
@@ -1512,7 +1523,7 @@ namespace TES.Merchant.Web.UI.Service
                 var merchantNo = result.CustomerId != 0 ? result.CustomerId.ToString() : null;
 
                 if (string.IsNullOrEmpty(merchantNo) || string.IsNullOrEmpty(terminalNo))
-                    return new InqueryAcceptorResult {IsSuccess = false};
+                    return new InqueryAcceptorResult { IsSuccess = false };
 
                 return new InqueryAcceptorResult
                 {
@@ -1525,7 +1536,7 @@ namespace TES.Merchant.Web.UI.Service
                 };
             }
 
-            return new InqueryAcceptorResult {IsSuccess = false};
+            return new InqueryAcceptorResult { IsSuccess = false };
         }
 
 
@@ -1550,13 +1561,13 @@ namespace TES.Merchant.Web.UI.Service
             var result =
                 TerminalInQuery(TerminalInqueryInput, terminalId); // await _client.CheckPosStatusAsync(trackingCode);
 
-            if (result.RequestResult == null  )
+            if (result.RequestResult == null)
             {
                 var qqq = string.Join(",",
                     result.ErrorList.Select(v => v.ErrorId + " - " + v.ErrorText).ToArray());
                 output.IsSuccess = false;
                 output.Error = qqq;
-                output.StatusId = (byte) Enums.TerminalStatus.NeedToReform;
+                output.StatusId = (byte)Enums.TerminalStatus.NeedToReform;
                 return output;
                 // return (false,  (byte) Enums.TerminalStatus.NotReturnedFromSwitch, $"{DateTime.Now.ToLongPersianDateTime()} - {qqq    }");
             }
@@ -1580,40 +1591,40 @@ namespace TES.Merchant.Web.UI.Service
                 DateTime dt = new DateTime(int.Parse(year), int.Parse(month), int.Parse(day), pc);
                 RevokeDate = dt;
             }
-            switch ((int) result.RequestResult.StatusCode)
+            switch ((int)result.RequestResult.StatusCode)
             {
                 case 0:
-                    statusId = (byte) Enums.TerminalStatus.Allocated;
+                    statusId = (byte)Enums.TerminalStatus.Allocated;
                     statusDescription = result.RequestResult.StatusTitle;
                     break;
                 case 1:
-                    statusId = (byte) Enums.TerminalStatus.Allocated;
+                    statusId = (byte)Enums.TerminalStatus.Allocated;
                     statusDescription = result.RequestResult.StatusTitle;
                     break;
 
                 case 2:
-                    statusId = (byte) Enums.TerminalStatus.Revoked;
+                    statusId = (byte)Enums.TerminalStatus.Revoked;
                     statusDescription = result.RequestResult.StatusTitle;
                     break;
                 case 3:
 
-                    statusId = (byte) Enums.TerminalStatus.Installed;
+                    statusId = (byte)Enums.TerminalStatus.Installed;
                     statusDescription = result.RequestResult.StatusTitle;
                     break;
                 case 4:
-                    statusId = (byte) Enums.TerminalStatus.Installed;
+                    statusId = (byte)Enums.TerminalStatus.Installed;
                     statusDescription = "نصب شده";
                     break;
                 case 5:
-                    statusId = (byte) Enums.TerminalStatus.Deleted;
+                    statusId = (byte)Enums.TerminalStatus.Deleted;
                     statusDescription = result.RequestResult.StatusTitle;
                     break;
                 case 6:
-                    statusId = (byte) Enums.TerminalStatus.ReadyForAllocation;
+                    statusId = (byte)Enums.TerminalStatus.ReadyForAllocation;
                     statusDescription = result.RequestResult.StatusTitle;
                     break;
                 case 7:
-                    statusId = (byte) Enums.TerminalStatus.WaitingForRevoke;
+                    statusId = (byte)Enums.TerminalStatus.WaitingForRevoke;
                     statusDescription = result.RequestResult.StatusTitle;
                     break;
             }
@@ -1627,8 +1638,8 @@ namespace TES.Merchant.Web.UI.Service
             return output;
             // return (true, statusId, $"{DateTime.Now.ToLongPersianDateTime()} - {statusDescription}");
         }
-     public async Task<ParsianRequestedTerminalResult> ChangeInfoInquery(string topiarId,
-            int terminalId)
+        public async Task<ParsianRequestedTerminalResult> ChangeInfoInquery(string topiarId,
+               int terminalId)
         {
             var statusDescription = string.Empty;
             var ParsianRequestedTerminalResult = new ParsianRequestedTerminalResult();
@@ -1640,7 +1651,7 @@ namespace TES.Merchant.Web.UI.Service
             requestInqueryInput.RequestData = new RequestInqueryRequestData();
             requestInqueryInput.RequestData.TopiarId = topiarId;
             var result = RequestInQuery(requestInqueryInput, terminalId);
-            
+
             if (result.IsSuccess)
             {
                 if (result.RequestResult.RequestError != null)
@@ -1727,17 +1738,17 @@ namespace TES.Merchant.Web.UI.Service
                     ParsianRequestedTerminalResult.InstallStatusId = result.RequestResult.StatusCode;
                     ParsianRequestedTerminalResult.StepCode = result.RequestResult.Stepcode;
                     ParsianRequestedTerminalResult.StepCodeTitle = result.RequestResult.StepTitle;
-                    ParsianRequestedTerminalResult.StatusId = ( result.RequestResult.RequestDetails?.FirstOrDefault().CartableResult.ToLower() == "reject" ?
-                          (byte) Enums.TerminalStatus.NeedToReform
-                        : (byte) Enums.TerminalStatus.NotReturnedFromSwitch);
+                    ParsianRequestedTerminalResult.StatusId = (result.RequestResult.RequestDetails?.FirstOrDefault().CartableResult.ToLower() == "reject" ?
+                          (byte)Enums.TerminalStatus.NeedToReform
+                        : (byte)Enums.TerminalStatus.NotReturnedFromSwitch);
 
                     var error = string.IsNullOrEmpty(ParsianRequestedTerminalResult.Error) ?
                         (
-                            string.Join(",",   result.RequestResult.RequestDetails?.Select(b=>b.Description))
+                            string.Join(",", result.RequestResult.RequestDetails?.Select(b => b.Description))
                         ) : ParsianRequestedTerminalResult.Error;
-                    
+
                     ParsianRequestedTerminalResult.StatusTitle =
-                        $"{DateTime.Now.ToLongPersianDateTime()} - {   error   }";
+                        $"{DateTime.Now.ToLongPersianDateTime()} - {error}";
                 }
                 else
                 {
@@ -1746,22 +1757,22 @@ namespace TES.Merchant.Web.UI.Service
                     ParsianRequestedTerminalResult.StepCode = result.RequestResult.Stepcode;
                     ParsianRequestedTerminalResult.StepCodeTitle = result.RequestResult.StepTitle;
                     ParsianRequestedTerminalResult.StatusId = result.RequestResult.StatusCode == 3
-                        ? (byte) Enums.TerminalStatus.NeedToReform
-                        : (byte) Enums.TerminalStatus.NotReturnedFromSwitch;
+                        ? (byte)Enums.TerminalStatus.NeedToReform
+                        : (byte)Enums.TerminalStatus.NotReturnedFromSwitch;
 
                     var error = string.IsNullOrEmpty(ParsianRequestedTerminalResult.Error) ?
                         (
-                            string.Join(",",  result.RequestResult.RequestDetails == null ? new [] {""} : 
-                                result.RequestResult.RequestDetails?.Select(b=>b.Description))
+                            string.Join(",", result.RequestResult.RequestDetails == null ? new[] { "" } :
+                                result.RequestResult.RequestDetails?.Select(b => b.Description))
                         ) : ParsianRequestedTerminalResult.Error;
-                    
-                    ParsianRequestedTerminalResult.StatusTitle =
-                        $"{DateTime.Now.ToLongPersianDateTime()} - {   error   }";
-                }
-               
 
-                   
-                    //todo
+                    ParsianRequestedTerminalResult.StatusTitle =
+                        $"{DateTime.Now.ToLongPersianDateTime()} - {error}";
+                }
+
+
+
+                //todo
                 return
                     ParsianRequestedTerminalResult; // (true, statusId, $"{DateTime.Now.ToLongPersianDateTime()} - {statusDescription}");
             }
@@ -1791,39 +1802,39 @@ namespace TES.Merchant.Web.UI.Service
             //var result = TerminalInQuery(TerminalInqueryInput); // await _client.CheckPosStatusAsync(trackingCode);
             var result = await _client.CheckPosStatusAsync(Int64.Parse(trackingCode));
 
-            switch ((int) result)
+            switch ((int)result)
             {
                 case 0:
-                    statusId = (byte) Enums.TerminalStatus.SendToRepresentation;
+                    statusId = (byte)Enums.TerminalStatus.SendToRepresentation;
                     statusDescription = "   ارسال به نمایندگی    ";
                     break;
                 case 1:
-                    statusId = (byte) Enums.TerminalStatus.Allocated;
+                    statusId = (byte)Enums.TerminalStatus.Allocated;
                     statusDescription = "پایانه تخصیص یافته است";
                     break;
 
                 case 2:
-                    statusId = (byte) Enums.TerminalStatus.NotReturnedFromSwitch;
+                    statusId = (byte)Enums.TerminalStatus.NotReturnedFromSwitch;
                     statusDescription = "درخواست مشاهده شده و در دست پیگیری است";
                     break;
                 case 3:
 
-                    statusId = (byte) Enums.TerminalStatus.NotReturnedFromSwitch;
+                    statusId = (byte)Enums.TerminalStatus.NotReturnedFromSwitch;
                     statusDescription = "درخواست ثبت شده است";
                     break;
                 case 4:
-                    statusId = (byte) Enums.TerminalStatus.Installed;
+                    statusId = (byte)Enums.TerminalStatus.Installed;
                     statusDescription = "پایانه نصب و راه اندازی شده است";
                     break;
                 case 5:
                     statusDescription = "پایانه تحت تعمیر می باشد";
                     break;
                 case 6:
-                    statusId = (byte) Enums.TerminalStatus.Revoked;
+                    statusId = (byte)Enums.TerminalStatus.Revoked;
                     statusDescription = "پایانه جمع آوری شده است";
                     break;
                 case 7:
-                    statusId = (byte) Enums.TerminalStatus.Revoked;
+                    statusId = (byte)Enums.TerminalStatus.Revoked;
                     statusDescription = "درخواست لغو شده است";
                     break;
                 case 10:
@@ -1840,97 +1851,97 @@ namespace TES.Merchant.Web.UI.Service
                 // خطای شاپرکی - در این حالت بعد از عدد 8 کد خطای شاپرکی آورده می شود مثلاً 839 یعنی خطای 39 از سوی شاپرک
 
                 case 85:
-                    statusId = (byte) Enums.TerminalStatus.NeedToReform;
+                    statusId = (byte)Enums.TerminalStatus.NeedToReform;
                     statusDescription =
                         "خطای کد 5 در سامانه جامع شاپرک: فرمت فیلدها را ویرایش نمایید به ازای مقدار یک فیلد، مقداری یافت نشد";
                     break;
                 case 86:
-                    statusId = (byte) Enums.TerminalStatus.NeedToReform;
+                    statusId = (byte)Enums.TerminalStatus.NeedToReform;
                     statusDescription =
                         "خطای کد 6 در سامانه جامع شاپرک: فرمت فیلدها را ویرایش نمایید فرمت فیلد مذکور درست نمی باشد";
                     break;
                 case 811:
-                    statusId = (byte) Enums.TerminalStatus.NeedToReform;
+                    statusId = (byte)Enums.TerminalStatus.NeedToReform;
                     statusDescription =
                         "خطای کد 11 در سامانه جامع شاپرک: اطلاعات قبلاً به شاپرک ارسال شده است رکورد تکراری";
                     break;
                 case 812:
-                    statusId = (byte) Enums.TerminalStatus.NeedToReform;
+                    statusId = (byte)Enums.TerminalStatus.NeedToReform;
                     statusDescription =
                         "اطلاعات کد ملی و یا تاریخ تولد را ویرایش نمایید کد ملی و تاریخ تولد با هم مطابقت ندارد";
                     break;
                 case 813:
-                    statusId = (byte) Enums.TerminalStatus.NeedToReform;
+                    statusId = (byte)Enums.TerminalStatus.NeedToReform;
                     statusDescription =
                         "خطای کد 13 در سامانه جامع شاپرک: خطایی نامشخص سمت شاپرک رخ داده است خطای شاپرک";
                     break;
                 case 817:
-                    statusId = (byte) Enums.TerminalStatus.NeedToReform;
+                    statusId = (byte)Enums.TerminalStatus.NeedToReform;
                     statusDescription =
                         "خطای کد 17 در سامانه جامع شاپرک: نوع گروه را ویرایش نمایید نوع گروه اطلاعات خطا دارد";
                     break;
                 case 829:
-                    statusId = (byte) Enums.TerminalStatus.NeedToReform;
+                    statusId = (byte)Enums.TerminalStatus.NeedToReform;
                     statusDescription =
                         "خطای کد29 در سامانه جامع شاپرک: محدودیت سنی لازم برای پذیرنده رعایت نشده است. اطلاعات پذیرنده را ویرایش نمایید";
                     break;
                 case 830:
-                    statusId = (byte) Enums.TerminalStatus.NeedToReform;
+                    statusId = (byte)Enums.TerminalStatus.NeedToReform;
                     statusDescription =
                         "خطای کد 30 در سامانه جامع شاپرک: کد ملی برای فردی است که فوت شده است اطلاعات پذیرنده را ویرایش نمایید پذیرنده در قید حیات نیست";
                     break;
                 case 838:
-                    statusId = (byte) Enums.TerminalStatus.NeedToReform;
+                    statusId = (byte)Enums.TerminalStatus.NeedToReform;
                     statusDescription =
                         "خطای کد 38 در سامانه جامع شاپرک: اطلاعات پذیرنده را مجدداً ارسال نمایید. استعلام کد پستی ناموفق انجام شده است";
                     break;
                 case 839:
-                    statusId = (byte) Enums.TerminalStatus.NeedToReform;
+                    statusId = (byte)Enums.TerminalStatus.NeedToReform;
                     statusDescription =
                         "خطای کد 39 در سامانه جامع شاپرک: کد پستی نادرست. از کد پستی محل اشتغال پذیرنده استعلام بگیرید";
                     break;
                 case 843:
-                    statusId = (byte) Enums.TerminalStatus.NeedToReform;
+                    statusId = (byte)Enums.TerminalStatus.NeedToReform;
                     statusDescription =
                         "خطای کد 43 در سامانه جامع شاپرک: اطلاعات فیلد مذکور را بررسی نمایید و از صحت اطلاعات اطمینان حاصل نمایید طول رشته فیلد مذکور کمتر / بیشتر از حد مجاز";
                     break;
                 case 848:
-                    statusId = (byte) Enums.TerminalStatus.NeedToReform;
+                    statusId = (byte)Enums.TerminalStatus.NeedToReform;
                     statusDescription =
                         "خطای کد 48 در سامانه جامع شاپرک: شماره شبا پذیرنده را بررسی نمایید شماره شبا مشکل دارد";
                     break;
                 case 855:
-                    statusId = (byte) Enums.TerminalStatus.NeedToReform;
+                    statusId = (byte)Enums.TerminalStatus.NeedToReform;
                     statusDescription =
                         "خطای کد 55 در سامانه جامع شاپرک: پذیرنده قدیمی می باشد بدون پایانه می باشد در صورت امکان پذیرنده جدید ثبت نمایید دیتای کانورت قبلی در هنگام درج دیتای جدید، یافت نمی شود";
                     break;
                 case 858:
-                    statusId = (byte) Enums.TerminalStatus.NeedToReform;
+                    statusId = (byte)Enums.TerminalStatus.NeedToReform;
                     statusDescription =
                         "خطای کد 58 در سامانه جامع شاپرک: اطلاعات پذیرنده را بررسی نمایید و از صحت اطلاعات اطمینان حاصل نمایید رنج فیلد مذکور نادرست است";
                     break;
                 case 859:
-                    statusId = (byte) Enums.TerminalStatus.NeedToReform;
+                    statusId = (byte)Enums.TerminalStatus.NeedToReform;
                     statusDescription =
                         "خطای کد 59 در سامانه جامع شاپرک: کد صنف یا کد زیر صنف و کد پستی را بررسی نمایید. در صورت امکان پذیرنده جدید ثبت نمایید اطلاعات صنف جدید یا کد پستی با اطلاعات قبلی مطابق نیست";
                     break;
                 case 862:
-                    statusId = (byte) Enums.TerminalStatus.NeedToReform;
+                    statusId = (byte)Enums.TerminalStatus.NeedToReform;
                     statusDescription =
                         "خطای کد 62 در سامانه جامع شاپرک: کد پستی را بررسی نمایید استان محل اشتغال پذیرنده با کد پستی مطابقت ندارد کد پستی با استان مطابقت ندارد";
                     break;
                 case 863:
-                    statusId = (byte) Enums.TerminalStatus.NeedToReform;
+                    statusId = (byte)Enums.TerminalStatus.NeedToReform;
                     statusDescription =
                         "خطای کد 63 در سامانه جامع شاپرک: کد پستی را بررسی نمایید شهر محل اشتغال پذیرنده با کد پستی مطابقت ندارد کد پستی با شهر مطابقت ندارد";
                     break;
                 case 868:
-                    statusId = (byte) Enums.TerminalStatus.NeedToReform;
+                    statusId = (byte)Enums.TerminalStatus.NeedToReform;
                     statusDescription =
                         "خطای کد 68 در سامانه جامع شاپرک: پایانه جدید برای پذیرنده ثبت نمایید پایانه توسط نظارت غیرفعال شده است";
                     break;
                 case 89999:
-                    statusId = (byte) Enums.TerminalStatus.NeedToReform;
+                    statusId = (byte)Enums.TerminalStatus.NeedToReform;
                     statusDescription = "خطای کد 9999 در سامانه جامع شاپرک: مدتی بعد مجدداً استعلام نمایید";
                     break;
 
@@ -1938,19 +1949,19 @@ namespace TES.Merchant.Web.UI.Service
 
                 case 9110:
                     statusDescription = "کد 9110: در انتظار ارسال به شاپرک";
-                    statusId = (byte) Enums.TerminalStatus.NotReturnedFromSwitch;
+                    statusId = (byte)Enums.TerminalStatus.NotReturnedFromSwitch;
                     break;
                 case 9120:
                     statusDescription = "کد 9120: در انتظار تایید شاپرک";
-                    statusId = (byte) Enums.TerminalStatus.SendToShaparak;
+                    statusId = (byte)Enums.TerminalStatus.SendToShaparak;
                     break;
                 case 9130:
                     statusDescription = "کد 9130: در انتظار تخصیص سریال";
-                    statusId = (byte) Enums.TerminalStatus.ReadyForAllocation;
+                    statusId = (byte)Enums.TerminalStatus.ReadyForAllocation;
                     break;
                 case 9121:
                     statusDescription = "کد 9121: در انتظار ارسال مجدد به شاپرک";
-                    statusId = (byte) Enums.TerminalStatus.UnsuccessfulReturnedFromSwitch;
+                    statusId = (byte)Enums.TerminalStatus.UnsuccessfulReturnedFromSwitch;
                     break;
             }
 
@@ -1974,67 +1985,78 @@ namespace TES.Merchant.Web.UI.Service
                     case 1:
                         return new SendRevokeRequestResponseModel
                         {
-                            IsSuccess = true, StatusId = (byte) Enums.RequestStatus.SentToPsp,
+                            IsSuccess = true,
+                            StatusId = (byte)Enums.RequestStatus.SentToPsp,
                             Result = "کد 1: درخواست با موفقیت لغو گردید."
                         };
                     case 2:
                         return new SendRevokeRequestResponseModel
                         {
-                            IsSuccess = true, StatusId = (byte) Enums.RequestStatus.SentToPsp,
+                            IsSuccess = true,
+                            StatusId = (byte)Enums.RequestStatus.SentToPsp,
                             Result = "کد 2: درخواست جمع آوری برای پایانه ثبت گردید."
                         };
                     case 500:
                         return new SendRevokeRequestResponseModel
                         {
-                            IsSuccess = false, StatusId = (byte) Enums.RequestStatus.Rejected,
+                            IsSuccess = false,
+                            StatusId = (byte)Enums.RequestStatus.Rejected,
                             Result = "کد 500: درخواست یافت نشد."
                         };
                     case 501:
                         return new SendRevokeRequestResponseModel
                         {
-                            IsSuccess = false, StatusId = (byte) Enums.RequestStatus.Rejected,
+                            IsSuccess = false,
+                            StatusId = (byte)Enums.RequestStatus.Rejected,
                             Result = "کد 501: درخواست یافت نشد."
                         };
                     case 502:
                         return new SendRevokeRequestResponseModel
                         {
-                            IsSuccess = false, StatusId = (byte) Enums.RequestStatus.Rejected,
+                            IsSuccess = false,
+                            StatusId = (byte)Enums.RequestStatus.Rejected,
                             Result = "کد 502: امکان لغو درخواست وجود ندارد."
                         };
                     case 504:
                         return new SendRevokeRequestResponseModel
                         {
-                            IsSuccess = false, StatusId = (byte) Enums.RequestStatus.Rejected,
+                            IsSuccess = false,
+                            StatusId = (byte)Enums.RequestStatus.Rejected,
                             Result = "کد 504: پایانه متناظر یا درخواست یافت نشد."
                         };
                     case 505:
                         return new SendRevokeRequestResponseModel
                         {
-                            IsSuccess = false, StatusId = (byte) Enums.RequestStatus.Rejected,
+                            IsSuccess = false,
+                            StatusId = (byte)Enums.RequestStatus.Rejected,
                             Result = "کد 505: پایانه فعال نمی باشد."
                         };
                     case 506:
                         return new SendRevokeRequestResponseModel
                         {
-                            IsSuccess = false, StatusId = (byte) Enums.RequestStatus.Rejected,
+                            IsSuccess = false,
+                            StatusId = (byte)Enums.RequestStatus.Rejected,
                             Result = "کد 506: درخواست فسخ می بایست از طریق نمایندگی ثبت شود."
                         };
                     case 507:
                         return new SendRevokeRequestResponseModel
                         {
-                            IsSuccess = false, StatusId = (byte) Enums.RequestStatus.Rejected,
+                            IsSuccess = false,
+                            StatusId = (byte)Enums.RequestStatus.Rejected,
                             Result = "کد 507: درخواست فسخ قبلاً ثبت شده است."
                         };
                     case 200:
                         return new SendRevokeRequestResponseModel
                         {
-                            IsSuccess = false, StatusId = (byte) Enums.RequestStatus.WebServiceError,
+                            IsSuccess = false,
+                            StatusId = (byte)Enums.RequestStatus.WebServiceError,
                             Result = "کد 503: خطا در اجرای عملیات لغو."
                         };
                     default:
                         return new SendRevokeRequestResponseModel
                         {
-                            IsSuccess = false, StatusId = (byte) Enums.RequestStatus.WebServiceError,
+                            IsSuccess = false,
+                            StatusId = (byte)Enums.RequestStatus.WebServiceError,
                             Result = "خطا. کد ناشناخته از سمت وب سرویس"
                         };
                 }
@@ -2045,7 +2067,8 @@ namespace TES.Merchant.Web.UI.Service
 
                 return new SendRevokeRequestResponseModel
                 {
-                    IsSuccess = false, StatusId = (byte) Enums.RequestStatus.WebServiceError,
+                    IsSuccess = false,
+                    StatusId = (byte)Enums.RequestStatus.WebServiceError,
                     Result = "خطا در اتصال به وب سرویس"
                 };
             }
@@ -2068,12 +2091,14 @@ namespace TES.Merchant.Web.UI.Service
                 if (ps.RequestResult != null)
                     return new SendRevokeRequestResponseModel
                     {
-                        IsSuccess = true, StatusId = (byte) Enums.RequestStatus.SentToPsp,
+                        IsSuccess = true,
+                        StatusId = (byte)Enums.RequestStatus.SentToPsp,
                         Result = ps.RequestResult.ResultText
                     };
                 return new SendRevokeRequestResponseModel
                 {
-                    IsSuccess = false, StatusId = (byte) Enums.RequestStatus.WebServiceError,
+                    IsSuccess = false,
+                    StatusId = (byte)Enums.RequestStatus.WebServiceError,
                     Result = string.Join(",",
                         ps.ErrorList.Select(v => v.ErrorId + " - " + v.ErrorText).ToArray())
                 };
@@ -2155,7 +2180,8 @@ namespace TES.Merchant.Web.UI.Service
 
                 return new SendRevokeRequestResponseModel
                 {
-                    IsSuccess = false, StatusId = (byte) Enums.RequestStatus.WebServiceError,
+                    IsSuccess = false,
+                    StatusId = (byte)Enums.RequestStatus.WebServiceError,
                     Result = "خطا در اتصال به وب سرویس"
                 };
             }
@@ -2174,7 +2200,7 @@ namespace TES.Merchant.Web.UI.Service
         {
             try
             {
-                
+
                 //todo ==>
                 if (!isLegalPersonality)
                 {
@@ -2186,56 +2212,56 @@ namespace TES.Merchant.Web.UI.Service
                     var shebaNumber = ter.ShebaNo;
                     AccountNumberExtensions.TryGenerateAccountNumberFromSheba(shebaNumber, out var accountNumber2);
                     var primaryCustomerNumber = accountNumber2.Split('-')[2];
-                    
+
                     // if (!TosanService.TryGetCustomerInfo(primaryCustomerNumber,
                     //         merchantProfile.CustomerNumber ?? primaryCustomerNumber, out var response, out var errorMessage))
                     // {
                     //    
                     // }
                     //
-                  //  var incompleteCustomerInfoMessage = TosanService.GetIncompleteCustomerInfoMessage(response);
-                 //   if (!string.IsNullOrEmpty(incompleteCustomerInfoMessage))
-                 //   {
-                         
-                 //   }
+                    //  var incompleteCustomerInfoMessage = TosanService.GetIncompleteCustomerInfoMessage(response);
+                    //   if (!string.IsNullOrEmpty(incompleteCustomerInfoMessage))
+                    //   {
 
-                 //   var lastcode = dataContext.ParsianRequests.Where(b => b.Method == "RequestChangeInfo") .ToList();
-                //    var j = lastcode.Max(b => JsonConvert.DeserializeObject<RequestChangeInfoInput2>(b.Input).RequestCode);
-                var j = 504208;
+                    //   }
+
+                    //   var lastcode = dataContext.ParsianRequests.Where(b => b.Method == "RequestChangeInfo") .ToList();
+                    //    var j = lastcode.Max(b => JsonConvert.DeserializeObject<RequestChangeInfoInput2>(b.Input).RequestCode);
+                    var j = 504208;
                     var requestInqueryInput = new RequestChangeInfoInput2();
                     requestInqueryInput.RequestData = new RequestChangeInfoInputData2();
-                    requestInqueryInput.RequestCode = j +  1;    
+                    requestInqueryInput.RequestCode = j + 1;
                     requestInqueryInput.RequestData.ChangeInfoTypeRefId = 31286;
                     requestInqueryInput.RequestData.PersonTypeRefId = 31220;
-                 //   requestInqueryInput.RequestData.NationalCode =  response.NationalCode;
-                  //  requestInqueryInput.RequestData.BirthCertificateNumber = response.IdentityNumber;
-                  //  requestInqueryInput.RequestData.CellPhoneNumber = response.Mobile;
-                  //  merchantProfile.BirthCrtfctSerial = response.certificateSerial;
-                  //  if (response.certificateSeries != null)
-                  //  {
-                  //      merchantProfile.BirthCrtfctSeriesNumber = !string.IsNullOrEmpty(  response.certificateSeries  )  ?
-                   //         response.certificateSeries.Split('-')[1] :null;
-                   //     merchantProfile.PersianCharRefId  = !string.IsNullOrEmpty(  response.certificateSeries  ) ?
-                   //         response.certificateSeries.Split('-')[0] : null;
-                   // }
-                    
-                    
-                    
-                 //   requestInqueryInput.RequestData.PersianCharRefId =   GetPersianCharRefId( ! string .IsNullOrEmpty(response.certificateSeries)?
-                 //       response.certificateSeries.Split('-')[0] : "");
-                    requestInqueryInput.RequestData.BirthCertificateSeriesNumber =     merchantProfile.BirthCrtfctSeriesNumber  ; 
+                    //   requestInqueryInput.RequestData.NationalCode =  response.NationalCode;
+                    //  requestInqueryInput.RequestData.BirthCertificateNumber = response.IdentityNumber;
+                    //  requestInqueryInput.RequestData.CellPhoneNumber = response.Mobile;
+                    //  merchantProfile.BirthCrtfctSerial = response.certificateSerial;
+                    //  if (response.certificateSeries != null)
+                    //  {
+                    //      merchantProfile.BirthCrtfctSeriesNumber = !string.IsNullOrEmpty(  response.certificateSeries  )  ?
+                    //         response.certificateSeries.Split('-')[1] :null;
+                    //     merchantProfile.PersianCharRefId  = !string.IsNullOrEmpty(  response.certificateSeries  ) ?
+                    //         response.certificateSeries.Split('-')[0] : null;
+                    // }
+
+
+
+                    //   requestInqueryInput.RequestData.PersianCharRefId =   GetPersianCharRefId( ! string .IsNullOrEmpty(response.certificateSeries)?
+                    //       response.certificateSeries.Split('-')[0] : "");
+                    requestInqueryInput.RequestData.BirthCertificateSeriesNumber = merchantProfile.BirthCrtfctSeriesNumber;
                     dataContext.SaveChanges();
 
                     if (string.IsNullOrEmpty(merchantProfile.BirthCrtfctSeriesNumber) ||
                         string.IsNullOrEmpty(merchantProfile.PersianCharRefId))
                     {
-                     //   var result = RequestChangeInfo(requestInqueryInput, TerminalId);
-                       // if (result == null || result.RequestResult.TopiarId == null)
+                        //   var result = RequestChangeInfo(requestInqueryInput, TerminalId);
+                        // if (result == null || result.RequestResult.TopiarId == null)
                         //    throw new Exception("اصلاح اطلاعات انجام نشد");
                     }
 
 
-                
+
                 }
                 AccountNumberExtensions.TryGenerateAccountNumberFromSheba(shebaNo, out var accountNumber);
 
@@ -2272,7 +2298,7 @@ namespace TES.Merchant.Web.UI.Service
                 };
 
                 input.RequestData.Ibans.Add(sssss);
-                input.RequestData.Terminals = new List<string> {terminalNo};
+                input.RequestData.Terminals = new List<string> { terminalNo };
 
 
                 var s = RequestChangeAccountInfo(changeAccountRequestId, input, TerminalId);
@@ -2281,19 +2307,23 @@ namespace TES.Merchant.Web.UI.Service
                 {
                     return new SendChangeAccountRequestResponseModel
                     {
-                        IsSuccess = true, StatusId = (byte) Enums.RequestStatus.SentToPsp,
+                        IsSuccess = true,
+                        StatusId = (byte)Enums.RequestStatus.SentToPsp,
                         TopiarId = s.RequestResult.TopiarId,
-                        Result = "کد 1: درخواست با موفقیت ثبت شد.", RequestId = TerminalId
+                        Result = "کد 1: درخواست با موفقیت ثبت شد.",
+                        RequestId = TerminalId
                     };
                 }
                 else
                 {
                     return new SendChangeAccountRequestResponseModel
                     {
-                        IsSuccess = false, StatusId = (byte) Enums.RequestStatus.WebServiceError,
+                        IsSuccess = false,
+                        StatusId = (byte)Enums.RequestStatus.WebServiceError,
                         Error = s.ErrorList != null ? string.Join(",",
                             s.ErrorList.Select(v => v.ErrorId + "  -  " + v.ErrorText).ToArray()) : "",
-                        Result = "خطا در پردازش توسط psp", RequestId = TerminalId
+                        Result = "خطا در پردازش توسط psp",
+                        RequestId = TerminalId
                     };
                 }
                 // var response = await _client.ChangeIbanRequestAsync(new ChangeIbanRequest
@@ -2348,7 +2378,8 @@ namespace TES.Merchant.Web.UI.Service
 
                 return new SendChangeAccountRequestResponseModel
                 {
-                    IsSuccess = false, StatusId = (byte) Enums.RequestStatus.WebServiceError,
+                    IsSuccess = false,
+                    StatusId = (byte)Enums.RequestStatus.WebServiceError,
                     Result = $"{DateTime.Now.ToLongPersianDateTime()} - خطای وب سرویس پارسیان - ChannelState = 0"
                 };
             }
@@ -2358,7 +2389,8 @@ namespace TES.Merchant.Web.UI.Service
 
                 return new SendChangeAccountRequestResponseModel
                 {
-                    IsSuccess = false, StatusId = (byte) Enums.RequestStatus.WebServiceError,
+                    IsSuccess = false,
+                    StatusId = (byte)Enums.RequestStatus.WebServiceError,
                     Result = $"{DateTime.Now.ToLongPersianDateTime()} - خطای وب سرویس پارسیان - ChannelState = 0" +
                              exception.Message
                 };
@@ -2398,32 +2430,38 @@ namespace TES.Merchant.Web.UI.Service
                         case 1:
                             return new SendChangeAccountRequestResponseModel
                             {
-                                IsSuccess = true, StatusId = (byte) Enums.RequestStatus.SentToPsp,
-                                Result = "کد 1: درخواست با موفقیت ثبت شد.", RequestId = response.RequestId
+                                IsSuccess = true,
+                                StatusId = (byte)Enums.RequestStatus.SentToPsp,
+                                Result = "کد 1: درخواست با موفقیت ثبت شد.",
+                                RequestId = response.RequestId
                             };
                         case -1:
                             return new SendChangeAccountRequestResponseModel
                             {
-                                IsSuccess = false, StatusId = (byte) Enums.RequestStatus.Rejected,
+                                IsSuccess = false,
+                                StatusId = (byte)Enums.RequestStatus.Rejected,
                                 Result = "کد -1: پایانه با کد ملی ارسال شده یافت نشد."
                             };
                         case -2:
                             return new SendChangeAccountRequestResponseModel
                             {
-                                IsSuccess = false, StatusId = (byte) Enums.RequestStatus.Rejected,
+                                IsSuccess = false,
+                                StatusId = (byte)Enums.RequestStatus.Rejected,
                                 Result = "کد -2: درخواست تغییر شبا در سیستم موجود می باشد."
                             };
                         case -3:
                             return new SendChangeAccountRequestResponseModel
                             {
-                                IsSuccess = false, StatusId = (byte) Enums.RequestStatus.Rejected,
+                                IsSuccess = false,
+                                StatusId = (byte)Enums.RequestStatus.Rejected,
                                 Result =
                                     "کد -3: در اجرای فرمان مشکل وجود دارد. با تیم پشتیبانی پارسیان تماس حاصل فرمایید."
                             };
                         default:
                             return new SendChangeAccountRequestResponseModel
                             {
-                                IsSuccess = false, StatusId = (byte) Enums.RequestStatus.Rejected,
+                                IsSuccess = false,
+                                StatusId = (byte)Enums.RequestStatus.Rejected,
                                 Result = "خطای ناشناخته در ارسال درخواست تغییر حساب به پارسیان"
                             };
                     }
@@ -2431,7 +2469,8 @@ namespace TES.Merchant.Web.UI.Service
 
                 return new SendChangeAccountRequestResponseModel
                 {
-                    IsSuccess = false, StatusId = (byte) Enums.RequestStatus.WebServiceError,
+                    IsSuccess = false,
+                    StatusId = (byte)Enums.RequestStatus.WebServiceError,
                     Result = $"{DateTime.Now.ToLongPersianDateTime()} - خطای وب سرویس پارسیان - ChannelState = 0"
                 };
             }
@@ -2441,7 +2480,8 @@ namespace TES.Merchant.Web.UI.Service
 
                 return new SendChangeAccountRequestResponseModel
                 {
-                    IsSuccess = false, StatusId = (byte) Enums.RequestStatus.WebServiceError,
+                    IsSuccess = false,
+                    StatusId = (byte)Enums.RequestStatus.WebServiceError,
                     Result = $"{DateTime.Now.ToLongPersianDateTime()} - خطای وب سرویس پارسیان - ChannelState = 0"
                 };
             }
@@ -2450,7 +2490,7 @@ namespace TES.Merchant.Web.UI.Service
         public async Task<(string, string)> CheckChangeAccountRequest(long requestId)
         {
             var response =
-                await _client.CheckChangeIbanStatusAsync(new ChangeIbanStatusRequest {RequestId = requestId});
+                await _client.CheckChangeIbanStatusAsync(new ChangeIbanStatusRequest { RequestId = requestId });
 
             if (response.ActionState == 1 && response.ChannelState == 1)
             {
@@ -2469,12 +2509,12 @@ namespace TES.Merchant.Web.UI.Service
                 ACC_STATEMENT_CODE = 1, // نحوه تسویه - همیشه یک ارسال شود
                 ACC_TYPE_CODE = 1, // نوع حساب  یک: قرض الحسنه  دو: جاری  سه: پس انداز
                 BAN_BANK_CODE = 106, // کد مکنا بانک
-                BAN_BRANCH_CODE = (short) terminalInfo.BranchId, // کد مکنا شعبه
-                BAN_ZONE_CODE = (short) terminalInfo.ParentBranchId, // کد مکنا سرپرستی
-                CITY_CODE = (int) terminalInfo.CityId, // کد شهر شاپرکی محل نصب
+                BAN_BRANCH_CODE = (short)terminalInfo.BranchId, // کد مکنا شعبه
+                BAN_ZONE_CODE = (short)terminalInfo.ParentBranchId, // کد مکنا سرپرستی
+                CITY_CODE = (int)terminalInfo.CityId, // کد شهر شاپرکی محل نصب
                 CoCa_Address = terminalInfo.Address, // آدرس محل نصب
                 CoCa_AddressCode = terminalInfo.Address, // آدرس شاپرکی محل نصب - نیازی به فرمت شاپرکی نیست
-                CoCa_City_Code = (int) terminalInfo.CityId, // کد شهر شاپرکی
+                CoCa_City_Code = (int)terminalInfo.CityId, // کد شهر شاپرکی
                 CoCa_Fax = "", // نمابر - اختیاری
                 CoCa_Pos_Box = terminalInfo.PostCode, // کد پستی 10 رقمی محل کار
                 CoCa_Tel = terminalInfo.TelCode + terminalInfo.Tel, // تلفن - اختیاری
@@ -2513,8 +2553,8 @@ namespace TES.Merchant.Web.UI.Service
                     : terminalInfo.FirstName.ApplyPersianYeKe().RemoveHamzeh(), // نام - در صورت حقوقی بودن نام شرکت
                 COCU_SEX_CODE =
                     terminalInfo.IsLegalPersonality
-                        ? (short) 1
-                        : (short) 2, // یک: مرد  دو: زن  در صورت حقیقی بودن یک ارسال شود
+                        ? (short)1
+                        : (short)2, // یک: مرد  دو: زن  در صورت حقیقی بودن یک ارسال شود
                 COMC_Bank_Acc =
                     terminalInfo.AccountNo.Replace("-", string.Empty)
                         .Substring(5,
@@ -2537,18 +2577,18 @@ namespace TES.Merchant.Web.UI.Service
                 COMC_STTLMNT_CODE = 1, // نوع تسویه - همیشه یک ارسال شود
                 COUNTRY_CODE = 98, // عدد 98 برای ایرانیان و کد کشور برای اتباع خارجی
                 CustomerType =
-                    terminalInfo.IsLegalPersonality ? (short) 2 : (short) 1, // نوع پذیرنده  1: حقیقی  2: حقوقی
+                    terminalInfo.IsLegalPersonality ? (short)2 : (short)1, // نوع پذیرنده  1: حقیقی  2: حقوقی
                 OrganizationId =
                     "4749585234116348", // کد سازمان درخواست دهنده - این کد میبایست از طرف تجارت الکترونیک اعلام گردد
                 RequestCode =
-                    (int) terminalInfo
+                    (int)terminalInfo
                         .Id, // کد یکتای درخواست - یک کد یکتا به ازای هر درخواست که سازمان درخواست کننده آن را ایجاد می نماید
                 ShaparakTermGroup = terminalInfo.GuildId.ToString().PadLeft(8, '0'), // کد صنف شاپرکی
-                STATE_CODE = (short) terminalInfo.StateId, // کد استان - مطابق شاپرک
+                STATE_CODE = (short)terminalInfo.StateId, // کد استان - مطابق شاپرک
                 TermCount = 1, // تعداد پایانه درخواستی
-                TermModel = terminalInfo.DeviceTypeId == (long) Enums.DeviceType.GPRS ||
-                            terminalInfo.DeviceTypeId == (long) Enums.DeviceType.WIFI ||
-                            terminalInfo.DeviceTypeId == (long) Enums.DeviceType.MPOS
+                TermModel = terminalInfo.DeviceTypeId == (long)Enums.DeviceType.GPRS ||
+                            terminalInfo.DeviceTypeId == (long)Enums.DeviceType.WIFI ||
+                            terminalInfo.DeviceTypeId == (long)Enums.DeviceType.MPOS
                     ? 34
                     : 37, // مدل پایانه  37 برای ثابت و 34 برای سیار
                 CoCa_Tel2 = "",
@@ -2582,7 +2622,7 @@ namespace TES.Merchant.Web.UI.Service
         public void Dispose()
         {
             _client.Close();
-            ((IDisposable) _client).Dispose();
+            ((IDisposable)_client).Dispose();
         }
     }
 
@@ -2594,7 +2634,7 @@ namespace TES.Merchant.Web.UI.Service
         public string Error { get; set; }
         public string Status { get; set; }
         public DateTime? InstallationDate { get; set; }
-        public  DateTime? RevokeDate { get; set; }
+        public DateTime? RevokeDate { get; set; }
     }
 
     public class ParsianRequestedTerminalResult

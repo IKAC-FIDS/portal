@@ -25,7 +25,7 @@ namespace TES.Merchant.Web.UI.Service
         private const string BaseAddress = "https://jamservice.pna.co.ir/services/api/BankService";
 
         private const string UserName = "sarmayehbank";
-    //    private const string Password = "147852";
+        //    private const string Password = "147852";
         private const string Password = "Aa@123456";
 
         //کاربری:sarmayehbank
@@ -48,7 +48,7 @@ namespace TES.Merchant.Web.UI.Service
         }
 
         //2-4
-        public AddFileResponse AddFile(AddFileRequest input,long terminalId)
+        public AddFileResponse AddFile(AddFileRequest input, long terminalId)
         {
             AddFileResponse methodResponse;
             using (var httpClient = new HttpClient())
@@ -114,7 +114,7 @@ namespace TES.Merchant.Web.UI.Service
         }
 
         //2-6
-        public AddNewCustomerResponse AddNewCustomer(AddNewCustomerRequest input , long terminalId)
+        public AddNewCustomerResponse AddNewCustomer(AddNewCustomerRequest input, long terminalId)
         {
             AddNewCustomerResponse methodResponse;
             using (var httpClient = new HttpClient())
@@ -136,9 +136,9 @@ namespace TES.Merchant.Web.UI.Service
                 Input = JsonConvert.SerializeObject(input),
                 Method = "AddNewCustomer",
                 Module = "-",
-                TrackId = DateTime.Now.Ticks ,
-                TerminalId =  terminalId,
-                Result  = JsonConvert.SerializeObject(methodResponse),
+                TrackId = DateTime.Now.Ticks,
+                TerminalId = terminalId,
+                Result = JsonConvert.SerializeObject(methodResponse),
             };
             var datacontext = new AppDataContext();
             datacontext.PardakhtNovinRequests.Add(pardakhtNovinRequest);
@@ -291,8 +291,8 @@ namespace TES.Merchant.Web.UI.Service
 
                     methodResponse = JsonConvert.DeserializeObject<GetCityResponse>(apiResponse);
                 }
-            }            
-           var pardakhtNovinRequest = new PardakhtNovinRequest
+            }
+            var pardakhtNovinRequest = new PardakhtNovinRequest
             {
                 Input = JsonConvert.SerializeObject(input),
                 Method = "GetCityList",
@@ -307,9 +307,9 @@ namespace TES.Merchant.Web.UI.Service
 
 
         //2-15
-        public AddNewRequestResponse AddNewRequest(AddNewRequestRequestWithDocs input,long terminalId)
+        public AddNewRequestResponse AddNewRequest(AddNewRequestRequestWithDocs input, long terminalId)
         {
-            input.Data.GuildSupplementaryCode = input.Data.GuildSupplementaryCode.PadLeft(8,'0');
+            input.Data.GuildSupplementaryCode = input.Data.GuildSupplementaryCode.PadLeft(8, '0');
             AddNewRequestResponse methodResponse;
             using (var httpClient = new HttpClient())
             {
@@ -339,7 +339,7 @@ namespace TES.Merchant.Web.UI.Service
             datacontext.SaveChanges();
             return methodResponse;
         }
-        public AddNewRequestResponse AddNewRequest(AddNewRequestRequest input,long terminalId)
+        public AddNewRequestResponse AddNewRequest(AddNewRequestRequest input, long terminalId)
         {
             AddNewRequestResponse methodResponse;
             using (var httpClient = new HttpClient())
@@ -355,7 +355,7 @@ namespace TES.Merchant.Web.UI.Service
                     methodResponse = JsonConvert.DeserializeObject<AddNewRequestResponse>(apiResponse);
                 }
             }
-           
+
 
             var pardakhtNovinRequest = new PardakhtNovinRequest
             {
@@ -439,13 +439,13 @@ namespace TES.Merchant.Web.UI.Service
 
         public UpdateRequestByFollowUpCodeResponse EditAcceptor(long terminalId)
         {
-              var result = new UpdateRequestByFollowUpCodeResponse();
+            var result = new UpdateRequestByFollowUpCodeResponse();
             AddNewCustomerRequestDocs docs = new AddNewCustomerRequestDocs();
- 
+
             using (var dataContext = new AppDataContext())
             {
-                var terminal = dataContext.Terminals.Include(a=>a.TerminalDocuments).Include(a=>a.MerchantProfile)
-                    .Include(a=>a.MerchantProfile.MerchantProfileDocuments).FirstOrDefault(a => a.Id == terminalId);
+                var terminal = dataContext.Terminals.Include(a => a.TerminalDocuments).Include(a => a.MerchantProfile)
+                    .Include(a => a.MerchantProfile.MerchantProfileDocuments).FirstOrDefault(a => a.Id == terminalId);
 
 
                 var am = GetRequestDetailByFollowupCode(new GetRequestDetailByFollowupCodeRequest()
@@ -455,74 +455,74 @@ namespace TES.Merchant.Web.UI.Service
                         FollowupCode = terminal.FollowupCode,
                         BankFollowupCode = "51"
                     }
-                },terminal.Id);
-                 foreach (var terminalDocument in terminal.TerminalDocuments)
+                }, terminal.Id);
+                foreach (var terminalDocument in terminal.TerminalDocuments)
                 {
-                    
-                        AddFileRequest addFileRequest = new AddFileRequest();
-                        addFileRequest.FileName = terminalDocument.FileName;
-                        addFileRequest.BinaryDataBase64 = Convert.ToBase64String(terminalDocument.FileData);
-                        var addFileResponse = AddFile(addFileRequest,terminal.Id);
-                        if (addFileResponse.Status == PardakthNovinStatus.Successed)
-                        {
-                            var m = UpdateDocument( new UpdateDocumentRequest()
-                            {
-                                Data = new UpdateDocumentRequestData()
-                                {
-                                    DocumentAttachment =  addFileResponse.FileServerID.ToString()
-                                },
-                                Parameters = new UpdateDocumentRequestParameters()
-                                {
-                                    RequestID = am.Data.RequestID,
-                                    DocumentTypeID =  GetPardakhNovinDocTypeId(terminalDocument.DocumentTypeId)
-                                }
-                            }, terminal.Id );
 
-                        }
-                   
+                    AddFileRequest addFileRequest = new AddFileRequest();
+                    addFileRequest.FileName = terminalDocument.FileName;
+                    addFileRequest.BinaryDataBase64 = Convert.ToBase64String(terminalDocument.FileData);
+                    var addFileResponse = AddFile(addFileRequest, terminal.Id);
+                    if (addFileResponse.Status == PardakthNovinStatus.Successed)
+                    {
+                        var m = UpdateDocument(new UpdateDocumentRequest()
+                        {
+                            Data = new UpdateDocumentRequestData()
+                            {
+                                DocumentAttachment = addFileResponse.FileServerID.ToString()
+                            },
+                            Parameters = new UpdateDocumentRequestParameters()
+                            {
+                                RequestID = am.Data.RequestID,
+                                DocumentTypeID = GetPardakhNovinDocTypeId(terminalDocument.DocumentTypeId)
+                            }
+                        }, terminal.Id);
+
+                    }
+
                 }
 
                 foreach (var terminalDocument in terminal.MerchantProfile.MerchantProfileDocuments)
                 {
-                    if (  terminalDocument.DocumentTypeId != 1  && 
-                        terminalDocument.DocumentTypeId != 11 && terminalDocument.DocumentTypeId != 14   
+                    if (terminalDocument.DocumentTypeId != 1 &&
+                        terminalDocument.DocumentTypeId != 11 && terminalDocument.DocumentTypeId != 14
                        )
                     {
                         AddFileRequest addFileRequest = new AddFileRequest();
                         addFileRequest.FileName = terminalDocument.FileName;
                         addFileRequest.BinaryDataBase64 = Convert.ToBase64String(terminalDocument.FileData);
-                        var addFileResponse = AddFile(addFileRequest,terminal.Id);
+                        var addFileResponse = AddFile(addFileRequest, terminal.Id);
                         if (addFileResponse.Status == PardakthNovinStatus.Successed)
                         {
-                            
-                            var m = UpdateDocument( new UpdateDocumentRequest()
+
+                            var m = UpdateDocument(new UpdateDocumentRequest()
                             {
                                 Data = new UpdateDocumentRequestData()
                                 {
-                                    DocumentAttachment =  addFileResponse.FileServerID.ToString()
+                                    DocumentAttachment = addFileResponse.FileServerID.ToString()
                                 },
                                 Parameters = new UpdateDocumentRequestParameters()
                                 {
-                                    RequestID = am.Data.RequestID ,
-                                    DocumentTypeID =  GetPardakhNovinDocTypeId(terminalDocument.DocumentTypeId)
+                                    RequestID = am.Data.RequestID,
+                                    DocumentTypeID = GetPardakhNovinDocTypeId(terminalDocument.DocumentTypeId)
                                 }
-                            },terminal.Id );
+                            }, terminal.Id);
 
                         }
                     }
                 }
-             
-      
-               
-                
-                var request = UpdateRequestByFollowUpCode( new UpdateRequestByFollowUpCodeRequest
+
+
+
+
+                var request = UpdateRequestByFollowUpCode(new UpdateRequestByFollowUpCodeRequest
                 {
 
                     // Childs =docs2.Data.Any( )?  new List<AddNewRequestRequestDataDocs>()
                     // {
                     //    docs2
                     // } : new List<AddNewRequestRequestDataDocs>(),
-                    Childs  = new List<UpdateRequestByFollowUpCodeRequestaChilds>()
+                    Childs = new List<UpdateRequestByFollowUpCodeRequestaChilds>()
                     {
                         new SubCustomerChild()
                         {
@@ -546,53 +546,53 @@ namespace TES.Merchant.Web.UI.Service
                                     BankID = 25,
                                     SharingPercent = 100,
                                     AccountShabaCode = terminal.ShebaNo
-                                    
-                                    
+
+
                                 }
                             }
                         }
                     },
-                    Parameters =  new UpdateRequestByFollowUpCodeRequestParameters
+                    Parameters = new UpdateRequestByFollowUpCodeRequestParameters
                     {
                         FollowupCode = terminal.FollowupCode,
                         BankFollowupCode = "51"
-                        
+
                     },
-                    Data = new  UpdateRequestByFollowUpCodeRequestData() 
+                    Data = new UpdateRequestByFollowUpCodeRequestData()
                     {
-                        
-                        
-                  //       PortType = "POS",
-                  //       PosType = getPosTyhpe(terminal.DeviceTypeId),
-                  //      
-                  //     BankFollowupCode = "51",
-                       AccountNumber = terminal.AccountNo,
-                  //  //     ActivityLicenseNumberReferenceName = "Test",
-                  //    //   ActivityLicenseNumber = "1234567",
-                  //     //  BusinessLicenseEndDate=
-                  //     BankID = 25,
-                  //     TrustKind = getTrustKind(terminal.BlockPrice),
-                  //     BranchCode = terminal.Branch.Id.ToString(),
-                    WorkTitle = terminal.Title,
-                    WorkTitleEng = terminal.EnglishTitle,
-                     ShaparakAddressText = terminal.Address,
-                  // //  RentEndingDate = DateTime.Now.AddYears(1).ToString("yyyy/MM/dd"),
-                   PostalCode = terminal.PostCode,
-                    PhoneNumber = terminal.Tel,
-                  //   Mobile = terminal.MerchantProfile.Mobile,
-                  //   MainCustomerID =  customer.Data.CustomerID,
-                   AccountShabaCode = terminal.ShebaNo,
-                   CityShaparakCode = terminal.City.Id.ToString(),
-                    GuildSupplementaryCode = terminal.GuildId.ToString(),
-                  //     OwneringTypeID = 1361,
-                  //     HowToAssignID ="4632",
-                  //    
-                  //     
-                  //     //TrustKind = "مسدودی حساب", //todo
-                  //     //TrustNumber = terminal.BlockDocumentNumber,//todo
-                  //   
-                  //     
-                   TaxPayerCode = terminal.TaxPayerCode, 
+
+
+                        //       PortType = "POS",
+                        //       PosType = getPosTyhpe(terminal.DeviceTypeId),
+                        //      
+                        //     BankFollowupCode = "51",
+                        AccountNumber = terminal.AccountNo,
+                        //  //     ActivityLicenseNumberReferenceName = "Test",
+                        //    //   ActivityLicenseNumber = "1234567",
+                        //     //  BusinessLicenseEndDate=
+                        //     BankID = 25,
+                        //     TrustKind = getTrustKind(terminal.BlockPrice),
+                        //     BranchCode = terminal.Branch.Id.ToString(),
+                        WorkTitle = terminal.Title,
+                        WorkTitleEng = terminal.EnglishTitle,
+                        ShaparakAddressText = terminal.Address,
+                        // //  RentEndingDate = DateTime.Now.AddYears(1).ToString("yyyy/MM/dd"),
+                        PostalCode = terminal.PostCode,
+                        PhoneNumber = terminal.Tel,
+                        //   Mobile = terminal.MerchantProfile.Mobile,
+                        //   MainCustomerID =  customer.Data.CustomerID,
+                        AccountShabaCode = terminal.ShebaNo,
+                        CityShaparakCode = terminal.City.Id.ToString(),
+                        GuildSupplementaryCode = terminal.GuildId.ToString(),
+                        //     OwneringTypeID = 1361,
+                        //     HowToAssignID ="4632",
+                        //    
+                        //     
+                        //     //TrustKind = "مسدودی حساب", //todo
+                        //     //TrustNumber = terminal.BlockDocumentNumber,//todo
+                        //   
+                        //     
+                        TaxPayerCode = terminal.TaxPayerCode,
                     }
                 }, terminal.Id);
 
@@ -600,7 +600,7 @@ namespace TES.Merchant.Web.UI.Service
                 {
                     //todo
                     terminal.StatusId = 3;
-                 //   terminal.FollowupCode = "";
+                    //   terminal.FollowupCode = "";
                     terminal.PardakhtEditNovinSaveId = request.SavedID;
                     dataContext.SaveChanges();
                     return request;
@@ -609,20 +609,20 @@ namespace TES.Merchant.Web.UI.Service
                 {
                     terminal.StatusId = 4;
                     terminal.ErrorComment = result.ErrorMessage;
-                  //  terminal.FollowupCode =  "";
+                    //  terminal.FollowupCode =  "";
                     terminal.PardakhtEditNovinSaveId = request.SavedID;
                     dataContext.SaveChanges();
                     return request;
                 }
             }
-            
-            
-            
-            return result; 
+
+
+
+            return result;
         }
-     //   UpdateRequestByFollowUpCode  توضیح داده شود
+        //   UpdateRequestByFollowUpCode  توضیح داده شود
         //2-18
-        public UpdateRequestByFollowUpCodeResponse UpdateRequestByFollowUpCode(UpdateRequestByFollowUpCodeRequest input,long? terminalId)
+        public UpdateRequestByFollowUpCodeResponse UpdateRequestByFollowUpCode(UpdateRequestByFollowUpCodeRequest input, long? terminalId)
         {
             UpdateRequestByFollowUpCodeResponse methodResponse;
             using (var httpClient = new HttpClient())
@@ -749,7 +749,7 @@ namespace TES.Merchant.Web.UI.Service
             datacontext.SaveChanges();
             return methodResponse;
         }
-         
+
         public string GetPosModelList(GetBankRequest input)
         {
             string methodResponse;
@@ -763,14 +763,14 @@ namespace TES.Merchant.Web.UI.Service
                     response.Result.EnsureSuccessStatusCode();
                     var apiResponse = response.Result.Content.ReadAsStringAsync().Result;
 
-                    methodResponse = apiResponse ;
+                    methodResponse = apiResponse;
                 }
             }
 
             var pardakhtNovinRequest = new PardakhtNovinRequest
             {
                 Input = JsonConvert.SerializeObject(input),
-                
+
                 Method = "GetPosModelList",
                 Module = "-",
                 TrackId = DateTime.Now.Ticks
@@ -792,7 +792,7 @@ namespace TES.Merchant.Web.UI.Service
                 {
                     response.Result.EnsureSuccessStatusCode();
                     var apiResponse = response.Result.Content.ReadAsStringAsync().Result;
-                    methodResponse =  (apiResponse);
+                    methodResponse = (apiResponse);
                 }
             }
             var pardakhtNovinRequest = new PardakhtNovinRequest
@@ -840,7 +840,7 @@ namespace TES.Merchant.Web.UI.Service
 
 
         //2-23
-        public AddAccountChangeResponse AddAccountChange(AddAccountChangeRequest input,long terminalId)
+        public AddAccountChangeResponse AddAccountChange(AddAccountChangeRequest input, long terminalId)
         {
             AddAccountChangeResponse methodResponse;
             using (var httpClient = new HttpClient())
@@ -861,7 +861,7 @@ namespace TES.Merchant.Web.UI.Service
             {
                 Input = JsonConvert.SerializeObject(input),
                 Method = "AddAccountChange",
-                Result =JsonConvert.SerializeObject(methodResponse ),
+                Result = JsonConvert.SerializeObject(methodResponse),
                 Module = "-",
                 TerminalId = terminalId,
                 TrackId = DateTime.Now.Ticks
@@ -873,7 +873,7 @@ namespace TES.Merchant.Web.UI.Service
         }
 
         //2-24
-        public GetAccountChangeDetailResponse GetAccountChangeDetail(GetAccountChangeDetailRequest input,long terminalId)
+        public GetAccountChangeDetailResponse GetAccountChangeDetail(GetAccountChangeDetailRequest input, long terminalId)
         {
             GetAccountChangeDetailResponse methodResponse;
             using (var httpClient = new HttpClient())
@@ -1002,7 +1002,7 @@ namespace TES.Merchant.Web.UI.Service
 
 
         //2-28
-        public GetInstallationRollbackResponse GetInstallationRollback(GetInstallationRollbackRequest input,long terminalId)
+        public GetInstallationRollbackResponse GetInstallationRollback(GetInstallationRollbackRequest input, long terminalId)
         {
             GetInstallationRollbackResponse methodResponse;
             using (var httpClient = new HttpClient())
@@ -1038,34 +1038,34 @@ namespace TES.Merchant.Web.UI.Service
         {
         }
 
-        
-        public AddNewRequestResponse AddAcceptor(long terminalId )
+
+        public AddNewRequestResponse AddAcceptor(long terminalId)
         {
 
             var result = new AddNewRequestResponse();
             AddNewCustomerRequestDocs docs = new AddNewCustomerRequestDocs();
- 
+
             using (var dataContext = new AppDataContext())
             {
-                var terminal = dataContext.Terminals.Include(a=>a.TerminalDocuments).Include(a=>a.MerchantProfile)
-                    .Include(a=>a.MerchantProfile.MerchantProfileDocuments).FirstOrDefault(a => a.Id == terminalId);
+                var terminal = dataContext.Terminals.Include(a => a.TerminalDocuments).Include(a => a.MerchantProfile)
+                    .Include(a => a.MerchantProfile.MerchantProfileDocuments).FirstOrDefault(a => a.Id == terminalId);
                 if (terminal.MerchantProfile.PardakhtNovinCustomerId == null)
                 {
-                 
+
                     docs.Data = new List<Document>();
-            
+
                     //1 add files =>
-                 
+
                     foreach (var VARIABLE in terminal.MerchantProfile.MerchantProfileDocuments)
                     {
-                         if (VARIABLE.DocumentTypeId == 13 ||
-                             VARIABLE.DocumentTypeId == 11  ||
-                         VARIABLE.DocumentTypeId == 14 )
-                         {
+                        if (VARIABLE.DocumentTypeId == 13 ||
+                            VARIABLE.DocumentTypeId == 11 ||
+                        VARIABLE.DocumentTypeId == 14)
+                        {
                             AddFileRequest addFileRequest = new AddFileRequest();
                             addFileRequest.FileName = VARIABLE.FileName;
                             addFileRequest.BinaryDataBase64 = Convert.ToBase64String(VARIABLE.FileData);
-                            var addFileResponse = AddFile(addFileRequest,terminal.Id);
+                            var addFileResponse = AddFile(addFileRequest, terminal.Id);
                             if (addFileResponse.Status == PardakthNovinStatus.Successed)
                             {
                                 docs.Data.Add(new Document()
@@ -1073,15 +1073,15 @@ namespace TES.Merchant.Web.UI.Service
                                     DocumentAttachment = addFileResponse.FileServerID.ToString(),
                                     DocumentTypeID = GetPardakhNovinDocTypeId(VARIABLE.DocumentTypeId),
                                     DocumentType = GetPardakhNovinDocType(VARIABLE.DocumentTypeId)
-            
+
                                 });
                             }
                         }
                     }
-            
-            
+
+
                     AddNewCustomerRequest addNewCustomerRequest = new AddNewCustomerRequest();
-            
+
                     addNewCustomerRequest.Data = new AddNewCustomerRequestData();
                     addNewCustomerRequest.Data.BCID = terminal.MerchantProfile.IdentityNumber.Trim();
                     addNewCustomerRequest.Data.BirthDate = terminal.MerchantProfile.Birthdate;
@@ -1107,15 +1107,15 @@ namespace TES.Merchant.Web.UI.Service
                     addNewCustomerRequest.Data.FirstNameEN = terminal.MerchantProfile.EnglishFirstName;
                     addNewCustomerRequest.Data.LastNameEN = terminal.MerchantProfile.EnglishLastName;
                     addNewCustomerRequest.Data.FatherNameEn = terminal.MerchantProfile.EnglishFatherName;
-                  
+
                     addNewCustomerRequest.Data.GenderID = terminal.MerchantProfile.IsMale ? 1330 : 1329;
                     // addNewCustomerRequest.CustomerDocument = addNewCustomerRequest.Childs;
                     addNewCustomerRequest.Childs = new List<AddNewCustomerRequestDocs>();
                     addNewCustomerRequest.Childs.Add(docs);
-                    var k = AddNewCustomer(addNewCustomerRequest,terminal.Id);
+                    var k = AddNewCustomer(addNewCustomerRequest, terminal.Id);
                     if (k.Status == PardakthNovinStatus.Successed)
                     {
-            
+
                         terminal.MerchantProfile.PardakhtNovinCustomerId = k.SavedID;
                         dataContext.SaveChanges();
                     }
@@ -1126,42 +1126,42 @@ namespace TES.Merchant.Web.UI.Service
                 {
                     Parameters = new GetCustomerByCodeRequestParameters()
                     {
-                        CustomerCode = terminal.MerchantProfile.IsLegalPersonality ?  terminal.MerchantProfile.LegalNationalCode
+                        CustomerCode = terminal.MerchantProfile.IsLegalPersonality ? terminal.MerchantProfile.LegalNationalCode
                             : terminal.MerchantProfile.NationalCode
                     }
 
                 });
-                var    docs2 = new AddNewRequestRequestDataDocs();
+                var docs2 = new AddNewRequestRequestDataDocs();
                 docs2.Data = new List<Document>();
                 foreach (var terminalDocument in terminal.TerminalDocuments)
                 {
-                    
-                        AddFileRequest addFileRequest = new AddFileRequest();
-                        addFileRequest.FileName = terminalDocument.FileName;
-                        addFileRequest.BinaryDataBase64 = Convert.ToBase64String(terminalDocument.FileData);
-                        var addFileResponse = AddFile(addFileRequest,terminal.Id);
-                        if (addFileResponse.Status == PardakthNovinStatus.Successed)
+
+                    AddFileRequest addFileRequest = new AddFileRequest();
+                    addFileRequest.FileName = terminalDocument.FileName;
+                    addFileRequest.BinaryDataBase64 = Convert.ToBase64String(terminalDocument.FileData);
+                    var addFileResponse = AddFile(addFileRequest, terminal.Id);
+                    if (addFileResponse.Status == PardakthNovinStatus.Successed)
+                    {
+                        docs2.Data.Add(new Document()
                         {
-                            docs2.Data.Add(new Document()
-                            {
-                                DocumentAttachment = addFileResponse.FileServerID.ToString(),
-                                DocumentTypeID = GetPardakhNovinDocTypeId(terminalDocument.DocumentTypeId),
-                                DocumentType = GetPardakhNovinDocType(terminalDocument.DocumentTypeId)
-                            });
-                        }
-                   
+                            DocumentAttachment = addFileResponse.FileServerID.ToString(),
+                            DocumentTypeID = GetPardakhNovinDocTypeId(terminalDocument.DocumentTypeId),
+                            DocumentType = GetPardakhNovinDocType(terminalDocument.DocumentTypeId)
+                        });
+                    }
+
                 }
 
                 foreach (var terminalDocument in terminal.MerchantProfile.MerchantProfileDocuments)
                 {
-                    if (  terminalDocument.DocumentTypeId != 1  && 
-                        terminalDocument.DocumentTypeId != 11 && terminalDocument.DocumentTypeId != 14   
+                    if (terminalDocument.DocumentTypeId != 1 &&
+                        terminalDocument.DocumentTypeId != 11 && terminalDocument.DocumentTypeId != 14
                        )
                     {
                         AddFileRequest addFileRequest = new AddFileRequest();
                         addFileRequest.FileName = terminalDocument.FileName;
                         addFileRequest.BinaryDataBase64 = Convert.ToBase64String(terminalDocument.FileData);
-                        var addFileResponse = AddFile(addFileRequest,terminal.Id);
+                        var addFileResponse = AddFile(addFileRequest, terminal.Id);
                         if (addFileResponse.Status == PardakthNovinStatus.Successed)
                         {
                             docs2.Data.Add(new Document()
@@ -1173,150 +1173,151 @@ namespace TES.Merchant.Web.UI.Service
                         }
                     }
                 }
-                if (docs2.Data != null &&  docs2.Data.Any())
+                if (docs2.Data != null && docs2.Data.Any())
                 {
-                     var request = AddNewRequest( new AddNewRequestRequestWithDocs
-                {
-            
-                    Childs =docs2.Data.Any( )?  new List<AddNewRequestRequestDataDocs>()
+                    var request = AddNewRequest(new AddNewRequestRequestWithDocs
+                    {
+
+                        Childs = docs2.Data.Any() ? new List<AddNewRequestRequestDataDocs>()
                     {
                        docs2
                     } : new List<AddNewRequestRequestDataDocs>(),
-                    
-                    
-                    Data = new AddNewRequestRequestData()
-                    {
-                        PortType = "POS",
-                        PosType =  getPosTyhpe(terminal.DeviceTypeId),
-                        TrustKind = getTrustKind(terminal.BlockPrice), 
-                        BankFollowupCode = "51",
-                        AccountNumber = terminal.AccountNo,
-                   //     ActivityLicenseNumberReferenceName = "Test",
-                     //   ActivityLicenseNumber = "1234567",
-                      //  BusinessLicenseEndDate=
-                      BankID = 25,
-                      BranchCode = terminal.Branch.Id.ToString(),
-                      WorkTitle = terminal.Title,
-                      WorkTitleEng = terminal.EnglishTitle,
-                      ShaparakAddressText = terminal.Address,
-                  //  RentEndingDate = DateTime.Now.AddYears(1).ToString("yyyy/MM/dd"),
-                    PostalCode = terminal.PostCode,
-                    PhoneNumber = terminal.Tel,
-                    Mobile = terminal.MerchantProfile.Mobile,
-                    MainCustomerID =  customer.Data.CustomerID,
-                    AccountShabaCode = terminal.ShebaNo,
-                    CityShaparakCode = terminal.City.Id.ToString(),
-                    GuildSupplementaryCode = terminal.GuildId.ToString(),
-                      OwneringTypeID = 1361,
-                      HowToAssignID ="4632",
-                     
-                      
-                      //TrustKind = "مسدودی حساب", //todo
-                      //TrustNumber = terminal.BlockDocumentNumber,//todo
-                    
-                      
-                      TaxPayerCode = terminal.TaxPayerCode, 
-                    }
-                },terminal.Id);
 
-                if (request.Status == PardakthNovinStatus.Successed)
-                {
-                    //todo
-                    terminal.StatusId = 3;
-                    terminal.FollowupCode = request.Data.FollowupCode;
-                    terminal.PardakhtNovinSaveId = request.SavedID;
-                    dataContext.SaveChanges();
-                    return request;
-                }
+
+                        Data = new AddNewRequestRequestData()
+                        {
+                            PortType = "POS",
+                            PosType = getPosTyhpe(terminal.DeviceTypeId),
+                            TrustKind = getTrustKind(terminal.BlockPrice),
+                            BankFollowupCode = "51",
+                            AccountNumber = terminal.AccountNo,
+                            //     ActivityLicenseNumberReferenceName = "Test",
+                            //   ActivityLicenseNumber = "1234567",
+                            //  BusinessLicenseEndDate=
+                            BankID = 25,
+                            BranchCode = terminal.Branch.Id.ToString(),
+                            WorkTitle = terminal.Title,
+                            WorkTitleEng = terminal.EnglishTitle,
+                            ShaparakAddressText = terminal.Address,
+                            //  RentEndingDate = DateTime.Now.AddYears(1).ToString("yyyy/MM/dd"),
+                            PostalCode = terminal.PostCode,
+                            PhoneNumber = terminal.Tel,
+                            Mobile = terminal.MerchantProfile.Mobile,
+                            MainCustomerID = customer.Data.CustomerID,
+                            AccountShabaCode = terminal.ShebaNo,
+                            CityShaparakCode = terminal.City.Id.ToString(),
+                            GuildSupplementaryCode = terminal.GuildId.ToString(),
+                            OwneringTypeID = 1361,
+                            HowToAssignID = "4632",
+
+
+                            //TrustKind = "مسدودی حساب", //todo
+                            //TrustNumber = terminal.BlockDocumentNumber,//todo
+
+
+                            TaxPayerCode = terminal.TaxPayerCode,
+                        }
+                    }, terminal.Id);
+
+                    if (request.Status == PardakthNovinStatus.Successed)
+                    {
+                        //todo
+                        terminal.StatusId = 3;
+                        terminal.FollowupCode = request.Data.FollowupCode;
+                        terminal.PardakhtNovinSaveId = request.SavedID;
+                        dataContext.SaveChanges();
+                        return request;
+                    }
+                  
                 }
                 else
                 {
-                     var request = AddNewRequest( new AddNewRequestRequest
-                {
-            
-                    // Childs =docs2.Data.Any( )?  new List<AddNewRequestRequestDataDocs>()
-                    // {
-                    //    docs2
-                    // } : new List<AddNewRequestRequestDataDocs>(),
-                    
-                    
-                    Data = new AddNewRequestRequestData()
+                    var request = AddNewRequest(new AddNewRequestRequest
                     {
-                        PortType = "POS",
-                        PosType = getPosTyhpe(terminal.DeviceTypeId),
-                       
-                      BankFollowupCode = "51",
-                        AccountNumber = terminal.AccountNo,
-                   //     ActivityLicenseNumberReferenceName = "Test",
-                     //   ActivityLicenseNumber = "1234567",
-                      //  BusinessLicenseEndDate=
-                      BankID = 25,
-                      TrustKind = getTrustKind(terminal.BlockPrice),
-                      BranchCode = terminal.Branch.Id.ToString(),
-                      WorkTitle = terminal.Title,
-                      WorkTitleEng = terminal.EnglishTitle,
-                      ShaparakAddressText = terminal.Address,
-                  //  RentEndingDate = DateTime.Now.AddYears(1).ToString("yyyy/MM/dd"),
-                    PostalCode = terminal.PostCode,
-                    PhoneNumber = terminal.Tel,
-                    Mobile = terminal.MerchantProfile.Mobile,
-                    MainCustomerID =  customer.Data.CustomerID,
-                    AccountShabaCode = terminal.ShebaNo,
-                    CityShaparakCode = terminal.City.Id.ToString(),
-                    GuildSupplementaryCode = terminal.GuildId.ToString(),
-                      OwneringTypeID = 1361,
-                      HowToAssignID ="4632",
-                     
-                      
-                      //TrustKind = "مسدودی حساب", //todo
-                      //TrustNumber = terminal.BlockDocumentNumber,//todo
-                    
-                      
-                      TaxPayerCode = terminal.TaxPayerCode, 
-                    }
-                },terminal.Id);
 
-                if (request.Status == PardakthNovinStatus.Successed)
-                {
-                    //todo
-                    terminal.StatusId = 3;
-                    terminal.FollowupCode = request.Data.FollowupCode;
-                    terminal.PardakhtNovinSaveId = request.SavedID;
-                    dataContext.SaveChanges();
-                    return request;
+                        // Childs =docs2.Data.Any( )?  new List<AddNewRequestRequestDataDocs>()
+                        // {
+                        //    docs2
+                        // } : new List<AddNewRequestRequestDataDocs>(),
+
+
+                        Data = new AddNewRequestRequestData()
+                        {
+                            PortType = "POS",
+                            PosType = getPosTyhpe(terminal.DeviceTypeId),
+
+                            BankFollowupCode = "51",
+                            AccountNumber = terminal.AccountNo,
+                            //     ActivityLicenseNumberReferenceName = "Test",
+                            //   ActivityLicenseNumber = "1234567",
+                            //  BusinessLicenseEndDate=
+                            BankID = 25,
+                            TrustKind = getTrustKind(terminal.BlockPrice),
+                            BranchCode = terminal.Branch.Id.ToString(),
+                            WorkTitle = terminal.Title,
+                            WorkTitleEng = terminal.EnglishTitle,
+                            ShaparakAddressText = terminal.Address,
+                            //  RentEndingDate = DateTime.Now.AddYears(1).ToString("yyyy/MM/dd"),
+                            PostalCode = terminal.PostCode,
+                            PhoneNumber = terminal.Tel,
+                            Mobile = terminal.MerchantProfile.Mobile,
+                            MainCustomerID = customer.Data.CustomerID,
+                            AccountShabaCode = terminal.ShebaNo,
+                            CityShaparakCode = terminal.City.Id.ToString(),
+                            GuildSupplementaryCode = terminal.GuildId.ToString(),
+                            OwneringTypeID = 1361,
+                            HowToAssignID = "4632",
+
+
+                            //TrustKind = "مسدودی حساب", //todo
+                            //TrustNumber = terminal.BlockDocumentNumber,//todo
+
+
+                            TaxPayerCode = terminal.TaxPayerCode,
+                        }
+                    }, terminal.Id);
+
+                    if (request.Status == PardakthNovinStatus.Successed)
+                    {
+                        //todo
+                        terminal.StatusId = 3;
+                        terminal.FollowupCode = request.Data.FollowupCode;
+                        terminal.PardakhtNovinSaveId = request.SavedID;
+                        dataContext.SaveChanges();
+                        return request;
+                    }
+                    else
+                    {
+                        terminal.StatusId = 4;
+                        terminal.ErrorComment = result.ErrorMessage;
+                        terminal.FollowupCode = request.Data.FollowupCode;
+                        terminal.PardakhtNovinSaveId = request.SavedID;
+                        dataContext.SaveChanges();
+                        return request;
+                    }
                 }
-                else
-                {
-                    terminal.StatusId = 4;
-                    terminal.ErrorComment = result.ErrorMessage;
-                    terminal.FollowupCode = request.Data.FollowupCode;
-                    terminal.PardakhtNovinSaveId = request.SavedID;
-                    dataContext.SaveChanges();
-                    return request;
-                }
-                }
-               
+
             }
-            
-            
+
+
             return result;
         }
 
         private string getTrustKind(int? blockprice)
         {
-            if(blockprice.HasValue && blockprice.Value != 0)
+            if (blockprice.HasValue && blockprice.Value != 0)
                 return "مسدودی حساب";
-            return   "بدون ودیعه";
+            return "بدون ودیعه";
         }
 
         private string getPosTyhpe(long deviceTypeId)
         {
             switch (deviceTypeId)
             {
-            case 3 :
-                return "GPRS";
-            case 1 : 
-                return "HDLC/LAN";
+                case 3:
+                    return "GPRS";
+                case 1:
+                    return "HDLC/LAN";
             }
             return "HDLC/LAN";
         }
@@ -1405,18 +1406,18 @@ namespace TES.Merchant.Web.UI.Service
             var datacontext = new AppDataContext();
             var terminal = datacontext.Terminals.FirstOrDefault(a => a.Id == terminalId);
             var request = datacontext.ChangeAccountRequests.FirstOrDefault(a => a.Id == changeAccountRequestId);
-           
-            
+
+
             //1 ==> upload file
             var letterImageSaveId = "";
             var secondLetterImageId = "";
 
-            
-              
+
+
             AddFileRequest addFileRequest = new AddFileRequest();
-            addFileRequest.FileName ="request.pdf";
+            addFileRequest.FileName = "request.pdf";
             addFileRequest.BinaryDataBase64 = Convert.ToBase64String(request.FileData);
-            var addFileResponse = AddFile(addFileRequest,terminal.Id);
+            var addFileResponse = AddFile(addFileRequest, terminal.Id);
             if (addFileResponse.Status == PardakthNovinStatus.Successed)
             {
                 letterImageSaveId = addFileResponse.FileServerID.ToString();
@@ -1424,33 +1425,33 @@ namespace TES.Merchant.Web.UI.Service
 
 
             addFileRequest = new AddFileRequest();
-            addFileRequest.FileName="request.pdf";
+            addFileRequest.FileName = "request.pdf";
             addFileRequest.BinaryDataBase64 = Convert.ToBase64String(request.FileData);
-              addFileResponse = AddFile(addFileRequest,terminal.Id);
-              if (addFileResponse.Status == PardakthNovinStatus.Successed)
-              {
-                  secondLetterImageId = addFileResponse.FileServerID.ToString();
-              }
+            addFileResponse = AddFile(addFileRequest, terminal.Id);
+            if (addFileResponse.Status == PardakthNovinStatus.Successed)
+            {
+                secondLetterImageId = addFileResponse.FileServerID.ToString();
+            }
 
-              
-              
+
+
             if (string.IsNullOrEmpty(letterImageSaveId) ||
                 string.IsNullOrEmpty(secondLetterImageId))
             {
-                request.StatusId =  7;
+                request.StatusId = 7;
                 datacontext.SaveChanges();
                 throw new Exception("بروز خطا در بارگذاری مدارک");
             }
-            
+
             //2=> call changeaccount
-            var addAccountChangeresposne =  AddAccountChange(new AddAccountChangeRequest()
+            var addAccountChangeresposne = AddAccountChange(new AddAccountChangeRequest()
             {
                 Data = new AddAccountChangeRequestData()
                 {
                     Request = terminal.FollowupCode,
                     BankFollowUpCode = "51",
-                    TerminalID  = terminal.TerminalNo,
-                    NewBankID  = 25,
+                    TerminalID = terminal.TerminalNo,
+                    NewBankID = 25,
                     NewBranchCode = request.AccountNo.Split('-')[0],
                     NewAccountNumber = request.AccountNo,
                     NewShabaCode = request.ShebaNo,
@@ -1458,22 +1459,22 @@ namespace TES.Merchant.Web.UI.Service
                     SecondLetterImage = secondLetterImageId,
                     AddAccountNumber = false,
                     IsMultiAccount = false,
-                    
 
 
-                } 
+
+                }
             }, terminal.Id);
             if (addAccountChangeresposne.Status == PardakthNovinStatus.Successed &&
                 addAccountChangeresposne.SavedID != 0)
             {
                 request.PardakhtNovinTrackId = addAccountChangeresposne.SavedID.ToString();
-                request.StatusId =  2;     
+                request.StatusId = 2;
                 datacontext.SaveChanges();
 
             }
             else
             {
-                request.StatusId =  7;
+                request.StatusId = 7;
                 datacontext.SaveChanges();
             }
             return null;
@@ -1483,53 +1484,53 @@ namespace TES.Merchant.Web.UI.Service
         {
             switch (id)
             {
-                case 1 :
+                case 1:
                     return 4391;
-                case 2 :
+                case 2:
                     return 1375;
-                case 3 :
+                case 3:
                     return 1374;
-                case 4 : return 1375;
-                case 5 : return 1375 ;
-                case 6 : return 2388  ;
-                case 7 : return 4391  ;
-                case 8 : return 1375  ;
-                case 19 : return 1374   ;
+                case 4: return 1375;
+                case 5: return 1375;
+                case 6: return 2388;
+                case 7: return 4391;
+                case 8: return 1375;
+                case 19: return 1374;
                 case 32:
-                case 31 : return 1375    ;
-                case 33 : return 1374    ;
-                case 34 : return 1374    ;
-                case 35 : return 2388     ;
+                case 31: return 1375;
+                case 33: return 1374;
+                case 34: return 1374;
+                case 35: return 2388;
             }
 
             return 4391;
         }
         public async Task<AddInstallationRollbackResponse> SendRevokeRequest(long revokeRequestId, string terminalNo,
             string FollowupCode,
-            string reasonTitle, byte id,long? terminalId)
+            string reasonTitle, byte id, long? terminalId)
         {
             var rollBakReason = getRollBakReason(id);
             var k = AddInstallationRollback(new AddInstallationRollbackRequest()
             {
                 Data = new AddInstallationRollbackRequestData()
                 {
-                    BankFollowUpCode  = "51",
+                    BankFollowUpCode = "51",
                     TerminalID = terminalNo,
                     Request = FollowupCode,
                     RollbackReasonID = rollBakReason//todo
                 }
-            },terminalId.Value);
+            }, terminalId.Value);
             return k;
         }
 
-        
+
 
         public void AddAcceptorList(List<long> toList)
         {
             throw new NotImplementedException();
         }
 
-        public GetRequestDetailByFollowupCodeResponse Inquery(string  FollowupCode, long terminalId)
+        public GetRequestDetailByFollowupCodeResponse Inquery(string FollowupCode, long terminalId)
         {
             //todo
             var q = GetRequestDetailByFollowupCode(new GetRequestDetailByFollowupCodeRequest()
@@ -1539,7 +1540,7 @@ namespace TES.Merchant.Web.UI.Service
                     FollowupCode = FollowupCode,
                     BankFollowupCode = "51"
                 }
-            },terminalId);
+            }, terminalId);
 
             return q;
             // if (PardakhtNovinSaveId != null)
@@ -1577,28 +1578,28 @@ namespace TES.Merchant.Web.UI.Service
             // return null;
             //GetRequestDetailByFollowupCode
         }
-        public   GetAccountChangeDetailResponse  ChangeAccountInquery(long id, string pardakhtNovinTrackId)
+        public GetAccountChangeDetailResponse ChangeAccountInquery(long id, string pardakhtNovinTrackId)
         {
             var t = GetAccountChangeDetail(new GetAccountChangeDetailRequest()
             {
-              
+
                 Parameters = new GetAccountChangeDetailRequestParameters()
                 {
                     AccountChangeID = pardakhtNovinTrackId
                 }
-            },id);
+            }, id);
             return t;
         }
-        
-        public GetInstallationRollbackResponse  RevokRequestInquery(string terminalNo, long id, byte statusId ,int? savedId)
+
+        public GetInstallationRollbackResponse RevokRequestInquery(string terminalNo, long id, byte statusId, int? savedId)
         {
             var k = GetInstallationRollback(new GetInstallationRollbackRequest()
             {
                 Parameters = new GetInstallationRollbackRequestParameters()
-                { 
+                {
                     InstallationRollbackID = savedId.Value.ToString()
                 }
-            },id);
+            }, id);
             return k;
         }
     }

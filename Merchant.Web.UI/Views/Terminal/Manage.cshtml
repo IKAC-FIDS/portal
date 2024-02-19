@@ -892,8 +892,8 @@
                         '<td><span data-toggle="tooltip" title="تعداد: ' + convertToPersianNumbersThreeDigitsSeparated(item.transactionCount) + '">' +  convertToPersianNumbersThreeDigitsSeparated(item.transactionValue) + '</span></td>' +
                                  '<td>' +   convertToPersianNumbersThreeDigitsSeparated(item.transactionCount) + '</td>' +
 
-                        //'<td>' +( item.isGood == null ? "-" : ( item.isGood ? "سودده" : "زیان ده")) + '</td>' +
-                        '<td>-</td>' +
+                       '<td>' +( item.isGood == null ? "-" : ( item.isGood ? "سودده" : "زیان ده")) + '</td>' +
+                      //  '<td>-</td>' +
                              '<td  style="direction:ltr;color: ' +   (item.isGoodValue > 0 ?'green"': 'red"') + '>' + convertToPersianNumbersThreeDigitsSeparated (item.isGoodValue )+ '</td>' +
                                              
                           '<td>' + item.installDelayDays + '</td>' +
@@ -948,8 +948,8 @@ function showStatusRequestButton( terminalId,topiarId, pspId,statusId)
 {
       
     if(@JsonNet.Encode(User.IsAcceptorsExpertUser() || User.IsAdmin() || User.IsBranchUser() || User.IsItUser() )   )
-        {
-              if ((pspId == 3 || pspId == 2) && ( statusId != 9 && statusId != 16))
+    {
+        if ((pspId == 3 || pspId == 2) && ( statusId != 9 && statusId != 16))
                     {
                         if ( topiarId !== null)
                             {
@@ -965,14 +965,15 @@ function showStatusRequestButton( terminalId,topiarId, pspId,statusId)
                                       ' data-loading-text="..." title="استعلام وضعیت" ' +
             
                                        'style="background-color:dodgerblue" class="btn btn-success btn-xs btn-getRequestStatus"><i class="fa fa-info-circle"></i></button> &nbsp;';
-            
+            //abbasi test
                                 
                                 }
                         else return  ''
                         
                         }
                 
-                 if (pspId == 2 && pspId == 5 && (statusId == 4 || statusId == 3))
+                 //if (pspId == 2 && pspId == 5 && (statusId == 4 || statusId == 3))
+        if (pspId!=null)
                         {
                              
                         

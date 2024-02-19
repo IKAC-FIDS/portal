@@ -3058,25 +3058,25 @@ namespace TES.Merchant.Web.UI.Controllers
             CancellationToken cancellationToken)
         {
             var viewModel = new TerminalDetailsViewModel();
-
-            if (PspId == 2) // irankish
+            switch (PspId)
             {
-                using (var irankishService = new NewIranKishService())
-                {
-                    var terminalInfo = _dataContext.Terminals.FirstOrDefault(a => a.Id == TerminalId);
+                case 2:
+                    using (var irankishService = new NewIranKishService())
+                    {
+                        var terminalInfo = _dataContext.Terminals.FirstOrDefault(a => a.Id == TerminalId);
 
-                    try
-                    {                        
-                        var result = irankishService.Inquery(terminalInfo.Id.ToString());
+                        try
+                        {
+                            var result = irankishService.Inquery(terminalInfo.Id.ToString());
 
-                              if (result.status && result.data.status ==   7)
+                            if (result.status && result.data.status == 7)
                             {
                                 await _dataContext.Terminals.Where(x => x.Id == terminalInfo.Id)
                                     .UpdateAsync(x => new Terminal
                                     {
                                         ErrorComment = result.data.documnentStatus + " " + result.data.description,
                                         StatusId = Enums.TerminalStatus.NeedToReform.ToByte()
-                                    });  
+                                    });
                             }
                             else if (result.status && result.data != null && result.data.status == 2)
                             {
@@ -3138,8 +3138,8 @@ namespace TES.Merchant.Web.UI.Controllers
                                         TerminalNo = result.data.terminal.FirstOrDefault().termianlNo,
                                         MerchantNo = result.data.accountNo,
                                     });
-                                
-                             
+
+
                             }
                             else if (result.data.status == 4)
                             {
@@ -3150,8 +3150,8 @@ namespace TES.Merchant.Web.UI.Controllers
                                         MerchantNo = result.data.accountNo,
                                         StatusId = Enums.TerminalStatus.SendToShaparak.ToByte()
                                     });
-                                
-                              
+
+
                             }
                             else if (result.data.status == 3 || result.data.status == 5)
                             {
@@ -3159,7 +3159,7 @@ namespace TES.Merchant.Web.UI.Controllers
                                 var errorComment = result.data.status == 3
                                     ? "عدم تایید تعریف پذیرنده در شاپرک"
                                     : "رد درخواست در کارت اعتباری ایران کیش";
-                            
+
                                 if (!string.IsNullOrEmpty(result.data.description))
                                 {
                                     errorComment = errorComment + " " + result.data.description;
@@ -3184,7 +3184,7 @@ namespace TES.Merchant.Web.UI.Controllers
                                         StatusId = Enums.TerminalStatus.NeedToReform.ToByte(),
                                         ErrorComment = errorComment
                                     });
-                            }                      
+                            }
                             else if (result.data.status == 6)
                             {
                                 await _dataContext.Terminals.Where(x => x.Id == terminalInfo.Id)
@@ -3195,59 +3195,291 @@ namespace TES.Merchant.Web.UI.Controllers
                                     });
                             }
 
-                  //      viewModel.StateTitle = result.قثس.documnentStatus + " " + result.data.accountStatusDescription ;
+                            //      viewModel.StateTitle = result.قثس.documnentStatus + " " + result.data.accountStatusDescription ;
 
-                  viewModel.StateTitle = result.data.status + " " + result.data.description;
-                        return PartialView("_TerminalStatus", viewModel);
-                    }
-                    catch (Exception exception)
-                    {
-                        viewModel.ErrorComment = exception.Message;
-                        return PartialView("_TerminalStatus", viewModel);
-                        exception.AddLogData("TerminalId", terminalInfo.Id).LogNoContext();
-                    }
-                }
-            }
-            else // parsian
-            {
-                using (var parsianService = new ParsianService())
-                {
-                    if (topiarId != 0)
-                    {
-                        var res = parsianService
-                            .UpdateStatusForRequestedTerminal(topiarId.ToString(), (int)TerminalId)
-                            .Result;
-                        viewModel.StateTitle = res.StatusTitle;
-                        viewModel.ErrorComment = res.Error;
-                        viewModel.StepCodeTitle = res.StepCodeTitle;
-                        viewModel.InstallStatus = res.InstallStatus;
-
-                        var ter = _dataContext.Terminals.FirstOrDefault(b => b.Id == TerminalId);
-                        ter.StatusId = res.StatusId;
-                        ter.ErrorComment = res.Error;
-                        ter.InstallStatus = viewModel.InstallStatus;
-                        ter.InstallStatusId = viewModel.InstallStatusId;
-                        if (res.StepCode == 7 && res.InstallStatusId == 2)
-                        {
-                            ter.TerminalNo = res.TerminalNo;
+                            viewModel.StateTitle = result.data.status + " " + result.data.description;
+                            return PartialView("_TerminalStatus", viewModel);
                         }
-
-                        _dataContext.SaveChanges();
-                        return PartialView("_TerminalStatus", viewModel);
+                        catch (Exception exception)
+                        {
+                            viewModel.ErrorComment = exception.Message;
+                            exception.AddLogData("TerminalId", terminalInfo.Id).LogNoContext();
+                            return PartialView("_TerminalStatus", viewModel);
+                          
+                        }
                     }
-                    else
+                  
+                case 4:
+                    using (var PNService = new PardakhtNovinService())
                     {
-                        var terminalNo = _dataContext.Terminals.FirstOrDefault(b => b.Id == TerminalId).TerminalNo;
-                        var res = parsianService
-                                .UpdateStatusForRegisteredTerminal(terminalNo, (int)TerminalId)
-                            ;
-                        viewModel.StateTitle = res.Status;
-                        viewModel.ErrorComment = res.Error;
+                        //BankFollowupCode و FollowupCode  باید از جایی استعلام  گردد.منتظر آقای قربانعلی
+                        
+                        GetRequestDetailByFollowupCodeRequest getRequestDetailByFollowupCodeRequest = new GetRequestDetailByFollowupCodeRequest();
+                            getRequestDetailByFollowupCodeRequest.Parameters=new GetRequestDetailByFollowupCodetParameters()
+                            {
+                                BankFollowupCode = "51",
+                                FollowupCode = TerminalId.ToString()
+                            };
 
-                        return PartialView("_TerminalStatus", viewModel);
+                            var res = PNService.GetRequestDetailByFollowupCode(getRequestDetailByFollowupCodeRequest, TerminalId).Data;
+                             
+                            //viewModel.StateTitle = res.;
+                            //viewModel.ErrorComment = res.Error;
+                            //viewModel.StepCodeTitle = res.StepCodeTitle;
+                            //viewModel.InstallStatus = res.InstallStatus;
+
+                            //var ter = _dataContext.Terminals.FirstOrDefault(b => b.Id == TerminalId);
+                            //ter.StatusId = res.StatusId;
+                            //ter.ErrorComment = res.Error;
+                            //ter.InstallStatus = viewModel.InstallStatus;
+                            //ter.InstallStatusId = viewModel.InstallStatusId;
+                            //if (res.StepCode == 7 && res.InstallStatusId == 2)
+                            //{
+                            //    ter.TerminalNo = res.TerminalNo;
+                            //}
+
+                            _dataContext.SaveChanges();
+                            return PartialView("_TerminalStatus", viewModel);
+                   
                     }
-                }
+                  
+                default:
+                    using (var parsianService = new ParsianService())
+                    {
+                        if (topiarId != 0)
+                        {
+                            var res = parsianService
+                                .UpdateStatusForRequestedTerminal(topiarId.ToString(), (int)TerminalId)
+                                .Result;
+                            viewModel.StateTitle = res.StatusTitle;
+                            viewModel.ErrorComment = res.Error;
+                            viewModel.StepCodeTitle = res.StepCodeTitle;
+                            viewModel.InstallStatus = res.InstallStatus;
+
+                            var ter = _dataContext.Terminals.FirstOrDefault(b => b.Id == TerminalId);
+                            ter.StatusId = res.StatusId;
+                            ter.ErrorComment = res.Error;
+                            ter.InstallStatus = viewModel.InstallStatus;
+                            ter.InstallStatusId = viewModel.InstallStatusId;
+                            if (res.StepCode == 7 && res.InstallStatusId == 2)
+                            {
+                                ter.TerminalNo = res.TerminalNo;
+                            }
+
+                            _dataContext.SaveChanges();
+                            return PartialView("_TerminalStatus", viewModel);
+                        }
+                        else
+                        {
+                            var terminalNo = _dataContext.Terminals.FirstOrDefault(b => b.Id == TerminalId).TerminalNo;
+
+
+
+                            var res = parsianService
+                                    .UpdateStatusForRegisteredTerminal(terminalNo, (int)TerminalId)
+                                ;
+                            viewModel.StateTitle = res.Status;
+                            viewModel.ErrorComment = res.Error;
+
+                            return PartialView("_TerminalStatus", viewModel);
+                        }
+                    }
+                  
             }
+
+            //if (PspId == 2) // irankish
+            //{
+            //    using (var irankishService = new NewIranKishService())
+            //    {
+            //        var terminalInfo = _dataContext.Terminals.FirstOrDefault(a => a.Id == TerminalId);
+
+            //        try
+            //        {                        
+            //            var result = irankishService.Inquery(terminalInfo.Id.ToString());
+
+            //                  if (result.status && result.data.status ==   7)
+            //                {
+            //                    await _dataContext.Terminals.Where(x => x.Id == terminalInfo.Id)
+            //                        .UpdateAsync(x => new Terminal
+            //                        {
+            //                            ErrorComment = result.data.documnentStatus + " " + result.data.description,
+            //                            StatusId = Enums.TerminalStatus.NeedToReform.ToByte()
+            //                        });  
+            //                }
+            //                else if (result.status && result.data != null && result.data.status == 2)
+            //                {
+            //                    // var status = Enums.TerminalStatus.ReadyForAllocation;
+            //                    // if (!result.data.terminal.FirstOrDefault().mountDate.HasValue && result.MountDate.HasValue)
+            //                    // {
+            //                    //     status = Enums.TerminalStatus.Installed;
+            //                    // }
+            //                    //
+            //                    // if (terminalInfo.RevokeDate.HasValue)
+            //                    // {
+            //                    //     status = Enums.TerminalStatus.Revoked;
+            //                    // }
+            //                    //
+            //                    // await dataContext.Terminals.Where(x => x.Id == terminalInfo.Id)
+            //                    //     .UpdateAsync(x => new Terminal
+            //                    //     {
+            //                    //         StatusId = status.ToByte(),
+            //                    //         TerminalNo = result.Terminal,
+            //                    //         MerchantNo = result.Acceptor,
+            //                    //         RevokeDate = result.DisMountDate,
+            //                    //         InstallationDate = result.MountDate,
+            //                    //         
+            //                    //     });
+            //                    // //todo ==> send files =====>
+            //                    //
+            //                    //
+            //                    //
+            //                    //
+            //                    // //todo ==> send files ======>
+            //                    // AddTerminalToMongo.Add(new TerminalMongo()
+            //                    // {
+            //                    //     TerminalNo =  result.Terminal,PhoneNumber = terminalInfo.Mobile,
+            //                    //     Address = terminalInfo.Address,
+            //                    //     Description = terminalInfo.Description,  
+            //                    //     Id = terminalInfo.Id,
+            //                    //     Tel = terminalInfo.Tel,
+            //                    //     Title = terminalInfo.Title,
+            //                    //     AccountNo = terminalInfo.AccountNo,
+            //                    //     BatchDate = terminalInfo.BatchDate.HasValue ? terminalInfo.BatchDate.ToString() : "",
+            //                    //     BlockPrice = terminalInfo.BlockPrice,
+            //                    //     BranchId = terminalInfo.BranchId,
+            //                    //     CityId = terminalInfo.CityId,
+            //                    //     ContractDate = terminalInfo.ContractDate.HasValue ? terminalInfo.ContractDate.ToString() : "",
+            //                    //     ContractNo = terminalInfo.ContractNo,
+            //                    //    GuildId = terminalInfo.GuildId,
+            //                    //    MarketerId = terminalInfo.MarketerId,
+            //                    //    PspId = terminalInfo.PspId,
+            //                    //    DeviceTypeId = terminalInfo.DeviceTypeId,
+            //                    //   
+            //                    //     
+            //                    // });
+            //                }
+            //                else if (result.data.status == 1)
+            //                {
+            //                    await _dataContext.Terminals.Where(x => x.Id == terminalInfo.Id)
+            //                        .UpdateAsync(x => new Terminal
+            //                        {
+            //                            TerminalNo = result.data.terminal.FirstOrDefault().termianlNo,
+            //                            MerchantNo = result.data.accountNo,
+            //                        });
+                                
+                             
+            //                }
+            //                else if (result.data.status == 4)
+            //                {
+            //                    await _dataContext.Terminals.Where(x => x.Id == terminalInfo.Id)
+            //                        .UpdateAsync(x => new Terminal
+            //                        {
+            //                            TerminalNo = result.data.terminal.FirstOrDefault().termianlNo,
+            //                            MerchantNo = result.data.accountNo,
+            //                            StatusId = Enums.TerminalStatus.SendToShaparak.ToByte()
+            //                        });
+                                
+                              
+            //                }
+            //                else if (result.data.status == 3 || result.data.status == 5)
+            //                {
+            //                    ///// OK ===============================================================
+            //                    var errorComment = result.data.status == 3
+            //                        ? "عدم تایید تعریف پذیرنده در شاپرک"
+            //                        : "رد درخواست در کارت اعتباری ایران کیش";
+                            
+            //                    if (!string.IsNullOrEmpty(result.data.description))
+            //                    {
+            //                        errorComment = errorComment + " " + result.data.description;
+            //                    }
+            //                    await _dataContext.Terminals.Where(x => x.Id == terminalInfo.Id)
+            //                        .UpdateAsync(x => new Terminal
+            //                        {
+            //                            StatusId = Enums.TerminalStatus.NeedToReform.ToByte(),
+            //                            ErrorComment = errorComment
+            //                        });
+            //                }
+            //                else if (result.data.status == -1)
+            //                {
+            //                    var errorComment = result.data.description;
+            //                    if (!string.IsNullOrEmpty(result.data.description))
+            //                    {
+            //                        errorComment = errorComment + " " + result.data.description;
+            //                    }
+            //                    await _dataContext.Terminals.Where(x => x.Id == terminalInfo.Id)
+            //                        .UpdateAsync(x => new Terminal
+            //                        {
+            //                            StatusId = Enums.TerminalStatus.NeedToReform.ToByte(),
+            //                            ErrorComment = errorComment
+            //                        });
+            //                }                      
+            //                else if (result.data.status == 6)
+            //                {
+            //                    await _dataContext.Terminals.Where(x => x.Id == terminalInfo.Id)
+            //                        .UpdateAsync(x => new Terminal
+            //                        {
+            //                            StatusId = Enums.TerminalStatus.NotReturnedFromSwitch.ToByte(),
+            //                            ErrorComment = ""
+            //                        });
+            //                }
+
+            //      //      viewModel.StateTitle = result.قثس.documnentStatus + " " + result.data.accountStatusDescription ;
+
+            //      viewModel.StateTitle = result.data.status + " " + result.data.description;
+            //            return PartialView("_TerminalStatus", viewModel);
+            //        }
+            //        catch (Exception exception)
+            //        {
+            //            viewModel.ErrorComment = exception.Message;
+            //            return PartialView("_TerminalStatus", viewModel);
+            //            exception.AddLogData("TerminalId", terminalInfo.Id).LogNoContext();
+            //        }
+            //    }
+            //}
+
+            //else // parsian
+            //{
+            //    using (var parsianService = new ParsianService())
+            //    {
+            //        if (topiarId != 0)
+            //        {
+            //            var res = parsianService
+            //                .UpdateStatusForRequestedTerminal(topiarId.ToString(), (int)TerminalId)
+            //                .Result;
+            //            viewModel.StateTitle = res.StatusTitle;
+            //            viewModel.ErrorComment = res.Error;
+            //            viewModel.StepCodeTitle = res.StepCodeTitle;
+            //            viewModel.InstallStatus = res.InstallStatus;
+
+            //            var ter = _dataContext.Terminals.FirstOrDefault(b => b.Id == TerminalId);
+            //            ter.StatusId = res.StatusId;
+            //            ter.ErrorComment = res.Error;
+            //            ter.InstallStatus = viewModel.InstallStatus;
+            //            ter.InstallStatusId = viewModel.InstallStatusId;
+            //            if (res.StepCode == 7 && res.InstallStatusId == 2)
+            //            {
+            //                ter.TerminalNo = res.TerminalNo;
+            //            }
+
+            //            _dataContext.SaveChanges();
+            //            return PartialView("_TerminalStatus", viewModel);
+            //        }
+            //        else
+            //        {
+            //            var terminalNo = _dataContext.Terminals.FirstOrDefault(b => b.Id == TerminalId).TerminalNo;
+
+                      
+
+            //            var res = parsianService
+            //                    .UpdateStatusForRegisteredTerminal(terminalNo, (int)TerminalId)
+            //                ;
+            //            viewModel.StateTitle = res.Status;
+            //            viewModel.ErrorComment = res.Error;
+
+            //            return PartialView("_TerminalStatus", viewModel);
+            //        }
+            //    }
+            //}
         }
 
         [HttpGet]

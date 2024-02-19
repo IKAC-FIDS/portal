@@ -289,6 +289,20 @@
                                                 <a href="http://newportal.tes.ir/#/branchRead"> نتیجه نظر سنجی    </a>
                                             </li>
                                         }
+
+                                        @if (User.IsAdmin())
+                                        {
+                                            <li>
+
+                                                <a href="@Url.Action("ReportShebaAccount", "Report")"> گزارش حساب و شبا      </a>
+                                            </li>
+                                        }
+                                        @if (User.IsAdmin())
+                                        {                                           
+                                            <li>
+                                                  <a href = "@Url.Action("ComplementaryReport", "Report")" > گزارش جامع   </a>
+                                            </li>
+                                        }
                                     </ul>
                                 </li>
                         }
