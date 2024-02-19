@@ -1396,6 +1396,7 @@
     <Folder Include="App_Data\TerminalExportFiles\" />
     <Folder Include="App_Data\TransactionExportFiles\" />
     <Folder Include="Content\Report\" />
+    <Folder Include="ConvertedImages\" />
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>

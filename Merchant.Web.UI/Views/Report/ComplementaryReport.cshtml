@@ -50,14 +50,14 @@
     </div>
 
 </div>
-
-<form enctype="multipart/form-data" action="@Url.Action("ComplementaryReport", "Report")" method="post" id="MerchantProfileImportForm">
+<br />
+<form enctype="multipart/form-data" action="@Url.Action("ComplementaryReport", "Report")" method="post" id="ComplementaryReportForm">
     <div class="row">
         <div class="col-md-3">
             <div class="form-group">
 
                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                    <button id="UploadPNFile" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل تراکنش پرداخت نوین</button>
+                    <button id="UploadPardakhtFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل پرداخت نوین</button>
 
                 </div>
 
@@ -70,7 +70,7 @@
             <div class="form-group">
 
                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                    <button id="UploadIKFile" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل تراکنش ایران کیش   </button>
+                    <button id="UploadIrankishFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل ایران کیش   </button>
                 </div>
 
 
@@ -81,7 +81,7 @@
             <div class="form-group">
 
                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                    <button id="UploadParsianFile" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل تراکنش پارسیان  </button>
+                    <button id="UploadParsianFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل پارسیان  </button>
 
                 </div>
 
@@ -93,7 +93,7 @@
             <div class="form-group">
 
                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                    <button id="UploadFAFile" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل  تراکنش فن آوا</button>
+                    <button id="UploadFanavaFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل فن آوا</button>
                 </div>
 
 
@@ -104,15 +104,119 @@
 
     </div>
 
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+
+                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    <button id="UploadTransactionPardakhtFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل تراکنش پرداخت نوین</button>
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+
+                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    <button id="UploadTransactionIrankishFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل تراکنش ایران کیش   </button>
+                </div>
+            </div>
+        </div>
+        @*<div class="col-md-3">
+                <div class="form-group">
+
+                    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                        <button id="UploadTransactionParsianFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل تراکنش پارسیان  </button>
+
+                    </div>
+                </div>
+            </div>*@
+        <div class="col-md-4">
+            <div class="form-group">
+
+                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    <button id="UploadTransactionFanavaFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل تراکنش فن آوا</button>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+    </div>
 
     <br />
-
+    <div id="TotalSearchResultSection"></div>
 
     <div class="col-md-12">
         <div class="form-group">
-
             <div class="container">
                 <div class="row">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>رديف</th>
+                                    <th>شماره ترمينال</th>
+                                    <th>سريال دستگاه</th>
+                                    <th>مالک دستگاه</th>
+                                    <th>psp</th>
+                                    <th>تعداد تراکنش خريد</th>
+                                    <th>مبلغ تراکنش خريد</th>
+                                    <th>وضعيت تعداد تراکنش</th>
+                                    <th>وضعيت مبلغ تراکنش</th>
+                                    <th>وضعيت فعاليت دستورالعمل</th>
+                                    <th>وضعيت فعاليت شاپرکي</th>
+                                    <th>تعداد تراکنش قبض</th>
+                                    <th>جمع مبلغ تراکنش قبض</th>
+                                    <th>تعداد تراکنش شارژ</th>
+                                    <th>جمع مبلغ تراکنش شارژ</th>
+                                    <th>تعداد مانده گيري</th>
+                                    <th>شماره پذيرنده</th>
+                                    <th>شماره قرارداد</th>
+                                    <th>فروشگاه</th>
+                                    <th>شماره حساب</th>
+                                    <th>شبا</th>
+                                    <th>شماره مشتري</th>
+                                    <th>کد شعبه</th>
+                                    <th>نام شعبه</th>
+                                    <th>منطقه شعبه</th>
+                                    <th>استان بانک مرکزي</th>
+                                    <th>استان</th>
+                                    <th>شهر</th>
+                                    <th>نوع دستگاه</th>
+                                    <th>مدل دستگاه</th>
+                                    <th>بازاريابي توسط</th>
+                                    <th>کد ملي</th>
+                                    <th>نام</th>
+                                    <th>نام خانوادگي</th>
+                                    <th>مدير فروشکاه</th>
+                                    <th>وضعيت</th>
+                                    <th>صنف</th>
+                                    <th>آدرس فروشگاه</th>
+                                    <th>تلفن فروشگاه</th>
+                                    <th>موبايل</th>
+                                    <th>تاريخ درخواست</th>
+                                    <th>کد باز</th>
+                                    <th>تاريخ نصب</th>
+                                    <th>ماه نصب</th>
+                                    <th>تاريخ ابطال</th>
+                                    <th>ماه ابطال</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="15"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
                     <div class="col-sm-1">
                         شماره شبا
@@ -123,11 +227,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-
         </div>
     </div>
     <div class="col-md-12">
@@ -164,149 +263,529 @@
 
     <script type="text/javascript">
 
-        function loadData(retriveTotalPageCount, page, upId) {
-                    $('#tblData').empty();
+        function loadData(retriveTotalPageCount, page, upId)
+        {
 
-                    if (retriveTotalPageCount) {
-                        var pagingData = $('#Pagination').data('twbs-pagination');
-                        if (pagingData) $('#Pagination').twbsPagination('destroy');
-                        $('#SearchButton').removeData('total-pages');
-                    }
+            $('#tblData').empty();
 
-                    var $button = $('#SearchButton');
-                    $button.button('loading');
+            if (retriveTotalPageCount) {
+                var pagingData = $('#Pagination').data('twbs-pagination');
+                if (pagingData) $('#Pagination').twbsPagination('destroy');
+                $('#SearchButton').removeData('total-pages');
+            }
 
-
-
-                    return $.post('@Url.Action("GetUploadTerminalValidationData", "Terminal")', {
-                        Year:  $("#Year").val(),
+            var $button = $('#SearchButton');
+            $button.button('loading');
 
 
-                    }).done(function (result) {
-                        $button.button('reset');
-                        $('#ResultSection').empty();
-                        var html = '';
 
-                        $('#SearchButton').data('total-pages', result.data.totalRowsCount);
+            return $.post('@Url.Action("?????????????", "Report")', { Year: $("#Year").val(), $("#Month").val() }).done(function (result)
+            {
+                $button.button('reset');
+                $('#ResultSection').empty();
+                var html = '';
 
-                        if (!result.success) {
-                            $('#ResultSection').empty().append('<div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div>');
-                            return false;
+                $('#SearchButton').data('total-pages', result.data.totalRowsCount);
+
+                if (!result.success) {
+                    $('#ResultSection').empty().append('<div class="status-section"><i class="fa fa-frown-o"></i><p>خطا در بارگذاری اطلاعات</p></div>');
+                    return false;
+                }
+
+
+                if (result.data.rows.length === 0) {
+                    $('#tblDataBody').empty().append('' +
+                             '' +
+                        '<td colspan="8"><div   class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></th>');
+                    return false;
+                }
+
+
+                if (retriveTotalPageCount) {
+                    $('#TotalSearchResultSection').empty().append('<b>تعداد موارد یافت شده: </b>' + convertToPersianNumbers(result.data.totalRowsCount) + ' مورد');
+                } else {
+                    $('#TotalSearchResultSection').empty();
+                }
+
+
+                if (retriveTotalPageCount && result.data.totalRowsCount > 0) {
+                    $('#SearchButton').data('total-pages', result.data.totalRowsCount);
+
+                    $('#Pagination').twbsPagination({
+                        totalPages: Math.ceil(result.data.totalRowsCount / 20),
+                        visiblePages: 7,
+                        last: '<i class="fa fa-fast-backward"></i>',
+                        next: '<i class="fa fa-backward"></i>',
+                        prev: '<i class="fa fa-forward"></i>',
+                        first: '<i class="fa fa-fast-forward"></i>',
+                        initiateStartPageClick: false,
+                        onPageClick: function (event, page) {
+                            loadData(false, page);
                         }
-
-
-                        if (result.data.rows.length === 0) {
-                            $('#tblDataBody').empty().append('' +
-                                     '' +
-                                '<td colspan="8"><div   class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>');
-                            return false;
-                        }
-
-                        if (result.data.totalRowsCount > 0) {
-                            $('#SearchButton').data('total-pages', result.data.totalRowsCount);
-
-                            $('#Pagination').twbsPagination({
-                                totalPages: Math.ceil(result.data.totalRowsCount / 20),
-                                visiblePages: 7,
-                                last: '<i class="fa fa-fast-backward"></i>',
-                                next: '<i class="fa fa-backward"></i>',
-                                prev: '<i class="fa fa-forward"></i>',
-                                first: '<i class="fa fa-fast-forward"></i>',
-                                initiateStartPageClick: false,
-                                onPageClick: function (event, page) {
-                                    loadData(false, page);
-                                }
-                            });
-                        }
-
-
-
-                        html = '';
-
-                        console.log('xcvxcvxcvzxcvzxvc', result.data.rows);
-                           for (let i = 0; i < result.data.rows.length; i++) {
-
-
-                                                            var item = result.data.rows[i];
-
-
-                                                            html += '<div class="row" data-terminal-id="' + item.terminalId + '" data-status-id="' + item.statusId + '">' +
-
-                         '   <div class="col-sm-1" style=" background: #eaeaff;  margin: auto;    padding: 10px;height:40px"> ' + ( item.shebaId   ) + '</div>'
-                         '   <div class="col-sm-1" style=" background: #eaeaff;  margin: auto;    padding: 10px;height:40px"> ' + (  item.AccountNumber  ) + '</div>'
-
-                              ;
-                                                                                  html += ' </div>';
-
-                                                        }
-                                              $('#tblData').empty().append(html);
-
-
                     });
                 }
+                html = '';
+                console.log('logtest', result.data.rows);
+                for (var i = 0; i < result.data.rows.length; i++)
+                {
+                     var item = result.data.rows[i];
+
+                    html += '<tr data-terminal-id="' + item.terminalId + '" data-status-id="' + item.statusId + '">' +
+                        '<td class="text-nowrap">' + i+1 + '</td>' +
+                        '<td class="text-nowrap">' + item.TerminalNo+ '</td>' +
+                        '<td class="text-nowrap">' + item.DeviceSerial+ '</td>' +
+                        '<td class="text-nowrap">' + item.DeviceOwner+ '</td>' +
+                        '<td class="text-nowrap">' + item.PSP+ '</td>' +
+                        '<td class="text-nowrap">' + item.CountTransactionBuyCurrentMonth+ '</td>' +
+                        '<td class="text-nowrap">' + item.AmountTransactionBuyCurrentMonth+ '</td>' +
+                        '<td class="text-nowrap">' + item.StatusCountTransactionCurrentMonth+ '</td>' +
+                        '<td class="text-nowrap">' + item.StatusAmountTransactionCurrentMonth+ '</td>' +
+                        '<td class="text-nowrap">' + item.StatusActivityInstructionsCurrentMonth+ '</td>' +
+                        '<td class="text-nowrap">' + item.StatusActivityShaparakCurrentMonth+ '</td>' +
+                        '<td class="text-nowrap">' + item.CountTransactionBillCurrentMonth+ '</td>' +
+                        '<td class="text-nowrap">' + item.SumAmountTransactionBillCurrentMonth+ '</td>' +
+                        '<td class="text-nowrap">' + item.CountChargeTransactionCurrentMonth+ '</td>' +
+                        '<td class="text-nowrap">' + item.SumAmountChargeTransactionCurrentMonth+ '</td>' +
+                        '<td class="text-nowrap">' + item.CountBalanceCurrentMonth+ '</td>' +
+                        '<td class="text-nowrap">' + item.TerminalNumber+ '</td>' +
+                        '<td class="text-nowrap">' + item.ContractNumber+ '</td>' +
+                        '<td class="text-nowrap">' + item.Store+ '</td>' +
+                        '<td class="text-nowrap">' + item.AccountNumber+ '</td>' +
+                        '<td class="text-nowrap">' + item.Sheba+ '</td>' +
+                        '<td class="text-nowrap">' + item.CustomerNumber+ '</td>' +
+                        '<td class="text-nowrap">' + item.BranchCode+ '</td>' +
+                        '<td class="text-nowrap">' + item.BranchName+ '</td>' +
+                        '<td class="text-nowrap">' + item.BranchArea+ '</td>' +
+                        '<td class="text-nowrap">' + item.CentralBankProvince+ '</td>' +
+                        '<td class="text-nowrap">' + item.State+ '</td>' +
+                        '<td class="text-nowrap">' + item.City+ '</td>' +
+                        '<td class="text-nowrap">' + item.DeviceType+ '</td>' +
+                        '<td class="text-nowrap">' + item.DeviceModel+ '</td>' +
+                        '<td class="text-nowrap">' + item.MarketingBy+ '</td>' +
+                        '<td class="text-nowrap">' + item.NationalCode+ '</td>' +
+                        '<td class="text-nowrap">' + item.Name+ '</td>' +
+                        '<td class="text-nowrap">' + item.Family+ '</td>' +
+                        '<td class="text-nowrap">' + item.StoreManager+ '</td>' +
+                        '<td class="text-nowrap">' + item.Status+ '</td>' +
+                        '<td class="text-nowrap">' + item.business+ '</td>' +
+                        '<td class="text-nowrap">' + item.StoreAddress+ '</td>' +
+                        '<td class="text-nowrap">' + item.StoreTel+ '</td>' +
+                        '<td class="text-nowrap">' + item.Mobile+ '</td>' +
+                        '<td class="text-nowrap">' + item.RequestDate+ '</td>' +
+                        '<td class="text-nowrap">' + item.OpenCode+ '</td>' +
+                        '<td class="text-nowrap">' + item.InstallDate+ '</td>' +
+                        '<td class="text-nowrap">' + item.InstallMonth+ '</td>' +
+                        '<td class="text-nowrap">' + item.CancellationDate+ '</td>' +
+                        '<td class="text-nowrap">' + item.CancellationMonth+ '</td>' +                    
+                        '</tr>';
+                }
+
+                $('#tblData tbody').empty().append(html);
+                $('[data-toggle="tooltip"]').tooltip();
+             });
+         }
 
 
 
 
         $(document).ready(function () {
-
-
-              loadData(true, 1,1);
-
-               $('.date-picker').on('click', function () {
-                        PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDate()', true);
-                    });
-
-
-                  $('#ShowData').on('click', function (e) {
-                                       loadData(true, 1,1);
-
-                  });
+            loadData(true, 1, 1);
+            $('.date-picker').on('click', function ()
+            {
+                PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDate()', true);
+            });
+            $('#ShowData').on('click', function (e) {
+                loadData(true, 1, 1);
+            });
 
 
 
-            $('#UploadWageButton').on('click', function (e) {
+            $('#UploadPardakhtFilebtn').on('click', function (e) {
 
 
-                let $button = $('#UploadWageButton');
+                let $button = $('#UploadPardakhtFilebtn');
 
 
                 var Year = $("#Year").val();
                 var Month = $("#Month").val();
 
 
-                $.showConfirm({
-                    onConfirm: function () {
-                        let interval = setInterval(function () {
-                            toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
-                        }, 12000);
+                if (Month.length == 0) {
+                    alert("لطفا مقدار ماه را انتخاب نمایید");
+                } else {
+                    $.showConfirm({
+                        onConfirm: function () {
+                            let interval = setInterval(function () {
+                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                            }, 12000);
 
-                        $.ajax({
-                            url: '/Terminal/UploadWageFile?year=' + Year + "&month=" + Month,
-                            type: "POST",
-                            async: true,
-                            contentType: false, // Not to set any content header
-                            processData: false, // Not to process data
+                            $.ajax({
+                                url: '/Report/UploadPardakhtFile?year=' + Year + "&month=" + Month,
+                                type: "POST",
+                                async: true,
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
 
-                            success: function (result) {
-                                clearInterval(interval);
-                                $button.button('reset');
-                            },
-                            error: function (err) {
-                                $button.button('reset');
+                                success: function (result) {
+                                    clearInterval(interval);
+                                    alert("عملیات با موفقیت انجام شد");
+                                    $button.button('reset');
+                                },
+                                error: function (err) {
+                                   // alert("error=" + err + " " + err.val);
+                                    alert("خطای در بارگزاری اطلاعات");
+                                    $button.button('reset');
+                                    clearInterval(interval);
+                                }
+                            });
 
-                                clearInterval(interval);
-                            }
-                        });
+                            $button.button('loading');
 
-
-
-                        $button.button('loading');
-
-                        return false;
-                    }
-                });
+                            return false;
+                        }
+                    });
+                }
             });
+
+            $('#UploadIrankishFilebtn').on('click', function (e) {
+
+
+                let $button = $('#UploadIrankishFilebtn');
+
+
+                var Year = $("#Year").val();
+                var Month = $("#Month").val();
+                if (Month.length == 0) {
+                    alert("لطفا مقدار ماه را انتخاب نمایید");
+                } else {
+
+                    $.showConfirm({
+                        onConfirm: function () {
+                            let interval = setInterval(function () {
+                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                            }, 12000);
+
+                            $.ajax({
+                                url: '/Report/UploadIrankishFile?year=' + Year + "&month=" + Month,
+                                type: "POST",
+                                async: true,
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+
+                                success: function (result) {
+                                    clearInterval(interval);
+                                    alert("عملیات با موفقیت انجام شد");
+                                    $button.button('reset');
+                                },
+                                error: function (err) {
+                                    // alert("error=" + err + " " + err.val);
+                                    alert("خطای در بارگزاری اطلاعات");
+                                    $button.button('reset');
+                                    clearInterval(interval);
+                                }
+                            });
+
+
+
+                            $button.button('loading');
+
+                            return false;
+                        }
+                    });
+                }
+                });
+
+
+            $('#UploadParsianFilebtn').on('click', function (e) {
+
+
+                let $button = $('#UploadParsianFilebtn');
+
+
+                var Year = $("#Year").val();
+                var Month = $("#Month").val();
+                if (Month.length == 0) {
+                    alert("لطفا مقدار ماه را انتخاب نمایید");
+                } else {
+
+                    $.showConfirm({
+                        onConfirm: function () {
+                            let interval = setInterval(function () {
+                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                            }, 12000);
+
+                            $.ajax({
+                                url: '/Report/UploadParsianFile?year=' + Year + "&month=" + Month,
+                                type: "POST",
+                                async: true,
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+
+                                success: function (result) {
+                                    clearInterval(interval);
+                                    alert("عملیات با موفقیت انجام شد");
+                                    $button.button('reset');
+                                },
+                                error: function (err) {
+                                    // alert("error=" + err + " " + err.val);
+                                    alert("خطای در بارگزاری اطلاعات");
+                                    $button.button('reset');
+                                    clearInterval(interval);
+                                }
+                            });
+
+
+
+                            $button.button('loading');
+
+                            return false;
+                        }
+                    });
+                }
+            });
+
+            $('#UploadFanavaFilebtn').on('click', function (e) {
+
+
+                let $button = $('#UploadFanavaFilebtn');
+
+
+                var Year = $("#Year").val();
+                var Month = $("#Month").val();
+                if (Month.length == 0) {
+                    alert("لطفا مقدار ماه را انتخاب نمایید");
+                } else {
+
+                    $.showConfirm({
+                        onConfirm: function () {
+                            let interval = setInterval(function () {
+                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                            }, 12000);
+
+                            $.ajax({
+                                url: '/Report/UploadFanavaFile?year=' + Year + "&month=" + Month,
+                                type: "POST",
+                                async: true,
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+
+                                success: function (result) {
+                                    clearInterval(interval);
+                                    alert("عملیات با موفقیت انجام شد");
+                                    $button.button('reset');
+                                },
+                                error: function (err) {
+                                    // alert("error=" + err + " " + err.val);
+                                    alert("خطای در بارگزاری اطلاعات");
+                                    $button.button('reset');
+                                    clearInterval(interval);
+                                }
+                            });
+
+
+
+                            $button.button('loading');
+
+                            return false;
+                        }
+                    });
+                }
+            });
+
+            ///////////transaction Files
+
+            $('#UploadTransactionPardakhtFilebtn').on('click', function (e) {
+
+
+                let $button = $('#UploadTransactionPardakhtFilebtn');
+
+
+                var Year = $("#Year").val();
+                var Month = $("#Month").val();
+
+
+                if (Month.length == 0) {
+                    alert("لطفا مقدار ماه را انتخاب نمایید");
+                } else {
+                    $.showConfirm({
+                        onConfirm: function () {
+                            let interval = setInterval(function () {
+                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                            }, 12000);
+
+                            $.ajax({
+                                url: '/Report/UploadTransactionPardakhtFile?year=' + Year + "&month=" + Month,
+                                type: "POST",
+                                async: true,
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+
+                                success: function (result) {
+                                    clearInterval(interval);
+                                    alert("عملیات با موفقیت انجام شد");
+                                    $button.button('reset');
+                                },
+                                error: function (err) {
+                                    // alert("error=" + err + " " + err.val);
+                                    alert("خطای در بارگزاری اطلاعات");
+                                    $button.button('reset');
+                                    clearInterval(interval);
+                                }
+                            });
+
+                            $button.button('loading');
+
+                            return false;
+                        }
+                    });
+                }
+            });
+
+            $('#UploadTransactionIrankishFilebtn').on('click', function (e) {
+
+
+                let $button = $('#UploadTransactionIrankishFilebtn');
+
+
+                var Year = $("#Year").val();
+                var Month = $("#Month").val();
+                if (Month.length == 0) {
+                    alert("لطفا مقدار ماه را انتخاب نمایید");
+                } else {
+
+                    $.showConfirm({
+                        onConfirm: function () {
+                            let interval = setInterval(function () {
+                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                            }, 12000);
+
+                            $.ajax({
+                                url: '/Report/UploadTransactionIrankishFile?year=' + Year + "&month=" + Month,
+                                type: "POST",
+                                async: true,
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+
+                                success: function (result) {
+                                    clearInterval(interval);
+                                    alert("عملیات با موفقیت انجام شد");
+                                    $button.button('reset');
+                                },
+                                error: function (err) {
+                                    // alert("error=" + err + " " + err.val);
+                                    alert("خطای در بارگزاری اطلاعات");
+                                    $button.button('reset');
+                                    clearInterval(interval);
+                                }
+                            });
+
+
+
+                            $button.button('loading');
+
+                            return false;
+                        }
+                    });
+                }
+            });
+
+
+            //$('#UploadTransactionParsianFilebtn').on('click', function (e) {
+
+
+            //    let $button = $('#UploadTransactionParsianFilebtn');
+
+
+            //    var Year = $("#Year").val();
+            //    var Month = $("#Month").val();
+            //    if (Month.length == 0) {
+            //        alert("لطفا مقدار ماه را انتخاب نمایید");
+            //    } else {
+
+            //        $.showConfirm({
+            //            onConfirm: function () {
+            //                let interval = setInterval(function () {
+            //                    toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+            //                }, 12000);
+
+            //                $.ajax({
+            //                    url: '/Report/UploadTransactionParsianFile?year=' + Year + "&month=" + Month,
+            //                    type: "POST",
+            //                    async: true,
+            //                    contentType: false, // Not to set any content header
+            //                    processData: false, // Not to process data
+
+            //                    success: function (result) {
+            //                        clearInterval(interval);
+            //                        alert("عملیات با موفقیت انجام شد");
+            //                        $button.button('reset');
+            //                    },
+            //                    error: function (err) {
+            //                        // alert("error=" + err + " " + err.val);
+            //                        alert("خطای در بارگزاری اطلاعات");
+            //                        $button.button('reset');
+            //                        clearInterval(interval);
+            //                    }
+            //                });
+
+
+
+            //                $button.button('loading');
+
+            //                return false;
+            //            }
+            //        });
+            //    }
+            //});
+
+            $('#UploadTransactionFanavaFilebtn').on('click', function (e) {
+
+
+                let $button = $('#UploadTransactionFanavaFilebtn');
+
+
+                var Year = $("#Year").val();
+                var Month = $("#Month").val();
+                if (Month.length == 0) {
+                    alert("لطفا مقدار ماه را انتخاب نمایید");
+                } else {
+
+                    $.showConfirm({
+                        onConfirm: function () {
+                            let interval = setInterval(function () {
+                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
+                            }, 12000);
+
+                            $.ajax({
+                                url: '/Report/UploadTransactionFanavaFile?year=' + Year + "&month=" + Month,
+                                type: "POST",
+                                async: true,
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+
+                                success: function (result) {
+                                    clearInterval(interval);
+                                    alert("عملیات با موفقیت انجام شد");
+                                    $button.button('reset');
+                                },
+                                error: function (err) {
+                                    // alert("error=" + err + " " + err.val);
+                                    alert("خطای در بارگزاری اطلاعات");
+                                    $button.button('reset');
+                                    clearInterval(interval);
+                                }
+                            });
+
+
+
+                            $button.button('loading');
+
+                            return false;
+                        }
+                    });
+                }
+            });
+
 
         });
 
