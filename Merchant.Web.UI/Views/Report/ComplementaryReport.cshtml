@@ -105,7 +105,7 @@
     </div>
 
     <br />
-    <div class="row">
+    <!--<div class="row">
         <div class="col-md-4">
             <div class="form-group">
 
@@ -126,7 +126,7 @@
                     <button id="UploadTransactionIrankishFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل تراکنش ایران کیش   </button>
                 </div>
             </div>
-        </div>
+        </div>-->
         @*<div class="col-md-3">
                 <div class="form-group">
 
@@ -136,7 +136,7 @@
                     </div>
                 </div>
             </div>*@
-        <div class="col-md-4">
+        <!--<div class="col-md-4">
             <div class="form-group">
 
                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
@@ -149,14 +149,14 @@
         </div>
 
 
-    </div>
+    </div>-->
 
     <br />
     <div id="TotalSearchResultSection"></div>
 
-    <div class="col-md-12">
-        <div class="form-group">
-            <div class="container">
+    
+       
+            <div class="container-fluid">
                 <div class="row">
                     <div class="table-responsive">
                         <table class="table">
@@ -216,27 +216,12 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-
-                    <div class="col-sm-1">
-                        شماره شبا
-                    </div>
-
-                    <div class="col-sm-1">
-                        شماره حساب
-                    </div>
+                    </div>                    
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="form-group">
-
-            <div class="container" id="tblData">
-                <div class="col-md-12" id="tblDataBody">در حال بارگذاری</div>
-            </div>
-        </div>
-    </div>
+      
+ 
+  
 
     <div class="table-responsive hidden" id="ErrorsSection">
     </div>
@@ -276,10 +261,7 @@
 
             var $button = $('#SearchButton');
             $button.button('loading');
-
-
-
-            return $.post('@Url.Action("?????????????", "Report")', { Year: $("#Year").val(), $("#Month").val() }).done(function (result)
+            @*return $.post('@Url.Action("?????????????", "Report")', { Year: $("#Year").val(), $("#Month").val() }).done(function (result)
             {
                 $button.button('reset');
                 $('#ResultSection').empty();
@@ -382,7 +364,7 @@
 
                 $('#tblData tbody').empty().append(html);
                 $('[data-toggle="tooltip"]').tooltip();
-             });
+             });*@
          }
 
 
@@ -395,13 +377,13 @@
                 PersianDatePicker.Show(this, '@DateTime.Now.ToPersianDate()', true);
             });
             $('#ShowData').on('click', function (e) {
-                loadData(true, 1, 1);
+              //  loadData(true, 1, 1);
             });
 
 
 
             $('#UploadPardakhtFilebtn').on('click', function (e) {
-
+                alert("پرداخت نوین");
 
                 let $button = $('#UploadPardakhtFilebtn');
 
