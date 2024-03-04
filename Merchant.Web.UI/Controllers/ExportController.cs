@@ -1519,12 +1519,11 @@ namespace TES.Merchant.Web.UI.Controllers
                     branchRanking.Cells[rowNumber, 4].Value = StaticInstallDeviceNum;
 
                     //تعداد دستگاه منصوبه MPOS
-                    var MPOSInstallDeviceNum = data.Where(w => w.BranchName == branchname && w.DeviceModel == "BlueTooth POS").Count();
+                    var MPOSInstallDeviceNum = data.Where(w => w.BranchName == branchname && w.DeviceType == "BlueTooth POS").Count();
                     branchRanking.Cells[rowNumber, 5].Value = MPOSInstallDeviceNum;
 
                     //تعداد دستگاه منصوبه سیار
-                    var movingInstallDeviceNum = data.Where(w => w.BranchName == branchname).Where(w=> w.DeviceModel == "Gprs" && w.DeviceModel == "سیار فروشگاهی"
-                    && w.DeviceModel == "AndroidPos" && w.DeviceModel == "wifi/GPRS" && w.DeviceModel == "Combo").Count();
+                    var movingInstallDeviceNum = data.Where(w => w.BranchName == branchname).Where(w=>  w.DeviceType == "GPRS" || w.DeviceType == "سیار فروشگاهی" || w.DeviceType == "AndroidPos" || w.DeviceType == "wifi/GPRS" || w.DeviceType == "Combo").Count();
                     branchRanking.Cells[rowNumber, 6].Value = movingInstallDeviceNum;
 
                     //دستگاه ثابت (درصد)`
@@ -1560,26 +1559,26 @@ namespace TES.Merchant.Web.UI.Controllers
                     branchRanking.Cells[rowNumber, 15].Value =((Convert.ToUInt16(noTransaction)+ Convert.ToUInt16(lowTransaction)) / Convert.ToUInt16(cardReaderDeviceNum)) * 100;
 
                     //جمع مبلغ تراکنش ثابت                    
-                    branchRanking.Cells[rowNumber, 16].Value = data.Where(w =>  w.BranchName == branchname).Where(w=> w.DeviceModel == "Dialup" &&
-                        w.DeviceModel == "LAN POS" && w.DeviceModel == "ثابت فروشگاهی" && w.DeviceModel == "HDLC/LAN" & w.DeviceModel == "Typical").Sum(s=>Convert.ToDouble(s.AmountTransactionBuyCurrentMonth));
+                    branchRanking.Cells[rowNumber, 16].Value = data.Where(w =>  w.BranchName == branchname).Where(w=> w.DeviceType == "Dialup" ||
+                        w.DeviceType == "LAN POS" || w.DeviceType == "ثابت فروشگاهی" || w.DeviceType == "HDLC/LAN" || w.DeviceType == "Typical").Sum(s=>Convert.ToDouble(s.AmountTransactionBuyCurrentMonth));
 
                     //جمع تعداد تراکنش ثابت
-                    branchRanking.Cells[rowNumber, 17].Value = data.Where(w => w.BranchName == branchname).Where(w=> w.DeviceModel == "Dialup" &&
-                        w.DeviceModel == "LAN POS" && w.DeviceModel == "ثابت فروشگاهی" && w.DeviceModel == "HDLC/LAN" & w.DeviceModel == "Typical").Sum(s => Convert.ToDouble(s.CountTransactionBuyCurrentMonth));
+                    branchRanking.Cells[rowNumber, 17].Value = data.Where(w => w.BranchName == branchname).Where(w=> w.DeviceType == "Dialup" ||
+                        w.DeviceType == "LAN POS" || w.DeviceType == "ثابت فروشگاهی" || w.DeviceType == "HDLC/LAN" || w.DeviceType == "Typical").Sum(s => Convert.ToDouble(s.CountTransactionBuyCurrentMonth));
 
                     //جمع مبلغ تراکنش MPOS
-                    branchRanking.Cells[rowNumber, 18].Value = data.Where(w => w.BranchName == branchname).Where(w=> w.DeviceModel == "BlueTooth POS").Sum(s => Convert.ToDouble(s.AmountTransactionBuyCurrentMonth));
+                    branchRanking.Cells[rowNumber, 18].Value = data.Where(w => w.BranchName == branchname).Where(w=> w.DeviceType == "BlueTooth POS").Sum(s => Convert.ToDouble(s.AmountTransactionBuyCurrentMonth));
 
                     //جمع تعداد تراکنش MPOS
-                    branchRanking.Cells[rowNumber, 19].Value = data.Where(w => w.BranchName == branchname && w.DeviceModel == "BlueTooth POS").Sum(s => Convert.ToDouble(s.CountTransactionBuyCurrentMonth));
+                    branchRanking.Cells[rowNumber, 19].Value = data.Where(w => w.BranchName == branchname && w.DeviceType == "BlueTooth POS").Sum(s => Convert.ToDouble(s.CountTransactionBuyCurrentMonth));
 
                     //جمع مبلغ تراکنش سیار
-                    branchRanking.Cells[rowNumber, 20].Value = data.Where(w => w.BranchName == branchname).Where(w=> w.DeviceModel == "Gprs" && w.DeviceModel == "سیار فروشگاهی"
-                    && w.DeviceModel == "AndroidPos" && w.DeviceModel == "wifi/GPRS" && w.DeviceModel == "Combo").Sum(s => Convert.ToDouble(s.AmountTransactionBuyCurrentMonth));
+                    branchRanking.Cells[rowNumber, 20].Value = data.Where(w => w.BranchName == branchname).Where(w=> w.DeviceType == "Gprs" || w.DeviceType == "سیار فروشگاهی"
+                    || w.DeviceType == "AndroidPos" || w.DeviceType == "wifi/GPRS" || w.DeviceType == "Combo").Sum(s => Convert.ToDouble(s.AmountTransactionBuyCurrentMonth));
 
                     //جمع تعداد تراکنش سیار
-                    branchRanking.Cells[rowNumber, 21].Value = data.Where(w => w.BranchName == branchname).Where(w=> w.DeviceModel == "Gprs" && w.DeviceModel == "سیار فروشگاهی"
-                    && w.DeviceModel == "AndroidPos" && w.DeviceModel == "wifi/GPRS" && w.DeviceModel == "Combo").Sum(s => Convert.ToDouble(s.CountTransactionBuyCurrentMonth));
+                    branchRanking.Cells[rowNumber, 21].Value = data.Where(w => w.BranchName == branchname).Where(w=> w.DeviceType == "Gprs" || w.DeviceType == "سیار فروشگاهی"
+                    || w.DeviceType == "AndroidPos" || w.DeviceType == "wifi/GPRS" || w.DeviceType == "Combo").Sum(s => Convert.ToDouble(s.CountTransactionBuyCurrentMonth));
 
                     //جمع مبلغ تراکنش
                     var sumAmountOfTransaction = data.Where(w => w.BranchName == branchname ).Sum(s => Convert.ToDouble(s.AmountTransactionBuyCurrentMonth));
