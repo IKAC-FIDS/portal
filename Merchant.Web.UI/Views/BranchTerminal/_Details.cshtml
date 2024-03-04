@@ -609,6 +609,7 @@ else
                             $.closeModal('ok');
                         }
                     }, error: function (result) {
+                        alert("خطا");
                         $button.button('reset');
                         $.processMessage(result);
                     }

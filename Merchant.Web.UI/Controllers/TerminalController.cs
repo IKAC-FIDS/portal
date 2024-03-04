@@ -5395,10 +5395,11 @@ namespace TES.Merchant.Web.UI.Controllers
                             .ToList();
 
                         var ttt = new List<UploadAttachmentRequestData>();
-
+                       
 
                         ttt = _dataContext.TerminalDocuments
-                            .Where(b => b.Id == terminal.Id &&
+                            //.Where(b => b.Id == terminal.Id &&
+                            .Where(b => b.TerminalId == terminal.Id &&
                                         (b.DocumentType.SendToPsp.HasValue && b.DocumentType.SendToPsp.Value))
                             .ToList()
                             .Select(b => new UploadAttachmentRequestData

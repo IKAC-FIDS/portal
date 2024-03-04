@@ -45,149 +45,101 @@
         </div>
     </div>
 
-    <div class="col-md-2">
+    @*<div class="col-md-2">
 
         <button id="ShowData" type="button" class="btn btn-success" data-loading-text="در حال ثبت..."> نمایش اطلاعات </button>
-    </div>
+    </div>*@
 
 </div>
 <br />
 <form enctype="multipart/form-data" action="@Url.Action("ReportShebaAccount", "Report")" method="post" id="MerchantProfileImportForm">
-    <div class="row">
-        <div class="col-md-3">
+    @*<div class="row">
+        <div class="col-md-12">
             <div class="form-group">
 
                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                    <button id="UploadPardakhtFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل پرداخت نوین</button>
-
+                    <input id="chk30file" type="checkbox" name="chk30file" value="chk30file" />
+                    <label for="vehicle1"> آیا 30 فایل کارمز شاپرکی ماه مورد نظر از منوی مدیریت قسمت بارگذاری فایل سود و زیان بارگذاری گردیده است؟</label><br>
                 </div>
-
-
-
             </div>
         </div>
-
-        <div class="col-md-3">
+    </div>*@
+    @*<div class="row">
+        <div class="col-md-12">
             <div class="form-group">
-
                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                    <button id="UploadIrankishFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل ایران کیش   </button>
+                    <input id="chk30file" type="checkbox" name="chk30file" value="chk30file" />
+                    <label for="vehicle1">آیا گزارش جامع ماه مورد نظر از منوی گزارشات قسمت گزارش جامع انجام گردید است؟</label><br>
                 </div>
-
-
-
             </div>
         </div>
-        <div class="col-md-3">
+    </div>*@
+    @*<div class="row">
+        <div class="col-md-12">
             <div class="form-group">
-
                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                    <button id="UploadParsianFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل پارسیان  </button>
-
+                    <input id="chk30file" type="checkbox" name="chk30file" value="chk30file" />
+                    <label for="vehicle1">آیا گزارش سود و زیان ماه گذشته از ماه انتخابی محاسبه گردیده است؟</label><br>
                 </div>
-
-
-
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="form-group">
-
-                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                    <button id="UploadFanavaFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل فن آوا</button>
-                </div>
-
-
-
-            </div>
-        </div>
-
-
-    </div>
+    </div>*@
 
     <br />
     <div class="row">
         <div class="col-md-3">
             <div class="form-group">
-
                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                    <button id="UploadTransactionPardakhtFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل تراکنش پرداخت نوین</button>
-
+                    <button id="btnconfirm" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">محاسبه</button>
                 </div>
-
-
-
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="form-group">
-
-                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                    <button id="UploadTransactionIrankishFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل تراکنش ایران کیش   </button>
-                </div>
-
-
-
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
-
                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                    <button id="UploadTransactionParsianFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل تراکنش پارسیان  </button>
-
+                    <button type="button" id="btnExport" class="btn btn-default" data-toggle="tooltip" title="دریافت خروجی اکسل موارد یافت شده" data-loading-text="در حال تهیه خروجی. لطفاً منتظر بمانید...">دریافت خروجی</button>
                 </div>
-
-
-
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="form-group">
-
-                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                    <button id="UploadTransactionFanavaFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل تراکنش فن آوا</button>
-                </div>
-
-
-
-            </div>
-        </div>
-
-
     </div>
+
 
     <br />
 
+    @*<div class="row" id="tblresult">
+        <div class="col-md-12">
+            <div class="form-group">
 
-    <div class="col-md-12">
-        <div class="form-group">
+                <div class="container">
+                    <div class="row">
 
-            <div class="container">
-                <div class="row">
+                        <div class="col-sm-1">
+                            شماره شبا
+                        </div>
 
-                    <div class="col-sm-1">
-                        شماره شبا
-                    </div>
-
-                    <div class="col-sm-1">
-                        شماره حساب
+                        <div class="col-sm-1">
+                            شماره حساب
+                        </div>
                     </div>
                 </div>
             </div>
-
-
-
-
-
         </div>
-    </div>
-    <div class="col-md-12">
-        <div class="form-group">
+        <div class="col-md-12">
+            <div class="form-group">
 
-            <div class="container" id="tblData">
-                <div class="col-md-12" id="tblDataBody">در حال بارگذاری</div>
+                <div class="container" id="tblData">
+                    <div class="col-md-12" id="tblDataBody">در حال بارگذاری</div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+    <div style="z-index: 10000;" class="modal fade" id="downloadFileModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p><a class="btn btn-success btn-lg btn-block" id="DownloadFileLink" href="#">دریافت فایل</a></p>
+                    <button type="button" class="btn btn-default btn-lg btn-block" data-dismiss="modal">انصراف</button>
+                </div>
             </div>
         </div>
     </div>
@@ -302,7 +254,18 @@
 
 
         $(document).ready(function () {
+           
+            function buildSearchParams() {    
+              //  alert($('#Year').val() + "   " + $('#Month').val());
+                console.log('xcvxcvxcvxvxvxcv', $('input[name=p_hazineh_karmozdShapark]:checked', '#frmSearch').val() == "on");
+                return {
+                   
+                    Year: $('#Year').val(),
+                    Month: $('#Month').val()            
 
+                  
+                };
+            }
 
               loadData(true, 1,1);
 
@@ -318,57 +281,11 @@
 
 
 
-            $('#UploadPardakhtFilebtn').on('click', function (e) {
-               
 
-                let $button = $('#UploadPardakhtFilebtn');
+            $('#btnconfirm').on('click', function (e) {
 
 
-                var Year = $("#Year").val();
-                var Month = $("#Month").val();
-
-            
-                if (Month.length == 0) {
-                    alert("لطفا مقدار ماه را انتخاب نمایید");                  
-                } else {
-                    $.showConfirm({
-                        onConfirm: function () {
-                            let interval = setInterval(function () {
-                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
-                            }, 12000);
-
-                            $.ajax({
-                                url: '/Report/UploadPardakhtFile?year=' + Year + "&month=" + Month,
-                                type: "POST",
-                                async: true,
-                                contentType: false, // Not to set any content header
-                                processData: false, // Not to process data
-
-                                success: function (result) {
-                                    clearInterval(interval);
-                                    alert("عملیات با موفقیت انجام شد");
-                                    $button.button('reset');
-                                },
-                                error: function (err) {
-                                   // alert("error=" + err + " " + err.val);
-                                    alert("خطای در بارگزاری اطلاعات");
-                                    $button.button('reset');
-                                    clearInterval(interval);
-                                }
-                            });
-
-                            $button.button('loading');
-
-                            return false;
-                        }
-                    });
-                }
-            });
-
-            $('#UploadIrankishFilebtn').on('click', function (e) {
-
-
-                let $button = $('#UploadIrankishFilebtn');
+                let $button = $('#btnconfirm');
 
 
                 var Year = $("#Year").val();
@@ -384,201 +301,7 @@
                             }, 12000);
 
                             $.ajax({
-                                url: '/Report/UploadIrankishFile?year=' + Year + "&month=" + Month,
-                                type: "POST",
-                                async: true,
-                                contentType: false, // Not to set any content header
-                                processData: false, // Not to process data
-
-                                success: function (result) {
-                                    clearInterval(interval);
-                                    alert("عملیات با موفقیت انجام شد");
-                                    $button.button('reset');
-                                },
-                                error: function (err) {
-                                    // alert("error=" + err + " " + err.val);
-                                    alert("خطای در بارگزاری اطلاعات");
-                                    $button.button('reset');
-                                    clearInterval(interval);
-                                }
-                            });
-
-
-
-                            $button.button('loading');
-
-                            return false;
-                        }
-                    });
-                }
-                });
-
-
-            $('#UploadParsianFilebtn').on('click', function (e) {
-
-
-                let $button = $('#UploadParsianFilebtn');
-
-
-                var Year = $("#Year").val();
-                var Month = $("#Month").val();
-                if (Month.length == 0) {
-                    alert("لطفا مقدار ماه را انتخاب نمایید");
-                } else {
-
-                    $.showConfirm({
-                        onConfirm: function () {
-                            let interval = setInterval(function () {
-                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
-                            }, 12000);
-
-                            $.ajax({
-                                url: '/Report/UploadParsianFile?year=' + Year + "&month=" + Month,
-                                type: "POST",
-                                async: true,
-                                contentType: false, // Not to set any content header
-                                processData: false, // Not to process data
-
-                                success: function (result) {
-                                    clearInterval(interval);
-                                    alert("عملیات با موفقیت انجام شد");
-                                    $button.button('reset');
-                                },
-                                error: function (err) {
-                                    // alert("error=" + err + " " + err.val);
-                                    alert("خطای در بارگزاری اطلاعات");
-                                    $button.button('reset');
-                                    clearInterval(interval);
-                                }
-                            });
-
-
-
-                            $button.button('loading');
-
-                            return false;
-                        }
-                    });
-                }
-            });
-
-            $('#UploadFanavaFilebtn').on('click', function (e) {
-
-
-                let $button = $('#UploadFanavaFilebtn');
-
-
-                var Year = $("#Year").val();
-                var Month = $("#Month").val();
-                if (Month.length == 0) {
-                    alert("لطفا مقدار ماه را انتخاب نمایید");
-                } else {
-
-                    $.showConfirm({
-                        onConfirm: function () {
-                            let interval = setInterval(function () {
-                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
-                            }, 12000);
-
-                            $.ajax({
-                                url: '/Report/UploadFanavaFile?year=' + Year + "&month=" + Month,
-                                type: "POST",
-                                async: true,
-                                contentType: false, // Not to set any content header
-                                processData: false, // Not to process data
-
-                                success: function (result) {
-                                    clearInterval(interval);
-                                    alert("عملیات با موفقیت انجام شد");
-                                    $button.button('reset');
-                                },
-                                error: function (err) {
-                                    // alert("error=" + err + " " + err.val);
-                                    alert("خطای در بارگزاری اطلاعات");
-                                    $button.button('reset');
-                                    clearInterval(interval);
-                                }
-                            });
-
-
-
-                            $button.button('loading');
-
-                            return false;
-                        }
-                    });
-                }
-            });
-
-            ///////////transaction Files
-
-            $('#UploadTransactionPardakhtFilebtn').on('click', function (e) {
-
-
-                let $button = $('#UploadTransactionPardakhtFilebtn');
-
-
-                var Year = $("#Year").val();
-                var Month = $("#Month").val();
-
-
-                if (Month.length == 0) {
-                    alert("لطفا مقدار ماه را انتخاب نمایید");
-                } else {
-                    $.showConfirm({
-                        onConfirm: function () {
-                            let interval = setInterval(function () {
-                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
-                            }, 12000);
-
-                            $.ajax({
-                                url: '/Report/UploadTransactionPardakhtFile?year=' + Year + "&month=" + Month,
-                                type: "POST",
-                                async: true,
-                                contentType: false, // Not to set any content header
-                                processData: false, // Not to process data
-
-                                success: function (result) {
-                                    clearInterval(interval);
-                                    alert("عملیات با موفقیت انجام شد");
-                                    $button.button('reset');
-                                },
-                                error: function (err) {
-                                    // alert("error=" + err + " " + err.val);
-                                    alert("خطای در بارگزاری اطلاعات");
-                                    $button.button('reset');
-                                    clearInterval(interval);
-                                }
-                            });
-
-                            $button.button('loading');
-
-                            return false;
-                        }
-                    });
-                }
-            });
-
-            $('#UploadTransactionIrankishFilebtn').on('click', function (e) {
-
-
-                let $button = $('#UploadTransactionIrankishFilebtn');
-
-
-                var Year = $("#Year").val();
-                var Month = $("#Month").val();
-                if (Month.length == 0) {
-                    alert("لطفا مقدار ماه را انتخاب نمایید");
-                } else {
-
-                    $.showConfirm({
-                        onConfirm: function () {
-                            let interval = setInterval(function () {
-                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
-                            }, 12000);
-
-                            $.ajax({
-                                url: '/Report/UploadTransactionIrankishFile?year=' + Year + "&month=" + Month,
+                                url: '/Report/ShebaAndAccount?year=' + Year + "&month=" + Month,
                                 type: "POST",
                                 async: true,
                                 contentType: false, // Not to set any content header
@@ -608,103 +331,31 @@
             });
 
 
-            $('#UploadTransactionParsianFilebtn').on('click', function (e) {
+            $('#DownloadFileLink').click(function () {
+                $('#downloadFileModal').modal('hide');
+            });
 
 
-                let $button = $('#UploadTransactionParsianFilebtn');
-
-
-                var Year = $("#Year").val();
-                var Month = $("#Month").val();
+            $('#btnExport').on('click', function () {
                 if (Month.length == 0) {
                     alert("لطفا مقدار ماه را انتخاب نمایید");
-                } else {
-
-                    $.showConfirm({
-                        onConfirm: function () {
-                            let interval = setInterval(function () {
-                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
-                            }, 12000);
-
-                            $.ajax({
-                                url: '/Report/UploadTransactionParsianFile?year=' + Year + "&month=" + Month,
-                                type: "POST",
-                                async: true,
-                                contentType: false, // Not to set any content header
-                                processData: false, // Not to process data
-
-                                success: function (result) {
-                                    clearInterval(interval);
-                                    alert("عملیات با موفقیت انجام شد");
-                                    $button.button('reset');
-                                },
-                                error: function (err) {
-                                    // alert("error=" + err + " " + err.val);
-                                    alert("خطای در بارگزاری اطلاعات");
-                                    $button.button('reset');
-                                    clearInterval(interval);
-                                }
-                            });
-
-
-
-                            $button.button('loading');
-
-                            return false;
+                }
+                else
+                { 
+                    var $exportButton = $(this);
+                    $exportButton.button('loading');
+                    //  alert("01");
+                    $.post('@Url.Action("ExportSheabAccountData", "Export")', buildSearchParams()).done(function (result) {
+                        $.processMessage(result);
+                        $exportButton.button('reset');
+                        if (result.success) {
+                            var $downloadLink = $('#downloadFileModal .modal-body a');
+                            $downloadLink.prop('href', '@Url.Action("DownloadShebaAccountOutputFile", "Export")?fileKey=' + result.data);
+                            $('#downloadFileModal').modal();
                         }
                     });
                 }
             });
-
-            $('#UploadTransactionFanavaFilebtn').on('click', function (e) {
-
-
-                let $button = $('#UploadTransactionFanavaFilebtn');
-
-
-                var Year = $("#Year").val();
-                var Month = $("#Month").val();
-                if (Month.length == 0) {
-                    alert("لطفا مقدار ماه را انتخاب نمایید");
-                } else {
-
-                    $.showConfirm({
-                        onConfirm: function () {
-                            let interval = setInterval(function () {
-                                toastr.info('اطلاعات در حال ثبت می‌باشد. توجه نمایید که با توجه به حجم اطلاعات ممکن است مدت زمان زیادی برای ثبت صرف شود. لطفاً صبور باشید...');
-                            }, 12000);
-
-                            $.ajax({
-                                url: '/Report/UploadTransactionFanavaFile?year=' + Year + "&month=" + Month,
-                                type: "POST",
-                                async: true,
-                                contentType: false, // Not to set any content header
-                                processData: false, // Not to process data
-
-                                success: function (result) {
-                                    clearInterval(interval);
-                                    alert("عملیات با موفقیت انجام شد");
-                                    $button.button('reset');
-                                },
-                                error: function (err) {
-                                    // alert("error=" + err + " " + err.val);
-                                    alert("خطای در بارگزاری اطلاعات");
-                                    $button.button('reset');
-                                    clearInterval(interval);
-                                }
-                            });
-
-
-
-                            $button.button('loading');
-
-                            return false;
-                        }
-                    });
-                }
-            });
-
-
         });
 
     </script>

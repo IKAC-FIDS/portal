@@ -74,8 +74,10 @@
     <Compile Include="AppDbConfiguration.cs" />
     <Compile Include="DataModel\BranchRankingData.cs" />
     <Compile Include="DataModel\ChangeAccountRequestData.cs" />
+    <Compile Include="DataModel\ComplemetaryReportField.cs" />
     <Compile Include="DataModel\InstallationDelayData.cs" />
     <Compile Include="DataModel\RevokeRequestData.cs" />
+    <Compile Include="DataModel\ShebaAccountModel.cs" />
     <Compile Include="DataModel\TerminalEmData.cs" />
     <Compile Include="DataModel\TerminalExportData.cs" />
     <Compile Include="DataModel\TerminalData.cs" />
@@ -188,6 +190,7 @@
     <Compile Include="SearchParameter\RequestSearchParameters.cs" />
     <Compile Include="SearchParameter\TerminalSearchParameters.cs" />
     <Compile Include="SearchParameter\UserSearchParameters.cs" />
+    <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

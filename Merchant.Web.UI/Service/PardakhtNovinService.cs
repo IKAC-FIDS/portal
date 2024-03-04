@@ -1228,6 +1228,10 @@ namespace TES.Merchant.Web.UI.Service
                         dataContext.SaveChanges();
                         return request;
                     }
+                    else
+                    {
+                        result.ErrorMessage = request.ErrorMessage;
+                    }
                   
                 }
                 else

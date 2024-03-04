@@ -103,6 +103,16 @@
 
 
     </div>
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    <button type="button" id="btnExport" class="btn btn-default" data-toggle="tooltip" title="دریافت خروجی اکسل موارد یافت شده" data-loading-text="در حال تهیه خروجی. لطفاً منتظر بمانید...">دریافت خروجی</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <br />
     <!--<div class="row">
@@ -127,16 +137,16 @@
                 </div>
             </div>
         </div>-->
-        @*<div class="col-md-3">
-                <div class="form-group">
+    @*<div class="col-md-3">
+            <div class="form-group">
 
-                    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                        <button id="UploadTransactionParsianFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل تراکنش پارسیان  </button>
+                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    <button id="UploadTransactionParsianFilebtn" type="button" class="btn btn-success" data-loading-text="در حال ثبت...">بارگذاری فایل تراکنش پارسیان  </button>
 
-                    </div>
                 </div>
-            </div>*@
-        <!--<div class="col-md-4">
+            </div>
+        </div>*@
+    <!--<div class="col-md-4">
             <div class="form-group">
 
                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
@@ -150,78 +160,87 @@
 
 
     </div>-->
-
+    <div style="z-index: 10000;" class="modal fade" id="downloadFileModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p><a class="btn btn-success btn-lg btn-block" id="DownloadFileLink" href="#">دریافت فایل</a></p>
+                    <button type="button" class="btn btn-default btn-lg btn-block" data-dismiss="modal">انصراف</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <br />
     <div id="TotalSearchResultSection"></div>
 
-    
-       
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>رديف</th>
-                                    <th>شماره ترمينال</th>
-                                    <th>سريال دستگاه</th>
-                                    <th>مالک دستگاه</th>
-                                    <th>psp</th>
-                                    <th>تعداد تراکنش خريد</th>
-                                    <th>مبلغ تراکنش خريد</th>
-                                    <th>وضعيت تعداد تراکنش</th>
-                                    <th>وضعيت مبلغ تراکنش</th>
-                                    <th>وضعيت فعاليت دستورالعمل</th>
-                                    <th>وضعيت فعاليت شاپرکي</th>
-                                    <th>تعداد تراکنش قبض</th>
-                                    <th>جمع مبلغ تراکنش قبض</th>
-                                    <th>تعداد تراکنش شارژ</th>
-                                    <th>جمع مبلغ تراکنش شارژ</th>
-                                    <th>تعداد مانده گيري</th>
-                                    <th>شماره پذيرنده</th>
-                                    <th>شماره قرارداد</th>
-                                    <th>فروشگاه</th>
-                                    <th>شماره حساب</th>
-                                    <th>شبا</th>
-                                    <th>شماره مشتري</th>
-                                    <th>کد شعبه</th>
-                                    <th>نام شعبه</th>
-                                    <th>منطقه شعبه</th>
-                                    <th>استان بانک مرکزي</th>
-                                    <th>استان</th>
-                                    <th>شهر</th>
-                                    <th>نوع دستگاه</th>
-                                    <th>مدل دستگاه</th>
-                                    <th>بازاريابي توسط</th>
-                                    <th>کد ملي</th>
-                                    <th>نام</th>
-                                    <th>نام خانوادگي</th>
-                                    <th>مدير فروشکاه</th>
-                                    <th>وضعيت</th>
-                                    <th>صنف</th>
-                                    <th>آدرس فروشگاه</th>
-                                    <th>تلفن فروشگاه</th>
-                                    <th>موبايل</th>
-                                    <th>تاريخ درخواست</th>
-                                    <th>کد باز</th>
-                                    <th>تاريخ نصب</th>
-                                    <th>ماه نصب</th>
-                                    <th>تاريخ ابطال</th>
-                                    <th>ماه ابطال</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td colspan="15"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>                    
-                </div>
+
+
+    @*<div class="container-fluid">
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>رديف</th>
+                            <th>شماره ترمينال</th>
+                            <th>سريال دستگاه</th>
+                            <th>مالک دستگاه</th>
+                            <th>psp</th>
+                            <th>تعداد تراکنش خريد</th>
+                            <th>مبلغ تراکنش خريد</th>
+                            <th>وضعيت تعداد تراکنش</th>
+                            <th>وضعيت مبلغ تراکنش</th>
+                            <th>وضعيت فعاليت دستورالعمل</th>
+                            <th>وضعيت فعاليت شاپرکي</th>
+                            <th>تعداد تراکنش قبض</th>
+                            <th>جمع مبلغ تراکنش قبض</th>
+                            <th>تعداد تراکنش شارژ</th>
+                            <th>جمع مبلغ تراکنش شارژ</th>
+                            <th>تعداد مانده گيري</th>
+                            <th>شماره پذيرنده</th>
+                            <th>شماره قرارداد</th>
+                            <th>فروشگاه</th>
+                            <th>شماره حساب</th>
+                            <th>شبا</th>
+                            <th>شماره مشتري</th>
+                            <th>کد شعبه</th>
+                            <th>نام شعبه</th>
+                            <th>منطقه شعبه</th>
+                            <th>استان بانک مرکزي</th>
+                            <th>استان</th>
+                            <th>شهر</th>
+                            <th>نوع دستگاه</th>
+                            <th>مدل دستگاه</th>
+                            <th>بازاريابي توسط</th>
+                            <th>کد ملي</th>
+                            <th>نام</th>
+                            <th>نام خانوادگي</th>
+                            <th>مدير فروشکاه</th>
+                            <th>وضعيت</th>
+                            <th>صنف</th>
+                            <th>آدرس فروشگاه</th>
+                            <th>تلفن فروشگاه</th>
+                            <th>موبايل</th>
+                            <th>تاريخ درخواست</th>
+                            <th>کد باز</th>
+                            <th>تاريخ نصب</th>
+                            <th>ماه نصب</th>
+                            <th>تاريخ ابطال</th>
+                            <th>ماه ابطال</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="15"><div class="status-section"><i class="fa fa-folder-o"></i><p>هیچ موردی یافت نشد</p></div></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-      
- 
-  
+        </div>
+    </div>*@
+
+
+
 
     <div class="table-responsive hidden" id="ErrorsSection">
     </div>
@@ -358,7 +377,7 @@
                         '<td class="text-nowrap">' + item.InstallDate+ '</td>' +
                         '<td class="text-nowrap">' + item.InstallMonth+ '</td>' +
                         '<td class="text-nowrap">' + item.CancellationDate+ '</td>' +
-                        '<td class="text-nowrap">' + item.CancellationMonth+ '</td>' +                    
+                        '<td class="text-nowrap">' + item.CancellationMonth+ '</td>' +
                         '</tr>';
                 }
 
@@ -371,6 +390,21 @@
 
 
         $(document).ready(function () {
+
+
+            function buildSearchParams() {
+                //  alert($('#Year').val() + "   " + $('#Month').val());
+                console.log('xcvxcvxcvxvxvxcv', $('input[name=p_hazineh_karmozdShapark]:checked', '#frmSearch').val() == "on");
+                return {
+
+                    Year: $('#Year').val(),
+                    Month: $('#Month').val()
+
+
+                };
+            }
+
+
             loadData(true, 1, 1);
             $('.date-picker').on('click', function ()
             {
@@ -768,7 +802,33 @@
                 }
             });
 
+            $('#DownloadFileLink').click(function () {
+                $('#downloadFileModal').modal('hide');
+            });
 
+            $('#btnExport').on('click', function () {
+                var Year = $("#Year").val();
+                var Month = $("#Month").val();
+
+                if (Month.length == 0) {
+                    alert("لطفا مقدار ماه را انتخاب نمایید");
+                }
+                else
+                {
+                    var $exportButton = $(this);
+                    $exportButton.button('loading');
+                    //  alert("01");
+                    $.post('@Url.Action("ExportComplementaryReportData", "Export")', buildSearchParams()).done(function (result) {
+                        $.processMessage(result);
+                        $exportButton.button('reset');
+                        if (result.success) {
+                            var $downloadLink = $('#downloadFileModal .modal-body a');
+                            $downloadLink.prop('href', '@Url.Action("DownloadComplementaryReportOutputFile", "Export")?fileKey=' + result.data);
+                            $('#downloadFileModal').modal();
+                        }
+                    });
+                }
+            });
         });
 
     </script>

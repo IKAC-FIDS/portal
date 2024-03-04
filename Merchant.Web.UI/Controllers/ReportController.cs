@@ -26,6 +26,7 @@ using Enums = TES.Common.Enumerations;
 using System.Data.SqlClient;
 using System.Linq.Dynamic;
 using RestSharp;
+using Newtonsoft.Json;
 
 namespace TES.Merchant.Web.UI.Controllers
 {
@@ -2708,6 +2709,28 @@ namespace TES.Merchant.Web.UI.Controllers
 
             return result;
         }
+
+        [HttpGet]
+        public async Task<ActionResult> GetComplementaryReport(int year, int month)
+        {
+           
+
+            var client = new RestClient($"http://localhost:5072/GetResultComplementaryReport?year={year}&month={month}");
+            // var client = new RestClient($"http://192.168.10.102:8008/GetResultComplementaryReport?year={year}&month={month}");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            var response = await client.ExecuteAsync(request);
+            Console.WriteLine(response.Content);
+            JsonResult result = new JsonResult();
+
+            result.Data = response.Content;
+
+
+            var data = JsonConvert.DeserializeObject<List<ComplemetaryReportField>>(result.Data.ToString());
+            return View();
+        }
+
+
         #endregion
 
         #region Psp Transaction Files
@@ -2789,6 +2812,29 @@ namespace TES.Merchant.Web.UI.Controllers
         }
         #endregion
 
+        #region Sheba And Account
+        [HttpPost]
+        public async Task<ActionResult> ShebaAndAccount(int year, int month)
+        {
+            var client = new RestClient($"http://localhost:5072/CalcuteShebaAndAccountReport?month={month}&year={year}");
+            // var client = new RestClient($"http://192.168.10.102:8008/ComplementaryReport/CalcuteShebaAndAccountReport?month={month}&year={year}");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            var response = await client.ExecuteAsync(request);
+            Console.WriteLine(response.Content);
+            JsonResult result = new JsonResult();
+            if (response.Content.Contains("200"))
+            {
+                result.Data = response.Content;
+            }
+
+            Console.WriteLine(response.Content);
+
+            return result;
+        }
+
+      
+        #endregion
 
 
 
